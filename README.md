@@ -22,9 +22,14 @@ npm run db:push                # tạo bảng
 npm run media                  # bóc ảnh từ PDF nguồn vào /public/media
 ADMIN_EMAIL=ban@vidu.vn ADMIN_PASSWORD='...' npm run seed
 npm run kb:build               # dựng Knowledge Base cho trợ lý
+npm run snapshot               # chụp nội dung để bản deploy chạy được
 
 npm run dev                    # http://localhost:3025
 ```
+
+> **Sửa nội dung xong thì chạy lại `npm run snapshot` rồi commit.** Bản deploy
+> đọc `src/content/db-snapshot.json`, không đọc `./data/pgdata`; quên bước này
+> thì trang thật vẫn hiện nội dung cũ. Chi tiết ở `docs/DATA-NOTES.md` mục 19.
 
 Đăng nhập quản trị tại `/admin` bằng `ADMIN_EMAIL` / `ADMIN_PASSWORD` đã dùng khi
 seed.

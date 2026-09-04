@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { isLocale } from "@/lib/i18n/config";
-import { getDb } from "@/lib/db";
+import { dbIsEphemeral, getDb } from "@/lib/db";
 import { leads, programs } from "@/lib/db/schema";
 import { check, clientKey, RULES, tooManyRequests } from "@/lib/rate-limit";
 import { adminRecipient, send } from "@/lib/notify";
@@ -88,6 +88,13 @@ export async function POST(request: NextRequest) {
 
     // The record is saved before any notification is attempted; a mail failure
     // must never lose the enquiry. No personal data is written to the log.
+    //
+    // Where the database is ephemeral - a deployment running off the content
+    // snapshot, with no DATABASE_URL - the row will not be there when anyone
+    // goes looking, so the notification has to carry the enquiry itself rather
+    // than a reference to it. That is the one case where contact details go
+    // into the message.
+    const ephemeral = dbIsEphemeral();
     const recipient = adminRecipient();
     let notified = false;
     if (recipient) {
@@ -102,13 +109,29 @@ export async function POST(request: NextRequest) {
           `Trình độ hiện tại: ${body.currentLevel || "-"}`,
           `Mục tiêu: ${body.goal || "-"}`,
           "",
-          "Mở trang quản trị để xem thông tin liên hệ.",
+          ...(ephemeral
+            ? [
+                "Bản triển khai này chưa nối cơ sở dữ liệu lâu dài, hồ sơ KHÔNG",
+                "được lưu lại. Toàn bộ thông tin liên hệ nằm ngay dưới đây:",
+                `Họ tên: ${body.fullName}`,
+                `Điện thoại: ${body.phone || "-"}`,
+                `Email: ${body.email || "-"}`,
+                `WhatsApp: ${body.whatsapp || "-"}`,
+                `Câu hỏi: ${body.question || "-"}`,
+              ]
+            : ["Mở trang quản trị để xem thông tin liên hệ."]),
         ].join("\n"),
       });
       notified = result.sent;
       if (!result.sent) {
         console.warn(`[leads] admin notification not sent (${result.reason})`);
       }
+    }
+    if (ephemeral && !notified) {
+      // Both roads out of the process are shut: nowhere to keep the enquiry and
+      // nobody told about it. Say so rather than answering ok.
+      console.error("[leads] enquiry lost: no durable database, no notification recipient");
+      return NextResponse.json({ ok: false, error: "storage_unavailable" }, { status: 503 });
     }
 
     return NextResponse.json({ ok: true, id: row.id, notified });

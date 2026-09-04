@@ -252,3 +252,39 @@ nét hơn nhiều, và tách được từng cánh lửa để dựng 3D thật.
 Phần số liệu chi tiết và trích dẫn văn bản pháp lý chỉ có tiếng Việt. Hàm `t()`
 tự lùi về tiếng Việt, nên người đọc bản DE/EN thấy đúng con số thật thay vì ô
 trống; tiêu đề, nhãn và phần tóm tắt thì đã dịch đủ ba thứ tiếng.
+
+## 19. Bản chụp nội dung để deploy (`src/content/db-snapshot.json`)
+
+Trang web chạy trên PGlite — Postgres biên dịch sang WASM, **nhúng** vào tiến
+trình và cần một thư mục ghi được. Trên Vercel không có thư mục nào ghi được, và
+mỗi request có thể rơi vào một máy khác, nên mảng Đào tạo (đọc dữ liệu từ CSDL)
+trả về **500** trong khi trang chủ và mảng Đầu tư — vốn lấy dữ liệu từ file — vẫn
+chạy bình thường. Đó chính là lỗi ngày 04/09/2026.
+
+Cách chữa: `npm run snapshot` kết xuất toàn bộ **nội dung đã đăng** ra
+`src/content/db-snapshot.json` (khoảng 670 KB, có commit). Khi không có
+`DATABASE_URL` và đang chạy trên Vercel, `src/lib/db/index.ts` dựng CSDL **trong
+bộ nhớ** từ bản chụp đó: cùng một Postgres, cùng một câu truy vấn, không thêm
+nhánh code nào trong ứng dụng.
+
+**Bản chụp KHÔNG chứa** `users`, `sessions`, `audit_log`, `leads`,
+`newsletter_subscribers`, `conversations`, `messages`, `unanswered_questions`,
+`search_log` — đó là mã băm mật khẩu, token phiên và thông tin cá nhân của người
+đăng ký, còn file này nằm trong repo công khai. Script sẽ **báo lỗi và dừng** nếu
+gặp một bảng chưa được liệt kê ở một trong hai danh sách, để không ai vô tình bỏ
+sót một bảng nội dung hoặc để lọt một bảng riêng tư.
+
+Hệ quả phải nhớ:
+
+- **Sửa nội dung xong phải chạy lại `npm run snapshot` rồi commit**, nếu không
+  bản deploy vẫn hiển thị nội dung cũ. Thứ tự: `seed`/`ingest`/`kb:build` →
+  `snapshot` → commit.
+- CSDL trong bộ nhớ **không lưu được gì**. Hồ sơ đăng ký tư vấn vì thế được gửi
+  **kèm đầy đủ thông tin liên hệ** trong email báo về (xem
+  `src/app/api/leads/route.ts`); nếu không có cả nơi lưu lẫn địa chỉ nhận thì API
+  trả về 503 chứ không báo thành công. Xác nhận đăng ký nhận tin qua email cũng
+  không hoạt động ở chế độ này.
+- Muốn có đầy đủ chức năng ghi thì đặt `DATABASE_URL` trỏ tới một Postgres thật
+  rồi chạy `npm run db:push` và `npm run seed`; lúc đó bản chụp không được dùng
+  đến.
+- Ép chế độ bằng `VDG_DB_MODE=snapshot` hoặc `VDG_DB_MODE=pglite` khi cần thử.
