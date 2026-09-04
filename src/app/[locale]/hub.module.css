@@ -113,3 +113,15 @@
 .footer {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
 }
+
+/*
+ * On a phone the stage is pushed up off dead centre: the mark reads better with
+ * more room under it than over it, and the wording and the two buttons then sit
+ * in the lower half where a thumb reaches them.
+ */
+@media (max-width: 760px) {
+  .main {
+    align-content: start;
+    padding-top: clamp(2.5rem, 9vh, 5rem);
+  }
+}

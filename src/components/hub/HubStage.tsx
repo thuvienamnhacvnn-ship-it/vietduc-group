@@ -53,6 +53,12 @@ type Props = {
   branches: [HubBranch, HubBranch];
   enterLabel: string;
   orbitLabel: string;
+  /**
+   * The wording of the page. It lives inside the stage so the same markup can
+   * be ordered two ways: above the orbit on a desktop, below it on a phone,
+   * where the mark should be the first thing on the screen.
+   */
+  heading: React.ReactNode;
 };
 
 /**
@@ -69,7 +75,7 @@ type Props = {
  *  - The pointer lean is written to custom properties rather than to the
  *    element's own transform, because the orbit animation owns `transform`.
  */
-export function HubStage({ branches, enterLabel, orbitLabel }: Props) {
+export function HubStage({ branches, enterLabel, orbitLabel, heading }: Props) {
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -147,6 +153,8 @@ export function HubStage({ branches, enterLabel, orbitLabel }: Props) {
           </div>
         ))}
       </div>
+
+      <div className={styles.heading}>{heading}</div>
 
       <div className={styles.choices}>
         {branches.map((branch) => (

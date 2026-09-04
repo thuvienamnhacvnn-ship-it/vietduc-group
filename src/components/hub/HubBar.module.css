@@ -133,7 +133,16 @@
  * On narrow screens the bar becomes two rows: brand and tools on the first,
  * the links wrapping underneath, so nothing is pushed off the side.
  */
+/*
+ * On a phone the mark is already the largest thing on the page, a few hundred
+ * pixels below this bar. Repeating it small at the top says nothing and costs a
+ * row, so the bar carries only the two fields and the controls.
+ */
 @media (max-width: 900px) {
+  .brand {
+    display: none;
+  }
+
   .inner {
     flex-wrap: wrap;
     gap: var(--s-3);
@@ -141,8 +150,9 @@
   }
 
   .nav {
-    order: 3;
-    width: 100%;
+    order: 1;
+    flex: 1;
+    min-width: 0;
     margin-inline: 0;
     overflow-x: auto;
   }

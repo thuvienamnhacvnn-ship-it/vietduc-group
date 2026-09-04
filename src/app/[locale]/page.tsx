@@ -70,16 +70,17 @@ export default async function HubPage({ params }: { params: Promise<{ locale: st
       <HubBar locale={locale} social={settings.social} />
 
       <main id="main" className={styles.main}>
-        <div className={styles.intro}>
-          <p className={styles.eyebrow}>{dict.hub.eyebrow}</p>
-          <h1 className={styles.title}>{dict.hub.title}</h1>
-          <p className={styles.lead}>{dict.hub.lead}</p>
-        </div>
-
         <HubStage
           branches={branches}
           enterLabel={dict.hub.enter}
           orbitLabel={dict.hub.orbitLabel}
+          heading={
+            <div className={styles.intro}>
+              <p className={styles.eyebrow}>{dict.hub.eyebrow}</p>
+              <h1 className={styles.title}>{dict.hub.title}</h1>
+              <p className={styles.lead}>{dict.hub.lead}</p>
+            </div>
+          }
         />
 
         <HubDecor />

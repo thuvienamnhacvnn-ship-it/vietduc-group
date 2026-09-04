@@ -12,7 +12,7 @@
   gap: clamp(1rem, 2.2vh, 1.8rem);
   width: 100%;
   /* A planet hangs half its height above the ring, so the stage reserves that
-     much room rather than letting it climb into the paragraph above. */
+     much room rather than letting it climb into whatever is above it. */
   padding-top: calc(var(--planet) / 2);
 
   --orbit: clamp(116px, 18vh, 196px);
@@ -386,5 +386,56 @@
   .mark,
   .glow {
     animation: none;
+  }
+}
+
+/* ---------- the wording ---------- */
+
+.heading {
+  width: 100%;
+  text-align: center;
+}
+
+/*
+ * On anything wider than a phone the wording introduces the mark, so it is
+ * ordered above the orbit. On a phone the mark comes first - it is the thing
+ * that identifies the page at a glance - and the words read underneath it.
+ */
+@media (min-width: 761px) {
+  .heading {
+    order: -1;
+  }
+}
+
+/*
+ * The phone keeps its satellites. They travel on a tighter ring around a
+ * smaller mark, and they carry no label: there is no hover on a touch screen,
+ * and the two buttons underneath say the same thing in words.
+ */
+@media (max-width: 760px) {
+  .stage {
+    --orbit: clamp(96px, 27vw, 150px);
+    --planet: clamp(46px, 13vw, 62px);
+  }
+
+  .arm {
+    display: grid;
+  }
+
+  .orbit,
+  .core {
+    animation: spin 48s linear infinite;
+  }
+
+  .core {
+    animation-direction: reverse;
+  }
+
+  .satellite {
+    animation: spin 48s linear infinite reverse;
+  }
+
+  .planetLabel {
+    display: none;
   }
 }
