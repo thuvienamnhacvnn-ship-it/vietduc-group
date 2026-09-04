@@ -7,11 +7,31 @@ import { settings } from "./db/schema";
 import {
   DEFAULT_SETTINGS,
   SETTINGS_KEYS,
+  SOCIAL_KEYS,
   type ContactSettings,
   type SeoSettings,
   type SiteSettings,
   type SocialSettings,
 } from "./site-config";
+
+/**
+ * Social addresses set in the environment, as SOCIAL_FACEBOOK, SOCIAL_ZALO and
+ * so on for each channel.
+ *
+ * The admin screen writes these to the settings table, which is the right place
+ * for them - except on a deployment running off the content snapshot, where the
+ * database lives in memory and anything written to it is gone with the request.
+ * There the environment is the only thing that persists, so a value set there
+ * wins over the stored one. A channel left unset stays empty and is not drawn.
+ */
+function socialFromEnv(): Partial<SocialSettings> {
+  const out: Partial<SocialSettings> = {};
+  for (const key of SOCIAL_KEYS) {
+    const value = process.env[`SOCIAL_${key.toUpperCase()}`]?.trim();
+    if (value) out[key] = value;
+  }
+  return out;
+}
 
 /**
  * Settings are read on nearly every render, so they are memoised per request.
@@ -30,6 +50,7 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
       social: {
         ...DEFAULT_SETTINGS.social,
         ...((byKey.get(SETTINGS_KEYS.social) as Partial<SocialSettings>) ?? {}),
+        ...socialFromEnv(),
       },
       seo: {
         ...DEFAULT_SETTINGS.seo,
@@ -40,7 +61,10 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
     // The database is unavailable during `next build` on a clean checkout.
     // Rendering with seed settings is correct; failing the build is not.
     console.warn("[settings] falling back to defaults:", (error as Error).message);
-    return DEFAULT_SETTINGS;
+    return {
+      ...DEFAULT_SETTINGS,
+      social: { ...DEFAULT_SETTINGS.social, ...socialFromEnv() },
+    };
   }
 });
 

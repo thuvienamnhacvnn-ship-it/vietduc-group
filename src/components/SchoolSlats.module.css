@@ -167,23 +167,50 @@
  * simply is not part of the row and the slat becomes two lines of text.
  */
 @media (max-width: 860px) {
+  /*
+   * Two lines instead of one, and every cell named.
+   *
+   * The row used to be placed by hand - a grid-row here, a grid-column there -
+   * on a four-column track list holding five children. Naming one axis and
+   * leaving the other to auto-placement puts the element in the first free
+   * column of that row, which is column one: the school's name jumped ahead of
+   * its own number and crest and then hung off the left edge of the slat.
+   * Areas leave nothing to be worked out.
+   */
   .slat {
     grid-template-columns: auto auto minmax(0, 1fr) auto;
-    gap: 0.5rem 0.8rem;
+    grid-template-areas:
+      "rank crest text  arrow"
+      "rank crest count arrow";
+    align-items: center;
+    gap: 0.15rem 0.7rem;
   }
 
-  .reveal {
-    display: none;
+  .rank {
+    grid-area: rank;
   }
 
-  .count {
-    grid-column: 3;
-    grid-row: 2;
-    font-size: 0.76rem;
+  .crest {
+    grid-area: crest;
   }
 
   .text {
-    grid-row: 1;
+    grid-area: text;
+  }
+
+  .count {
+    grid-area: count;
+    font-size: 0.76rem;
+    white-space: normal;
+  }
+
+  .arrow {
+    grid-area: arrow;
+  }
+
+  /* No room to open anything sideways: the photograph leaves the row. */
+  .reveal {
+    display: none;
   }
 }
 

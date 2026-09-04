@@ -198,9 +198,22 @@ hr {
   clip-path: inset(0 0 0 0);
 }
 
-/* Slide: a row arriving from the margin it is aligned to. */
+/*
+ * Slide: a row arriving from the margin it is aligned to.
+ *
+ * The landing rule is not optional. `[data-reveal="in"]` and
+ * `[data-reveal-as="slide"]` weigh exactly the same - one attribute selector
+ * each - so the later one wins, and the row stayed 26px to the left of where it
+ * belonged for good. On a wide screen that reads as a slightly ragged margin;
+ * on a phone the row hangs off its own box and `overflow: hidden` cuts the
+ * first character off every school's name.
+ */
 [data-reveal-as="slide"] {
   transform: translateX(-26px);
+}
+
+[data-reveal-as="slide"][data-reveal="in"] {
+  transform: none;
 }
 
 /* Draw: a rule that grows from its own start point. */
