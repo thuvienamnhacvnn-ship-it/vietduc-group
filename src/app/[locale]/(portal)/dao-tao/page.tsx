@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
@@ -22,6 +21,8 @@ import { ClaimLedger } from "@/components/ClaimLedger";
 import { ProgramCards } from "@/components/ProgramCards";
 import { RunLine } from "@/components/RunLine";
 import { RiseText } from "@/components/RiseText";
+import { HeroPicture } from "@/components/HeroPicture";
+import { HeroSocial } from "@/components/HeroSocial";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import styles from "./home.module.css";
 
@@ -176,8 +177,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           gradient, enough to seat the header above it and the card below. */}
       <section className={styles.hero}>
         <div className={styles.heroMedia}>
-          <Image
-            src="/media/hero/vdg-banner-16x9.webp"
+          {/* Two photographs of the same building: the wide one on a desktop,
+              the upright one on a phone, where a landscape frame would leave
+              the facade a sliver. */}
+          <HeroPicture
+            wide={{ src: "/media/hero/vdg-banner-16x9.webp", width: 1672, height: 941 }}
+            tall={{ src: "/media/hero/vdg-hq-portrait.webp", width: 992, height: 1586 }}
             alt={
               {
                 vi: "Trụ sở Việt Đức Group",
@@ -185,9 +190,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 de: "Der Hauptsitz der Viet Duc Group",
               }[locale]
             }
-            fill
             priority
-            sizes="100vw"
             className={styles.heroImage}
           />
           <span className={styles.heroFade} aria-hidden="true" />
@@ -209,6 +212,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 {dict.nav.aboutGroup}
               </ButtonLink>
             </div>
+            {/* Phone only: the desktop keeps these against the right edge. */}
+            <HeroSocial locale={locale} social={settings.social} />
           </div>
         </div>
 

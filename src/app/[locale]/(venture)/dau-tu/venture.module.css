@@ -27,9 +27,33 @@
   color: #fff;
 }
 
-.heroImage {
-  object-fit: cover;
+/* The picture sits in its own layer under the words. It is a plain <img> in a
+   <picture> - art direction, see HeroPicture - so the box is the wrapper's and
+   the image is told to fill it. */
+.heroMedia {
+  position: absolute;
+  inset: 0;
   z-index: -2;
+}
+
+.heroMedia picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*
+ * The mark above the title, phone only. On a wider screen it is already in the
+ * corner of the header and a second one here would be a repetition.
+ */
+.heroMark {
+  display: none;
 }
 
 /* Edges only, 30%: the top so the rail and the header read over the picture,
@@ -480,24 +504,50 @@
 /* ---- phone ---- */
 
 @media (max-width: 719px) {
+  /*
+   * The upright valley photograph, given a frame deep enough to hold the
+   * mountains behind the building rather than a band cropped out of its middle.
+   */
   .hero {
-    min-height: clamp(360px, 62vh, 520px);
+    min-height: min(86svh, 640px);
     padding: var(--s-6) var(--s-4) var(--s-7);
   }
 
+  /*
+   * The words move to the top of the banner, over the sky, and the banner
+   * itself runs on down past the resort to the fields below it. Bottom-aligned
+   * - which is right for the wide rendering - would have put the mark and the
+   * title across the building itself.
+   */
+  .hero {
+    align-items: start;
+  }
+
+  /* Centred, a little below the top edge: over open sky, above the ridge. */
+  .heroMark {
+    display: block;
+    width: clamp(52px, 15vw, 68px);
+    height: auto;
+    margin: 0 auto var(--s-3);
+    filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.55));
+    animation: fadeUp 900ms var(--ease) 80ms both;
+  }
+
+  /* 8.2vw, not 9: at 9 the German line reached the padding edge exactly and
+     had nowhere to go on a narrower phone. */
   .heroTitle {
-    font-size: clamp(1.7rem, 8vw, 2.4rem);
+    font-size: clamp(1.7rem, 8.2vw, 2.5rem);
   }
 
-  .heroLead {
-    font-size: 0.95rem;
-  }
-
+  /*
+   * One thing said loudly. The kicker, the standfirst and the picture credit
+   * were three sizes of small type in the same handspan; all three are said
+   * again in the page underneath.
+   */
+  .heroEyebrow,
+  .heroLead,
   .heroCaption {
-    position: static;
-    max-width: none;
-    margin-top: var(--s-4);
-    text-align: center;
+    display: none;
   }
 
   /* The split on hover has no meaning on a touch screen and would only push

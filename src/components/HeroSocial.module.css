@@ -1,0 +1,46 @@
+/*
+ * Only on a phone. Above that width the same links live in the rail against
+ * the right edge of the window, and two copies of them would be one too many.
+ */
+.row {
+  display: none;
+}
+
+@media (max-width: 719px) {
+  .row {
+    display: grid;
+    justify-items: center;
+    gap: var(--s-2);
+    margin-top: var(--s-5);
+  }
+}
+
+.label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+
+/* On a photograph the marks need their own ground, or they dissolve into
+   whatever happens to be behind them. */
+.onPhoto {
+  color: #fff;
+}
+
+.onPhoto .label {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.onPhoto ul a {
+  background: rgba(10, 7, 5, 0.42);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+  backdrop-filter: blur(6px);
+}
+
+.onPhoto ul a:hover {
+  background: rgba(10, 7, 5, 0.66);
+  border-color: #fff;
+}

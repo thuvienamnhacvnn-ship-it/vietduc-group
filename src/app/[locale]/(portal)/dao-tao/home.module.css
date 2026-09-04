@@ -35,10 +35,19 @@
  * letters in the same place cannot both be read.
  */
 /* Whole frame, centred: with the banner at the picture's own ratio there is
-   nothing to crop away. */
+   nothing to crop away. The element is a plain <img> - art direction needs a
+   <picture>, see HeroPicture - so it has to be told to fill its box. */
 .heroImage {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
+}
+
+.heroMedia picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 /* Only the two edges are shaded, and lightly: enough to seat the header above
@@ -549,29 +558,69 @@
  * spanning the screen.
  */
 @media (max-width: 719px) {
+  /*
+   * On a phone the banner is the upright photograph of the building, so it is
+   * given the room to be one: a tall frame rather than a band, deep enough for
+   * the facade to read and for the words to sit on the plain ground below it.
+   */
   .hero {
-    min-height: clamp(360px, 66vh, 520px);
+    min-height: min(86svh, 640px);
     padding-block: clamp(2rem, 8vh, 3.5rem) clamp(3rem, 10vh, 4.5rem);
   }
 
-  .heroTitle {
-    font-size: clamp(1.85rem, 8.6vw, 2.6rem);
-    line-height: 1.08;
+  /*
+   * Everything centres. With one column there is no left edge for the type to
+   * hang from, and a centred block under a symmetrical facade is what the
+   * picture asks for.
+   *
+   * The block also opens out to the full height of the banner and pushes the
+   * buttons to the foot of it. The upright photograph has exactly two plain
+   * areas - the sky above the building and the road below it - and the words
+   * take one each. Kept together in the middle they landed across the
+   * building's own lettering, and two sets of big letters in one place cannot
+   * both be read.
+   */
+  /* The banner has two rows in flow - the words and the running line at its
+     foot. Without this the spare height is split between them and the words
+     never reach the road. */
+  .hero {
+    grid-template-rows: 1fr auto;
   }
 
-  .heroEyebrow {
-    font-size: 0.66rem;
-    letter-spacing: 0.12em;
+  .hero > :global(.shell) {
+    display: flex;
+    align-self: stretch;
   }
 
-  .heroLead {
-    font-size: 0.95rem;
-    line-height: 1.55;
+  .heroText {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    margin-top: 0;
+    max-width: none;
+    text-align: center;
   }
 
   .heroActions {
+    justify-content: center;
     gap: var(--s-2);
-    margin-top: var(--s-5);
+    /* Pushed to the foot of the banner, onto the road. */
+    margin-top: auto;
+  }
+
+  .heroTitle {
+    font-size: clamp(2rem, 9.6vw, 2.9rem);
+    line-height: 1.06;
+  }
+
+  /*
+   * The small print goes. On a phone the banner has room for one thing said
+   * loudly - the eyebrow and the lead were three sizes of type fighting over
+   * the same few inches, and both are said again in the page below.
+   */
+  .heroEyebrow,
+  .heroLead {
+    display: none;
   }
 
   .heroActions a {

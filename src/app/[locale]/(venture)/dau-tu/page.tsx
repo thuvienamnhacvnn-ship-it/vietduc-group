@@ -13,8 +13,11 @@ import {
   documentDate,
   publishedProjects,
 } from "@/content/venture";
+import { getSiteSettings } from "@/lib/settings";
 import { ServicePanels } from "@/components/venture/ServicePanels";
 import { ProjectSheets } from "@/components/venture/ProjectSheets";
+import { HeroPicture } from "@/components/HeroPicture";
+import { HeroSocial } from "@/components/HeroSocial";
 import styles from "./venture.module.css";
 
 export async function generateMetadata({
@@ -38,21 +41,35 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
   const dict = getDictionary(locale);
   const path = (href: string) => localePath(locale, href);
   const projects = publishedProjects();
+  const settings = await getSiteSettings();
 
   return (
     <>
       {/* Full-bleed opening: on this side of the group the photograph carries
           the message and the words sit inside it. */}
       <section className={styles.hero}>
-        <Image
-          src={VENTURE_HERO.src}
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className={styles.heroImage}
-        />
+        <div className={styles.heroMedia}>
+          {/* The wide rendering on a desktop; on a phone the valley shot, which
+              is upright and keeps the mountains behind the building. */}
+          <HeroPicture
+            wide={{ src: VENTURE_HERO.src, width: 1672, height: 941 }}
+            tall={{ src: VENTURE_HERO.mobileSrc, width: 941, height: 1672 }}
+            alt=""
+            priority
+            className={styles.heroImage}
+          />
+        </div>
         <div className={styles.heroText}>
+          {/* Phone only: the mark stands above the title, a little over centre,
+              the way it does on the gateway. */}
+          <Image
+            src="/brand/viet-duc-mark.png"
+            alt=""
+            width={236}
+            height={240}
+            priority
+            className={styles.heroMark}
+          />
           <p className={styles.heroEyebrow}>{dict.venture.section}</p>
 
           {/* Two lines, each animated from its own side. The outer span owns
@@ -70,6 +87,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
           </h1>
 
           <p className={styles.heroLead}>{t(VENTURE_INTRO.lead, locale)}</p>
+          <HeroSocial locale={locale} social={settings.social} />
         </div>
         <p className={styles.heroCaption}>{t(VENTURE_HERO.caption, locale)}</p>
       </section>

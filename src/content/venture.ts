@@ -39,6 +39,8 @@ const LIST_VI = (vi: string[]): LocalisedList => ({ vi });
 
 export const VENTURE_HERO = {
   src: "/media/hospitality/bo-trach-exterior.webp",
+  /** The upright frame used on a phone, where the wide one crops to a band. */
+  mobileSrc: "/media/hero/venture-valley-portrait.webp",
   caption: {
     vi: "Phối cảnh dự án tại Bố Trạch, Quảng Bình – TOAM Studio, 10/2025",
     de: "Visualisierung des Projekts in Bo Trach, Quang Binh – TOAM Studio, 10/2025",
