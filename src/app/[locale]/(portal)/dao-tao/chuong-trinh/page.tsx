@@ -8,6 +8,7 @@ import { Breadcrumbs } from "@/components/ui";
 import { ProgramExplorer, type ExplorerProgram } from "@/components/ProgramExplorer";
 import { RecentlyViewed } from "@/components/RecentlyViewed";
 import styles from "../../page-shell.module.css";
+import { PageBand, bandFlush } from "@/components/PageBand";
 
 export async function generateMetadata({
   params,
@@ -74,14 +75,15 @@ export default async function ProgramsPage({
   });
 
   return (
-    <div className={styles.page}>
-      <div className="shell">
+    <div className={`${styles.page} ${bandFlush}`}>
+      {/* The finder opens on the group's own red rather than on paper. */}
+      <PageBand>
         <Breadcrumbs locale={locale} trail={[{ label: dict.nav.programs }]} />
         <header className={styles.header}>
           <h1>{dict.explorer.title}</h1>
           <p className={styles.lead}>{dict.explorer.lead}</p>
         </header>
-      </div>
+      </PageBand>
 
       <ProgramExplorer
         locale={locale}

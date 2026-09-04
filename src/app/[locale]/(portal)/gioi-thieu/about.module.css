@@ -1,0 +1,264 @@
+/*
+ * The group's own page. Built around one editable block of prose, so the layout
+ * has to carry the weight the text cannot: a full-width photograph of the
+ * building, the counts that can be verified, the workshops, the crests.
+ */
+
+/* ------------------------------------------------------------------ hero */
+
+.hero {
+  position: relative;
+  display: block;
+  /* Full width of the page column, not of the window: the page is inset by the
+     navigation rail, and 100vw would hang off the right edge. */
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.heroImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(62vh, 620px);
+  object-fit: cover;
+  object-position: 50% 46%;
+}
+
+/* Only the foot is shaded, and only enough to seat the numbers that ride it. */
+.heroFade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    0deg,
+    rgba(10, 14, 20, 0.62) 0%,
+    rgba(10, 14, 20, 0.24) 18%,
+    transparent 42%
+  );
+}
+
+/* The numbers overlap the picture's lower edge, so the two read as one block
+   rather than a picture with a caption under it. */
+.statWrap {
+  position: relative;
+  z-index: 1;
+  margin-top: clamp(-4.5rem, -6vw, -2.5rem);
+}
+
+@media (max-width: 719px) {
+  .heroImage {
+    max-height: 46vh;
+  }
+
+  .statWrap {
+    margin-top: clamp(-2.5rem, -6vw, -1.25rem);
+  }
+}
+
+/* ----------------------------------------------------------------- story */
+
+.storySection {
+  padding-top: var(--s-8);
+}
+
+.story {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+@media (min-width: 1000px) {
+  .story {
+    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+    align-items: start;
+  }
+}
+
+.storyText {
+  min-width: 0;
+}
+
+.storyLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 2px solid var(--gold);
+}
+
+/* Two photographs stacked, the second dropped so the pair is not a column of
+   equal boxes. */
+.storyAside {
+  display: grid;
+  gap: var(--s-4);
+  min-width: 0;
+}
+
+.asideFigure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--r-4);
+  border: 1px solid var(--line);
+}
+
+.asideFigure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 30%;
+  transition: scale 900ms var(--ease);
+}
+
+.asideFigure:hover img {
+  scale: 1.04;
+}
+
+@media (min-width: 1000px) {
+  .asideFigure:nth-child(2) {
+    margin-left: var(--s-6);
+  }
+}
+
+/* ---------------------------------------------------------------- mosaic */
+
+.mosaicSection {
+  background: linear-gradient(180deg, var(--paper) 0%, var(--beige) 100%);
+}
+
+.mosaicWrap {
+  width: 100%;
+  max-width: 1560px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.mosaic {
+  display: grid;
+  gap: clamp(0.9rem, 1.6vw, 1.4rem);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 900px) {
+  .mosaic {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  /* Two of the four run double width, so the band is a mosaic rather than a
+     row of identical tiles. */
+  .mosaicWide {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 599px) {
+  .mosaic {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.mosaic li {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--r-4);
+  border: 1px solid var(--line);
+  background: var(--beige);
+}
+
+.mosaic img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: 50% 40%;
+  transition: scale 1000ms var(--ease);
+}
+
+.mosaic li:hover img {
+  scale: 1.05;
+}
+
+/* The group's red rises over the photograph as it is pointed at. */
+.mosaic li::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(142, 31, 45, 0) 44%, rgba(109, 21, 35, 0.62) 100%);
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease);
+}
+
+.mosaic li:hover::after {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------- crests */
+
+.crestSection {
+  padding-block: var(--s-8);
+}
+
+.crests {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.crests li {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+  padding: var(--s-5) var(--s-4);
+  text-align: center;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  transition:
+    border-color var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+}
+
+.crests li:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+/* The crests belong to other institutions: white ground, never tinted. */
+.crests img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  padding: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.crests span {
+  font-size: 0.86rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.crestMore {
+  margin-top: var(--s-6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asideFigure img,
+  .mosaic img,
+  .mosaic li::after,
+  .crests li {
+    transition: none;
+  }
+}

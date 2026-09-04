@@ -15,7 +15,7 @@ import { getSiteSettings } from "@/lib/settings";
 import { levelLabel } from "@/lib/format";
 import { ArrowLink, ButtonLink, SectionHeading, StatRow } from "@/components/ui";
 import { ActivityCard } from "@/components/cards";
-import { SchoolSlats } from "@/components/SchoolSlats";
+import { SchoolGrid } from "@/components/SchoolGrid";
 import { FieldBoard } from "@/components/FieldBoard";
 import { ClaimLedger } from "@/components/ClaimLedger";
 import { ProgramCards } from "@/components/ProgramCards";
@@ -305,8 +305,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           />
         </div>
 
-        <div className="shell">
-          <SchoolSlats
+        {/* Wider than the page shell: six cards three abreast need the room,
+            and the band they sit in is the widest thing on the page. */}
+        <div className={styles.schoolsWide}>
+          <SchoolGrid
             schools={schools}
             locale={locale}
             programCount={(id) => programCountBySchool.get(id) ?? 0}

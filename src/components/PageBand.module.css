@@ -1,0 +1,81 @@
+/* The page's own top padding would leave a strip of paper above the band and
+   make it read as a floating block rather than the head of the page. */
+.flush {
+  padding-top: 0;
+}
+
+.band {
+  position: relative;
+  /*
+   * Full width of the page, NOT of the viewport. The landing pages are inset by
+   * the fixed navigation rail, so a 50vw break-out reaches past the right edge
+   * of the window by exactly half the rail and the whole page scrolls sideways.
+   * The band is already a direct child of the page column, so 100% is the full
+   * bleed; the shell inside it keeps the words to the same measure as the rest
+   * of the page.
+   */
+  width: 100%;
+  padding-block: var(--s-7) var(--s-8);
+  background: linear-gradient(160deg, #a3162b 0%, #8e1f2d 52%, #6d1523 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+/* Light from the top right, shadow at the bottom left, so the band has a
+   direction rather than being a flat rectangle of colour. Drawn with two
+   gradients: no image, no request. */
+.band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 90% at 88% 0%, rgba(226, 178, 92, 0.22), transparent 62%),
+    radial-gradient(48% 80% at 4% 100%, rgba(0, 0, 0, 0.28), transparent 60%);
+}
+
+/* The gold rule that closes every red surface on this site. */
+.band::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), rgba(226, 178, 92, 0.2));
+}
+
+.inner {
+  position: relative;
+}
+
+.band h1 {
+  margin: 0;
+  color: #fff;
+}
+
+.band p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* The crumbs sit on the red, so they carry light colours rather than the
+   page's dark ones. */
+.band :global(nav) a,
+.band :global(nav) span {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.band :global(nav) a:hover {
+  color: #fff;
+}
+
+.band :global(nav) [aria-current="page"] span {
+  color: var(--gold);
+}
+
+@media (max-width: 719px) {
+  .band {
+    padding-block: var(--s-6) var(--s-7);
+    text-align: center;
+  }
+}

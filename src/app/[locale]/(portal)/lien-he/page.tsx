@@ -8,6 +8,8 @@ import { getSiteSettings } from "@/lib/settings";
 import { telHref } from "@/lib/site-config";
 import { Breadcrumbs, ButtonLink } from "@/components/ui";
 import { SocialLinks, hasSocial } from "@/components/SocialLinks";
+import { PageBand, bandFlush } from "@/components/PageBand";
+import { FooterMap } from "@/components/FooterMap";
 import shell from "../page-shell.module.css";
 import styles from "./contact.module.css";
 
@@ -35,8 +37,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const tel = telHref(contact.phoneE164 || contact.phone);
 
   return (
-    <div className={shell.page}>
-      <div className="shell">
+    <div className={`${shell.page} ${bandFlush}`}>
+      <PageBand>
         <Breadcrumbs locale={locale} trail={[{ label: dict.contact.title }]} />
         <header className={shell.header}>
           <h1>{dict.contact.title}</h1>
@@ -50,7 +52,9 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             }
           </p>
         </header>
+      </PageBand>
 
+      <div className="shell">
         <div className={styles.grid}>
           <section className={styles.card}>
             <h2>{dict.contact.headquarters}</h2>
@@ -157,16 +161,19 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
           </section>
         </div>
 
-        {contact.mapEmbedUrl ? (
-          <section className={styles.map}>
-            <iframe
-              src={contact.mapEmbedUrl}
-              title={dict.contact.headquarters}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
-          </section>
-        ) : null}
+        {/* The map is drawn from the address rather than from a configured
+            embed URL. The setting for that URL has never been filled in, so
+            the page has been shipping without a map at all - the largest part
+            of why it read as a wall of type. */}
+        <section className={styles.map}>
+          <FooterMap
+            address={contact.headquarters}
+            bbox="105.7690,20.9660,105.7900,20.9780"
+            marker="20.9718,105.7793"
+            title={dict.contact.headquarters}
+            directionsLabel={dict.footer.directions}
+          />
+        </section>
       </div>
     </div>
   );

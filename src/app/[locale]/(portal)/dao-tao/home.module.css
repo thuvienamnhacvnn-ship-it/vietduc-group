@@ -230,16 +230,17 @@
   background: linear-gradient(180deg, var(--paper) 0%, var(--beige) 100%);
 }
 
-.schoolGrid {
-  display: grid;
-  gap: var(--s-5);
-  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-}
-
-@media (min-width: 1120px) {
-  .schoolGrid {
-    grid-template-columns: repeat(3, 1fr);
-  }
+/*
+ * The six-school band runs wider than the rest of the page. Three cards abreast
+ * inside the 1360px shell left each one narrower than its own photograph wants
+ * to be; at 1560 they sit square and the band reads as the widest thing on the
+ * page, which is right for the thing the group is proudest of.
+ */
+.schoolsWide {
+  width: 100%;
+  max-width: 1560px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
 /* -------------------------------------------------------------- programs */

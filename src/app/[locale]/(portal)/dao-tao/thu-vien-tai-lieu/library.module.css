@@ -16,6 +16,66 @@
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: var(--r-3);
+  transition:
+    background-color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+}
+
+/*
+ * The whole row turns to the group's red under the pointer - and under the
+ * keyboard too, which is what :focus-within is for: a reader tabbing to the
+ * download button should see the same row light up as one using a mouse.
+ *
+ * Everything inside has to be re-coloured with it. Ink that was dark on paper
+ * is unreadable on red, and the download button was navy, which on red reads as
+ * a hole rather than a button; it becomes gold.
+ */
+.item:hover,
+.item:focus-within {
+  background: linear-gradient(150deg, #a3162b 0%, #8e1f2d 55%, #6d1523 100%);
+  border-color: #6d1523;
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+.item:hover .main h2,
+.item:focus-within .main h2 {
+  color: #fff;
+}
+
+.item:hover .meta,
+.item:focus-within .meta,
+.item:hover .unavailable,
+.item:focus-within .unavailable {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.item:hover .icon,
+.item:focus-within .icon {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--gold);
+}
+
+.item:hover .download,
+.item:focus-within .download {
+  background: var(--gold);
+  color: #241703;
+}
+
+/* The badges are outlined chips; on red they need a light outline. */
+.item:hover .badges :is(span, em, strong),
+.item:focus-within .badges :is(span, em, strong) {
+  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    transition: none;
+  }
 }
 
 .icon {

@@ -10,11 +10,27 @@
   }
 }
 
+/*
+ * Each card is topped by the group's red, so the page has the brand on it
+ * rather than being two grey boxes of type on paper.
+ */
 .card {
-  padding: var(--s-6);
+  position: relative;
+  padding: var(--s-7) var(--s-6) var(--s-6);
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: var(--r-4);
+  overflow: hidden;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #a3162b, #6d1523 62%, var(--gold));
 }
 
 .card h2 {
@@ -35,9 +51,13 @@
   margin: 0;
 }
 
+/* Every entry hangs off a short red rule, so the list reads as a set of
+   separate facts rather than one block of small type. */
 .details > div {
   display: grid;
   gap: 0.2rem;
+  padding-left: var(--s-4);
+  border-left: 2px solid color-mix(in srgb, var(--accent) 40%, transparent);
 }
 
 .details dt {
@@ -45,7 +65,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted-soft);
+  color: var(--accent);
 }
 
 .details dd {
@@ -118,16 +138,34 @@
   list-style: none;
 }
 
+/*
+ * Each school is its own row that lights up under the pointer, the same red
+ * used everywhere else on the site. :focus-within as well, because the row
+ * holds links that a keyboard reaches.
+ */
 .schools li {
   display: grid;
   gap: 0.25rem;
-  padding-bottom: var(--s-4);
-  border-bottom: 1px solid var(--line);
+  padding: var(--s-4);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  transition:
+    background-color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
 }
 
-.schools li:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
+.schools li:hover,
+.schools li:focus-within {
+  background: color-mix(in srgb, var(--accent) 7%, var(--paper-raised));
+  border-color: var(--accent);
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schools li {
+    transition: none;
+  }
 }
 
 .schoolName {
@@ -167,14 +205,8 @@
 
 .map {
   margin-top: var(--s-6);
-  border-radius: var(--r-4);
-  overflow: hidden;
-  border: 1px solid var(--line);
 }
 
 .map iframe {
-  display: block;
-  width: 100%;
-  height: 380px;
-  border: 0;
+  height: clamp(300px, 42vw, 440px);
 }

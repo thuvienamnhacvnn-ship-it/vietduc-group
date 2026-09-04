@@ -5,6 +5,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { getFaqs, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState } from "@/components/ui";
 import { FaqList } from "@/components/FaqList";
+import { PageBand, bandFlush } from "@/components/PageBand";
 import shell from "../../page-shell.module.css";
 
 export async function generateMetadata({
@@ -51,8 +52,8 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
   };
 
   return (
-    <div className={shell.page}>
-      <div className="shell">
+    <div className={`${shell.page} ${bandFlush}`}>
+      <PageBand>
         <Breadcrumbs locale={locale} trail={[{ label: dict.nav.faq }]} />
         <header className={shell.header}>
           <h1>{dict.nav.faq}</h1>
@@ -66,6 +67,9 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
             }
           </p>
         </header>
+      </PageBand>
+
+      <div className="shell">
 
         {!items.length ? (
           <EmptyState title={dict.common.empty} />

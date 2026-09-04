@@ -76,14 +76,67 @@
 }
 
 .item {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--r-3);
   background: var(--paper-raised);
-  transition: border-color var(--dur-1) var(--ease);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    box-shadow var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+}
+
+/*
+ * A red edge grows down the left of the question as it is pointed at, and the
+ * whole card lifts with it. The rule is drawn rather than switched on so the
+ * row does not jump sideways: the width is fixed and only the scale changes.
+ *
+ * :focus-within as well as :hover - the summary is a keyboard target, and a
+ * reader tabbing through the questions should get the same signal.
+ */
+.item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--accent), #6d1523);
+  scale: 1 0;
+  transform-origin: 50% 0;
+  transition: scale var(--dur-2) var(--ease);
+}
+
+.item:hover::before,
+.item:focus-within::before,
+.item[open]::before {
+  scale: 1 1;
+}
+
+.item:hover,
+.item:focus-within {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-2);
+  transform: translateY(-2px);
+}
+
+/* The question itself takes the group's red under the pointer; the answer
+   below stays as it is, because it is being read rather than chosen. */
+.item:hover > summary,
+.item:focus-within > summary {
+  color: var(--accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .item::before {
+    transition: none;
+  }
 }
 
 .item[open] {
-  border-color: var(--line-strong);
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
 }
 
 .item summary {
