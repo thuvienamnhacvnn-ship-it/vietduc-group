@@ -439,8 +439,8 @@
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    color: #fff;
-    background: radial-gradient(circle at 34% 26%, #c8102e 0%, #a3162b 46%, #7d1322 100%);
+    color: var(--fab-ink);
+    background: var(--fab-fill);
     box-shadow:
       0 6px 14px rgba(0, 0, 0, 0.28),
       0 14px 28px rgba(142, 31, 45, 0.4),
@@ -499,5 +499,171 @@
   .label,
   .brandText {
     transition: none;
+  }
+}
+
+/* ------------------------------------------------- daylight, per arm */
+
+.rail,
+.topbar,
+.bottombar {
+  --rail-bg: color-mix(in srgb, var(--paper-raised) 96%, transparent);
+  --rail-ink: var(--ink);
+  --rail-dim: var(--muted);
+  --rail-line: var(--line);
+  --rail-active: var(--accent);
+  --rail-hover: var(--tint-neutral, rgba(0, 0, 0, 0.04));
+  --fab-fill: radial-gradient(circle at 34% 26%, #c8102e 0%, #a3162b 46%, #7d1322 100%);
+  --fab-ink: #ffffff;
+}
+
+@media (prefers-color-scheme: light) {
+  :global(:root:not([data-theme="dark"])) .rail,
+  :global(:root:not([data-theme="dark"])) .topbar,
+  :global(:root:not([data-theme="dark"])) .bottombar {
+    --rail-bg: linear-gradient(170deg, #a3162b 0%, #8e1f2d 55%, #6d1523 100%);
+    --rail-ink: #ffffff;
+    --rail-dim: rgba(255, 255, 255, 0.78);
+    --rail-line: rgba(255, 255, 255, 0.2);
+    --rail-active: var(--gold);
+    --rail-hover: rgba(255, 255, 255, 0.14);
+    --fab-fill: radial-gradient(circle at 34% 26%, #f0c069 0%, #d2a259 45%, #a97c2c 100%);
+    --fab-ink: #241703;
+  }
+
+  :global(:root:not([data-theme="dark"])) .venture,
+  :global(:root:not([data-theme="dark"])) .ventureBar {
+    --rail-bg: linear-gradient(170deg, #201b15 0%, #14110d 60%, #0c0a07 100%);
+    --rail-ink: #f2ece2;
+    --rail-dim: rgba(242, 236, 226, 0.72);
+    --rail-line: rgba(255, 255, 255, 0.16);
+    --rail-active: var(--gold);
+    --rail-hover: rgba(255, 255, 255, 0.12);
+  }
+}
+
+:global(:root[data-theme="light"]) .rail,
+:global(:root[data-theme="light"]) .topbar,
+:global(:root[data-theme="light"]) .bottombar {
+  --rail-bg: linear-gradient(170deg, #a3162b 0%, #8e1f2d 55%, #6d1523 100%);
+  --rail-ink: #ffffff;
+  --rail-dim: rgba(255, 255, 255, 0.78);
+  --rail-line: rgba(255, 255, 255, 0.2);
+  --rail-active: var(--gold);
+  --rail-hover: rgba(255, 255, 255, 0.14);
+  --fab-fill: radial-gradient(circle at 34% 26%, #f0c069 0%, #d2a259 45%, #a97c2c 100%);
+  --fab-ink: #241703;
+}
+
+:global(:root[data-theme="light"]) .venture,
+:global(:root[data-theme="light"]) .ventureBar {
+  --rail-bg: linear-gradient(170deg, #201b15 0%, #14110d 60%, #0c0a07 100%);
+  --rail-ink: #f2ece2;
+  --rail-dim: rgba(242, 236, 226, 0.72);
+  --rail-line: rgba(255, 255, 255, 0.16);
+  --rail-active: var(--gold);
+  --rail-hover: rgba(255, 255, 255, 0.12);
+}
+
+/* Everything in the rail reads from those three, so one arm's palette lands
+   everywhere at once. */
+.rail {
+  background: var(--rail-bg);
+  border-right-color: var(--rail-line);
+  color: var(--rail-ink);
+}
+
+.rail .brand,
+.rail .cross,
+.rail .tools {
+  border-color: var(--rail-line);
+}
+
+.rail .brandText em {
+  color: var(--rail-active);
+}
+
+.rail .item {
+  color: var(--rail-dim);
+}
+
+.rail .item:hover,
+.rail .item:focus-visible {
+  color: var(--rail-ink);
+  background: var(--rail-hover);
+}
+
+.rail .item[aria-current="page"] {
+  color: var(--rail-active);
+  background: var(--rail-hover);
+}
+
+.rail .item[aria-current="page"] .icon::before {
+  background: var(--rail-active);
+}
+
+.rail .cta {
+  color: var(--rail-active);
+}
+
+.rail .cta:hover {
+  color: #14100a;
+  background: var(--rail-active);
+}
+
+.rail .langs {
+  border-color: var(--rail-line);
+}
+
+.rail .langs a {
+  color: var(--rail-dim);
+}
+
+.rail .langOn {
+  background: var(--rail-hover);
+  color: var(--rail-ink) !important;
+}
+
+@media (max-width: 999px) {
+  .topbar,
+  .bottombar {
+    background: var(--rail-bg);
+    border-color: var(--rail-line);
+    color: var(--rail-ink);
+  }
+
+  .tool,
+  .toolTheme,
+  .topLangs {
+    background: var(--rail-hover);
+    border-color: var(--rail-line);
+    color: var(--rail-ink);
+  }
+
+  .topLangs a {
+    color: var(--rail-dim);
+  }
+
+  .topLangs .langOn {
+    background: var(--rail-active);
+    color: #14100a !important;
+  }
+
+  .slot {
+    color: var(--rail-dim);
+  }
+
+  .slot[aria-current="page"] {
+    color: var(--rail-active);
+  }
+
+  /* The raised button keeps its own red on the education side; against the
+     hospitality arm's near-black bar it needs the gold rim to stand off. */
+  .fabRing {
+    background: var(--rail-bg);
+  }
+
+  .fabLabel {
+    color: var(--rail-ink);
   }
 }

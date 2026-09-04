@@ -58,7 +58,7 @@ export default async function VentureLayout({
         items={railItems}
         langBase="/dau-tu"
         tone="venture"
-        cta={{ href: "/lien-he", label: dict.venture.contactCta }}
+        cta={{ href: "/lien-he", label: dict.venture.contactCta, short: dict.nav.contact }}
         tel={telHref(settings.contact.phoneE164 || settings.contact.phone)}
         callLabel={dict.contact.callNow}
       />

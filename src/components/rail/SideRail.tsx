@@ -104,8 +104,12 @@ type Props = {
   items: RailItem[];
   /** Where the language switch should send the reader on this arm. */
   langBase: string;
-  /** Optional call to action pinned above the tools. */
-  cta?: { href: string; label: string };
+  /**
+   * Optional call to action pinned above the tools. `short` is what the raised
+   * button on a phone says: the full label is a sentence, and the button is
+   * 76px wide, so without it the arm's own ask gets cut off mid-word.
+   */
+  cta?: { href: string; label: string; short?: string };
   /** Search is only wired on the arm that has an index. */
   withSearch?: boolean;
   /** A tel: href, when one is configured. Drives the call slot on a phone. */
@@ -184,7 +188,7 @@ export function SideRail({
         the one action the page is for raised into the middle of it, because
         that is the spot a thumb rests on.
       */}
-      <header className={styles.topbar}>
+      <header className={`${styles.topbar} ${tone === "venture" ? styles.ventureBar : ""}`}>
         {withSearch ? (
           <button
             type="button"
@@ -223,7 +227,10 @@ export function SideRail({
         </div>
       </header>
 
-      <nav className={styles.bottombar} aria-label={dict.nav.menu}>
+      <nav
+        className={`${styles.bottombar} ${tone === "venture" ? styles.ventureBar : ""}`}
+        aria-label={dict.nav.menu}
+      >
         {quick.slice(0, 2).map((item) => (
           <Link
             key={item.href}
@@ -245,7 +252,7 @@ export function SideRail({
                 <path d="M12 5.4v13.2M5.4 12h13.2" strokeLinecap="round" />
               </svg>
             </span>
-            <span className={styles.fabLabel}>{cta.label}</span>
+            <span className={styles.fabLabel}>{cta.short ?? cta.label}</span>
           </Link>
         ) : (
           <span />
