@@ -4,7 +4,7 @@ import { isLocale, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPrograms, getSchools } from "@/lib/queries";
 import { Breadcrumbs } from "@/components/ui";
-import { SchoolCard } from "@/components/cards";
+import { SchoolGrid } from "@/components/SchoolGrid";
 import shell from "../../page-shell.module.css";
 
 export async function generateMetadata({
@@ -48,17 +48,24 @@ export default async function SchoolsPage({ params }: { params: Promise<{ locale
           </p>
         </header>
 
-        <div className={shell.grid3}>
-          {schools.map((school, index) => (
-            <SchoolCard
-              key={school.id}
-              school={school}
-              locale={locale}
-              programCount={counts.get(school.id)}
-              priority={index < 3}
-            />
-          ))}
-        </div>
+        {/* The same three-by-two wall the landing page uses. The shared grid3
+            class here was auto-fit, which at this width made four across and
+            two below - six schools split five-one or four-two rather than into
+            two even ranks. */}
+        <SchoolGrid
+          schools={schools}
+          locale={locale}
+          programCount={(id) => counts.get(id) ?? 0}
+          countLabel={(count) =>
+            count > 0
+              ? ({
+                  vi: `${count} ngành`,
+                  en: `${count} programmes`,
+                  de: `${count} Programme`,
+                })[locale]
+              : { vi: "Đang cập nhật", en: "Being updated", de: "Wird ergänzt" }[locale]
+          }
+        />
       </div>
     </div>
   );

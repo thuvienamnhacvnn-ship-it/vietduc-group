@@ -4,65 +4,92 @@
   padding-top: 0;
 }
 
+/*
+ * A shallow red header, not a slab.
+ *
+ * The first version was twice this deep, in the full bright red, with two
+ * radial washes over it and a 3px gold rule under it. At that size the colour
+ * stops being an accent and becomes the page - a block of shouting above every
+ * heading. Here it is: half the height, the deeper end of the red, one quiet
+ * diagonal sheen instead of two washes, and a hairline rather than a stripe.
+ */
 .band {
   position: relative;
   /*
    * Full width of the page, NOT of the viewport. The landing pages are inset by
    * the fixed navigation rail, so a 50vw break-out reaches past the right edge
    * of the window by exactly half the rail and the whole page scrolls sideways.
-   * The band is already a direct child of the page column, so 100% is the full
-   * bleed; the shell inside it keeps the words to the same measure as the rest
-   * of the page.
    */
   width: 100%;
-  padding-block: var(--s-7) var(--s-8);
-  background: linear-gradient(160deg, #a3162b 0%, #8e1f2d 52%, #6d1523 100%);
+  padding-block: var(--s-5) var(--s-5);
+  background: linear-gradient(112deg, #7d1626 0%, #6d1523 46%, #5a1120 100%);
   color: #fff;
   overflow: hidden;
 }
 
-/* Light from the top right, shadow at the bottom left, so the band has a
-   direction rather than being a flat rectangle of colour. Drawn with two
-   gradients: no image, no request. */
+/* One sheen across the top right, low enough to be felt rather than seen. It is
+   drawn, not loaded: a single gradient, no request. */
 .band::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    radial-gradient(60% 90% at 88% 0%, rgba(226, 178, 92, 0.22), transparent 62%),
-    radial-gradient(48% 80% at 4% 100%, rgba(0, 0, 0, 0.28), transparent 60%);
+  background: linear-gradient(
+    112deg,
+    transparent 52%,
+    rgba(226, 178, 92, 0.1) 76%,
+    rgba(226, 178, 92, 0.16) 100%
+  );
 }
 
-/* The gold rule that closes every red surface on this site. */
+/* A hairline of gold closes the band. Two pixels reads as a rule; three read as
+   a stripe, and the band was already loud enough. */
 .band::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  height: 3px;
-  background: linear-gradient(90deg, var(--gold), rgba(226, 178, 92, 0.2));
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(226, 178, 92, 0.35) 38%, transparent 78%);
 }
 
 .inner {
   position: relative;
 }
 
+/*
+ * The page's header block carries margins meant for type on paper. Inside the
+ * band they double its height, so they are taken back here rather than in the
+ * shared sheet, which every other page still needs them in.
+ */
+.inner header {
+  margin-block: var(--s-3) 0;
+}
+
 .band h1 {
   margin: 0;
+  /* A step down from the page's display size: the colour behind it is already
+     doing the work that size would otherwise have to. */
+  font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
   color: #fff;
 }
 
 .band p {
-  color: rgba(255, 255, 255, 0.9);
+  margin-top: var(--s-3);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.84);
+  max-width: 58ch;
 }
 
 /* The crumbs sit on the red, so they carry light colours rather than the
    page's dark ones. */
 .band :global(nav) a,
 .band :global(nav) span {
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .band :global(nav) a:hover {
@@ -75,7 +102,11 @@
 
 @media (max-width: 719px) {
   .band {
-    padding-block: var(--s-6) var(--s-7);
+    padding-block: var(--s-4) var(--s-5);
     text-align: center;
+  }
+
+  .band p {
+    margin-inline: auto;
   }
 }
