@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: field;
 }
 
 .board > li {
@@ -11,19 +10,34 @@
 }
 
 .row {
-  position: relative;
-  display: grid;
-  grid-template-columns: auto auto minmax(2rem, 1fr) auto;
-  align-items: baseline;
-  gap: 0.9rem;
-  padding: clamp(0.9rem, 1.6vw, 1.35rem) 0 calc(clamp(0.9rem, 1.6vw, 1.35rem) + 5px);
-  text-decoration: none;
-  color: inherit;
   border-top: 1px solid var(--line);
 }
 
 .board > li:last-child .row {
   border-bottom: 1px solid var(--line);
+}
+
+/* ---------- the closed row ---------- */
+
+.head {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto minmax(2rem, 1fr) auto auto;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: clamp(0.9rem, 1.6vw, 1.35rem) 0 calc(clamp(0.9rem, 1.6vw, 1.35rem) + 5px);
+  cursor: pointer;
+  list-style: none;
+}
+
+/* Safari draws its own triangle on a summary; this removes it. */
+.head::-webkit-details-marker {
+  display: none;
+}
+
+.head:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .index {
@@ -42,8 +56,8 @@
   transition: color var(--dur-1) var(--ease);
 }
 
-/* The leader is drawn, not typed: a row of dots as a repeating gradient keeps
-   the spacing even at every width and never wraps. */
+/* Drawn, not typed: dots as a repeating gradient keep even spacing at any
+   width and never wrap. */
 .leader {
   align-self: center;
   height: 1px;
@@ -74,10 +88,20 @@
   color: var(--muted-soft);
 }
 
+.chevron {
+  display: grid;
+  place-items: center;
+  color: var(--muted-soft);
+  transition: rotate var(--dur-2) var(--ease);
+}
+
+.row[open] .chevron {
+  rotate: 180deg;
+}
+
 /*
- * The scale bar. Its width is the field's share of the largest field, so the
- * board doubles as a chart; it grows on hover so the row acknowledges the
- * pointer without moving any text.
+ * The scale bar: each field's share of the largest, so the board doubles as a
+ * chart. It thickens when the row is open or pointed at.
  */
 .bar {
   position: absolute;
@@ -87,80 +111,106 @@
   width: var(--share, 0%);
   background: linear-gradient(90deg, var(--accent), var(--gold));
   opacity: 0.5;
-  transform-origin: 0 50%;
   transition:
     opacity var(--dur-2) var(--ease),
     height var(--dur-2) var(--ease);
 }
 
-.row:hover .bar,
-.row:focus-visible .bar {
+.head:hover .bar,
+.row[open] .bar {
   opacity: 1;
   height: 5px;
 }
 
-.row:hover .name,
-.row:focus-visible .name {
+.head:hover .name,
+.row[open] .name {
   color: var(--accent);
 }
 
-.row:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+/* ---------- the opened row ---------- */
+
+.body {
+  padding: 0 0 var(--s-5);
+}
+
+.programs {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--line);
+  border-radius: var(--r-3);
+  overflow: hidden;
+}
+
+.programs a {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.2rem var(--s-4);
+  padding: 0.8rem var(--s-4);
+  background: var(--paper-raised);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.programs a:hover,
+.programs a:focus-visible {
+  background: var(--tint-neutral, rgba(0, 0, 0, 0.03));
+}
+
+.programName {
+  font-size: 0.98rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.programMeta {
+  grid-column: 1;
+  font-size: 0.8rem;
+  color: var(--muted-soft);
+  overflow-wrap: anywhere;
+}
+
+.programLevel {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  padding: 0.16rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.seeAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: var(--s-4);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-decoration: none;
+  transition: translate var(--dur-1) var(--ease);
+}
+
+.seeAll:hover {
+  translate: 4px 0;
 }
 
 @media (max-width: 620px) {
-  .row {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+  .head {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
   }
 
   .leader {
     display: none;
   }
-}
-
-/*
- * On the red band the board keeps its structure and swaps its palette: rules
- * and leaders lighten, the figure goes to gold, and the scale bar runs in the
- * two brand colours against the red.
- */
-.onDark .row {
-  border-top-color: rgba(255, 255, 255, 0.22);
-}
-
-.onDark > li:last-child .row {
-  border-bottom-color: rgba(255, 255, 255, 0.22);
-}
-
-.onDark .index {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.onDark .name {
-  color: #fff;
-}
-
-.onDark .leader {
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
-}
-
-.onDark .figure {
-  color: var(--gold);
-}
-
-.onDark .figure em {
-  color: rgba(255, 255, 255, 0.66);
-}
-
-.onDark .bar {
-  background: linear-gradient(90deg, #ffffff, var(--gold));
-}
-
-.onDark .row:hover .name,
-.onDark .row:focus-visible .name {
-  color: var(--gold);
-}
-
-.onDark .row:focus-visible {
-  outline-color: var(--gold);
 }

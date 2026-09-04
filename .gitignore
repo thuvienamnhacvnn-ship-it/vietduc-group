@@ -22,3 +22,6 @@ next-env.d.ts
 /.tmpimg
 /tmp-*
 /_*.mjs
+
+# ảnh thô bóc từ PDF, tái tạo bằng node _harvest.mjs
+/_harvest

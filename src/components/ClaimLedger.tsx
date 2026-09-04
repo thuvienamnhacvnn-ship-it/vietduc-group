@@ -1,48 +1,57 @@
+import Image from "next/image";
 import styles from "./ClaimLedger.module.css";
 
 export type Claim = {
   claim: string;
   body: string;
-  /** What backs the claim up - a count, a document, a partner. */
+  /** What backs the claim up - a count, a document, an institution. */
   evidence: string;
+  /** A photograph of the thing being claimed, with what it actually shows. */
+  image: { src: string; alt: string };
 };
 
 /**
- * Claims set against the thing that backs them.
+ * Claims set against the thing that backs them, and a picture of it.
  *
  * Every education site makes the same four promises, so the promise is not the
- * content here - the evidence column is. Each row states a claim on the left
- * and, on the right, the licence, the count or the institution it rests on;
- * anything the group cannot show is not on the list.
+ * content here - the evidence column is, and the photograph beside it is the
+ * same argument in another form. Rows alternate side so the section reads as a
+ * sequence rather than a stack.
  *
- * The rows draw themselves in as they arrive: the rule first, then the claim
- * uncovered left to right, so reading order and animation order agree.
+ * Nothing the group cannot show is on the list.
  */
 export function ClaimLedger({ claims, evidenceLabel }: { claims: Claim[]; evidenceLabel: string }) {
   return (
-    <dl className={styles.ledger}>
+    <div className={styles.ledger}>
       {claims.map((entry, index) => (
-        <div
+        <article
           key={entry.claim}
           className={styles.row}
           data-reveal
-          style={{ "--reveal-delay": `${index * 90}ms` } as React.CSSProperties}
+          style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
         >
-          <span className={styles.rule} data-reveal data-reveal-as="draw" aria-hidden="true" />
+          <div className={styles.figure}>
+            <Image
+              src={entry.image.src}
+              alt={entry.image.alt}
+              width={1400}
+              height={933}
+              sizes="(min-width: 1000px) 46vw, 100vw"
+            />
+          </div>
 
-          <dt>
+          <div className={styles.text}>
             <span className={styles.no}>{String(index + 1).padStart(2, "0")}</span>
-            <span className={styles.claim}>{entry.claim}</span>
-          </dt>
+            <h3 className={styles.claim}>{entry.claim}</h3>
+            <p className={styles.body}>{entry.body}</p>
 
-          <dd className={styles.body}>{entry.body}</dd>
-
-          <dd className={styles.evidence}>
-            <span className={styles.evidenceLabel}>{evidenceLabel}</span>
-            <span className={styles.evidenceValue}>{entry.evidence}</span>
-          </dd>
-        </div>
+            <div className={styles.evidence}>
+              <span className={styles.evidenceLabel}>{evidenceLabel}</span>
+              <span className={styles.evidenceValue}>{entry.evidence}</span>
+            </div>
+          </div>
+        </article>
       ))}
-    </dl>
+    </div>
   );
 }

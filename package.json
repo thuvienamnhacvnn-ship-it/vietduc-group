@@ -15,7 +15,8 @@
     "ingest": "tsx scripts/ingest.ts",
     "kb:build": "tsx scripts/kb-build.ts",
     "media": "tsx scripts/media.ts",
-    "media:hospitality": "tsx scripts/media-hospitality.ts"
+    "media:hospitality": "tsx scripts/media-hospitality.ts",
+    "media:education": "tsx scripts/media-education.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",

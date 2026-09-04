@@ -1,40 +1,65 @@
 .ledger {
   display: grid;
-  margin: 0;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
 }
 
 .row {
-  position: relative;
   display: grid;
-  gap: 0.5rem var(--s-6);
-  padding: clamp(1.4rem, 2.6vw, 2.2rem) 0;
+  gap: var(--s-5);
+  align-items: center;
   min-width: 0;
 }
 
-/*
- * Three columns from tablet up: the claim, the sentence that qualifies it, and
- * the evidence pinned to the right margin where a ledger keeps its figures.
- */
-@media (min-width: 860px) {
+/* Alternating sides, so the section swings rather than stacks. */
+@media (min-width: 960px) {
   .row {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(180px, 0.55fr);
-    align-items: start;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .row:nth-child(even) .figure {
+    order: 2;
   }
 }
 
-.rule {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent) 0%, var(--line) 22%, var(--line) 100%);
+.row > * {
+  min-width: 0;
 }
 
-.row dt {
+.figure {
+  position: relative;
+  border-radius: var(--r-4);
+  overflow: hidden;
+  background: var(--beige);
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  transition: scale 900ms var(--ease);
+}
+
+.row:hover .figure img {
+  scale: 1.03;
+}
+
+/* A gold rule along the foot of the picture, tying it to the words. */
+.figure::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+}
+
+.text {
   display: grid;
-  gap: 0.45rem;
-  min-width: 0;
+  gap: 0.5rem;
 }
 
 .no {
@@ -46,39 +71,35 @@
 }
 
 .claim {
+  margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.14rem, 2.1vw, 1.6rem);
+  font-size: clamp(1.24rem, 2.4vw, 1.85rem);
   font-weight: 600;
-  line-height: 1.24;
+  line-height: 1.2;
   color: var(--ink);
 }
 
 .body {
   margin: 0;
   font-size: 0.98rem;
-  line-height: 1.7;
+  line-height: 1.72;
   color: var(--muted);
-  min-width: 0;
+  max-width: 52ch;
 }
 
 /*
- * The evidence column is deliberately quiet in colour and loud in structure:
- * a small label above a value that keeps its own baseline grid, so a reader
- * scanning only this column still gets the argument.
+ * The evidence is set apart, quiet in colour and firm in structure: a reader
+ * scanning only these boxes still gets the whole argument.
  */
 .evidence {
   display: grid;
   gap: 0.3rem;
-  margin: 0;
-  padding-top: 0.2rem;
-  min-width: 0;
-}
-
-@media (min-width: 860px) {
-  .evidence {
-    border-left: 1px solid var(--line);
-    padding-left: var(--s-5);
-  }
+  margin-top: var(--s-3);
+  padding: var(--s-4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--r-3);
 }
 
 .evidenceLabel {
@@ -90,7 +111,7 @@
 }
 
 .evidenceValue {
-  font-size: 0.92rem;
+  font-size: 0.94rem;
   line-height: 1.55;
   color: var(--ink);
   overflow-wrap: anywhere;

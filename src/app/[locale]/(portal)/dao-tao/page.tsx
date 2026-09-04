@@ -19,6 +19,7 @@ import { ActivityCard } from "@/components/cards";
 import { SchoolSlats } from "@/components/SchoolSlats";
 import { FieldBoard } from "@/components/FieldBoard";
 import { ClaimLedger } from "@/components/ClaimLedger";
+import { ProgramCards } from "@/components/ProgramCards";
 import { RunLine } from "@/components/RunLine";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import styles from "./home.module.css";
@@ -47,6 +48,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     if (program.schoolId == null) continue;
     programCountBySchool.set(program.schoolId, (programCountBySchool.get(program.schoolId) ?? 0) + 1);
   }
+  const schoolName = new Map(schools.map((s) => [s.id, t(s.shortName ?? s.name, locale)]));
+  const schoolCover = new Map(schools.map((s) => [s.id, s.coverPath ?? null]));
+  const schoolCrest = new Map(schools.map((s) => [s.id, s.logoPath ?? null]));
+
   const programCountByCategory = new Map<number, number>();
   for (const program of programs) {
     if (program.categoryId == null) continue;
@@ -56,16 +61,31 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     );
   }
 
+  /**
+   * Each field carries the programmes actually inside it, so the board is a way
+   * into the catalogue rather than a set of counters. Six per field is as many
+   * as a row can hold before it becomes a page of its own; the link at the foot
+   * of each row opens the rest in the explorer.
+   */
   const fields = categories
-    .map((category) => ({
-      slug: category.slug,
-      label: t(category.name, locale),
-      count: programCountByCategory.get(category.id) ?? 0,
-    }))
+    .map((category) => {
+      const inField = programs.filter((program) => program.categoryId === category.id);
+      return {
+        slug: category.slug,
+        label: t(category.name, locale),
+        count: inField.length,
+        programs: inField.slice(0, 6).map((program) => ({
+          slug: program.slug,
+          title: t(program.title, locale),
+          level: levelLabel(program.level, locale),
+          code: program.officialCode ?? null,
+          school: program.schoolId ? (schoolName.get(program.schoolId) ?? "") : "",
+        })),
+      };
+    })
     .filter((field) => field.count > 0)
     .sort((a, b) => b.count - a.count);
 
-  const schoolName = new Map(schools.map((s) => [s.id, t(s.shortName ?? s.name, locale)]));
   const categoryName = new Map(categories.map((c) => [c.id, t(c.name, locale)]));
 
   /**
@@ -113,21 +133,37 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       claim: { vi: "Gắn với giấy phép, không phải lời hứa", en: "Tied to licences, not promises", de: "An Zulassungen gebunden, nicht an Versprechen" }[locale],
       body: { vi: "Mỗi ngành trên website đều kèm mã ngành/nghề và quy mô tuyển sinh trích từ giấy chứng nhận đăng ký hoạt động giáo dục nghề nghiệp, có số hiệu và ngày cấp.", en: "Every programme here carries the occupation code and intake quota transcribed from the vocational-education registration certificate, with its number and date of issue.", de: "Jedes Programm nennt den amtlichen Berufscode und die Aufnahmekapazität aus dem Zulassungsbescheid – mit Nummer und Datum." }[locale],
       evidence: { vi: `${programs.length} ngành đã đăng ký hoạt động, trích từ giấy chứng nhận của ${schools.length} trường`, en: `${programs.length} registered occupations, transcribed from the certificates of ${schools.length} schools`, de: `${programs.length} registrierte Berufsprofile aus den Bescheiden von ${schools.length} Schulen` }[locale],
+      image: {
+        src: "/media/education/trao-thuong-hoc-sinh.webp",
+        alt: { vi: "Trao phần thưởng cho học sinh trong đồng phục nhà trường", en: "Prizes presented to students in school uniform", de: "Preisverleihung an Schülerinnen und Schüler in Schuluniform" }[locale],
+      },
     },
     {
       claim: { vi: "Thực hành chiếm phần lớn thời lượng", en: "Practice takes most of the time", de: "Praxis nimmt den größten Teil ein" }[locale],
       body: { vi: "Các trường kỹ thuật trong hệ thống bố trí khoảng 70% thời lượng cho thực hành tại xưởng và tại doanh nghiệp.", en: "The technical schools in the system devote around 70% of training time to workshop and workplace practice.", de: "Die technischen Schulen widmen rund 70 % der Ausbildungszeit der Praxis." }[locale],
       evidence: { vi: "Hồ sơ năng lực Việt Đức Group, phần chương trình đào tạo", en: "Viet Duc Group capability profile, training chapter", de: "Leistungsprofil der Viet Duc Group, Kapitel Ausbildung" }[locale],
+      image: {
+        src: "/media/education/xuong-thuc-hanh-may.webp",
+        alt: { vi: "Học viên thực hành trên dây chuyền máy tại doanh nghiệp trong mạng lưới NIBELC", en: "Trainees at a production line in the NIBELC partner network", de: "Auszubildende an einer Fertigungslinie im NIBELC-Partnernetz" }[locale],
+      },
     },
     {
       claim: { vi: "Một cửa ngõ sang Đức và châu Âu", en: "A route into Germany and Europe", de: "Ein Weg nach Deutschland und Europa" }[locale],
       body: { vi: "Viện Đào tạo và Giáo dục ITW Berlin chuyển giao chương trình, phương pháp và đào tạo tiếng Đức ngay tại Việt Nam.", en: "The ITW Berlin institute transfers programmes, teaching methods and German-language training directly into Vietnam.", de: "Das itw Berlin überträgt Programme, Methoden und Deutschunterricht direkt nach Vietnam." }[locale],
       evidence: { vi: "ITW Berlin – thành viên của hệ thống, đặt tại CHLB Đức", en: "ITW Berlin - member of the network, based in Germany", de: "ITW Berlin – Mitglied des Verbunds, Sitz in Deutschland" }[locale],
+      image: {
+        src: "/media/education/gap-doi-tac-chau-au.webp",
+        alt: { vi: "Gặp gỡ đối tác châu Âu trong mạng lưới NIBELC", en: "Meeting European partners in the NIBELC network", de: "Treffen mit europäischen Partnern im NIBELC-Netz" }[locale],
+      },
     },
     {
       claim: { vi: "Sáu trường, một hệ thống", en: "Six schools, one system", de: "Sechs Schulen, ein Verbund" }[locale],
       body: { vi: "Từ Đà Nẵng, Ninh Bình, Vũng Tàu, Đồng Nai đến Quảng Trị và Berlin – người học chọn ngành trước, chọn nơi học sau.", en: "From Da Nang, Ninh Binh, Vung Tau and Dong Nai to Quang Tri and Berlin: choose the field first, the campus second.", de: "Von Da Nang, Ninh Binh, Vung Tau und Dong Nai bis Quang Tri und Berlin – erst das Fach, dann der Standort." }[locale],
       evidence: { vi: `${schools.length} trường thành viên, hồ sơ từng trường công bố trên trang Hệ thống trường`, en: `${schools.length} member schools, each with its own record on the network page`, de: `${schools.length} Mitgliedsschulen, jede mit eigenem Profil auf der Verbundseite` }[locale],
+      image: {
+        src: "/media/education/tai-nang-thanh-lich.webp",
+        alt: { vi: "Đêm chung kết cuộc thi Học sinh – Sinh viên tài năng thanh lịch", en: "Final night of the student talent and poise contest", de: "Finalabend des Talentwettbewerbs" }[locale],
+      },
     },
   ];
 
@@ -271,15 +307,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* -------------------------------------------------------- fields */}
-      <section className={`section ${styles.fieldsBand}`}>
-        <Image
-          src="/media/schools/cao-dang-cong-nghe-ngoai-thuong.webp"
-          alt=""
-          fill
-          sizes="100vw"
-          className={styles.bandImage}
-        />
-        <div className={`shell ${styles.bandInner}`}>
+      <section className={`section ${styles.fieldsSection}`}>
+        <div className="shell">
           <SectionHeading
             eyebrow={{ vi: "Ngành nghề", en: "Fields", de: "Fachbereiche" }[locale]}
             title={
@@ -303,10 +332,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             fields={fields}
             locale={locale}
             unit={{ vi: "ngành", en: "programmes", de: "Programme" }[locale]}
-            tone="dark"
+            seeAll={
+              {
+                vi: "Xem toàn bộ nhóm ngành này",
+                en: "See every programme in this field",
+                de: "Alle Programme dieses Bereichs",
+              }[locale]
+            }
           />
         </div>
-        <RunLine tone="dark" />
       </section>
 
       {/* ------------------------------------------------------ programs */}
@@ -325,27 +359,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             action={<ArrowLink href={path("/dao-tao/chuong-trinh")}>{dict.common.viewAll}</ArrowLink>}
           />
 
-          <ol className={styles.programList}>
-            {featured.map((program, index) => (
-              <li key={program.id} data-reveal style={{ "--reveal-delay": `${index * 45}ms` } as React.CSSProperties}>
-                <Link href={path(`/dao-tao/chuong-trinh/${program.slug}`)} className={styles.programRow}>
-                  <span className={styles.programIndex}>{String(index + 1).padStart(2, "0")}</span>
-                  <span className={styles.programMain}>
-                    <span className={styles.programName}>{t(program.title, locale)}</span>
-                    <span className={styles.programSub}>
-                      {program.schoolId ? schoolName.get(program.schoolId) : ""}
-                      {program.categoryId ? ` · ${categoryName.get(program.categoryId)}` : ""}
-                    </span>
-                  </span>
-                  <span className={styles.programLevel}>{levelLabel(program.level, locale)}</span>
-                  <span className={styles.programCode}>{program.officialCode ?? "—"}</span>
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-                    <path d="M5 12h13M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
-              </li>
-            ))}
-          </ol>
+          <ProgramCards
+            locale={locale}
+            codeLabel={{ vi: "Mã ngành", en: "Code", de: "Code" }[locale]}
+            programs={featured.map((program) => ({
+              slug: program.slug,
+              title: t(program.title, locale),
+              school: program.schoolId ? (schoolName.get(program.schoolId) ?? "") : "",
+              field: program.categoryId ? (categoryName.get(program.categoryId) ?? "") : "",
+              level: levelLabel(program.level, locale),
+              code: program.officialCode ?? null,
+              cover: program.schoolId ? (schoolCover.get(program.schoolId) ?? null) : null,
+              crest: program.schoolId ? (schoolCrest.get(program.schoolId) ?? null) : null,
+            }))}
+          />
         </div>
       </section>
 

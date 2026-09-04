@@ -1,0 +1,179 @@
+.grid {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.grid > li {
+  min-width: 0;
+}
+
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  transition:
+    transform var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease);
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-2);
+}
+
+/* ---------- the picture ---------- */
+
+.media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--beige);
+}
+
+.cover,
+.coverFallback {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 800ms var(--ease);
+}
+
+.coverFallback {
+  display: block;
+  background: linear-gradient(135deg, var(--beige), var(--sand, var(--beige)));
+}
+
+.card:hover .cover {
+  scale: 1.05;
+}
+
+.level {
+  position: absolute;
+  top: var(--s-3);
+  left: var(--s-3);
+  padding: 0.2rem 0.62rem;
+  border-radius: 999px;
+  background: rgba(12, 10, 8, 0.72);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* The crest sits on the picture and is never dimmed: it is the mark that says
+   which school stands behind the programme. */
+.crest {
+  position: absolute;
+  right: var(--s-3);
+  bottom: var(--s-3);
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 5px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 2px var(--gold), 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---------- the words ---------- */
+
+.body {
+  display: grid;
+  align-content: start;
+  gap: 0.3rem;
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  min-width: 0;
+}
+
+.field {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.school {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+}
+
+.code {
+  display: grid;
+  gap: 1px;
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.code em {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.go {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--muted-soft);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease),
+    translate var(--dur-1) var(--ease);
+}
+
+.card:hover .go {
+  border-color: var(--accent);
+  color: var(--accent);
+  translate: 3px 0;
+}
