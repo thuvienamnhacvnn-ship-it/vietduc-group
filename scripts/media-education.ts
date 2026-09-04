@@ -238,7 +238,7 @@ async function main() {
     }
     const to = path.join(OUT, shot.out);
     await sharp(from)
-      .resize(shot.width, shot.height, { fit: "cover", position: "attention" })
+      .resize(shot.width, shot.height, { fit: "cover", position: "top" })
       .webp({ quality: 82 })
       .toFile(to);
     const bytes = fs.statSync(to).size;

@@ -1,34 +1,53 @@
+/*
+ * A wall of proof rather than a run of rows.
+ *
+ * Four cards, each one a claim with the picture of it and the record that backs
+ * it. The second column is dropped half a card so the wall reads as a built
+ * thing rather than a table, and the number is set large behind the claim: on
+ * this page the count is the argument.
+ */
 .ledger {
   display: grid;
-  gap: clamp(2.5rem, 6vw, 4.5rem);
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+}
+
+@media (min-width: 1000px) {
+  .ledger {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .row:nth-child(even) {
+    margin-top: clamp(2rem, 5vw, 4rem);
+  }
 }
 
 .row {
+  position: relative;
   display: grid;
-  gap: var(--s-5);
-  align-items: center;
+  grid-template-rows: auto 1fr;
   min-width: 0;
+  overflow: hidden;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  transition:
+    transform var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease);
 }
 
-/* Alternating sides, so the section swings rather than stacks. */
-@media (min-width: 960px) {
-  .row {
-    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-    gap: clamp(2rem, 4vw, 3.5rem);
-  }
-
-  .row:nth-child(even) .figure {
-    order: 2;
-  }
+.row:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-2);
 }
 
-.row > * {
-  min-width: 0;
-}
+/* ---------- the picture ---------- */
 
 .figure {
   position: relative;
-  border-radius: var(--r-4);
+  display: block;
   overflow: hidden;
   background: var(--beige);
 }
@@ -37,16 +56,19 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 16 / 10;
+  /* Top, not centre: these are photographs of people, and a centred crop takes
+     the top of their heads off. */
   object-fit: cover;
+  object-position: 50% 22%;
   transition: scale 900ms var(--ease);
 }
 
 .row:hover .figure img {
-  scale: 1.03;
+  scale: 1.04;
 }
 
-/* A gold rule along the foot of the picture, tying it to the words. */
+/* A gold rule under the picture, and the number riding the seam. */
 .figure::after {
   content: "";
   position: absolute;
@@ -57,61 +79,71 @@
   background: linear-gradient(90deg, var(--accent), var(--gold));
 }
 
+/* ---------- the words ---------- */
+
 .text {
+  position: relative;
   display: grid;
-  gap: 0.5rem;
+  align-content: start;
+  gap: 0.45rem;
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  min-width: 0;
 }
 
 .no {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  color: var(--accent);
+  position: absolute;
+  top: calc(var(--s-5) * -1 - 0.35em);
+  right: var(--s-5);
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
+  line-height: 1;
+  color: var(--paper-raised);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
   font-variant-numeric: tabular-nums;
+  pointer-events: none;
 }
 
 .claim {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(1.24rem, 2.4vw, 1.85rem);
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.22;
   color: var(--ink);
+  max-width: 22ch;
 }
 
 .body {
   margin: 0;
-  font-size: 0.98rem;
-  line-height: 1.72;
+  font-size: 0.94rem;
+  line-height: 1.7;
   color: var(--muted);
-  max-width: 52ch;
+  max-width: 46ch;
 }
 
 /*
- * The evidence is set apart, quiet in colour and firm in structure: a reader
- * scanning only these boxes still gets the whole argument.
+ * The evidence sits on its own strip at the foot of the card, so a reader
+ * scanning only these strips still gets the whole argument.
  */
 .evidence {
   display: grid;
-  gap: 0.3rem;
-  margin-top: var(--s-3);
-  padding: var(--s-4);
-  background: var(--paper-raised);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--accent);
-  border-radius: var(--r-3);
+  gap: 0.25rem;
+  margin: var(--s-4) calc(var(--s-5) * -1) calc(var(--s-4) * -1);
+  padding: var(--s-4) var(--s-5);
+  background: var(--accent-tint, rgba(142, 31, 45, 0.06));
+  border-top: 1px solid var(--line);
 }
 
 .evidenceLabel {
-  font-size: 0.66rem;
+  font-size: 0.64rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted-soft);
+  color: var(--accent);
 }
 
 .evidenceValue {
-  font-size: 0.94rem;
+  font-size: 0.9rem;
   line-height: 1.55;
   color: var(--ink);
   overflow-wrap: anywhere;

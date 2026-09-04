@@ -1,0 +1,53 @@
+/*
+ * A column against the right edge, vertically centred. It floats over the page
+ * rather than taking a column of its own, so no layout has to make room for it,
+ * and it steps aside on anything narrower than a desktop.
+ */
+.rail {
+  position: fixed;
+  right: clamp(0.6rem, 1.4vw, 1.4rem);
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-4) 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper-raised) 88%, transparent);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-1);
+}
+
+@media (min-width: 1100px) {
+  .rail {
+    display: flex;
+  }
+}
+
+/* The word runs up the rail, which is the only way it fits beside the icons
+   without widening the whole column. */
+.label {
+  writing-mode: vertical-rl;
+  rotate: 180deg;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  white-space: nowrap;
+}
+
+.line {
+  width: 1px;
+  height: 26px;
+  background: linear-gradient(180deg, var(--gold), transparent);
+}
+
+/* The shared list is a row by default; here it stands up. */
+.rail ul {
+  flex-direction: column;
+  gap: var(--s-2);
+}

@@ -6,6 +6,7 @@ import { getSiteSettings } from "@/lib/settings";
 import { telHref } from "@/lib/site-config";
 import { suggestedQuestions } from "@/lib/rag/advisor";
 import { Advisor } from "@/components/Advisor";
+import { SocialRail } from "@/components/SocialRail";
 import { CookieNotice } from "@/components/CookieNotice";
 import { Reveal } from "@/components/Reveal";
 import { SideRail, type RailItem } from "@/components/rail/SideRail";
@@ -70,6 +71,7 @@ export default async function VentureLayout({
         <VentureFooter locale={locale} contact={settings.contact} social={settings.social} />
       </div>
 
+      <SocialRail locale={locale} social={settings.social} />
       <Advisor locale={locale} contact={settings.contact} suggestions={suggestedQuestions(locale)} />
       <CookieNotice locale={locale} />
       <Reveal />

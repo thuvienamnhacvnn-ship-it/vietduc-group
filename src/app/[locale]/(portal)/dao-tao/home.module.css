@@ -9,9 +9,7 @@
   position: relative;
   display: grid;
   align-items: end;
-  width: 100vw;
-  margin-left: 50%;
-  translate: -50% 0;
+  width: 100%;
   /*
    * The banner keeps the photograph's own 16:9 rather than cropping a band out
    * of it: cropping is what put the headline on top of the building's own sign.
@@ -146,36 +144,6 @@
 }
 
 /* --------------------------------------------------------- the red band */
-
-/*
- * The one place the brand red takes the whole width. A campus photograph sits
- * under it at low strength - present enough to be a place, quiet enough to read
- * white type over.
- */
-.fieldsBand {
-  position: relative;
-  width: 100vw;
-  margin-left: 50%;
-  translate: -50% 0;
-  padding-block: clamp(3rem, 7vw, 5rem) 0;
-  background: linear-gradient(155deg, #a3162b 0%, #8e1f2d 46%, #6d1523 100%);
-  color: #fff;
-  isolation: isolate;
-  overflow: hidden;
-}
-
-.bandImage {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  object-fit: cover;
-  opacity: 0.16;
-  mix-blend-mode: luminosity;
-}
-
-.bandInner {
-  padding-bottom: clamp(3rem, 7vw, 5rem);
-}
 
 /* ----------------------------------------------------------------- about */
 

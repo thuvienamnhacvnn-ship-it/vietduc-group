@@ -415,7 +415,7 @@ async function main() {
             fit: "contain",
             background: target.background,
           })
-        : sharp(raw).resize(target.width, target.height, { fit: "cover", position: "attention" });
+        : sharp(raw).resize(target.width, target.height, { fit: "cover", position: "top" });
     await resized.webp({ quality: 82 }).toFile(outFile);
 
     const size = fs.statSync(outFile).size;

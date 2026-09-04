@@ -9,6 +9,7 @@ import { suggestedQuestions } from "@/lib/rag/advisor";
 import { SideRail, type RailItem } from "@/components/rail/SideRail";
 import { SiteFooter } from "@/components/SiteFooter";
 import { Advisor } from "@/components/Advisor";
+import { SocialRail } from "@/components/SocialRail";
 import { CookieNotice } from "@/components/CookieNotice";
 import { Reveal } from "@/components/Reveal";
 
@@ -80,6 +81,7 @@ export default async function PortalLayout({
         />
       </div>
 
+      <SocialRail locale={locale} social={settings.social} />
       <Advisor locale={locale} contact={settings.contact} suggestions={suggestedQuestions(locale)} />
       <CookieNotice locale={locale} />
       <Reveal />

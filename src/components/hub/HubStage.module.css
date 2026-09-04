@@ -439,3 +439,20 @@
     display: none;
   }
 }
+
+/*
+ * The channels, under the two buttons. Only on a phone: on a desktop the same
+ * links are in the bar at the top and in the rail against the right edge, and
+ * three copies of one row of icons is two too many.
+ */
+.channels {
+  display: none;
+  margin-top: var(--s-3);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+@media (max-width: 760px) {
+  .channels {
+    display: block;
+  }
+}

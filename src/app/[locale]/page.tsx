@@ -6,6 +6,7 @@ import { getSiteSettings } from "@/lib/settings";
 import { suggestedQuestions } from "@/lib/rag/advisor";
 import { Advisor } from "@/components/Advisor";
 import { CookieNotice } from "@/components/CookieNotice";
+import { SocialLinks, hasSocial } from "@/components/SocialLinks";
 import { HubBar } from "@/components/hub/HubBar";
 import { HubDecor } from "@/components/hub/HubDecor";
 import { HubBackdrop } from "@/components/hub/HubBackdrop";
@@ -74,6 +75,11 @@ export default async function HubPage({ params }: { params: Promise<{ locale: st
           branches={branches}
           enterLabel={dict.hub.enter}
           orbitLabel={dict.hub.orbitLabel}
+          channels={
+            hasSocial(settings.social) ? (
+              <SocialLinks social={settings.social} locale={locale} variant="boxed" />
+            ) : null
+          }
           heading={
             <div className={styles.intro}>
               <p className={styles.eyebrow}>{dict.hub.eyebrow}</p>
