@@ -9,7 +9,22 @@
 html {
   -webkit-text-size-adjust: 100%;
   background: var(--paper);
-  scroll-behavior: smooth;
+  /*
+   * NOT scroll-behavior: smooth.
+   *
+   * The router returns to the top of the page on every navigation, and it does
+   * that with a plain scrollTo. Declared smooth here, that one call turns into
+   * an animation: the new page appears at whatever position the previous one
+   * was left at and then slides up over about a second and a half. Coming off
+   * the gateway on a phone that means the landing page opens somewhere in its
+   * middle instead of on its banner - and where the banner film and its images
+   * are still arriving, the layout shifts under the animation and cancels it,
+   * so the page simply stays down there.
+   *
+   * The cost is that in-page anchors jump rather than glide. That is the right
+   * trade: an anchor that jumps is how anchors have always behaved, and a
+   * landing page that opens halfway down is a fault.
+   */
   scroll-padding-top: calc(var(--header-h) + 1rem);
 }
 

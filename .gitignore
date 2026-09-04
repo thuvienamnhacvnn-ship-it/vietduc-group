@@ -25,3 +25,6 @@ next-env.d.ts
 
 # ảnh thô bóc từ PDF, tái tạo bằng node _harvest.mjs
 /_harvest
+
+.vercel
+.env*
