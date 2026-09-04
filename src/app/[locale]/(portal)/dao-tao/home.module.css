@@ -53,6 +53,7 @@
   position: absolute;
   inset: 0;
   background:
+    linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.16) 12%, transparent 26%),
     linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.18) 14%, transparent 34%);
 }
@@ -91,11 +92,11 @@
   color: #fff;
 }
 
-.heroTitle span {
+.heroTitle > span {
   display: block;
 }
 
-.heroTitle em {
+.heroTitle > em {
   display: block;
   font-style: normal;
   color: var(--gold);

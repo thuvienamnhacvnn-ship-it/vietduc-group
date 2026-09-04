@@ -1,0 +1,51 @@
+/*
+ * One mask per word, so a word can be hidden below its own line rather than the
+ * whole heading being hidden below one big box. The masks are inline-block and
+ * carry their own trailing space, which keeps normal wrapping.
+ */
+.line {
+  display: block;
+}
+
+.mask {
+  display: inline-block;
+  overflow: hidden;
+  /* Descenders and Vietnamese tone marks sit outside the em box; without this
+     padding the mask would clip them. The negative margin gives the space back
+     so line-height is unchanged. */
+  padding: 0.14em 0.02em 0.2em;
+  margin: -0.14em -0.02em -0.2em;
+  vertical-align: bottom;
+}
+
+.mask::after {
+  content: " ";
+  white-space: pre;
+}
+
+.word {
+  display: inline-block;
+  translate: 0 110%;
+  opacity: 0;
+  animation: rise 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--rise-delay, 0ms);
+}
+
+@keyframes rise {
+  from {
+    translate: 0 110%;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word {
+    animation: none;
+    translate: 0 0;
+    opacity: 1;
+  }
+}

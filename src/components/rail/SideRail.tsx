@@ -177,17 +177,54 @@ export function SideRail({
 
   return (
     <>
-      {/* On a phone the rail is not a rail: a slim bar at the top carries the
-          mark alone - centred, no wording - and the navigation moves to the
-          foot of the screen where a thumb reaches it. */}
+      {/*
+        On a phone the chrome splits in two. The top bar carries the tools a
+        reader reaches for while reading - search, appearance, language - as
+        real controls rather than as a logo. The foot carries where to go, with
+        the one action the page is for raised into the middle of it, because
+        that is the spot a thumb rests on.
+      */}
       <header className={styles.topbar}>
-        <Link href={path("/")} aria-label={dict.brand.name}>
-          <Image src="/brand/viet-duc-mark.png" alt="" width={34} height={37} />
-        </Link>
+        {withSearch ? (
+          <button
+            type="button"
+            className={styles.tool}
+            onClick={() => setSearchOpen(true)}
+            aria-label={dict.nav.search}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true">
+              <circle cx="11" cy="11" r="6.4" />
+              <path d="m15.8 15.8 4 4" strokeLinecap="round" />
+            </svg>
+          </button>
+        ) : (
+          <span />
+        )}
+
+        <div className={styles.topTools}>
+          <div className={styles.toolTheme}>
+            <ThemeToggle locale={locale} />
+          </div>
+
+          <ul className={styles.topLangs} aria-label={dict.nav.language}>
+            {LOCALES.map((code) => (
+              <li key={code}>
+                <Link
+                  href={localePath(code, langBase)}
+                  hrefLang={code}
+                  aria-current={code === locale ? "true" : undefined}
+                  className={code === locale ? styles.langOn : undefined}
+                >
+                  {LOCALE_SHORT[code]}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </header>
 
       <nav className={styles.bottombar} aria-label={dict.nav.menu}>
-        {quick.map((item) => (
+        {quick.slice(0, 2).map((item) => (
           <Link
             key={item.href}
             href={path(item.href)}
@@ -198,6 +235,21 @@ export function SideRail({
             <span className={styles.slotLabel}>{item.short ?? item.label}</span>
           </Link>
         ))}
+
+        {/* The raised action: what the whole arm is asking the reader to do. */}
+        {cta ? (
+          <Link href={path(cta.href)} className={styles.fab}>
+            <span className={styles.fabRing} aria-hidden="true" />
+            <span className={styles.fabIcon} aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 5.4v13.2M5.4 12h13.2" strokeLinecap="round" />
+              </svg>
+            </span>
+            <span className={styles.fabLabel}>{cta.label}</span>
+          </Link>
+        ) : (
+          <span />
+        )}
 
         {tel ? (
           <a href={tel} className={styles.slot}>
@@ -211,7 +263,16 @@ export function SideRail({
             </span>
             <span className={styles.slotLabel}>{callLabel}</span>
           </a>
-        ) : null}
+        ) : (
+          <Link
+            href={path(quick[2]?.href ?? "/")}
+            className={styles.slot}
+            aria-current={quick[2] && isActive(quick[2].href) ? "page" : undefined}
+          >
+            <span className={styles.slotIcon}>{quick[2] ? ICONS[quick[2].icon] : null}</span>
+            <span className={styles.slotLabel}>{quick[2]?.short ?? quick[2]?.label}</span>
+          </Link>
+        )}
 
         <button
           type="button"

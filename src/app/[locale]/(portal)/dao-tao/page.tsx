@@ -21,6 +21,7 @@ import { FieldBoard } from "@/components/FieldBoard";
 import { ClaimLedger } from "@/components/ClaimLedger";
 import { ProgramCards } from "@/components/ProgramCards";
 import { RunLine } from "@/components/RunLine";
+import { RiseText } from "@/components/RiseText";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import styles from "./home.module.css";
 
@@ -195,9 +196,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="shell">
           <div className={styles.heroText}>
           <p className={styles.heroEyebrow}>{dict.home.heroEyebrow}</p>
+          {/* The line sets itself word by word; the sentence and the buttons
+              arrive once it has finished. */}
           <h1 className={styles.heroTitle}>
-            <span>{dict.brand.motto.split("–")[0].trim()}</span>
-            <em>{dict.brand.motto.split("–")[1]?.trim() ?? ""}</em>
+            <RiseText text={dict.brand.motto.split("–")[0].trim()} delay={180} />
+            <RiseText as="em" text={dict.brand.motto.split("–")[1]?.trim() ?? ""} delay={520} />
           </h1>
           <p className={styles.heroLead}>{dict.home.heroLead}</p>
             <div className={styles.heroActions}>
