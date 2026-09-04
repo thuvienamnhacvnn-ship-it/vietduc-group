@@ -1,0 +1,474 @@
+.topbar {
+  background: var(--band);
+  color: #d9dee6;
+  font-size: var(--step--1);
+}
+
+.topbarInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-height: 38px;
+}
+
+.motto {
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--gold);
+  max-width: none;
+}
+
+.topbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+}
+
+.topPhone {
+  text-decoration: none;
+  white-space: nowrap;
+}
+.topPhone strong {
+  color: #fff;
+  font-weight: 600;
+}
+.topPhone:hover strong {
+  color: var(--gold);
+}
+
+@media (max-width: 720px) {
+  .motto,
+  .topPhone {
+    display: none;
+  }
+  .topbarInner {
+    justify-content: center;
+  }
+}
+
+/* ---------------------------------------------------------------- header */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  background: var(--header-bg);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid transparent;
+  transition:
+    border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+
+.headerScrolled {
+  border-bottom-color: var(--line);
+  box-shadow: 0 1px 20px rgba(32, 35, 38, 0.05);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  min-height: var(--header-h);
+}
+
+.brand {
+  flex: none;
+  display: block;
+  line-height: 0;
+}
+
+.logo {
+  width: auto;
+  height: 40px;
+}
+
+/*
+ * The mark contains black strokes on transparency, so it vanishes against a
+ * dark ground. A light plaque - the same treatment the footer already uses -
+ * keeps the brand colours true instead of filtering them.
+ */
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .logo {
+    padding: 5px 9px;
+    background: rgba(255, 255, 255, 0.94);
+    border-radius: var(--r-2);
+  }
+}
+
+:global(:root[data-theme="dark"]) .logo {
+  padding: 5px 9px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: var(--r-2);
+}
+
+@media (min-width: 900px) {
+  .logo {
+    height: 46px;
+  }
+}
+
+/* ------------------------------------------------------------ desktop nav */
+
+.desktopNav {
+  display: none;
+  min-width: 0;
+  margin-inline-start: auto;
+}
+
+@media (min-width: 1180px) {
+  .desktopNav {
+    display: block;
+  }
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navList > li {
+  position: relative;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.6rem 0.7rem;
+  font-size: 0.94rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--ink);
+  border-radius: var(--r-2);
+  white-space: nowrap;
+  transition: color var(--dur-1) var(--ease);
+}
+
+.navLink:hover,
+.navLink[aria-current="page"] {
+  color: var(--accent);
+}
+
+.navLink svg {
+  transition: transform var(--dur-1) var(--ease);
+  opacity: 0.55;
+}
+
+.hasChildren:hover .navLink svg {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  inset-inline-start: 0;
+  min-width: 268px;
+  padding-top: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease),
+    visibility var(--dur-1);
+}
+
+.hasChildren:hover .dropdown,
+.hasChildren:focus-within .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.dropdown ul {
+  margin: 0;
+  padding: var(--s-2);
+  list-style: none;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  box-shadow: var(--shadow-2);
+}
+
+.dropdown a {
+  display: block;
+  padding: 0.55rem 0.7rem;
+  border-radius: var(--r-2);
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--ink);
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.dropdown a:hover {
+  background: var(--beige);
+  color: var(--accent);
+}
+
+/* -------------------------------------------------------------- actions */
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  margin-inline-start: auto;
+  /* Never squeezed: the nav gives way first, and below the breakpoint the
+     burger takes over. */
+  flex: none;
+}
+
+@media (min-width: 1180px) {
+  .actions {
+    margin-inline-start: var(--s-4);
+  }
+}
+
+.iconButton {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--ink);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.iconButton:hover {
+  border-color: var(--line-strong);
+  color: var(--accent);
+}
+
+.locales {
+  display: none;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+}
+
+@media (min-width: 640px) {
+  .locales {
+    display: flex;
+  }
+}
+
+.localeLink {
+  padding: 0.24rem 0.55rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--muted);
+  border-radius: var(--r-pill);
+  transition:
+    background-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.localeLink:hover {
+  color: var(--ink);
+}
+
+.localeActive {
+  background: var(--navy);
+  color: #fff;
+}
+.localeActive:hover {
+  color: #fff;
+}
+
+.cta {
+  display: none;
+  white-space: nowrap;
+  padding: 0.62rem 1.15rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: var(--burgundy);
+  border-radius: var(--r-pill);
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.cta:hover {
+  background: var(--burgundy-deep);
+}
+
+@media (min-width: 780px) {
+  .cta {
+    display: inline-block;
+  }
+}
+
+/* --------------------------------------------------------------- burger */
+
+.burger {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: transparent;
+}
+
+@media (min-width: 1180px) {
+  .burger {
+    display: none;
+  }
+}
+
+.burgerBar,
+.burgerBarOpen {
+  position: absolute;
+  inset-inline: 11px;
+  top: 50%;
+  height: 1.7px;
+  background: var(--ink);
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.burgerBar::before,
+.burgerBar::after,
+.burgerBarOpen::before,
+.burgerBarOpen::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  height: 1.7px;
+  background: var(--ink);
+  transition: transform var(--dur-2) var(--ease);
+}
+
+.burgerBar::before {
+  transform: translateY(-6px);
+}
+.burgerBar::after {
+  transform: translateY(6px);
+}
+
+.burgerBarOpen {
+  background: transparent;
+}
+.burgerBarOpen::before {
+  transform: rotate(45deg);
+}
+.burgerBarOpen::after {
+  transform: rotate(-45deg);
+}
+
+/* ---------------------------------------------------------- mobile panel */
+
+.panel {
+  position: fixed;
+  inset: calc(var(--header-h) + 38px) 0 0;
+  z-index: 88;
+  overflow-y: auto;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  padding: var(--s-5) var(--gutter) var(--s-8);
+  animation: panelIn var(--dur-2) var(--ease);
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@media (min-width: 1180px) {
+  .panel {
+    display: none;
+  }
+}
+
+.panelNav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.panelLink {
+  flex: 1;
+  padding: 0.95rem 0;
+  font-family: var(--font-display);
+  font-size: 1.16rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.panelToggle {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.panelToggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.panelChildren {
+  padding: var(--s-2) 0 var(--s-4) var(--s-4) !important;
+  border-bottom: 1px solid var(--line);
+}
+
+.panelChildren a {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.panelChildren a:hover {
+  color: var(--accent);
+}
+
+.panelFooter {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+  margin-top: var(--s-6);
+}
+
+.panelCta {
+  display: block;
+  padding: 0.9rem;
+  text-align: center;
+  font-weight: 600;
+  color: #fff;
+  background: var(--burgundy);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+}
+
+.panelTools {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}

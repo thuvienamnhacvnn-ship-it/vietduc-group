@@ -1,0 +1,131 @@
+.decor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: clamp(120px, 17vh, 210px);
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  /* The band fades in from nothing rather than starting on a hard edge. */
+  mask-image: linear-gradient(180deg, transparent 0%, #000 34%, #000 100%);
+}
+
+.sky {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/*
+ * Each crest is drawn twice side by side; sliding one full width and restarting
+ * is what makes the drift seamless. The blur is what keeps the curves reading
+ * as haze rather than as cut paper.
+ */
+.layer {
+  transform: translateX(0);
+}
+
+.layerFar {
+  animation: drift 120s linear infinite;
+  filter: blur(7px);
+}
+
+.layerMid {
+  animation: drift 78s linear infinite;
+  filter: blur(4px);
+}
+
+.layerNear {
+  animation: drift 52s linear infinite;
+  filter: blur(2px);
+}
+
+@keyframes drift {
+  to {
+    transform: translateX(-1440px);
+  }
+}
+
+.embers {
+  position: absolute;
+  inset: 0;
+}
+
+.ember {
+  position: absolute;
+  bottom: -6px;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px rgba(210, 162, 89, 0.65);
+  opacity: 0;
+  animation: rise 11s ease-in infinite;
+}
+
+/*
+ * Hand-placed rather than randomised: a server-rendered page must produce the
+ * same markup as the client, so the positions cannot come from Math.random().
+ */
+.ember[data-i="0"]  { left: 6%;  animation-delay: 0s;    }
+.ember[data-i="1"]  { left: 14%; animation-delay: 3.1s;  }
+.ember[data-i="2"]  { left: 22%; animation-delay: 6.4s;  }
+.ember[data-i="3"]  { left: 30%; animation-delay: 1.7s;  }
+.ember[data-i="4"]  { left: 39%; animation-delay: 8.2s;  }
+.ember[data-i="5"]  { left: 47%; animation-delay: 4.5s;  }
+.ember[data-i="6"]  { left: 56%; animation-delay: 9.6s;  }
+.ember[data-i="7"]  { left: 64%; animation-delay: 2.3s;  }
+.ember[data-i="8"]  { left: 72%; animation-delay: 7.1s;  }
+.ember[data-i="9"]  { left: 80%; animation-delay: 5.0s;  }
+.ember[data-i="10"] { left: 88%; animation-delay: 10.3s; }
+.ember[data-i="11"] { left: 95%; animation-delay: 3.8s;  }
+
+@keyframes rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  14% {
+    opacity: 0.7;
+  }
+  70% {
+    opacity: 0.35;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-170px) translateX(18px) scale(1.1);
+  }
+}
+
+/* A thin gold rule closing the banner off from whatever follows. */
+.hairline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(196, 145, 69, 0.28) 22%,
+    rgba(196, 145, 69, 0.5) 50%,
+    rgba(196, 145, 69, 0.28) 78%,
+    transparent 100%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layerFar,
+  .layerMid,
+  .layerNear,
+  .ember {
+    animation: none;
+  }
+
+  .ember {
+    opacity: 0.3;
+    transform: translateY(-70px);
+  }
+}

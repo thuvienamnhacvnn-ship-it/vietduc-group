@@ -1,0 +1,180 @@
+.grid {
+  display: grid;
+  gap: var(--s-5);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: start;
+  }
+}
+
+.card {
+  padding: var(--s-6);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+.card h2 {
+  margin: 0 0 var(--s-4);
+  font-size: var(--step-2);
+}
+
+.legal {
+  margin: 0 0 var(--s-5);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.details {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+}
+
+.details > div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.details dt {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.details dd {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.details a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.details a:hover {
+  text-decoration: underline;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+
+.callButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.78rem 1.5rem;
+  font-size: 0.94rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--burgundy);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+}
+
+.callButton:hover {
+  background: var(--burgundy-deep);
+}
+
+.social {
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+}
+
+.social h3 {
+  margin: 0 0 var(--s-3);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.noSocial {
+  margin: var(--s-6) 0 0;
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--muted-soft);
+}
+
+.schools {
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.schools li {
+  display: grid;
+  gap: 0.25rem;
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.schools li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.schoolName {
+  font-family: var(--font-display);
+  font-size: 1.06rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.schoolName:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.schoolLine {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.schoolContacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  font-size: 0.83rem;
+  color: var(--muted);
+}
+
+.schoolContacts a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.schoolContacts a:hover {
+  text-decoration: underline;
+}
+
+.map {
+  margin-top: var(--s-6);
+  border-radius: var(--r-4);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.map iframe {
+  display: block;
+  width: 100%;
+  height: 380px;
+  border: 0;
+}

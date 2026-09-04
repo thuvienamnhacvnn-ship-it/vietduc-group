@@ -1,0 +1,390 @@
+/*
+ * The orbit and the two entry cards.
+ *
+ * One custom property, --orbit, drives every size here, so the ring, the mark
+ * and the satellites scale together from phone to desktop instead of needing a
+ * separate rule each.
+ */
+.stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: clamp(1rem, 2.2vh, 1.8rem);
+  width: 100%;
+  /* A planet hangs half its height above the ring, so the stage reserves that
+     much room rather than letting it climb into the paragraph above. */
+  padding-top: calc(var(--planet) / 2);
+
+  --orbit: clamp(116px, 18vh, 196px);
+  --planet: clamp(58px, 8.4vh, 86px);
+  --lean-x: 0deg;
+  --lean-y: 0deg;
+}
+
+/* ---------- orbit ---------- */
+
+.orbit {
+  position: relative;
+  width: calc(var(--orbit) * 2.4);
+  height: calc(var(--orbit) * 2.4);
+  display: grid;
+  place-items: center;
+  perspective: 900px;
+  animation: spin 48s linear infinite;
+}
+
+.orbitStill {
+  animation-play-state: paused;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Drawn, not photographed, so they stay crisp at any size. */
+.ring {
+  position: absolute;
+  inset: 14%;
+  border-radius: 50%;
+  border: 1px solid rgba(196, 145, 69, 0.34);
+  box-shadow: inset 0 0 60px rgba(196, 145, 69, 0.09);
+}
+
+.ringOuter {
+  inset: 0;
+  border-style: dashed;
+  border-color: rgba(196, 145, 69, 0.2);
+}
+
+/* ---------- the mark ---------- */
+
+.core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--orbit);
+  height: var(--orbit);
+  /* Undo the orbit rotation so the mark stands still while the satellites
+     travel around it. */
+  animation: spin 48s linear infinite reverse;
+  transform-style: preserve-3d;
+}
+
+.orbitStill .core {
+  animation-play-state: paused;
+}
+
+.mark {
+  position: relative;
+  z-index: 1;
+  width: 84%;
+  height: auto;
+  transform: rotateY(var(--lean-x)) rotateX(var(--lean-y)) translateZ(40px);
+  transition: transform 400ms var(--ease);
+  filter:
+    drop-shadow(0 20px 28px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 0 22px rgba(210, 162, 89, 0.28));
+  animation: float 7s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -9px; }
+}
+
+/* A warm pool of light behind the flame and a soft ellipse under it: together
+   they lift flat artwork off the page. */
+.glow {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(210, 162, 89, 0.42) 0%,
+    rgba(142, 31, 45, 0.18) 44%,
+    transparent 70%
+  );
+  filter: blur(8px);
+  animation: pulse 6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.72; scale: 1; }
+  50% { opacity: 1; scale: 1.07; }
+}
+
+.plinth {
+  position: absolute;
+  bottom: 0;
+  width: 58%;
+  height: 11%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, transparent 70%);
+  filter: blur(4px);
+}
+
+/* ---------- satellites ---------- */
+
+.arm {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: start center;
+  pointer-events: none;
+}
+
+.armSecond {
+  transform: rotate(180deg);
+}
+
+.satellite {
+  position: relative;
+  top: calc(var(--planet) / -2);
+  pointer-events: auto;
+  text-decoration: none;
+  border-radius: 50%;
+  /* Cancel the orbit spin so the planet and its label stay upright as they
+     travel. */
+  animation: spin 48s linear infinite reverse;
+}
+
+.orbitStill .satellite {
+  animation-play-state: paused;
+}
+
+.armSecond .satellite {
+  rotate: 180deg;
+}
+
+/* Each field travels as a small sphere carrying its own mark. The name is
+   held back until the reader hovers or tabs onto it. */
+.planet {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: var(--planet);
+  height: var(--planet);
+  border-radius: 50%;
+  transition:
+    scale var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+
+/*
+ * The roundness is painted, not photographed: an off-centre light gradient for
+ * the lit face, a darker pool at the lower right for the shaded side, and a
+ * thin bright rim where the edge catches the light.
+ */
+.education {
+  background:
+    radial-gradient(circle at 32% 26%, #d4485c 0%, #a52639 38%, #6d1523 72%, #4a0d18 100%);
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.5),
+    0 18px 34px rgba(0, 0, 0, 0.62),
+    inset -6px -8px 16px rgba(0, 0, 0, 0.5),
+    inset 4px 5px 12px rgba(255, 255, 255, 0.22);
+}
+
+.venture {
+  background:
+    radial-gradient(circle at 32% 26%, #f0c069 0%, #c8933f 38%, #8e6222 72%, #5d3f14 100%);
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.5),
+    0 18px 34px rgba(0, 0, 0, 0.62),
+    inset -6px -8px 16px rgba(0, 0, 0, 0.48),
+    inset 4px 5px 12px rgba(255, 255, 255, 0.28);
+}
+
+.planetRim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* A specular dot near the top-left and a faint rim light all round. */
+  background: radial-gradient(
+    circle at 30% 22%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.12) 16%,
+    transparent 38%
+  );
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+.planetIcon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 46%;
+  height: 46%;
+  color: #fff;
+  filter:
+    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 3px 7px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 0 14px rgba(0, 0, 0, 0.35));
+}
+
+.planetIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.satellite:hover .planet,
+.satellite:focus-visible .planet {
+  scale: 1.12;
+}
+
+.satellite:hover .planet {
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.5),
+    0 20px 38px rgba(0, 0, 0, 0.66),
+    inset -6px -8px 16px rgba(0, 0, 0, 0.45),
+    inset 4px 5px 12px rgba(255, 255, 255, 0.3),
+    0 0 26px rgba(210, 162, 89, 0.4);
+}
+
+.planetLabel {
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 50%;
+  translate: -50% 4px;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(9, 14, 20, 0.9);
+  border: 1px solid rgba(196, 145, 69, 0.5);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity var(--dur-1) var(--ease),
+    translate var(--dur-1) var(--ease);
+}
+
+.satellite:hover .planetLabel,
+.satellite:focus-visible .planetLabel {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+/* ---------- the two entry cards ---------- */
+
+/* Two equal columns rather than two pills sized by their own text: the fields
+   carry the same weight, so the buttons should look the same weight. */
+.choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-3);
+  width: min(680px, 100%);
+  /* Dropped clear of the orbit so the buttons read as the floor of the stage
+     rather than as part of it. */
+  margin-top: clamp(1.2rem, 5vh, 3.4rem);
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-width: 0;
+  padding: 0.78rem 1.2rem;
+  border-radius: 999px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(9, 14, 20, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    background-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease);
+}
+
+/*
+ * Hover fills the button with its own field's colour - deep red for education,
+ * gold for hospitality - matching the sphere that field travels in. It is a
+ * fill rather than a shift in opacity, so the change cannot be missed.
+ */
+.choice:hover,
+.choice:focus-visible {
+  transform: translateY(-3px);
+}
+
+.choiceEducation:hover,
+.choiceEducation:focus-visible {
+  background: #8e1f2d;
+  border-color: #a52639;
+  color: #fff;
+}
+
+.choiceEducation:hover .choiceGo,
+.choiceEducation:focus-visible .choiceGo {
+  color: #f2caa4;
+}
+
+.choiceVenture:hover,
+.choiceVenture:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #14100a;
+}
+
+.choiceVenture:hover .choiceGo,
+.choiceVenture:focus-visible .choiceGo {
+  color: #14100a;
+}
+
+@media (max-width: 560px) {
+  .choices {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.choiceName {
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+}
+
+.choiceGo {
+  display: inline-flex;
+  color: var(--gold);
+  transition: translate var(--dur-1) var(--ease);
+}
+
+.choice:hover .choiceGo,
+.choice:focus-visible .choiceGo {
+  translate: 3px 0;
+}
+
+/*
+ * Under 760px a travelling satellite would run into the mark, so the orbit
+ * settles into a still emblem and the two cards carry the navigation alone.
+ */
+@media (max-width: 760px) {
+  .arm {
+    display: none;
+  }
+
+  .orbit,
+  .core {
+    animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit,
+  .core,
+  .satellite,
+  .mark,
+  .glow {
+    animation: none;
+  }
+}

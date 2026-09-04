@@ -1,0 +1,272 @@
+@import "./tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--paper);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  /* Only the page ground cross-fades on a theme switch. Transitioning every
+     element would make the flip feel sluggish and fight the scroll reveal. */
+  transition:
+    background-color var(--dur-2) var(--ease),
+    color var(--dur-2) var(--ease);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  font-synthesis-weight: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.015em;
+  margin: 0 0 var(--s-4);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--step-4);
+}
+h2 {
+  font-size: var(--step-3);
+}
+h3 {
+  font-size: var(--step-2);
+}
+h4 {
+  font-size: var(--step-1);
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+p {
+  margin: 0 0 var(--s-4);
+  max-width: var(--measure);
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: from-font;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--r-2);
+}
+
+/* Never remove focus rings; only tighten them where the ring would clip. */
+:where(a, button):focus:not(:focus-visible) {
+  outline: none;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: var(--s-6) 0;
+}
+
+::selection {
+  background: var(--gold-tint);
+  color: var(--ink);
+}
+
+/* --- shared layout primitives ------------------------------------------ */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.shell-narrow {
+  width: 100%;
+  max-width: var(--shell-narrow);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--s-4);
+  top: -100px;
+  z-index: 200;
+  background: var(--navy);
+  color: #fff;
+  padding: var(--s-3) var(--s-5);
+  border-radius: var(--r-3);
+  transition: top var(--dur-1) var(--ease);
+}
+.skip-link:focus {
+  top: var(--s-4);
+}
+
+/* --- scroll reveal ------------------------------------------------------ */
+
+/*
+ * Four ways in, not one.
+ *
+ * The plain lift is the default. The three named variants exist because the
+ * page has three kinds of thing that should not all arrive the same way: a
+ * heading is unveiled, a row in a list slides in from the margin it belongs to,
+ * and a rule draws itself. Elements ask for one with data-reveal-as, and the
+ * observer only ever flips data-reveal to "in".
+ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--dur-3) var(--ease),
+    transform var(--dur-3) var(--ease),
+    clip-path var(--dur-3) var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Unveil: the text is uncovered left to right rather than fading. */
+[data-reveal-as="unveil"] {
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+}
+
+[data-reveal-as="unveil"][data-reveal="in"] {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Slide: a row arriving from the margin it is aligned to. */
+[data-reveal-as="slide"] {
+  transform: translateX(-26px);
+}
+
+/* Draw: a rule that grows from its own start point. */
+[data-reveal-as="draw"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 100% 0 0);
+}
+
+[data-reveal-as="draw"][data-reveal="in"] {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* --- the navigation rail ------------------------------------------------- */
+
+/*
+ * Pages that carry the left rail keep its collapsed width clear. The rail grows
+ * over the page rather than pushing it, so this inset never changes and the
+ * text a reader is in the middle of does not move.
+ */
+[data-rail] {
+  padding-left: 0;
+}
+
+/* On a phone the chrome is at the top and the foot instead of the side. */
+@media (max-width: 999px) {
+  [data-rail] {
+    padding-top: var(--topbar-h);
+  }
+
+  [data-rail]:last-of-type,
+  body > [data-rail]:last-child {
+    padding-bottom: 0;
+  }
+
+  body {
+    padding-bottom: calc(var(--bottombar-h) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (min-width: 1000px) {
+  [data-rail] {
+    padding-left: var(--rail-w);
+  }
+}

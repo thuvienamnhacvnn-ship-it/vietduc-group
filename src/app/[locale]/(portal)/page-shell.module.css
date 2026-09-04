@@ -1,0 +1,180 @@
+/*
+ * Shared chrome for interior pages: breadcrumb, page title, lead paragraph and
+ * the standard content rhythm. Reused rather than restated on every route.
+ */
+
+.page {
+  padding-block: var(--s-6) var(--s-9);
+}
+
+.header {
+  margin-block: var(--s-5) var(--s-7);
+  max-width: 62ch;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.lead {
+  margin: var(--s-4) 0 0;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.body {
+  display: grid;
+  gap: var(--s-7);
+}
+
+/* Grid items are min-width:auto by default, so one wide table stretched this
+   column - and the page with it - on narrow screens. Pinning the columns to
+   zero is what lets .tableScroll below actually scroll instead. */
+.body > * {
+  min-width: 0;
+}
+
+@media (min-width: 940px) {
+  .bodyWithAside {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+    align-items: start;
+    gap: var(--s-8);
+  }
+}
+
+.aside {
+  display: grid;
+  gap: var(--s-5);
+  padding: var(--s-5);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+@media (min-width: 940px) {
+  .asideSticky {
+    position: sticky;
+    top: calc(var(--header-h) + var(--s-4));
+  }
+}
+
+.asideTitle {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.factList {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+}
+
+.factList > div {
+  display: grid;
+  gap: 0.15rem;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.factList > div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.factList dt {
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.factList dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.factMissing {
+  color: var(--muted-soft);
+  font-style: italic;
+}
+
+.section {
+  margin-top: var(--s-7);
+}
+
+.sectionTitle {
+  margin: 0 0 var(--s-4);
+  font-size: var(--step-2);
+}
+
+.grid2 {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+.grid3 {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+}
+
+.notice {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  background: var(--gold-tint);
+  border: 1px solid rgba(196, 145, 69, 0.35);
+  border-radius: var(--r-3);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.notice strong {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.legalTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+
+.legalTable caption {
+  text-align: start;
+  padding-bottom: var(--s-3);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.legalTable th,
+.legalTable td {
+  padding: 0.7rem 0.8rem;
+  text-align: start;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.legalTable th {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tableScroll {
+  min-width: 0;
+  overflow-x: auto;
+  /* Wide tables scroll inside their own box; the page never scrolls sideways. */
+  -webkit-overflow-scrolling: touch;
+}

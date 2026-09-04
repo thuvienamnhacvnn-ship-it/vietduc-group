@@ -1,0 +1,167 @@
+.bar {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+}
+
+/*
+ * Nothing is laid over the photograph, so every glyph in the bar carries its
+ * own shadow: a tight dark one for edge contrast and a wider soft one that acts
+ * as a scrim only where the letters actually are.
+ */
+.bar :is(a, button, strong, em, span) {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 2px 12px rgba(0, 0, 0, 0.7);
+}
+
+.bar svg {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.85));
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  width: min(1360px, 100%);
+  margin-inline: auto;
+  padding: var(--s-4) var(--s-5);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: inherit;
+  flex: none;
+}
+
+.brandMark {
+  width: 40px;
+  height: auto;
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
+}
+
+.brandText {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.brandText strong {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.brandText em {
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--gold);
+}
+
+.nav {
+  margin-inline: auto;
+  min-width: 0;
+}
+
+.nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.8rem, 1.8vw, 1.7rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.82);
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease);
+}
+
+.nav a:hover {
+  color: #fff;
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex: none;
+}
+
+.social {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.langs {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 3px;
+  list-style: none;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  background: rgba(9, 14, 20, 0.34);
+  backdrop-filter: blur(6px);
+}
+
+.langs a {
+  display: block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+}
+
+.langOn {
+  background: rgba(255, 255, 255, 0.24);
+  color: #fff !important;
+}
+
+/*
+ * On narrow screens the bar becomes two rows: brand and tools on the first,
+ * the links wrapping underneath, so nothing is pushed off the side.
+ */
+@media (max-width: 900px) {
+  .inner {
+    flex-wrap: wrap;
+    gap: var(--s-3);
+    padding: var(--s-3) var(--s-4);
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    margin-inline: 0;
+    overflow-x: auto;
+  }
+
+  .nav ul {
+    flex-wrap: nowrap;
+    gap: var(--s-4);
+    padding-bottom: 2px;
+  }
+
+  .nav a {
+    white-space: nowrap;
+  }
+
+  .tools {
+    margin-left: auto;
+  }
+
+  .social {
+    display: none;
+  }
+}

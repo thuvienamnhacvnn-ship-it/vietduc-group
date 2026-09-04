@@ -1,0 +1,203 @@
+/*
+ * A stack of slats, drawn from the louvred facades the schools are actually
+ * built with. Closed, a slat is a single ruled line of information. Pointed at,
+ * it opens: the campus photograph grows in from the right edge and the row
+ * gains height, the way a louvre tilts open.
+ */
+.stack {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.stack > li {
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
+.slat {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr) auto auto auto;
+  align-items: center;
+  gap: clamp(0.9rem, 2vw, 1.8rem);
+  padding: clamp(1rem, 1.8vw, 1.5rem) 0;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+  transition: padding var(--dur-2) var(--ease);
+}
+
+/* A gold edge slides in from the left as the slat opens - the same gesture as
+   the reveal, running the other way. */
+.slat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--gold);
+  scale: 1 0;
+  transform-origin: 50% 0;
+  transition: scale var(--dur-2) var(--ease);
+}
+
+.slat:hover::before,
+.slat:focus-visible::before {
+  scale: 1 1;
+}
+
+.slat:hover,
+.slat:focus-visible {
+  padding-inline-start: clamp(0.9rem, 1.6vw, 1.4rem);
+}
+
+.slat:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+
+.rank {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  color: var(--muted-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.crest {
+  display: grid;
+  place-items: center;
+  width: clamp(38px, 4.4vw, 52px);
+  aspect-ratio: 1;
+  flex: none;
+}
+
+.crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Closed, the crests read as one calm column; the school's own colour
+     arrives with the photograph. */
+  filter: grayscale(1);
+  opacity: 0.62;
+  transition:
+    filter var(--dur-2) var(--ease),
+    opacity var(--dur-2) var(--ease);
+}
+
+.slat:hover .crest img,
+.slat:focus-visible .crest img {
+  filter: none;
+  opacity: 1;
+}
+
+.text {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.text strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 1.7vw, 1.34rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.text em {
+  font-style: normal;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.count {
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+/*
+ * The opening. Width is animated rather than opacity so the photograph is
+ * genuinely uncovered, and it is never tinted or dimmed.
+ */
+.reveal {
+  display: block;
+  width: 0;
+  height: clamp(64px, 8vw, 96px);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  transition: width var(--dur-3) var(--ease);
+}
+
+.reveal img {
+  width: clamp(180px, 22vw, 280px);
+  height: 100%;
+  object-fit: cover;
+}
+
+.slat:hover .reveal,
+.slat:focus-visible .reveal {
+  width: clamp(180px, 22vw, 280px);
+}
+
+.arrow {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  color: var(--muted-soft);
+  flex: none;
+  transition:
+    border-color var(--dur-2) var(--ease),
+    color var(--dur-2) var(--ease),
+    translate var(--dur-2) var(--ease);
+}
+
+.slat:hover .arrow,
+.slat:focus-visible .arrow {
+  border-color: var(--accent);
+  color: var(--accent);
+  translate: 4px 0;
+}
+
+/*
+ * Under 860px there is no room to open anything sideways, so the photograph
+ * simply is not part of the row and the slat becomes two lines of text.
+ */
+@media (max-width: 860px) {
+  .slat {
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    gap: 0.5rem 0.8rem;
+  }
+
+  .reveal {
+    display: none;
+  }
+
+  .count {
+    grid-column: 3;
+    grid-row: 2;
+    font-size: 0.76rem;
+  }
+
+  .text {
+    grid-row: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .slat,
+  .slat::before,
+  .arrow {
+    transition: none;
+  }
+}

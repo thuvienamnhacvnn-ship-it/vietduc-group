@@ -1,0 +1,459 @@
+/*
+ * The editor area uses the same tokens as the public site but a denser,
+ * utilitarian layout: this is a working tool, not a brochure.
+ */
+
+.bare {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: var(--gutter);
+  background: var(--band);
+}
+
+.shell {
+  display: grid;
+  min-height: 100vh;
+  background: var(--paper);
+}
+
+@media (min-width: 900px) {
+  .shell {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-6);
+  padding: var(--s-5);
+  background: var(--band);
+  color: #dfe4ea;
+}
+
+@media (min-width: 900px) {
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+  }
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.brandMark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--on-gold);
+  background: var(--gold);
+  border-radius: var(--r-3);
+}
+
+.brand strong {
+  display: block;
+  font-size: 0.92rem;
+  color: #fff;
+}
+
+.brand small {
+  display: block;
+  font-size: 0.74rem;
+  color: #9fa9b6;
+}
+
+.nav {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav a {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  color: #cfd6de;
+  border-radius: var(--r-3);
+  text-decoration: none;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.user {
+  margin-top: auto;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line-dark);
+}
+
+.userName {
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  max-width: none;
+}
+
+.userRole {
+  margin: 0.1rem 0 var(--s-3);
+  font-size: 0.76rem;
+  color: var(--gold);
+  max-width: none;
+}
+
+.signOut {
+  width: 100%;
+  padding: 0.45rem;
+  font-size: 0.82rem;
+  color: #cfd6de;
+  background: rgba(255, 255, 255, 0.07);
+  border: 0;
+  border-radius: var(--r-3);
+}
+
+.signOut:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.viewSite {
+  display: block;
+  margin-top: var(--s-2);
+  font-size: 0.78rem;
+  color: #9fa9b6;
+  text-decoration: none;
+  text-align: center;
+}
+
+.viewSite:hover {
+  color: var(--gold);
+}
+
+.main {
+  padding: var(--s-6) var(--s-6) var(--s-9);
+  min-width: 0;
+}
+
+/* ------------------------------------------------------------ elements */
+
+.pageHead {
+  margin-bottom: var(--s-6);
+}
+
+.pageHead h1 {
+  margin: 0;
+  font-size: var(--step-3);
+}
+
+.pageHead p {
+  margin: var(--s-3) 0 0;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+.cards {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(190px, 100%), 1fr));
+  margin-bottom: var(--s-6);
+}
+
+.card {
+  padding: var(--s-4) var(--s-5);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+}
+
+.cardValue {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--text);
+}
+
+.cardLabel {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.cardAlert .cardValue {
+  color: var(--accent);
+}
+
+.panel {
+  margin-bottom: var(--s-6);
+  padding: var(--s-5);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+}
+
+.panel h2 {
+  margin: 0 0 var(--s-4);
+  font-size: var(--step-1);
+}
+
+.panel h3 {
+  margin: var(--s-5) 0 var(--s-3);
+  font-size: 1rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.87rem;
+}
+
+.table th {
+  padding: 0.5rem 0.6rem;
+  text-align: start;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 0.6rem;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.table tr:hover td {
+  background: var(--gold-tint);
+}
+
+.scroll {
+  overflow-x: auto;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.12rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+
+.tagApproved {
+  background: rgba(47, 109, 79, 0.14);
+  color: var(--ok);
+}
+
+.tagDraft {
+  background: var(--gold-tint);
+  color: var(--warn);
+}
+
+.tagRejected {
+  background: var(--burgundy-tint);
+  color: var(--danger);
+}
+
+.tagNeutral {
+  background: var(--beige);
+  color: var(--muted);
+}
+
+.inlineForm {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+}
+
+.select,
+.input,
+.textarea {
+  padding: 0.4rem 0.55rem;
+  font-size: 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-2);
+  background: var(--paper);
+  max-width: 100%;
+}
+
+.textarea {
+  width: 100%;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.button,
+.buttonGhost,
+.buttonDanger {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: var(--r-2);
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.button {
+  color: #fff;
+  background: var(--navy);
+}
+
+.button:hover {
+  background: var(--burgundy);
+}
+
+.buttonGhost {
+  color: var(--ink);
+  background: transparent;
+  border-color: var(--line-strong);
+}
+
+.buttonGhost:hover {
+  border-color: var(--ink);
+}
+
+.buttonDanger {
+  color: var(--danger);
+  background: transparent;
+  border-color: rgba(163, 36, 36, 0.4);
+}
+
+.buttonDanger:hover {
+  background: var(--burgundy-tint);
+}
+
+.note {
+  padding: var(--s-4);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  background: var(--gold-tint);
+  border: 1px solid rgba(196, 145, 69, 0.35);
+  border-radius: var(--r-3);
+}
+
+.note strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.empty {
+  padding: var(--s-6);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.fieldGrid {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+}
+
+.field {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.field label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.field small {
+  font-size: 0.75rem;
+  color: var(--muted-soft);
+}
+
+.formActions {
+  display: flex;
+  gap: var(--s-3);
+  margin-top: var(--s-5);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------------------------------------------------------------- login */
+
+.login {
+  width: min(400px, 100%);
+  padding: var(--s-7) var(--s-6);
+  background: var(--paper-raised);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-3);
+}
+
+.login h1 {
+  margin: 0 0 var(--s-2);
+  font-size: var(--step-2);
+}
+
+.login p {
+  margin: 0 0 var(--s-6);
+  font-size: 0.87rem;
+  color: var(--muted);
+}
+
+.login label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.login input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  margin-bottom: var(--s-4);
+  font-size: 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--paper);
+}
+
+.loginButton {
+  width: 100%;
+  padding: 0.78rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--burgundy);
+  border: 0;
+  border-radius: var(--r-pill);
+}
+
+.loginButton:hover {
+  background: var(--burgundy-deep);
+}
+
+.loginError {
+  margin: 0 0 var(--s-4);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  color: var(--danger);
+  background: var(--burgundy-tint);
+  border-radius: var(--r-3);
+}

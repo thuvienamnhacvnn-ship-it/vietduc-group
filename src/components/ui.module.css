@@ -1,0 +1,389 @@
+/* ------------------------------------------------------------- headings */
+
+.heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s-5);
+  margin-bottom: var(--s-6);
+}
+
+.headingCenter {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.headingCenter .headingLead {
+  margin-inline: auto;
+}
+
+.eyebrow {
+  margin: 0 0 var(--s-3);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  max-width: none;
+}
+
+/* On a dark or coloured band the title and the lead have to come with the
+   eyebrow, or the lead keeps the body colour and sinks into the background. */
+.headingDark .eyebrow {
+  color: var(--gold);
+}
+
+.headingDark .headingTitle {
+  color: #fff;
+}
+
+.headingDark .headingLead {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.headingTitle {
+  margin: 0;
+  max-width: 26ch;
+}
+
+.headingCenter .headingTitle {
+  max-width: 24ch;
+  margin-inline: auto;
+}
+
+.headingLead {
+  margin: var(--s-4) 0 0;
+  color: var(--text-muted);
+  max-width: 58ch;
+}
+
+.headingAction {
+  flex: none;
+  padding-bottom: 4px;
+}
+
+@media (max-width: 720px) {
+  .heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .headingCenter {
+    align-items: center;
+  }
+}
+
+/* -------------------------------------------------------------- buttons */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  transition:
+    background-color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.md {
+  padding: 0.78rem 1.5rem;
+  font-size: 0.94rem;
+}
+
+.sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.primary {
+  background: var(--burgundy);
+  color: #fff;
+}
+.primary:hover {
+  background: var(--burgundy-deep);
+}
+
+.gold {
+  background: var(--gold);
+  color: var(--on-gold);
+}
+.gold:hover {
+  background: var(--gold-deep);
+  color: #fff;
+}
+
+.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+.secondary:hover {
+  border-color: var(--text);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--text);
+  padding-inline: 0;
+}
+.ghost:hover {
+  color: var(--accent);
+}
+
+.arrowLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.93rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.arrowLink svg {
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.arrowLink:hover svg {
+  transform: translateX(3px);
+}
+
+.arrowLink:hover span {
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------------- breadcrumbs */
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.crumbs li + li::before {
+  content: "/";
+  margin-inline-end: 0.4rem;
+  color: var(--line-strong);
+}
+
+.crumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.crumbs a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.crumbs [aria-current="page"] span {
+  color: var(--text);
+}
+
+/* ---------------------------------------------------------------- prose */
+
+.prose {
+  max-width: 72ch;
+}
+
+.prose > * + * {
+  margin-top: var(--s-4);
+}
+
+.prose h2 {
+  margin-top: var(--s-7);
+  font-size: var(--step-2);
+}
+
+.prose h3 {
+  margin-top: var(--s-6);
+  font-size: var(--step-1);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose p {
+  margin: 0;
+  max-width: none;
+}
+
+.prose ul {
+  margin: 0;
+  padding-inline-start: 1.15rem;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.prose li::marker {
+  color: var(--gold-deep);
+}
+
+.prose blockquote {
+  margin: var(--s-5) 0;
+  padding: var(--s-4) var(--s-5);
+  border-inline-start: 3px solid var(--gold);
+  background: var(--gold-tint);
+  border-radius: 0 var(--r-3) var(--r-3) 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  color: var(--ink);
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+/* ----------------------------------------------------------------- misc */
+
+.sourceNote {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  max-width: none;
+}
+
+.sourceNote svg {
+  flex: none;
+  opacity: 0.7;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.62rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: var(--r-pill);
+  white-space: nowrap;
+}
+
+.badge_neutral {
+  background: var(--beige);
+  color: var(--muted);
+}
+
+.badge_gold {
+  background: var(--gold-tint);
+  color: var(--gold-deep);
+}
+
+.badge_burgundy {
+  background: var(--accent-tint);
+  color: var(--accent);
+}
+
+.badge_navy {
+  background: var(--tint-neutral);
+  color: var(--text);
+}
+
+.empty {
+  padding: var(--s-8) var(--s-5);
+  text-align: center;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-4);
+  background: var(--surface);
+}
+
+.emptyTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  max-width: none;
+}
+
+.emptyHint {
+  margin: var(--s-2) auto 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  max-width: 46ch;
+}
+
+/* ---------------------------------------------------------------- stats */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--s-5);
+  margin: 0;
+  padding: var(--s-5) 0;
+  border-block: 1px solid var(--line);
+}
+
+.stats > div {
+  text-align: center;
+}
+
+.stats dt {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 1.2rem + 1.7vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.stats dd {
+  margin: 0.5rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.statsDark {
+  border-color: var(--line-dark);
+}
+
+.statsDark dt {
+  color: var(--gold);
+}
+
+.statsDark dd {
+  color: #a9b3bf;
+}
+
+/* ---- phone ---- */
+
+/*
+ * Smaller controls on small screens. A button sized for a mouse looks like a
+ * banner on a phone, and a section heading set for a desktop column runs to
+ * four lines.
+ */
+@media (max-width: 719px) {
+  .button {
+    padding: 0.62rem 1.05rem;
+    font-size: 0.86rem;
+  }
+
+  .headingTitle {
+    font-size: clamp(1.5rem, 6.4vw, 2rem);
+    line-height: 1.16;
+  }
+
+  .headingLead {
+    font-size: 0.94rem;
+    line-height: 1.6;
+  }
+
+  .eyebrow {
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+  }
+}

@@ -1,0 +1,272 @@
+[
+  {
+    "src": "/media/hospitality/vinh-hung-vi-tri.webp",
+    "width": 1400,
+    "height": 1400,
+    "bytes": 177602,
+    "alt": {
+      "vi": "Ảnh vệ tinh xác định ranh giới khu đất 2,1 ha giáp biển Đông",
+      "en": "Satellite image marking the 2.1 hectare plot on the East Sea shore",
+      "de": "Satellitenbild mit der Abgrenzung des 2,1 Hektar großen Grundstücks an der Ostsee-Küste"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "site"
+    ],
+    "source": {
+      "document": "Khu nghỉ dưỡng Vĩnh Hưng – Proposal design (18/04/2026)",
+      "slug": "khu-nghi-duong-vinh-hung",
+      "page": 2
+    }
+  },
+  {
+    "src": "/media/hospitality/vinh-hung-hien-trang.webp",
+    "width": 1600,
+    "height": 1300,
+    "bytes": 85522,
+    "alt": {
+      "vi": "Hiện trạng khu đất: bãi cát trống ven biển, đang thi công hạ tầng",
+      "en": "The site today: open coastal sand with infrastructure work under way",
+      "de": "Das Gelände heute: offener Küstensand, Erschließung im Bau"
+    },
+    "tags": [
+      "hospitality",
+      "plan"
+    ],
+    "source": {
+      "document": "Khu nghỉ dưỡng Vĩnh Hưng – Proposal design (18/04/2026)",
+      "slug": "khu-nghi-duong-vinh-hung",
+      "page": 3
+    }
+  },
+  {
+    "src": "/media/hospitality/vinh-hung-mat-bang.webp",
+    "width": 1600,
+    "height": 1300,
+    "bytes": 232032,
+    "alt": {
+      "vi": "Phương án mặt bằng tổng thể khu nghỉ dưỡng Vĩnh Hưng",
+      "en": "Overall site layout proposed for the Vinh Hung resort",
+      "de": "Vorgeschlagener Gesamtlageplan für das Resort Vinh Hung"
+    },
+    "tags": [
+      "hospitality",
+      "plan"
+    ],
+    "source": {
+      "document": "Khu nghỉ dưỡng Vĩnh Hưng – Proposal design (18/04/2026)",
+      "slug": "khu-nghi-duong-vinh-hung",
+      "page": 4
+    }
+  },
+  {
+    "src": "/media/hospitality/vinh-hung-phan-khu.webp",
+    "width": 1600,
+    "height": 1300,
+    "bytes": 186876,
+    "alt": {
+      "vi": "Sơ đồ phân khu chức năng khu nghỉ dưỡng Vĩnh Hưng",
+      "en": "Functional zoning diagram for the Vinh Hung resort",
+      "de": "Funktionszonierung für das Resort Vinh Hung"
+    },
+    "tags": [
+      "hospitality",
+      "plan"
+    ],
+    "source": {
+      "document": "Khu nghỉ dưỡng Vĩnh Hưng – Proposal design (18/04/2026)",
+      "slug": "khu-nghi-duong-vinh-hung",
+      "page": 5
+    }
+  },
+  {
+    "src": "/media/hospitality/toki-tong-mat-bang.webp",
+    "width": 2000,
+    "height": 1414,
+    "bytes": 269472,
+    "alt": {
+      "vi": "Bản đồ quy hoạch tổng mặt bằng sử dụng đất dự án Khách sạn nghỉ dưỡng Toki, tỷ lệ 1/500",
+      "en": "Toki resort hotel master layout plan, scale 1:500",
+      "de": "Gesamtlageplan des Resorthotels Toki, Maßstab 1:500"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "toki"
+    ],
+    "source": {
+      "document": "Quy hoạch tổng mặt bằng dự án Khách sạn nghỉ dưỡng Toki, tỷ lệ 1/500",
+      "slug": "toki-quy-hoach-tong-mat-bang",
+      "page": 1
+    }
+  },
+  {
+    "src": "/media/hospitality/toki-quy-hoach-phan-khu.webp",
+    "width": 1800,
+    "height": 1273,
+    "bytes": 488074,
+    "alt": {
+      "vi": "Trích quy hoạch phân khu khu vực phát triển đô thị xã Trung Trạch, tỷ lệ 1/2000, có đánh dấu vị trí dự án",
+      "en": "Extract of the Trung Trach urban zoning plan, 1:2000, with the project plot marked",
+      "de": "Auszug aus dem Zonenplan Trung Trach, 1:2000, mit markiertem Projektgrundstück"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "toki"
+    ],
+    "source": {
+      "document": "Trích quy hoạch phân khu khu vực phát triển đô thị xã Trung Trạch, tỷ lệ 1/2000",
+      "slug": "toki-quy-hoach-phan-khu",
+      "page": 1
+    }
+  },
+  {
+    "src": "/media/hospitality/toki-quy-hoach-su-dung-dat.webp",
+    "width": 1600,
+    "height": 1236,
+    "bytes": 91034,
+    "alt": {
+      "vi": "Trích quy hoạch sử dụng đất với vị trí đề xuất dự án nằm trong đất thương mại dịch vụ",
+      "en": "Land-use plan extract showing the proposed plot inside commercial-service land",
+      "de": "Auszug des Flächennutzungsplans mit dem Grundstück in Gewerbe- und Dienstleistungsfläche"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "toki"
+    ],
+    "source": {
+      "document": "Trích quy hoạch sử dụng đất – vị trí đề xuất dự án",
+      "slug": "toki-quy-hoach-su-dung-dat",
+      "page": 1
+    }
+  },
+  {
+    "src": "/media/hospitality/toki-vi-tri.webp",
+    "width": 1600,
+    "height": 1236,
+    "bytes": 198216,
+    "alt": {
+      "vi": "Vị trí đề xuất dự án trên ảnh vệ tinh, giáp đường ven biển",
+      "en": "The proposed plot on satellite imagery, beside the coastal road",
+      "de": "Das vorgeschlagene Grundstück im Satellitenbild an der Küstenstraße"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "toki"
+    ],
+    "source": {
+      "document": "Vị trí đề xuất dự án trên ảnh vệ tinh",
+      "slug": "toki-vi-tri",
+      "page": 1
+    }
+  },
+  {
+    "src": "/media/hospitality/toki-ban-do-hien-trang.webp",
+    "width": 1300,
+    "height": 1840,
+    "bytes": 84732,
+    "alt": {
+      "vi": "Bản đồ chỉnh lý địa chính khu đất tại xã Hoàn Lão, tỷ lệ 1/2000",
+      "en": "Cadastral revision map of the plot at Hoan Lao commune, 1:2000",
+      "de": "Katasterberichtigungskarte des Grundstücks in Hoan Lao, 1:2000"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "toki"
+    ],
+    "source": {
+      "document": "Chỉnh lý địa chính khu đất – xã Hoàn Lão, tỷ lệ 1/2000",
+      "slug": "toki-ban-do-hien-trang",
+      "page": 1
+    }
+  },
+  {
+    "src": "/media/hospitality/toki-thong-ke-su-dung-dat.webp",
+    "width": 1300,
+    "height": 1682,
+    "bytes": 79954,
+    "alt": {
+      "vi": "Bảng thống kê kết quả chỉnh lý địa chính khu đất, tổng 16.244,9 m²",
+      "en": "Cadastral revision table for the plot, 16,244.9 m² in total",
+      "de": "Katastertabelle des Grundstücks, insgesamt 16.244,9 m²"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "toki"
+    ],
+    "source": {
+      "document": "Thống kê kết quả chỉnh lý địa chính khu đất",
+      "slug": "toki-thong-ke-su-dung-dat",
+      "page": 1
+    }
+  },
+  {
+    "src": "/media/hospitality/long-beach-mat-bang-tong-the.webp",
+    "width": 2000,
+    "height": 1414,
+    "bytes": 248704,
+    "alt": {
+      "vi": "Mặt bằng tổng thể Long Beach Resort, tỷ lệ 1/250, kèm bảng thống kê hạng mục",
+      "en": "Long Beach Resort overall site plan, 1:250, with the schedule of works",
+      "de": "Gesamtlageplan Long Beach Resort, 1:250, mit Bauteilverzeichnis"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "long-beach"
+    ],
+    "source": {
+      "document": "Long Beach Resort – hồ sơ thiết kế cơ sở (01/08/2025)",
+      "slug": "long-beach-resort-thiet-ke-co-so",
+      "page": 10
+    }
+  },
+  {
+    "src": "/media/hospitality/long-beach-mat-dung.webp",
+    "width": 2000,
+    "height": 1414,
+    "bytes": 288838,
+    "alt": {
+      "vi": "Mặt đứng trục 12–1 và 1–12 của công trình Long Beach Resort",
+      "en": "Long Beach Resort elevations on axes 12-1 and 1-12",
+      "de": "Ansichten der Achsen 12-1 und 1-12 des Long Beach Resort"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "long-beach"
+    ],
+    "source": {
+      "document": "Long Beach Resort – hồ sơ thiết kế cơ sở (01/08/2025)",
+      "slug": "long-beach-resort-thiet-ke-co-so",
+      "page": 24
+    }
+  },
+  {
+    "src": "/media/hospitality/long-beach-vi-tri.webp",
+    "width": 1800,
+    "height": 1273,
+    "bytes": 125716,
+    "alt": {
+      "vi": "Mặt bằng vị trí khu đất Long Beach Resort trên đường Trương Pháp",
+      "en": "Long Beach Resort site location plan on Truong Phap road",
+      "de": "Lageplan des Grundstücks Long Beach Resort an der Truong-Phap-Straße"
+    },
+    "tags": [
+      "hospitality",
+      "plan",
+      "long-beach"
+    ],
+    "source": {
+      "document": "Long Beach Resort – hồ sơ thiết kế cơ sở (01/08/2025)",
+      "slug": "long-beach-resort-thiet-ke-co-so",
+      "page": 5
+    }
+  }
+]

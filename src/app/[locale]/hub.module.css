@@ -1,0 +1,115 @@
+/*
+ * The gateway is the one page that ignores the site's light/dark switch: it is
+ * a lit stage over photography, and it stays dark in both themes so the mark
+ * and the ridges read the same way for everyone.
+ */
+.hub {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: #070b10;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* The bar, the stage and the footer all sit above the backdrop. */
+.main {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(0.8rem, 2vh, 1.5rem);
+  padding: clamp(0.5rem, 2vh, 1.6rem) var(--s-4) clamp(4rem, 11vh, 6.5rem);
+  text-align: center;
+}
+
+.intro {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 3.8vw, 2.7rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #fff;
+  max-width: 18ch;
+}
+
+.lead {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 46ch;
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  width: min(1360px, 100%);
+  margin-inline: auto;
+  padding: var(--s-4) var(--s-5);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.footer p {
+  margin: 0;
+  max-width: none;
+}
+
+.footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/*
+ * Legibility without dimming the picture: a tight dark shadow for edge contrast
+ * plus a wide soft one that acts as a local scrim only where the glyphs are.
+ */
+.main :is(.eyebrow, .title, .lead) {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.85),
+    0 2px 10px rgba(0, 0, 0, 0.7),
+    0 6px 34px rgba(0, 0, 0, 0.55);
+}
+
+.footer {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}

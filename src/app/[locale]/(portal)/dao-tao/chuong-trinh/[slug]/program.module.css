@@ -1,0 +1,140 @@
+.head {
+  margin-block: var(--s-5) var(--s-7);
+  max-width: 40ch;
+}
+
+.headTags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+
+.code {
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-soft);
+}
+
+.head h1 {
+  margin: 0;
+  font-size: var(--step-4);
+}
+
+.headSchool {
+  margin: var(--s-3) 0 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: none;
+}
+
+.headSchool a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.headSchool a:hover {
+  text-decoration: underline;
+}
+
+.overview {
+  font-size: var(--step-1);
+  line-height: 1.65;
+  margin-bottom: var(--s-3);
+}
+
+.bullets {
+  margin: 0;
+  padding-inline-start: 1.15rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.bullets li::marker {
+  color: var(--gold-deep);
+}
+
+.modules {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: module;
+  display: grid;
+  gap: var(--s-3);
+}
+
+.modules li {
+  counter-increment: module;
+  display: grid;
+  gap: 0.2rem;
+  padding: var(--s-4) var(--s-4) var(--s-4) var(--s-7);
+  position: relative;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+}
+
+.modules li::before {
+  content: counter(module, decimal-leading-zero);
+  position: absolute;
+  left: var(--s-4);
+  top: var(--s-4);
+  font-family: var(--font-display);
+  color: var(--gold-deep);
+}
+
+.modules span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.faqs {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.faqs details {
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--paper-raised);
+}
+
+.faqs summary {
+  padding: var(--s-4);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.faqs summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqs summary::after {
+  content: "+";
+  flex: none;
+  font-size: 1.15rem;
+  color: var(--gold-deep);
+}
+
+.faqs details[open] summary::after {
+  content: "–";
+}
+
+.faqs p {
+  margin: 0;
+  padding: 0 var(--s-4) var(--s-4);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: none;
+}
+
+.notice {
+  margin-top: var(--s-7);
+}

@@ -1,0 +1,166 @@
+.board {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: field;
+}
+
+.board > li {
+  min-width: 0;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto minmax(2rem, 1fr) auto;
+  align-items: baseline;
+  gap: 0.9rem;
+  padding: clamp(0.9rem, 1.6vw, 1.35rem) 0 calc(clamp(0.9rem, 1.6vw, 1.35rem) + 5px);
+  text-decoration: none;
+  color: inherit;
+  border-top: 1px solid var(--line);
+}
+
+.board > li:last-child .row {
+  border-bottom: 1px solid var(--line);
+}
+
+.index {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--muted-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: clamp(1.06rem, 2vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+  transition: color var(--dur-1) var(--ease);
+}
+
+/* The leader is drawn, not typed: a row of dots as a repeating gradient keeps
+   the spacing even at every width and never wraps. */
+.leader {
+  align-self: center;
+  height: 1px;
+  background-image: radial-gradient(circle, var(--line) 1px, transparent 1px);
+  background-size: 7px 1px;
+  background-repeat: repeat-x;
+  background-position: 0 50%;
+}
+
+.figure {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.4vw, 1.8rem);
+  font-weight: 600;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.figure em {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+/*
+ * The scale bar. Its width is the field's share of the largest field, so the
+ * board doubles as a chart; it grows on hover so the row acknowledges the
+ * pointer without moving any text.
+ */
+.bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: var(--share, 0%);
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  opacity: 0.5;
+  transform-origin: 0 50%;
+  transition:
+    opacity var(--dur-2) var(--ease),
+    height var(--dur-2) var(--ease);
+}
+
+.row:hover .bar,
+.row:focus-visible .bar {
+  opacity: 1;
+  height: 5px;
+}
+
+.row:hover .name,
+.row:focus-visible .name {
+  color: var(--accent);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 620px) {
+  .row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .leader {
+    display: none;
+  }
+}
+
+/*
+ * On the red band the board keeps its structure and swaps its palette: rules
+ * and leaders lighten, the figure goes to gold, and the scale bar runs in the
+ * two brand colours against the red.
+ */
+.onDark .row {
+  border-top-color: rgba(255, 255, 255, 0.22);
+}
+
+.onDark > li:last-child .row {
+  border-bottom-color: rgba(255, 255, 255, 0.22);
+}
+
+.onDark .index {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.onDark .name {
+  color: #fff;
+}
+
+.onDark .leader {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+}
+
+.onDark .figure {
+  color: var(--gold);
+}
+
+.onDark .figure em {
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.onDark .bar {
+  background: linear-gradient(90deg, #ffffff, var(--gold));
+}
+
+.onDark .row:hover .name,
+.onDark .row:focus-visible .name {
+  color: var(--gold);
+}
+
+.onDark .row:focus-visible {
+  outline-color: var(--gold);
+}

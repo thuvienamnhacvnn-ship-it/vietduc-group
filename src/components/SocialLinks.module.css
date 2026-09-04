@@ -1,0 +1,52 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link {
+  display: grid;
+  place-items: center;
+  color: inherit;
+  border-radius: var(--r-pill);
+  transition:
+    color var(--dur-1) var(--ease),
+    background-color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease);
+}
+
+.icon {
+  display: block;
+}
+
+.sm .link {
+  width: 30px;
+  height: 30px;
+}
+.sm .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.md .link {
+  width: 40px;
+  height: 40px;
+}
+.md .icon {
+  width: 19px;
+  height: 19px;
+}
+
+.boxed .link {
+  border: 1px solid var(--line);
+  background: transparent;
+}
+
+.link:hover {
+  color: var(--accent);
+  border-color: currentColor;
+}

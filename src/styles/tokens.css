@@ -1,0 +1,261 @@
+/*
+ * VIET DUC GROUP - design tokens
+ * Modern European Academic + Editorial Corporate + Warm Premium.
+ *
+ * Brand colours are drawn from the group logo (a red/gold flame formed from the
+ * Vietnamese and German flags). Burgundy and gold are ACCENTS ONLY - the page
+ * ground is warm paper, the structural colour is navy/charcoal.
+ *
+ * THEMES
+ * ------
+ * The light palette lives on `:root`. The dark palette is declared once and
+ * applied from two places:
+ *
+ *   [data-theme="dark"]                          - the reader chose dark
+ *   :root:not([data-theme]) @media dark          - the reader chose nothing and
+ *                                                  their system prefers dark
+ *
+ * `data-theme` is written before first paint by the inline script in
+ * app/layout.tsx, so there is never a flash of the wrong theme.
+ *
+ * Three roles are kept deliberately separate, because they behave differently
+ * when the theme flips:
+ *
+ *   --band    large dark surfaces (footer, the navy section, the top bar).
+ *             Darker than the page in dark mode so the band still reads.
+ *   --navy    control surfaces (buttons, pills, the advisor launcher).
+ *             LIGHTER in dark mode so a button still looks raised.
+ *   --on-gold text that sits on a gold fill. Constant in both themes, because
+ *             the gold underneath it never changes.
+ */
+
+:root {
+  /* The navigation rail: the collapsed width the page always leaves clear, and
+     the width it grows to over the content when it is hovered or focused. */
+  --rail-w: 68px;
+  --rail-open: 244px;
+  /* The two bars a phone gets instead of the rail. */
+  --topbar-h: 54px;
+  --bottombar-h: 58px;
+
+  color-scheme: light;
+
+  /* ---- brand ---------------------------------------------------------- */
+  --paper: #f7f5f0;
+  --paper-raised: #fffdf9;
+  --beige: #eae4d9;
+  --beige-deep: #ddd4c5;
+  --ink: #202326;
+  --navy: #101d2b;
+  --navy-soft: #1c2f45;
+  --band: #101d2b;
+  --on-gold: #101d2b;
+  --burgundy: #8e1f2d;
+  --burgundy-deep: #6d1622;
+  /* Paired with --danger for error surfaces. The branded 'selected' chips use
+     --accent-tint instead, because the accent colour itself changes in dark. */
+  --burgundy-tint: #f4e6e7;
+  --accent-tint: #f4e6e7;
+  --gold: #c49145;
+  /* Darkened from #a2742f: at 11-12px it only reached 3.8:1 on paper, below
+     the 4.5:1 AA floor for small text. Now 5.6:1 on paper, 4.8:1 on beige. */
+  --gold-deep: #845a23;
+  --gold-tint: #f5ecdd;
+
+  /* ---- neutrals ------------------------------------------------------- */
+  --muted: #5f6469;
+  /* Darkened from #878c92 (3.1:1) for the same reason; now 4.6:1 on paper. */
+  --muted-soft: #6b7076;
+  --line: #ded7ca;
+  --line-strong: #c8bfae;
+  --line-dark: rgba(255, 255, 255, 0.14);
+  --tint-neutral: rgba(16, 29, 43, 0.08);
+
+  /* ---- semantic ------------------------------------------------------- */
+  --bg: var(--paper);
+  --bg-alt: var(--beige);
+  --surface: var(--paper-raised);
+  --text: var(--ink);
+  --text-muted: var(--muted);
+  --accent: var(--burgundy);
+  --accent-2: var(--gold);
+  --focus: #1c5fb8;
+  --ok: #2f6d4f;
+  --warn: #9a6b13;
+  --danger: #a32424;
+
+  /* Translucent sticky header. Must be a token: it is the page ground with
+     transparency, and the page ground changes with the theme. */
+  --header-bg: rgba(247, 245, 240, 0.92);
+
+  /* Select arrows are background images, so they cannot inherit currentColor.
+     One variant per theme keeps them legible. */
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235f6469' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+  /* ---- type ----------------------------------------------------------- */
+  --font-display: var(--font-serif), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: var(--font-sans), "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --step--1: clamp(0.82rem, 0.79rem + 0.14vw, 0.9rem);
+  --step-0: clamp(0.98rem, 0.94rem + 0.2vw, 1.08rem);
+  --step-1: clamp(1.16rem, 1.08rem + 0.36vw, 1.4rem);
+  --step-2: clamp(1.4rem, 1.24rem + 0.72vw, 1.9rem);
+  --step-3: clamp(1.72rem, 1.42rem + 1.32vw, 2.6rem);
+  --step-4: clamp(2.1rem, 1.58rem + 2.3vw, 3.6rem);
+  --step-5: clamp(2.5rem, 1.6rem + 3.9vw, 5rem);
+
+  --leading-tight: 1.08;
+  --leading-snug: 1.28;
+  --leading-body: 1.65;
+
+  /* ---- space ---------------------------------------------------------- */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.5rem;
+  --s-6: 2rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 6rem;
+  --section-y: clamp(3.5rem, 2rem + 6vw, 7.5rem);
+  --gutter: clamp(1.15rem, 0.6rem + 2.4vw, 3.5rem);
+  --measure: 68ch;
+  --shell: 1360px;
+  --shell-narrow: 940px;
+
+  /* ---- shape ---------------------------------------------------------- */
+  --r-1: 2px;
+  --r-2: 4px;
+  --r-3: 8px;
+  --r-4: 14px;
+  --r-pill: 999px;
+
+  --shadow-1: 0 1px 2px rgba(32, 35, 38, 0.05), 0 2px 8px rgba(32, 35, 38, 0.04);
+  --shadow-2: 0 2px 6px rgba(32, 35, 38, 0.06), 0 12px 32px rgba(32, 35, 38, 0.08);
+  --shadow-3: 0 8px 20px rgba(16, 29, 43, 0.1), 0 28px 60px rgba(16, 29, 43, 0.14);
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-1: 180ms;
+  --dur-2: 320ms;
+  --dur-3: 620ms;
+
+  --header-h: 72px;
+}
+
+/*
+ * Dark palette. Applied twice - once for the reader's explicit choice and once
+ * for an unset preference on a system that asks for dark. Every value was
+ * checked against WCAG AA at the size it is actually used.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --paper: #0f151c;
+    --paper-raised: #18202a;
+    --beige: #141c25;
+    --beige-deep: #1d2530;
+    --ink: #eae7e1;
+
+    /* Controls lift; bands recede. */
+    --navy: #22314a;
+    --navy-soft: #2b3d5c;
+    --band: #0a0f15;
+
+    --burgundy: #b02b3c;
+    --burgundy-deep: #93222f;
+    --burgundy-tint: rgba(200, 57, 75, 0.18);
+    --gold: #d2a259;
+    --gold-deep: #d7ab63;
+    --gold-tint: rgba(196, 145, 69, 0.14);
+
+    --muted: #a9b2bd;
+    --muted-soft: #8b95a1;
+    --line: rgba(255, 255, 255, 0.11);
+    --line-strong: rgba(255, 255, 255, 0.26);
+    --tint-neutral: rgba(255, 255, 255, 0.09);
+
+    /* Burgundy reads well as a fill under white text, but as TEXT on a dark
+       ground it only reaches 2.6:1. The dark palette therefore promotes gold to
+       the text accent - the same thing the navy bands already do in light mode. */
+    --accent: var(--gold);
+    --accent-tint: rgba(210, 162, 89, 0.16);
+
+    --focus: #7fb2f0;
+    --ok: #6fc79a;
+    --warn: #e0b45f;
+    --danger: #f08a8a;
+
+    --header-bg: rgba(15, 21, 28, 0.88);
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a9b2bd' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+    /* Shadows do almost nothing on a dark ground; depth comes from the border
+       and the surface step instead. */
+    --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-2: 0 2px 8px rgba(0, 0, 0, 0.45);
+    --shadow-3: 0 10px 30px rgba(0, 0, 0, 0.55);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper: #0f151c;
+  --paper-raised: #18202a;
+  --beige: #141c25;
+  --beige-deep: #1d2530;
+  --ink: #eae7e1;
+
+  --navy: #22314a;
+  --navy-soft: #2b3d5c;
+  --band: #0a0f15;
+
+  --burgundy: #b02b3c;
+  --burgundy-deep: #93222f;
+  --burgundy-tint: rgba(200, 57, 75, 0.18);
+  --gold: #d2a259;
+  --gold-deep: #d7ab63;
+  --gold-tint: rgba(196, 145, 69, 0.14);
+
+  --muted: #a9b2bd;
+  --muted-soft: #8b95a1;
+  --line: rgba(255, 255, 255, 0.11);
+  --line-strong: rgba(255, 255, 255, 0.26);
+  --tint-neutral: rgba(255, 255, 255, 0.09);
+
+  --accent: var(--gold);
+  --accent-tint: rgba(210, 162, 89, 0.16);
+
+  --focus: #7fb2f0;
+  --ok: #6fc79a;
+  --warn: #e0b45f;
+  --danger: #f08a8a;
+
+  --header-bg: rgba(15, 21, 28, 0.88);
+  --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a9b2bd' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 2px 8px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 10px 30px rgba(0, 0, 0, 0.55);
+}
+
+/*
+ * Dark surfaces used deliberately inside a light page (the navy section, the
+ * footer, the admin sidebar) rather than as a whole-site theme. `.on-dark`
+ * re-points the semantic tokens so the same components work inside them - and
+ * it behaves identically once the whole page is dark.
+ */
+.on-dark {
+  --bg: var(--band);
+  --bg-alt: var(--navy-soft);
+  --surface: rgba(255, 255, 255, 0.04);
+  --text: #f2efe9;
+  --text-muted: #a9b3bf;
+  --line: var(--line-dark);
+  --line-strong: rgba(255, 255, 255, 0.24);
+  --accent: var(--gold);
+  --accent-tint: rgba(210, 162, 89, 0.16);
+  --focus: #8fbaf5;
+  color: var(--text);
+}

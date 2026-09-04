@@ -1,0 +1,97 @@
+.ledger {
+  display: grid;
+  margin: 0;
+}
+
+.row {
+  position: relative;
+  display: grid;
+  gap: 0.5rem var(--s-6);
+  padding: clamp(1.4rem, 2.6vw, 2.2rem) 0;
+  min-width: 0;
+}
+
+/*
+ * Three columns from tablet up: the claim, the sentence that qualifies it, and
+ * the evidence pinned to the right margin where a ledger keeps its figures.
+ */
+@media (min-width: 860px) {
+  .row {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(180px, 0.55fr);
+    align-items: start;
+  }
+}
+
+.rule {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--line) 22%, var(--line) 100%);
+}
+
+.row dt {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.no {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.claim {
+  font-family: var(--font-display);
+  font-size: clamp(1.14rem, 2.1vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.24;
+  color: var(--ink);
+}
+
+.body {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--muted);
+  min-width: 0;
+}
+
+/*
+ * The evidence column is deliberately quiet in colour and loud in structure:
+ * a small label above a value that keeps its own baseline grid, so a reader
+ * scanning only this column still gets the argument.
+ */
+.evidence {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding-top: 0.2rem;
+  min-width: 0;
+}
+
+@media (min-width: 860px) {
+  .evidence {
+    border-left: 1px solid var(--line);
+    padding-left: var(--s-5);
+  }
+}
+
+.evidenceLabel {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.evidenceValue {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,90 @@
+/* Grid and flex items take their automatic minimum size from content, and an
+   <input> carries an intrinsic width of about 20 characters. Left alone that
+   made this form wider than its footer column and spilled off the page. */
+.form {
+  display: grid;
+  gap: var(--s-3);
+  min-width: 0;
+}
+
+.row {
+  display: flex;
+  gap: var(--s-2);
+  min-width: 0;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.68rem 0.85rem;
+  font-size: 0.9rem;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--r-3);
+}
+
+.input::placeholder {
+  color: #8d97a4;
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.button {
+  flex: none;
+  padding: 0.68rem 1.05rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--on-gold);
+  background: var(--gold);
+  border: 0;
+  border-radius: var(--r-3);
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.button:hover:not(:disabled) {
+  background: #d9a75c;
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.consent {
+  display: flex;
+  min-width: 0;
+  gap: var(--s-2);
+  align-items: flex-start;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #9fa9b6;
+  cursor: pointer;
+}
+
+.consent input {
+  margin-top: 3px;
+  accent-color: var(--gold);
+  flex: none;
+}
+
+.done {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.87rem;
+  color: #d7e6dc;
+  background: rgba(47, 109, 79, 0.22);
+  border: 1px solid rgba(120, 190, 150, 0.3);
+  border-radius: var(--r-3);
+  max-width: none;
+}
+
+.error {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #f0b4b4;
+  max-width: none;
+}

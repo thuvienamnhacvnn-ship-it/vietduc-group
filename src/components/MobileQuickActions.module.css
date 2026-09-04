@@ -1,0 +1,53 @@
+.bar {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 92;
+  display: none;
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  box-shadow: 0 -2px 18px rgba(32, 35, 38, 0.07);
+}
+
+@media (max-width: 780px) {
+  .bar {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+  }
+}
+
+.action,
+.primary {
+  display: grid;
+  justify-items: center;
+  gap: 3px;
+  padding: 0.55rem 0.3rem 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.action {
+  color: var(--ink);
+}
+
+.action:active {
+  background: var(--beige);
+}
+
+.primary {
+  color: var(--accent);
+}
+
+.zaloMark {
+  display: grid;
+  place-items: center;
+  height: 19px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}

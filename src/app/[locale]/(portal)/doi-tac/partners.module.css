@@ -1,0 +1,54 @@
+.group + .group {
+  margin-top: var(--s-7);
+}
+
+.groupTitle {
+  margin: 0 0 var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 2px solid var(--gold);
+  font-size: var(--step-2);
+}
+
+.list {
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  overflow: hidden;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+}
+
+.list li {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+  padding: var(--s-4);
+  background: var(--paper-raised);
+}
+
+.name {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.country {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.note {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.source {
+  margin-top: var(--s-6);
+}

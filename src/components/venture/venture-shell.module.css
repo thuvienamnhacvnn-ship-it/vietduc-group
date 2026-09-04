@@ -1,0 +1,63 @@
+/*
+ * The investment arm's own skin.
+ *
+ * The education side is a warm paper document: serif headings, ruled sections,
+ * cards in rows. This side is the opposite on purpose - it is sold by
+ * photography, so the palette is stone and clay taken from the renderings, type
+ * is wide-tracked and quiet, and pictures run to the edge of the page.
+ *
+ * The palette is declared on a scope class rather than on :root, so it applies
+ * to this subtree only and cannot leak into the education pages. The names
+ * shadow nothing: every token here is prefixed.
+ */
+.scope {
+  --v-ink: #191510;
+  --v-ink-soft: #4b4237;
+  --v-paper: #f6f2ea;
+  --v-raised: #ffffff;
+  --v-sand: #ebe3d6;
+  --v-line: #ddd2c0;
+  --v-clay: #a4693a;
+  --v-gold: #b98a3f;
+  --v-deep: #14110d;
+
+  background: var(--v-paper);
+  color: var(--v-ink);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * Dark mode mirrors the site-wide switch: the reader's explicit choice wins in
+ * both directions, and with no choice the system preference decides.
+ */
+@media (prefers-color-scheme: dark) {
+  :global(:root:not([data-theme="light"])) .scope {
+    --v-ink: #ece5da;
+    --v-ink-soft: #a99e8e;
+    --v-paper: #14110d;
+    --v-raised: #1e1a15;
+    --v-sand: #221d17;
+    --v-line: #352e25;
+    --v-clay: #c98750;
+    --v-gold: #d2a259;
+    --v-deep: #0c0a07;
+  }
+}
+
+:global(:root[data-theme="dark"]) .scope {
+  --v-ink: #ece5da;
+  --v-ink-soft: #a99e8e;
+  --v-paper: #14110d;
+  --v-raised: #1e1a15;
+  --v-sand: #221d17;
+  --v-line: #352e25;
+  --v-clay: #c98750;
+  --v-gold: #d2a259;
+  --v-deep: #0c0a07;
+}
+
+.body {
+  flex: 1;
+}

@@ -1,0 +1,36 @@
+.button {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.button:hover {
+  border-color: var(--line-strong);
+  color: var(--accent);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+}
+
+/* The icon swaps when the mode changes; a short fade makes that legible
+   without drawing attention to itself. */
+.icon svg {
+  animation: iconIn var(--dur-1) var(--ease);
+}
+
+@keyframes iconIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}

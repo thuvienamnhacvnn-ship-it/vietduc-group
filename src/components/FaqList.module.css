@@ -1,0 +1,141 @@
+.controls {
+  display: grid;
+  gap: var(--s-4);
+  margin-bottom: var(--s-6);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  max-width: 420px;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--paper-raised);
+  color: var(--muted-soft);
+}
+
+.search:focus-within {
+  border-color: var(--line-strong);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  font-size: 0.92rem;
+  color: var(--ink);
+}
+
+.search input:focus {
+  outline: none;
+}
+
+.search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.topic,
+.topicOn {
+  padding: 0.38rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--muted);
+  transition:
+    color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease),
+    background-color var(--dur-1) var(--ease);
+}
+
+.topic:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.topicOn {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+.list {
+  display: grid;
+  gap: var(--s-2);
+  max-width: 78ch;
+}
+
+.item {
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--paper-raised);
+  transition: border-color var(--dur-1) var(--ease);
+}
+
+.item[open] {
+  border-color: var(--line-strong);
+}
+
+.item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-5);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  cursor: pointer;
+  list-style: none;
+}
+
+.item summary::-webkit-details-marker {
+  display: none;
+}
+
+.item summary::after {
+  content: "";
+  flex: none;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--gold-deep);
+  border-bottom: 2px solid var(--gold-deep);
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform var(--dur-1) var(--ease);
+}
+
+.item[open] summary::after {
+  transform: rotate(-135deg) translate(-2px, -2px);
+}
+
+.answer {
+  padding: 0 var(--s-5) var(--s-5);
+}
+
+.answer p {
+  margin: 0;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 68ch;
+}
+
+.source {
+  margin-top: var(--s-3) !important;
+  font-size: 0.76rem;
+  color: var(--muted-soft) !important;
+}
+
+.none {
+  padding: var(--s-7) 0;
+  color: var(--muted);
+  text-align: center;
+}

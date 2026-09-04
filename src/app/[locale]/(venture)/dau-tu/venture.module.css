@@ -1,0 +1,520 @@
+/*
+ * The investment arm's page layout.
+ *
+ * Wider gutters, numbered sections and full-bleed imagery: the education side
+ * reads like a prospectus, this side like a portfolio.
+ */
+
+.shell,
+.section,
+.intro,
+.cta {
+  width: min(1400px, 100%);
+  margin-inline: auto;
+  padding-inline: var(--s-5);
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: min(78svh, 720px);
+  padding: var(--s-8) var(--s-5) var(--s-7);
+  overflow: hidden;
+  isolation: isolate;
+  color: #fff;
+}
+
+.heroImage {
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Edges only, 30%: the top so the rail and the header read over the picture,
+   the foot so the words do. The middle is left alone. */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.16) 12%, transparent 26%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.18) 14%, transparent 34%);
+}
+
+/*
+ * No veil over the photograph: the picture keeps its own light, and the words
+ * on top of it are made legible with a shadow instead of by dimming what is
+ * underneath them.
+ */
+.hero :is(.heroEyebrow, .heroTitle, .heroLead, .heroCaption) {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.62),
+    0 4px 22px rgba(0, 0, 0, 0.5);
+}
+
+.heroText {
+  width: min(1400px, 100%);
+  margin-inline: auto;
+  max-width: 52rem;
+  text-align: center;
+}
+
+.heroEyebrow {
+  margin: 0 0 var(--s-3);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.heroTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+}
+
+.heroLead {
+  margin: var(--s-4) auto 0;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 44rem;
+  /* Arrives last and quietly, after both halves of the title have landed. */
+  animation: fadeUp 1100ms var(--ease) 900ms both;
+}
+
+.heroEyebrow {
+  animation: fadeUp 800ms var(--ease) 200ms both;
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 2px 14px rgba(0, 0, 0, 0.75);
+}
+
+/*
+ * The title lands in two halves: the first from the right, the second from the
+ * left, meeting in the middle. Pointing at the banner sends them back out a
+ * little, and taking the pointer away lets them close again.
+ *
+ * The outer span carries the hover offset and the inner one carries the
+ * entrance, so the two never write to the same property at the same time.
+ */
+.heroTitle {
+  display: grid;
+  justify-items: center;
+}
+
+.lineFromRight,
+.lineFromLeft {
+  display: block;
+  transition: translate 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lineFromRight > span,
+.lineFromLeft > span {
+  display: block;
+}
+
+.lineFromRight > span {
+  animation: flyFromRight 1150ms cubic-bezier(0.22, 1, 0.36, 1) 150ms both;
+}
+
+.lineFromLeft > span {
+  animation: flyFromLeft 1150ms cubic-bezier(0.22, 1, 0.36, 1) 420ms both;
+}
+
+.hero:hover .lineFromRight,
+.hero:focus-within .lineFromRight {
+  translate: clamp(90px, 16vw, 280px) 0;
+}
+
+.hero:hover .lineFromLeft,
+.hero:focus-within .lineFromLeft {
+  translate: clamp(-280px, -16vw, -90px) 0;
+}
+
+/*
+ * Each line enters from off screen: past the right edge for the first, past the
+ * left for the second. The banner clips them on the way in, so nothing ever
+ * widens the page while they travel.
+ */
+@keyframes flyFromRight {
+  from {
+    opacity: 0;
+    translate: 105vw 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes flyFromLeft {
+  from {
+    opacity: 0;
+    translate: -105vw 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lineFromRight > span,
+  .lineFromLeft > span,
+  .heroLead,
+  .heroEyebrow {
+    animation: none;
+  }
+
+  .lineFromRight,
+  .lineFromLeft {
+    transition: none;
+  }
+
+  .hero:hover .lineFromRight,
+  .hero:hover .lineFromLeft {
+    translate: 0 0;
+  }
+}
+
+.heroCaption {
+  position: absolute;
+  right: var(--s-5);
+  bottom: var(--s-4);
+  margin: 0;
+  max-width: 22rem;
+  font-size: 0.7rem;
+  line-height: 1.45;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.78);
+  animation: fadeUp 900ms var(--ease) 1200ms both;
+}
+
+/* ---------- intro ---------- */
+
+.intro {
+  padding-block: clamp(3rem, 7vw, 5.5rem);
+}
+
+/* Centred: it is the page's statement of method, not a column of body copy. */
+.introInner {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 62rem;
+  margin-inline: auto;
+  text-align: center;
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  line-height: 1.75;
+  color: var(--v-ink-soft);
+}
+
+.introInner p {
+  margin: 0;
+  max-width: none;
+}
+
+/* ---------- sections ---------- */
+
+.section {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.sectionHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  margin-bottom: var(--s-6);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid var(--v-line);
+}
+
+.kicker {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--v-clay);
+}
+
+.sectionHead h2 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: clamp(0.86rem, 1.4vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--v-ink);
+}
+
+/* ---------- process ---------- */
+
+.dark {
+  background: var(--v-deep);
+  color: #e7e0d4;
+  width: 100%;
+  max-width: none;
+  padding-inline: 0;
+  margin-block: clamp(2rem, 5vw, 3.5rem);
+}
+
+.dark .sectionHead,
+.dark .steps,
+.dark .partners {
+  width: min(1400px, 100%);
+  margin-inline: auto;
+  padding-inline: var(--s-5);
+}
+
+.dark .sectionHead {
+  border-bottom-color: rgba(255, 255, 255, 0.16);
+}
+
+.dark .sectionHead h2 {
+  color: #fff;
+}
+
+.dark .kicker {
+  color: var(--gold);
+}
+
+.steps {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  min-width: 0;
+}
+
+.stepNo {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--gold);
+}
+
+.steps h3 {
+  margin: var(--s-2) 0 var(--s-2);
+  font-size: 1.06rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.steps p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #b9b0a2;
+  max-width: none;
+}
+
+.partners {
+  margin-top: var(--s-7);
+}
+
+.partners h3 {
+  margin: 0 0 var(--s-4);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.partners ul {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.partners li {
+  display: grid;
+  gap: 4px;
+  padding-top: var(--s-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  min-width: 0;
+}
+
+.partners strong {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.partners em {
+  font-style: normal;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--v-clay);
+}
+
+.partners span {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #b9b0a2;
+}
+
+/* ---------- call to action ---------- */
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  padding-block: clamp(2rem, 5vw, 3.5rem);
+  border-top: 1px solid var(--v-line);
+}
+
+.cta h2 {
+  margin: 0 0 0.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+  font-weight: 600;
+  color: var(--v-ink);
+}
+
+.cta p {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--v-ink-soft);
+  max-width: 44ch;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  background: var(--v-ink);
+  color: var(--v-paper);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background-color var(--dur-1) var(--ease);
+}
+
+.ctaButton:hover {
+  background: var(--v-clay);
+}
+
+/* Where every figure on this page came from, with its date. */
+.sourceLine {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  padding: 0 var(--s-5) var(--s-7);
+}
+
+.sourceLine h2 {
+  margin: 0 0 var(--s-3);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--v-ink-soft);
+}
+
+.sourceLine ul {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--v-ink-soft);
+}
+
+.sourceLine li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.8rem;
+  padding-top: 0.4rem;
+  border-top: 1px solid var(--v-line);
+}
+
+.sourceLine time {
+  color: var(--v-clay);
+  white-space: nowrap;
+}
+
+/* ---- phone ---- */
+
+@media (max-width: 719px) {
+  .hero {
+    min-height: clamp(360px, 62vh, 520px);
+    padding: var(--s-6) var(--s-4) var(--s-7);
+  }
+
+  .heroTitle {
+    font-size: clamp(1.7rem, 8vw, 2.4rem);
+  }
+
+  .heroLead {
+    font-size: 0.95rem;
+  }
+
+  .heroCaption {
+    position: static;
+    max-width: none;
+    margin-top: var(--s-4);
+    text-align: center;
+  }
+
+  /* The split on hover has no meaning on a touch screen and would only push
+     the words off the side of a narrow one. */
+  .hero:hover .lineFromRight,
+  .hero:hover .lineFromLeft,
+  .hero:focus-within .lineFromRight,
+  .hero:focus-within .lineFromLeft {
+    translate: 0 0;
+  }
+
+  .sectionHead {
+    gap: var(--s-3);
+    margin-bottom: var(--s-5);
+  }
+
+  .ctaButton {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.82rem;
+  }
+}

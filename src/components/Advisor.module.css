@@ -1,0 +1,382 @@
+/*
+ * The launcher sits above the mobile action bar rather than on top of it, and
+ * the panel is a bounded column - never a full-screen takeover on desktop, so
+ * the page stays readable while the advisor is open.
+ */
+
+.launcher {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 94;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.72rem 1.15rem;
+  color: #fff;
+  background: var(--navy);
+  border: 0;
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-3);
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition:
+    background-color var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease);
+}
+
+.launcher:hover {
+  background: var(--navy-soft);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 780px) {
+  .launcher {
+    bottom: calc(66px + env(safe-area-inset-bottom, 0px) + 0.6rem);
+    padding: 0.65rem 0.85rem;
+  }
+  .launcherLabel {
+    display: none;
+  }
+}
+
+.panel {
+  position: fixed;
+  z-index: 96;
+  right: var(--gutter);
+  bottom: calc(var(--gutter) + 62px);
+  width: min(400px, calc(100vw - var(--gutter) * 2));
+  max-height: min(640px, calc(100vh - 140px));
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-3);
+  overflow: hidden;
+  animation: advisorIn var(--dur-2) var(--ease);
+}
+
+@keyframes advisorIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (max-width: 780px) {
+  .panel {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 86vh;
+    border-radius: var(--r-4) var(--r-4) 0 0;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-3);
+  padding: var(--s-4) var(--s-4) var(--s-3);
+  background: var(--navy);
+  color: #fff;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.02rem;
+  color: #fff;
+}
+
+.subtitle {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #9fa9b6;
+  max-width: none;
+}
+
+.close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: #cbd3dc;
+  background: rgba(255, 255, 255, 0.08);
+  border: 0;
+  border-radius: var(--r-pill);
+}
+
+.close:hover {
+  color: #fff;
+}
+
+.log {
+  flex: 1;
+  min-height: 180px;
+  overflow-y: auto;
+  padding: var(--s-4);
+  display: grid;
+  align-content: start;
+  gap: var(--s-3);
+  background: var(--paper);
+}
+
+.intro p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+  max-width: none;
+}
+
+.suggestTitle {
+  margin-top: var(--s-4) !important;
+  font-size: 0.72rem !important;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-deep) !important;
+}
+
+.suggestions {
+  margin: var(--s-2) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--s-2);
+}
+
+.suggestions button {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  text-align: start;
+  font-size: 0.86rem;
+  color: var(--ink);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  transition:
+    border-color var(--dur-1) var(--ease),
+    color var(--dur-1) var(--ease);
+}
+
+.suggestions button:hover {
+  border-color: var(--gold);
+  color: var(--accent);
+}
+
+.userMessage,
+.botMessage {
+  max-width: 92%;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--r-4);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.userMessage {
+  justify-self: end;
+  background: var(--navy);
+  color: #eef1f5;
+  border-bottom-right-radius: var(--r-2);
+}
+
+.botMessage {
+  justify-self: start;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-bottom-left-radius: var(--r-2);
+}
+
+.userMessage p,
+.botMessage p {
+  margin: 0;
+  max-width: none;
+}
+
+.userMessage p + p,
+.botMessage p + p {
+  margin-top: 0.5rem;
+}
+
+.pending {
+  color: var(--muted-soft);
+  font-style: italic;
+}
+
+.pending::after {
+  content: "";
+  display: inline-block;
+  width: 0.7em;
+  animation: dots 1.2s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+}
+
+.citations {
+  margin-top: var(--s-3);
+  padding-top: var(--s-2);
+  border-top: 1px dashed var(--line);
+}
+
+.citations p {
+  margin: 0 0 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.citations ol {
+  margin: 0;
+  padding-inline-start: 1.1rem;
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+.citations a {
+  color: var(--accent);
+}
+
+.error {
+  margin: 0;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.83rem;
+  color: var(--danger);
+  background: var(--burgundy-tint);
+  border-radius: var(--r-3);
+  max-width: none;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4);
+  border-top: 1px solid var(--line);
+  background: var(--paper-raised);
+}
+
+.actionPrimary,
+.actionSecondary,
+.actionGhost {
+  padding: 0.42rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.actionPrimary {
+  background: var(--burgundy);
+  color: #fff;
+}
+.actionPrimary:hover {
+  background: var(--burgundy-deep);
+}
+
+.actionSecondary {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+.actionSecondary:hover {
+  border-color: var(--ink);
+}
+
+.actionUrgent {
+  border-color: var(--gold);
+  background: var(--gold-tint);
+  color: var(--gold-deep);
+}
+
+.actionGhost {
+  margin-inline-start: auto;
+  color: var(--muted);
+}
+.actionGhost:hover {
+  color: var(--danger);
+}
+
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--s-2);
+  padding: var(--s-3) var(--s-4) var(--s-4);
+  border-top: 1px solid var(--line);
+  background: var(--paper-raised);
+}
+
+.input {
+  flex: 1;
+  min-height: 42px;
+  max-height: 120px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  resize: none;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--paper);
+}
+
+.send {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  color: #fff;
+  background: var(--navy);
+  border: 0;
+  border-radius: var(--r-3);
+}
+
+.send:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.send:hover:not(:disabled) {
+  background: var(--burgundy);
+}
+
+/*
+ * `hidden` must win over the panel's own `display: flex`; otherwise the
+ * advisor renders open on first paint.
+ */
+.panel[hidden] {
+  display: none;
+}
+
+/*
+ * The launcher sits above the phone navigation bar. It used to clear the old
+ * floating action row; that row is gone and its job moved into the bar, so the
+ * offset follows the bar's height instead.
+ */
+@media (max-width: 999px) {
+  .launcher {
+    bottom: calc(var(--bottombar-h) + env(safe-area-inset-bottom, 0px) + var(--s-3));
+  }
+}

@@ -1,0 +1,510 @@
+[
+  {
+    "path": "/media/hero/group-hq.webp",
+    "width": 1800,
+    "height": 1200,
+    "bytes": 201740,
+    "alt": {
+      "vi": "Toà nhà Việt Đức Group",
+      "en": "The Viet Duc Group building",
+      "de": "Das Gebäude der Viet Duc Group"
+    },
+    "tags": [
+      "hero",
+      "campus"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 2,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/cao-dang-cong-nghe-ngoai-thuong.webp",
+    "width": 1400,
+    "height": 1000,
+    "bytes": 160786,
+    "alt": {
+      "vi": "Khuôn viên Trường Cao đẳng Công nghệ – Ngoại thương",
+      "en": "Campus of Foreign Trade Technology College",
+      "de": "Campus des Foreign Trade Technology College"
+    },
+    "tags": [
+      "school",
+      "campus"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 4,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/trung-cap-cong-nghe-viet-duc.webp",
+    "width": 1400,
+    "height": 1000,
+    "bytes": 145278,
+    "alt": {
+      "vi": "Khuôn viên Trường Trung cấp Công nghệ Việt Đức",
+      "en": "Campus of Viet Duc Vocational School of Technology",
+      "de": "Campus der Viet Duc Berufsfachschule für Technik"
+    },
+    "tags": [
+      "school",
+      "campus"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 8,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/trung-cap-nghe-quoc-te-ivs.webp",
+    "width": 1400,
+    "height": 1000,
+    "bytes": 92766,
+    "alt": {
+      "vi": "Khuôn viên Trường Trung cấp nghề Quốc tế (IVS)",
+      "en": "Campus of the International Vocational School (IVS)",
+      "de": "Campus der International Vocational School (IVS)"
+    },
+    "tags": [
+      "school",
+      "campus"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 10,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/trung-cap-bach-khoa-vung-tau.webp",
+    "width": 1400,
+    "height": 1000,
+    "bytes": 112922,
+    "alt": {
+      "vi": "Khuôn viên Trường Trung cấp Bách khoa Vũng Tàu",
+      "en": "Campus of Bach Khoa Vung Tau Vocational School",
+      "de": "Campus der Bach Khoa Vung Tau Berufsfachschule"
+    },
+    "tags": [
+      "school",
+      "campus"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 14,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/trung-cap-viet-han.webp",
+    "width": 1400,
+    "height": 1000,
+    "bytes": 138236,
+    "alt": {
+      "vi": "Khuôn viên Trường Trung cấp Việt Hàn",
+      "en": "Campus of Viet Han Vocational School",
+      "de": "Campus der Viet Han Berufsfachschule"
+    },
+    "tags": [
+      "school",
+      "campus"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 18,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/itw-berlin.webp",
+    "width": 1400,
+    "height": 1000,
+    "bytes": 67494,
+    "alt": {
+      "vi": "Trụ sở itw Berlin, CHLB Đức",
+      "en": "The itw Berlin premises, Germany",
+      "de": "Das Gebäude des itw Berlin, Deutschland"
+    },
+    "tags": [
+      "school",
+      "campus",
+      "germany"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 21,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/le-ky-ket-sungwoo.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 78036,
+    "alt": {
+      "vi": "Lễ ký kết hợp tác giữa Trường Cao đẳng Công nghệ – Ngoại thương và Công ty TNHH Sungwoo",
+      "en": "Cooperation signing between Foreign Trade Technology College and Sungwoo Co., Ltd",
+      "de": "Kooperationsunterzeichnung zwischen dem Foreign Trade Technology College und Sungwoo Co., Ltd"
+    },
+    "tags": [
+      "activity",
+      "partnership"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 22,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/le-ky-ket-mou-acts.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 73362,
+    "alt": {
+      "vi": "Lễ ký kết MOU giữa Trường Trung cấp nghề Quốc tế Ninh Bình và ACTS University (Hàn Quốc)",
+      "en": "MOU signing between the International Vocational School, Ninh Binh and ACTS University, South Korea",
+      "de": "MOU-Unterzeichnung zwischen der International Vocational School Ninh Binh und der ACTS University, Südkorea"
+    },
+    "tags": [
+      "activity",
+      "partnership",
+      "international"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 22,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/le-khai-giang.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 104410,
+    "alt": {
+      "vi": "Lễ khai giảng lớp đào tạo phối hợp giữa Học viện Tư pháp và Trường Cao đẳng Công nghệ – Ngoại thương",
+      "en": "Opening ceremony of a joint course run with the Judicial Academy and Foreign Trade Technology College",
+      "de": "Eröffnung eines gemeinsamen Kurses der Justizakademie und des Foreign Trade Technology College"
+    },
+    "tags": [
+      "activity",
+      "ceremony"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 22,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/tu-van-tuyen-sinh.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 164806,
+    "alt": {
+      "vi": "Gian tư vấn tuyển sinh của Trường Cao đẳng Công nghệ – Ngoại thương tại ngày hội hướng nghiệp",
+      "en": "The Foreign Trade Technology College admissions stand at a careers fair",
+      "de": "Der Zulassungsstand des Foreign Trade Technology College auf einer Berufsmesse"
+    },
+    "tags": [
+      "activity",
+      "admissions"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 22,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/hoi-thao-sinh-vien.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 197810,
+    "alt": {
+      "vi": "Lễ bế mạc Hội thao sinh viên năm 2025",
+      "en": "Closing ceremony of the 2025 student sports festival",
+      "de": "Abschlussfeier des Sportfests 2025"
+    },
+    "tags": [
+      "activity",
+      "sports"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 23,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/tai-nang-thanh-lich.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 171620,
+    "alt": {
+      "vi": "Chung kết cuộc thi Học sinh – Sinh viên tài năng thanh lịch",
+      "en": "The final of the student talent and poise contest",
+      "de": "Finale des Talent- und Auftrittswettbewerbs der Lernenden"
+    },
+    "tags": [
+      "activity",
+      "culture"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 23,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/hien-mau-tinh-nguyen.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 91748,
+    "alt": {
+      "vi": "Chương trình hiến máu tình nguyện năm 2025",
+      "en": "The 2025 voluntary blood donation programme",
+      "de": "Die freiwillige Blutspendeaktion 2025"
+    },
+    "tags": [
+      "activity",
+      "volunteer"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 23,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/cam-hoa-nghe-thuat.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 109006,
+    "alt": {
+      "vi": "Trao giải cuộc thi Cắm hoa nghệ thuật chào mừng ngày Phụ nữ Việt Nam",
+      "en": "Prize-giving at the floral art contest marking Vietnamese Women's Day",
+      "de": "Preisverleihung beim Blumenkunst-Wettbewerb zum vietnamesischen Frauentag"
+    },
+    "tags": [
+      "activity",
+      "culture"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 23,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/chap-canh-uoc-mo-xanh.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 188384,
+    "alt": {
+      "vi": "Sinh viên tham gia chương trình tình nguyện Chắp cánh ước mơ xanh",
+      "en": "Students taking part in the Green Dreams volunteering programme",
+      "de": "Lernende beim Freiwilligenprogramm „Grüne Träume\""
+    },
+    "tags": [
+      "activity",
+      "volunteer"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 23,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/activities/tham-quan-bao-tang.webp",
+    "width": 1200,
+    "height": 800,
+    "bytes": 76724,
+    "alt": {
+      "vi": "Sinh viên trong chuyến tham quan bảo tàng",
+      "en": "Students on a museum visit",
+      "de": "Lernende bei einem Museumsbesuch"
+    },
+    "tags": [
+      "activity",
+      "culture"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 23,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/logos/trung-cap-nghe-quoc-te-ivs.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 28560,
+    "alt": {
+      "vi": "Logo Trường Trung cấp nghề Quốc tế (IVS)",
+      "en": "Logo of the International Vocational School (IVS)",
+      "de": "Logo der International Vocational School (IVS)"
+    },
+    "tags": [
+      "logo",
+      "school"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 1,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/logos/trung-cap-bach-khoa-vung-tau.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 10056,
+    "alt": {
+      "vi": "Logo Trường Trung cấp Bách khoa Vũng Tàu",
+      "en": "Logo of Bach Khoa Vung Tau Vocational School",
+      "de": "Logo der Bach Khoa Vung Tau Berufsfachschule"
+    },
+    "tags": [
+      "logo",
+      "school"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 1,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/logos/cao-dang-cong-nghe-ngoai-thuong.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 6084,
+    "alt": {
+      "vi": "Logo Trường Cao đẳng Công nghệ – Ngoại thương",
+      "en": "Logo of Foreign Trade Technology College",
+      "de": "Logo des Foreign Trade Technology College"
+    },
+    "tags": [
+      "logo",
+      "school"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 1,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/logos/trung-cap-cong-nghe-viet-duc.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 22150,
+    "alt": {
+      "vi": "Logo Trường Trung cấp Công nghệ Việt Đức",
+      "en": "Logo of Viet Duc Vocational School of Technology",
+      "de": "Logo der Viet Duc Berufsfachschule für Technik"
+    },
+    "tags": [
+      "logo",
+      "school"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 1,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/logos/itw-berlin.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 4436,
+    "alt": {
+      "vi": "Logo itw Berlin",
+      "en": "Logo of itw Berlin",
+      "de": "Logo des itw Berlin"
+    },
+    "tags": [
+      "logo",
+      "school"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 1,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  },
+  {
+    "path": "/media/schools/logos/trung-cap-viet-han.webp",
+    "width": 320,
+    "height": 320,
+    "bytes": 16240,
+    "alt": {
+      "vi": "Logo Trường Trung cấp Việt Hàn",
+      "en": "Logo of Viet Han Vocational School",
+      "de": "Logo der Viet Han Berufsfachschule"
+    },
+    "tags": [
+      "logo",
+      "school"
+    ],
+    "provenance": {
+      "source": "profile-viet-duc-vi",
+      "sourceTitle": "PROFILE VIỆT ĐỨC GROUP (bản tiếng Việt)",
+      "page": 1,
+      "importedAt": "2026-09-01",
+      "method": "pdf-ocr"
+    }
+  }
+]

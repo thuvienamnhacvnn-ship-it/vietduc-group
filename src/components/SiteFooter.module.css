@@ -1,0 +1,213 @@
+/*
+ * Three even bands: the office, the sitemap, the legal line. Each band owns a
+ * grid of its own, so the columns line up without any element needing a nudge.
+ */
+.footer {
+  margin-top: var(--s-9);
+  background: var(--band);
+  color: #dfe4ea;
+}
+
+/* ------------------------------------------------------------- the office */
+
+.office {
+  display: grid;
+  gap: var(--s-6);
+  padding-block: var(--s-8) var(--s-7);
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .office {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-7);
+    align-items: stretch;
+  }
+}
+
+.office > * {
+  min-width: 0;
+}
+
+.officeText {
+  display: grid;
+  align-content: start;
+  gap: var(--s-4);
+}
+
+.logo {
+  width: auto;
+  height: 48px;
+  justify-self: start;
+  /* The mark is dark-on-transparent; on the band it needs a light backing
+     rather than a filter, which would wash out the flag colours. */
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: var(--r-3);
+}
+
+.motto {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.14rem;
+  color: var(--gold);
+  max-width: 26ch;
+}
+
+.legalName {
+  margin: 0;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: #9fa9b6;
+  max-width: 42ch;
+}
+
+/* Address, phone, email and site as a definition list: the label is small and
+   quiet, the value is the thing being read. */
+.contactList {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+}
+
+@media (min-width: 520px) {
+  .contactList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-4) var(--s-5);
+  }
+}
+
+.contactList > div {
+  min-width: 0;
+}
+
+.contactList dt {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.contactList dd {
+  margin: 3px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: #cfd6de;
+  overflow-wrap: anywhere;
+}
+
+.contactList a {
+  color: #cfd6de;
+  text-decoration: none;
+}
+
+.contactList a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.socialWrap {
+  margin-top: var(--s-2);
+}
+
+/* ----------------------------------------------------------- the sitemap */
+
+.columns {
+  display: grid;
+  gap: var(--s-6) var(--s-5);
+  padding-block: var(--s-7);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
+}
+
+.columns > * {
+  min-width: 0;
+}
+
+.colTitle {
+  margin: 0 0 var(--s-3);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.columns ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.columns a {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #cfd6de;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color var(--dur-1) var(--ease);
+}
+
+.columns a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.newsletterLead {
+  margin: 0 0 var(--s-3);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: #9fa9b6;
+}
+
+.quickLinks {
+  margin-top: var(--s-4) !important;
+  padding-top: var(--s-3) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ------------------------------------------------------------- the legal */
+
+.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottomInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  padding-block: var(--s-4);
+}
+
+.copy {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #8d97a4;
+  max-width: none;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legalLinks a {
+  font-size: 0.8rem;
+  color: #9fa9b6;
+  text-decoration: none;
+}
+
+.legalLinks a:hover {
+  color: #fff;
+  text-decoration: underline;
+}

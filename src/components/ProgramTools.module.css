@@ -1,0 +1,66 @@
+.tools {
+  display: grid;
+  gap: var(--s-2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-2);
+}
+
+.button,
+.buttonOn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.6rem;
+  font-size: 0.83rem;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--paper);
+  color: var(--ink);
+  transition:
+    color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease),
+    background-color var(--dur-1) var(--ease);
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--line-strong);
+  color: var(--accent);
+}
+
+.button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.buttonOn {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-tint);
+}
+
+.qr {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-2);
+  margin: var(--s-2) 0 0;
+  padding: var(--s-4);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+}
+
+.qr[hidden] {
+  display: none;
+}
+
+.qr figcaption {
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-align: center;
+}

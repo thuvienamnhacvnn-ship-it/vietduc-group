@@ -1,0 +1,86 @@
+.wrap {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 95;
+  padding: var(--gutter);
+  pointer-events: none;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  width: min(760px, 100%);
+  margin-inline: auto;
+  padding: var(--s-4) var(--s-5);
+  background: var(--navy);
+  color: #dfe4ea;
+  border-radius: var(--r-4);
+  box-shadow: var(--shadow-3);
+  pointer-events: auto;
+  animation: slideUp var(--dur-3) var(--ease);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.title {
+  margin: 0 0 0.3rem;
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.92rem;
+  max-width: none;
+}
+
+.body {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: #a9b3bf;
+  max-width: none;
+}
+
+.body a {
+  color: var(--gold);
+}
+
+.accept {
+  flex: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.87rem;
+  font-weight: 600;
+  color: var(--on-gold);
+  background: var(--gold);
+  border: 0;
+  border-radius: var(--r-pill);
+}
+
+.accept:hover {
+  background: #d9a75c;
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--s-3);
+  }
+  .accept {
+    width: 100%;
+  }
+  .wrap {
+    bottom: 64px;
+  }
+}
+
+/* Clear of the phone navigation bar rather than sitting on top of it. */
+@media (max-width: 999px) {
+  .wrap {
+    bottom: calc(var(--bottombar-h) + env(safe-area-inset-bottom, 0px));
+  }
+}
