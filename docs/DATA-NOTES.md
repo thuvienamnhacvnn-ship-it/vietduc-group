@@ -288,3 +288,36 @@ Hệ quả phải nhớ:
   rồi chạy `npm run db:push` và `npm run seed`; lúc đó bản chụp không được dùng
   đến.
 - Ép chế độ bằng `VDG_DB_MODE=snapshot` hoặc `VDG_DB_MODE=pglite` khi cần thử.
+
+## 20. Video banner trên điện thoại
+
+Banner của hai landing page trên điện thoại là **video**, không phải ảnh. Hai
+file gốc (`E:\Works\itw\VD\Edu.mp4` và `Hotel.mp4`) là 1440×2528, 20 giây,
+khoảng **38 MB mỗi cái** — nặng gấp hơn mười lần mức dùng được trên mạng di
+động. Bản đưa lên web được nén lại còn 900px, 25 hình/giây, CRF 32, **bỏ hẳn
+tiếng** (banner tự chạy thì bắt buộc phải câm): `vdg-edu.mp4` 2,1 MB và
+`vdg-venture.mp4` 3,4 MB.
+
+Video **không nằm trong mã nguồn**. Chúng đặt trên VPS OVH `57.129.45.199`
+(`ssh ovh-fra`) tại `/opt/vdg-media/`, phát qua:
+
+- `https://itw-berlin.de/vdg-media/vdg-edu.mp4`
+- `https://itw-berlin.de/vdg-media/vdg-venture.mp4`
+
+**Vì sao lại là tên miền itw-berlin.de:** trên máy đó chỉ có duy nhất chứng chỉ
+của `itw-berlin.de`. Trang Việt Đức chạy HTTPS, mà trình duyệt chặn mọi tài
+nguyên HTTP nhúng vào trang HTTPS, nên không thể dùng địa chỉ IP trần. Đây là
+điểm cần đổi khi có tên miền riêng: trỏ một subdomain của Việt Đức về
+`57.129.45.199`, xin chứng chỉ, rồi sửa lại đường dẫn ở `HERO_VIDEO`
+(`src/app/[locale]/(portal)/dao-tao/page.tsx`) và `VENTURE_HERO.mobileVideo`
+(`src/content/venture.ts`).
+
+**Cấu hình nginx dễ mất:** khối `location /vdg-media/` nằm trong file cấu hình
+của itw-berlin, mà mỗi lần deploy itw-berlin lại ghi đè file đó. Đã thêm sẵn
+vào `~/itw-berlin/deploy/nginx-itw-berlin.conf` để lần deploy sau vẫn giữ —
+nhưng thư mục `~/itw-berlin` **không phải một repo git** (nó bị repo thư mục
+home ignore), nên thay đổi ấy chỉ nằm trên ổ đĩa máy này. Nếu banner điện thoại
+đứng hình, kiểm tra khối đó trước tiên.
+
+Trên máy tính banner vẫn là ảnh tĩnh khổ ngang — video chỉ tải ở màn hình rộng
+tối đa 719px, và không tải chút nào khi người dùng bật chế độ giảm chuyển động.

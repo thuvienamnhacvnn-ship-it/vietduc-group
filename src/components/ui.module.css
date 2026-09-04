@@ -387,3 +387,38 @@
     letter-spacing: 0.12em;
   }
 }
+
+/* --------------------------------------------------------------- a phone */
+
+/*
+ * Measure caps are for a wide page. A heading held to 26 characters and a lead
+ * held to 58 inside a 352px column stop short of the right margin while the
+ * block beside them runs the full width, and the section reads as a set of
+ * ragged, unrelated pieces rather than one column.
+ *
+ * On a phone the column is already the measure, so the caps come off and every
+ * block sits between the same two margins. The heading and its lead centre on
+ * that column - a single line of type over a single column of text has no left
+ * edge to hang from.
+ */
+@media (max-width: 719px) {
+  .headingTitle,
+  .headingCenter .headingTitle,
+  .headingLead,
+  .prose {
+    max-width: none;
+  }
+
+  /* The heading is a row on a wide page - title on the left, its link on the
+     right. There is no room for two things side by side here, so it stacks and
+     centres, and the link sits under what it belongs to. */
+  .heading {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .headingLead {
+    margin-inline: auto;
+  }
+}

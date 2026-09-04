@@ -41,6 +41,13 @@ export const VENTURE_HERO = {
   src: "/media/hospitality/bo-trach-exterior.webp",
   /** The upright frame used on a phone, where the wide one crops to a band. */
   mobileSrc: "/media/hero/venture-valley-portrait.webp",
+  /**
+   * The banner film and the frame it opens on. The film lives on the group's
+   * own server rather than in the deployment: it is three megabytes and changes
+   * on its own schedule. See docs/DATA-NOTES.md section 20.
+   */
+  mobileVideo: "https://itw-berlin.de/vdg-media/vdg-venture.mp4",
+  mobilePoster: "/media/hero/vdg-venture-video-poster.webp",
   caption: {
     vi: "Phối cảnh dự án tại Bố Trạch, Quảng Bình – TOAM Studio, 10/2025",
     de: "Visualisierung des Projekts in Bo Trach, Quang Binh – TOAM Studio, 10/2025",

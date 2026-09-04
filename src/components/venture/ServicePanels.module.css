@@ -186,6 +186,22 @@
     grid-template-rows: 1fr;
     opacity: 1;
   }
+
+  /*
+   * The gradient above is built for a panel that shows only its title until it
+   * is pointed at: it is clear for the top third and only goes dark under the
+   * last line. There is no pointer here, so every panel is open from the start
+   * and a whole paragraph plus its bullets sit on the clear part - white text
+   * over pool water and foliage. The scrim covers the whole picture instead.
+   */
+  .wash {
+    background: linear-gradient(
+      180deg,
+      rgba(12, 9, 6, 0.52) 0%,
+      rgba(12, 9, 6, 0.72) 45%,
+      rgba(10, 7, 5, 0.9) 100%
+    );
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

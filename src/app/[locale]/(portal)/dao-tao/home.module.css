@@ -50,6 +50,34 @@
   height: 100%;
 }
 
+/*
+ * The banner film, phone only. It lies over the still, which stays underneath
+ * and shows through until the first frame paints - and stays for good where
+ * autoplay is refused or motion is unwelcome.
+ */
+.heroVideo {
+  display: none;
+}
+
+@media (max-width: 719px) {
+  .heroVideo {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+}
+
+/* A moving banner is exactly what this asks to be spared. */
+@media (prefers-reduced-motion: reduce) {
+  .heroVideo {
+    display: none;
+  }
+}
+
 /* Only the two edges are shaded, and lightly: enough to seat the header above
    and the card below, not enough to dull the picture. */
 /*

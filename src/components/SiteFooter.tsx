@@ -156,7 +156,7 @@ export function SiteFooter({ locale, contact, social, schools, categories }: Pro
           </ul>
         </nav>
 
-        <div>
+        <div className={styles.newsletterCol}>
           <h2 className={styles.colTitle}>{dict.newsletter.title}</h2>
           <p className={styles.newsletterLead}>{dict.newsletter.lead}</p>
           <NewsletterForm locale={locale} />

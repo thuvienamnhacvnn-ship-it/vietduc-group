@@ -17,6 +17,7 @@ import { getSiteSettings } from "@/lib/settings";
 import { ServicePanels } from "@/components/venture/ServicePanels";
 import { ProjectSheets } from "@/components/venture/ProjectSheets";
 import { HeroPicture } from "@/components/HeroPicture";
+import { HeroVideo } from "@/components/HeroVideo";
 import { HeroSocial } from "@/components/HeroSocial";
 import styles from "./venture.module.css";
 
@@ -53,10 +54,16 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
               is upright and keeps the mountains behind the building. */}
           <HeroPicture
             wide={{ src: VENTURE_HERO.src, width: 1672, height: 941 }}
-            tall={{ src: VENTURE_HERO.mobileSrc, width: 941, height: 1672 }}
+            tall={{ src: VENTURE_HERO.mobilePoster, width: 900, height: 1580 }}
             alt=""
             priority
             className={styles.heroImage}
+          />
+          {/* Phone only: the film runs over the still it opens on. */}
+          <HeroVideo
+            src={VENTURE_HERO.mobileVideo}
+            poster={VENTURE_HERO.mobilePoster}
+            className={styles.heroVideo}
           />
         </div>
         <div className={styles.heroText}>

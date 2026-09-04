@@ -1,5 +1,9 @@
 .map {
   position: relative;
+  /* Stated, not inherited: where the footer centres its items this is a grid
+     item that would otherwise shrink to fit, and an <iframe> that shrinks to
+     fit falls back to the browser's own 300x150 default. */
+  width: 100%;
   min-height: clamp(220px, 26vw, 300px);
   border-radius: var(--r-4);
   overflow: hidden;
@@ -21,7 +25,9 @@
 .directions {
   position: absolute;
   left: var(--s-4);
-  bottom: var(--s-4);
+  /* Top, not bottom: the foot of the frame belongs to OpenStreetMap's own
+     attribution line, and the button was sitting on top of it. */
+  top: var(--s-4);
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;

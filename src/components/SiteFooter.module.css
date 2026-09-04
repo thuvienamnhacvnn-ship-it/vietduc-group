@@ -211,3 +211,88 @@
   color: #fff;
   text-decoration: underline;
 }
+
+/* --------------------------------------------------------------- a phone */
+
+/*
+ * On a phone the three bands were one long ragged column: the sitemap dropped
+ * to a single track, so twenty links ran down the screen with their headings
+ * lost among them, and every block hung off the left margin.
+ *
+ * The sitemap becomes two even columns, the newsletter takes the full width it
+ * needs for an input and a button, and everything that is a statement rather
+ * than a list - the office block and the legal line - is centred, so each band
+ * sits square between the two margins instead of trailing off to the right.
+ */
+@media (max-width: 719px) {
+  .office {
+    justify-items: center;
+    text-align: center;
+    padding-block: var(--s-7) var(--s-6);
+  }
+
+  .officeText {
+    justify-items: center;
+  }
+
+  .logo {
+    justify-self: center;
+  }
+
+  .legalName {
+    max-width: 34ch;
+  }
+
+  /* Two even halves rather than two ragged ones: the label sits over its own
+     value and both pairs share a centre line. */
+  .contactList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-4) var(--s-4);
+    width: 100%;
+    text-align: center;
+  }
+
+  .socialWrap {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-5) var(--s-4);
+    padding-block: var(--s-6);
+  }
+
+  /*
+   * Six school names, several of which wrap, are too tall for a half column:
+   * they left the column beside them empty for most of a screen. The list takes
+   * the full width and runs two abreast instead.
+   */
+  .columns > nav:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  .columns > nav:nth-child(3) ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--s-4);
+  }
+
+  /* The sign-up needs the whole width: an email field and a button do not fit
+     in half of a 390px screen. */
+  .newsletterCol {
+    grid-column: 1 / -1;
+    padding-top: var(--s-4);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .bottomInner {
+    justify-content: center;
+    text-align: center;
+    gap: var(--s-2);
+  }
+
+  .legalLinks {
+    justify-content: center;
+    gap: var(--s-2) var(--s-4);
+  }
+}

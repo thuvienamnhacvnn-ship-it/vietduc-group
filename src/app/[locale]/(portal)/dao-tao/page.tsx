@@ -22,9 +22,20 @@ import { ProgramCards } from "@/components/ProgramCards";
 import { RunLine } from "@/components/RunLine";
 import { RiseText } from "@/components/RiseText";
 import { HeroPicture } from "@/components/HeroPicture";
+import { HeroVideo } from "@/components/HeroVideo";
 import { HeroSocial } from "@/components/HeroSocial";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import styles from "./home.module.css";
+
+/**
+ * The banner film and the frame it opens on.
+ *
+ * The film is hosted on the group's own server rather than shipped with the
+ * site: it is two megabytes, it changes on its own schedule, and a deployment
+ * is not the place for it. See docs/DATA-NOTES.md section 20.
+ */
+const HERO_VIDEO = "https://itw-berlin.de/vdg-media/vdg-edu.mp4";
+const HERO_VIDEO_POSTER = "/media/hero/vdg-edu-video-poster.webp";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -182,7 +193,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               the facade a sliver. */}
           <HeroPicture
             wide={{ src: "/media/hero/vdg-banner-16x9.webp", width: 1672, height: 941 }}
-            tall={{ src: "/media/hero/vdg-hq-portrait.webp", width: 992, height: 1586 }}
+            tall={{ src: HERO_VIDEO_POSTER, width: 900, height: 1580 }}
             alt={
               {
                 vi: "Trụ sở Việt Đức Group",
@@ -193,6 +204,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             priority
             className={styles.heroImage}
           />
+          {/* Phone only: the film runs over the still it opens on. */}
+          <HeroVideo src={HERO_VIDEO} poster={HERO_VIDEO_POSTER} className={styles.heroVideo} />
           <span className={styles.heroFade} aria-hidden="true" />
         </div>
 
