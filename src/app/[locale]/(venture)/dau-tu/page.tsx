@@ -56,13 +56,29 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
    * đó là tài liệu kỹ thuật, đưa vào một băng ảnh đang trôi thì vừa không đọc
    * được vừa làm hỏng cả dải. Chúng vẫn nằm đầy đủ ở trang chi tiết từng dự án.
    */
-  const marquee = [
+  const renders = [
     "/media/hospitality/bo-trach-exterior.webp",
     "/media/hospitality/bo-trach-aerial-fields.webp",
     "/media/hospitality/bo-trach-pool-night.webp",
     "/media/hospitality/bo-trach-terrace.webp",
-    ...siteShots,
   ];
+
+  /*
+   * Trộn xen kẽ phối cảnh với ảnh công trường thay vì nối đuôi nhau.
+   *
+   * Mười một ảnh công trường chụp cùng một mỏ đá, nhìn gần như giống hệt nhau;
+   * để liền một dãy thì băng ảnh trôi qua một đoạn dài mà mắt tưởng nó đứng
+   * yên. Xen phối cảnh vào giữa thì cứ vài tấm lại có một tấm đổi hẳn khung
+   * cảnh, và cả dải mới thật sự trôi.
+   */
+  const marquee: string[] = [];
+  const longer = Math.max(renders.length, siteShots.length);
+  const every = Math.ceil(siteShots.length / renders.length);
+  for (let i = 0, r = 0; i < longer * 2; i++) {
+    const site = siteShots[marquee.length - r];
+    if (i % (every + 1) === 0 && r < renders.length) marquee.push(renders[r++]);
+    else if (site) marquee.push(site);
+  }
 
   return (
     <>
