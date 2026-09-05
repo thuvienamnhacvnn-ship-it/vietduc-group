@@ -321,3 +321,58 @@ home ignore), nên thay đổi ấy chỉ nằm trên ổ đĩa máy này. Nếu
 
 Trên máy tính banner vẫn là ảnh tĩnh khổ ngang — video chỉ tải ở màn hình rộng
 tối đa 719px, và không tải chút nào khi người dùng bật chế độ giảm chuyển động.
+
+## 21. Chạy trên VPS thay vì Vercel
+
+Từ 05/09/2026 web chạy trên VPS OVH `57.129.45.199` (`ssh ovh-fra`), cùng máy
+với itw-berlin.de. Lý do: Vercel chậm, và phần lớn cái chậm không nằm ở Vercel
+mà ở chỗ **database Neon đặt tại Ohio** — mỗi trang bắn hàng chục truy vấn, mỗi
+truy vấn vượt Đại Tây Dương một lần.
+
+Nay app và database nằm chung một máy:
+
+- **PostgreSQL 18.6** cài thẳng trên VPS, database `vietducgroup`.
+- Kết nối bằng **socket nội bộ**, không mật khẩu: `postgresql://ubuntu@/vietducgroup?host=/var/run/postgresql`.
+  Postgres chỉ nghe ở `127.0.0.1`, không hở ra mạng.
+- Mã nguồn ở `/opt/vietduc-group`, chạy bằng **pm2** tên `vietduc-group`, cổng
+  **3500**. `pm2 save` đã chạy nên sống lại sau khi reboot.
+- nginx: `deploy/nginx-vietduc-group.conf` → `/etc/nginx/sites-available/vietduc-group`.
+
+Đo từ cùng một máy, cùng lúc (TTFB):
+
+| Trang | VPS | Vercel |
+|---|---|---|
+| `/vi` | 114 ms | 337 ms |
+| `/vi/dao-tao` | 143 ms | 391 ms |
+| `/vi/dao-tao/truong` | 87 ms | 336 ms |
+| `/vi/gioi-thieu` | 92 ms | 313 ms |
+
+Nhanh hơn khoảng ba lần. Cần nói rõ: VPS hiện chạy HTTP trần còn Vercel chạy
+HTTPS, nên một phần nhỏ khoảng cách là do chưa phải bắt tay TLS. Khi có chứng
+chỉ thì TTFB sẽ nhích lên vài chục mili giây, phần chênh còn lại vẫn giữ.
+
+**Chưa có tên miền.** Vhost khai `default_server` nên vào bằng IP trần là ra
+trang này; itw-berlin.de khai server_name rõ ràng nên không bị ảnh hưởng (đã
+kiểm tra: vẫn 200, video `/vdg-media/` vẫn phát). Chưa khai khối 443 vì khai
+443 mà thiếu file chứng chỉ thì nginx không khởi động nổi. Khi tên miền trỏ về:
+
+```
+sudo certbot --nginx -d <ten-mien> -d www.<ten-mien>
+```
+
+**Cách deploy bản mới:**
+
+```
+ssh ovh-fra
+cd /opt/vietduc-group
+git pull
+npm ci
+npm run build
+pm2 restart vietduc-group
+```
+
+Sửa nội dung thì chạy thêm `npm run seed` / `npm run kb:build` ngay trên máy đó
+— bản chụp `db-snapshot.json` chỉ dùng cho môi trường không có database, ở đây
+không đụng tới.
+
+**Vercel vẫn giữ nguyên**, chưa tắt, để còn đối chiếu cho tới khi tên miền về.
