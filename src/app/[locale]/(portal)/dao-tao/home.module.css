@@ -227,7 +227,7 @@
 /* --------------------------------------------------------------- schools */
 
 .schoolsSection {
-  background: linear-gradient(180deg, var(--paper) 0%, var(--beige) 100%);
+  background: var(--beige);
 }
 
 /*
@@ -558,14 +558,28 @@
 }
 
 /* The medallions overhang their cards, so this section needs the room. */
+/* Nền giấy, không phải lớp phủ mờ. Lớp phủ 8% gần như không nhìn ra khác biệt
+   nên mục này trôi lẫn vào mục trên và mục dưới. */
 .fieldsSection {
-  background: var(--tint-neutral, transparent);
+  background: var(--paper);
 }
 
 /* ------------------------------------------------------------------- why */
 
+/*
+ * Dải tối, nhịp mạnh duy nhất giữa trang.
+ *
+ * Dùng var(--band) chứ không phải một lớp phủ đổi theo theme: --band là
+ * #101d2b khi sáng và #0a0f15 khi tối — TỐI ở cả hai theme, nên chữ trắng đặt
+ * lên nó không bao giờ lặp lại lỗi chữ trắng trên nền trắng.
+ *
+ * Chọn đúng mục này vì nội dung của nó là những tấm thẻ có nền riêng: thẻ sáng
+ * nổi trên dải tối thì đẹp, còn mục nào chỉ có chữ và đường kẻ mảnh thì đặt
+ * lên nền tối sẽ mất hết đường kẻ.
+ */
 .whySection {
-  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+  padding-block: clamp(3.5rem, 7vw, 6rem);
+  background: var(--band);
 }
 
 .whyAction {
@@ -667,7 +681,7 @@
 /* Nền chuyển nhẹ để dải ảnh xưởng tách khỏi bảng ngành nghề ngay phía trên,
    mà không cần thêm một đường kẻ nữa. */
 .workshopSection {
-  background: linear-gradient(180deg, var(--beige) 0%, var(--paper) 100%);
+  background: var(--paper);
 }
 
 /* ------------------------------------------------- khối "Về Việt Đức Group" */

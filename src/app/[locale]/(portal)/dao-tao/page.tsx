@@ -459,9 +459,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       {/* Claims are cheap; the column on the right is the point. */}
       <section className={`section ${styles.whySection}`}>
         <div className="shell">
+          {/* tone="dark" ĐÚNG ở đây: nền mục là var(--band), tối ở cả hai
+              theme, khác với mục "Nhóm ngành" trước đây chỉ có lớp phủ mờ. */}
           <SectionHeading
             eyebrow={{ vi: "Lý do", en: "Why", de: "Warum" }[locale]}
             title={dict.home.whyTitle}
+            tone="dark"
           />
 
           <ClaimLedger

@@ -16,10 +16,18 @@
   .ledger {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
-  .row:nth-child(even) {
-    margin-top: clamp(2rem, 5vw, 4rem);
-  }
+/*
+ * Bốn thẻ đều nhau, không so le.
+ *
+ * Trước đây thẻ chẵn bị đẩy xuống 2–4rem cho "sinh động". Nhưng bốn lý do này
+ * ngang hàng nhau, không cái nào quan trọng hơn, nên so le chỉ khiến ảnh trông
+ * như cái to cái nhỏ chứ không tạo ra nhịp gì. Thêm height 100% để thẻ nào chữ
+ * dài hơn cũng không cao hơn thẻ bên cạnh.
+ */
+.row {
+  height: 100%;
 }
 
 .row {
