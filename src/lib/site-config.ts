@@ -1,4 +1,4 @@
-import type { Locale } from "./i18n/config";
+import { pick, type Locale } from "./i18n/config";
 
 /**
  * Shape of the editable site configuration. Values live in the `settings`
@@ -139,8 +139,8 @@ export function telHref(phone: string): string | null {
 
 export function localisedSeo(seo: SeoSettings, locale: Locale) {
   return {
-    title: seo.defaultTitle[locale] ?? seo.defaultTitle.vi,
-    description: seo.defaultDescription[locale] ?? seo.defaultDescription.vi,
+    title: pick(seo.defaultTitle, locale),
+    description: pick(seo.defaultDescription, locale),
   };
 }
 

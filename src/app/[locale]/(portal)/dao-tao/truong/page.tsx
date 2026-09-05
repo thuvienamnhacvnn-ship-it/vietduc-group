@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale, type Locale } from "@/lib/i18n/config";
+import { isLocale, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPrograms, getSchools } from "@/lib/queries";
 import { Breadcrumbs } from "@/components/ui";
@@ -39,11 +39,11 @@ export default async function SchoolsPage({ params }: { params: Promise<{ locale
           <h1>{dict.home.schoolsTitle}</h1>
           <p className={shell.lead}>
             {
-              {
+              pick({
                 vi: "Sáu cơ sở đào tạo, mỗi nơi một thế mạnh ngành nghề và địa bàn. Số ngành hiển thị là số ngành đã đăng ký hoạt động giáo dục nghề nghiệp.",
                 en: "Six institutions, each with its own strengths and location. The programme count shown is the number of registered occupations.",
                 de: "Sechs Einrichtungen mit je eigenen Schwerpunkten und Standorten. Die Zahl nennt die registrierten Berufsprofile.",
-              }[locale]
+              }, locale)
             }
           </p>
         </header>
@@ -58,12 +58,15 @@ export default async function SchoolsPage({ params }: { params: Promise<{ locale
           programCount={(id) => counts.get(id) ?? 0}
           countLabel={(count) =>
             count > 0
-              ? ({
-                  vi: `${count} ngành`,
-                  en: `${count} programmes`,
-                  de: `${count} Programme`,
-                })[locale]
-              : { vi: "Đang cập nhật", en: "Being updated", de: "Wird ergänzt" }[locale]
+              ? pick(
+                  {
+                    vi: `${count} ngành`,
+                    en: `${count} programmes`,
+                    de: `${count} Programme`,
+                  },
+                  locale,
+                )
+              : pick({ vi: "Đang cập nhật", en: "Being updated", de: "Wird ergänzt" }, locale)
           }
         />
       </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, type Locale, pick as pickLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPage, getPartners, getPrograms, getSchools } from "@/lib/queries";
 import { ArrowLink, Breadcrumbs, Prose, SectionHeading, StatRow } from "@/components/ui";
@@ -57,24 +57,25 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   ]);
   if (!page) notFound();
 
-  const pick = (vi: string, en: string, de: string): string => ({ vi, en, de })[locale];
+  /* Ba tham số rời cho gọn chỗ gọi; thiếu ngôn ngữ thì lùi về tiếng Việt. */
+  const say = (vi: string, en: string, de: string): string => pickLocale({ vi, en, de }, locale);
 
   const stats = [
     {
       value: String(schools.length),
-      label: pick("trường thành viên", "member schools", "Mitgliedsschulen"),
+      label: say("trường thành viên", "member schools", "Mitgliedsschulen"),
     },
     {
       value: String(programs.length),
-      label: pick("ngành đã đăng ký", "registered programmes", "registrierte Programme"),
+      label: say("ngành đã đăng ký", "registered programmes", "registrierte Programme"),
     },
     {
       value: String(partners.length),
-      label: pick("doanh nghiệp đối tác", "partner employers", "Partnerunternehmen"),
+      label: say("doanh nghiệp đối tác", "partner employers", "Partnerunternehmen"),
     },
     {
       value: "2",
-      label: pick("quốc gia", "countries", "Länder"),
+      label: say("quốc gia", "countries", "Länder"),
     },
   ];
 
@@ -92,7 +93,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const mosaic = fromKho.length
     ? fromKho.map((src) => ({
         src,
-        alt: pick(
+        alt: say(
           "Ban lãnh đạo Việt Đức Group",
           "The Viet Duc Group leadership",
           "Die Führung der Viet Duc Group",
@@ -101,19 +102,19 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     : [
         {
           src: "/media/education/xuong-thuc-hanh-may.webp",
-          alt: pick("Xưởng thực hành cơ khí", "The machining workshop", "Die Maschinenwerkstatt"),
+          alt: say("Xưởng thực hành cơ khí", "The machining workshop", "Die Maschinenwerkstatt"),
         },
         {
           src: "/media/education/nghiep-vu-le-tan.webp",
-          alt: pick("Thực hành nghiệp vụ lễ tân", "Front-office training", "Rezeptionstraining"),
+          alt: say("Thực hành nghiệp vụ lễ tân", "Front-office training", "Rezeptionstraining"),
         },
         {
           src: "/media/education/gap-doi-tac-chau-au.webp",
-          alt: pick("Làm việc với đối tác châu Âu", "Meeting European partners", "Treffen mit Partnern"),
+          alt: say("Làm việc với đối tác châu Âu", "Meeting European partners", "Treffen mit Partnern"),
         },
         {
           src: "/media/education/tien-hoc-vien-len-duong.webp",
-          alt: pick("Tiễn học viên lên đường", "Seeing students off", "Verabschiedung"),
+          alt: say("Tiễn học viên lên đường", "Seeing students off", "Verabschiedung"),
         },
       ];
 
@@ -122,7 +123,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <div className="shell">
         <PageHead
           crumbs={<Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />}
-          eyebrow={pick("Việt Đức Group", "Viet Duc Group", "Viet Duc Group")}
+          eyebrow={say("Việt Đức Group", "Viet Duc Group", "Viet Duc Group")}
           title={t(page.title, locale)}
           lead={dict.brand.motto}
         />
@@ -132,7 +133,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className={styles.hero}>
         <Image
           src="/media/hero/vdg-banner-16x9.webp"
-          alt={pick(
+          alt={say(
             "Trụ sở Việt Đức Group",
             "The Viet Duc Group headquarters",
             "Der Hauptsitz der Viet Duc Group",
@@ -165,7 +166,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <figure className={styles.asideFigure}>
                 <Image
                   src="/media/education/cong-truong-ky-thuat.webp"
-                  alt={pick(
+                  alt={say(
                     "Giờ thực hành kỹ thuật",
                     "A technical practical",
                     "Technische Übungsstunde",
@@ -177,7 +178,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <figure className={styles.asideFigure}>
                 <Image
                   src="/media/education/trao-thuong-hoc-sinh.webp"
-                  alt={pick("Trao thưởng cho học sinh", "Prize-giving", "Preisverleihung")}
+                  alt={say("Trao thưởng cho học sinh", "Prize-giving", "Preisverleihung")}
                   width={1400}
                   height={1000}
                 />
@@ -193,13 +194,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <section className={`section ${styles.chartSection}`}>
           <div className="shell">
             <SectionHeading
-              eyebrow={pick("Cấu trúc", "Structure", "Struktur")}
-              title={pick(
+              eyebrow={say("Cấu trúc", "Structure", "Struktur")}
+              title={say(
                 "Ba mảng dưới một cái tên",
                 "Three arms under one name",
                 "Drei Bereiche unter einem Namen",
               )}
-              lead={pick(
+              lead={say(
                 "Giáo dục, đầu tư và khách sạn – lữ hành, cùng các trường thành viên.",
                 "Education, investment, and hospitality, with the member schools.",
                 "Bildung, Investition und Hotellerie, mit den Mitgliedsschulen.",
@@ -208,7 +209,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <figure className={styles.chart}>
               <Image
                 src={chart}
-                alt={pick(
+                alt={say(
                   "Sơ đồ cấu trúc Việt Đức Group",
                   "The Viet Duc Group structure",
                   "Struktur der Viet Duc Group",
@@ -226,13 +227,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className={`section ${styles.mosaicSection}`}>
         <div className="shell">
           <SectionHeading
-            eyebrow={pick("Đội ngũ", "Leadership", "Führung")}
-            title={pick(
+            eyebrow={say("Đội ngũ", "Leadership", "Führung")}
+            title={say(
               "Đội ngũ lãnh đạo",
               "The people who run it",
               "Die Führung der Gruppe",
             )}
-            lead={pick(
+            lead={say(
               "Ban lãnh đạo Việt Đức Group tại các lễ kỷ niệm, chuyến công tác và những buổi làm việc với đối tác trong nước và nước ngoài.",
               "The Viet Duc Group leadership at anniversaries, field visits and working sessions with partners at home and abroad.",
               "Die Führung der Viet Duc Group bei Jubiläen, Vor-Ort-Besuchen und Arbeitstreffen mit Partnern.",
@@ -244,7 +245,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             shots={mosaic}
             limit={9}
             moreLabel={(rest) =>
-              pick(
+              say(
                 `Và ${rest} ảnh nữa trong kho tư liệu của tập đoàn.`,
                 `And ${rest} more in the group's archive.`,
                 `Und ${rest} weitere im Archiv der Gruppe.`,
@@ -258,7 +259,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className={`section ${styles.crestSection}`}>
         <div className="shell">
           <SectionHeading
-            eyebrow={pick("Hệ thống", "The network", "Der Verbund")}
+            eyebrow={say("Hệ thống", "The network", "Der Verbund")}
             title={dict.home.schoolsTitle}
           />
           <ul className={styles.crests}>

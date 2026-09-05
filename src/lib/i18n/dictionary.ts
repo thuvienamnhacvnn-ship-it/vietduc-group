@@ -1006,7 +1006,15 @@ const en: Dictionary = {
   },
 };
 
-const DICTIONARIES: Record<Locale, Dictionary> = { vi, de, en };
+/*
+ * Nhật, Hàn và Đài Loan tạm trỏ về bộ tiếng Việt.
+ *
+ * Không phải "đã dịch" — là chỗ giữ sẵn để trang chạy được ở sáu ngôn ngữ ngay
+ * bây giờ trong khi bản dịch điền dần. Nếu để thiếu khoá, cả bản dựng gãy và
+ * không ngôn ngữ nào xem được. Còn lùi về tiếng Việt thì trang vẫn đọc được,
+ * chỉ là chưa dịch — và `npm run i18n` chỉ ra chính xác còn thiếu những gì.
+ */
+const DICTIONARIES: Record<Locale, Dictionary> = { vi, de, en, ja: vi, ko: vi, "zh-TW": vi };
 
 export function getDictionary(locale: Locale): Dictionary {
   return DICTIONARIES[locale] ?? DICTIONARIES.vi;

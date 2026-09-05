@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import {
   getCategories,
@@ -126,7 +126,7 @@ export default async function SchoolPage({
               <Image
                 src={school.coverPath}
                 alt={`${t(school.name, locale)} — ${
-                  { vi: "khuôn viên", en: "campus", de: "Campus" }[locale]
+                  pick({ vi: "khuôn viên", en: "campus", de: "Campus" }, locale)
                 }`}
                 width={1400}
                 height={1000}
@@ -169,7 +169,7 @@ export default async function SchoolPage({
             {highlights.length ? (
               <section className={shell.section}>
                 <h2 className={shell.sectionTitle}>
-                  {{ vi: "Điểm nổi bật", en: "Highlights", de: "Schwerpunkte" }[locale]}
+                  {pick({ vi: "Điểm nổi bật", en: "Highlights", de: "Schwerpunkte" }, locale)}
                 </h2>
                 <ul className={styles.highlights}>
                   {highlights.map((item) => (
@@ -211,16 +211,16 @@ export default async function SchoolPage({
             {school.legalRefs?.length ? (
               <section className={shell.section}>
                 <h2 className={shell.sectionTitle}>
-                  {{ vi: "Hồ sơ pháp lý", en: "Legal record", de: "Rechtliche Grundlage" }[locale]}
+                  {pick({ vi: "Hồ sơ pháp lý", en: "Legal record", de: "Rechtliche Grundlage" }, locale)}
                 </h2>
                 <div className={shell.tableScroll}>
                   <table className={shell.legalTable}>
                     <thead>
                       <tr>
-                        <th scope="col">{{ vi: "Văn bản", en: "Document", de: "Dokument" }[locale]}</th>
-                        <th scope="col">{{ vi: "Số hiệu", en: "Number", de: "Nummer" }[locale]}</th>
-                        <th scope="col">{{ vi: "Ngày", en: "Date", de: "Datum" }[locale]}</th>
-                        <th scope="col">{{ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller" }[locale]}</th>
+                        <th scope="col">{pick({ vi: "Văn bản", en: "Document", de: "Dokument" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Số hiệu", en: "Number", de: "Nummer" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Ngày", en: "Date", de: "Datum" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller" }, locale)}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -274,7 +274,7 @@ export default async function SchoolPage({
               ) : null}
               {school.legalNameEn ? (
                 <div>
-                  <dt>{{ vi: "Tên giao dịch quốc tế", en: "International name", de: "Internationaler Name" }[locale]}</dt>
+                  <dt>{pick({ vi: "Tên giao dịch quốc tế", en: "International name", de: "Internationaler Name" }, locale)}</dt>
                   <dd>{school.legalNameEn}</dd>
                 </div>
               ) : null}
@@ -294,13 +294,13 @@ export default async function SchoolPage({
         <section className={`section ${styles.gallerySection}`}>
           <div className="shell">
             <SectionHeading
-              eyebrow={{ vi: "Hình ảnh", en: "Photographs", de: "Bilder" }[locale]}
+              eyebrow={pick({ vi: "Hình ảnh", en: "Photographs", de: "Bilder" }, locale)}
               title={
-                {
+                pick({
                   vi: `Tại ${schoolName}`,
                   en: `At ${schoolName}`,
                   de: `An der ${schoolName}`,
-                }[locale]
+                }, locale)
               }
             />
             <PhotoWall
@@ -309,11 +309,11 @@ export default async function SchoolPage({
                  cắt bớt ở đây là giấu đúng thứ người ta vào để xem. */
               limit={gallery.length}
               moreLabel={(rest) =>
-                ({
+                pick({
                   vi: `Và ${rest} ảnh nữa trong kho tư liệu của trường.`,
                   en: `And ${rest} more in the school's archive.`,
                   de: `Und ${rest} weitere im Archiv der Schule.`,
-                })[locale]
+                }, locale)
               }
             />
           </div>

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getSchools } from "@/lib/queries";
 import { getSiteSettings } from "@/lib/settings";
@@ -41,14 +41,14 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       <div className="shell">
         <PageHead
           crumbs={<Breadcrumbs locale={locale} trail={[{ label: dict.contact.title }]} />}
-          eyebrow={{ vi: "Liên hệ", en: "Contact", de: "Kontakt" }[locale]}
+          eyebrow={pick({ vi: "Liên hệ", en: "Contact", de: "Kontakt" }, locale)}
           title={dict.contact.title}
           lead={
-            {
+            pick({
               vi: "Liên hệ trực tiếp với văn phòng tập đoàn, hoặc với phòng tuyển sinh của trường thành viên phụ trách ngành bạn quan tâm.",
               en: "Contact the group office directly, or the admissions office of the member school that runs the programme you are interested in.",
               de: "Wenden Sie sich an die Zentrale oder direkt an das Zulassungsbüro der zuständigen Mitgliedsschule.",
-            }[locale]
+            }, locale)
           }
         />
         <div className={styles.grid}>
@@ -86,7 +86,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               ) : null}
               {contact.officeHours ? (
                 <div>
-                  <dt>{{ vi: "Giờ làm việc", en: "Office hours", de: "Öffnungszeiten" }[locale]}</dt>
+                  <dt>{pick({ vi: "Giờ làm việc", en: "Office hours", de: "Öffnungszeiten" }, locale)}</dt>
                   <dd>{t(contact.officeHours, locale)}</dd>
                 </div>
               ) : null}
@@ -111,11 +111,11 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             ) : (
               <p className={styles.noSocial}>
                 {
-                  {
+                  pick({
                     vi: "Các kênh mạng xã hội chính thức sẽ hiển thị tại đây khi được cập nhật trong trang quản trị.",
                     en: "Official social channels will appear here once they are set in the admin area.",
                     de: "Offizielle Social-Media-Kanäle erscheinen hier, sobald sie im Redaktionsbereich hinterlegt sind.",
-                  }[locale]
+                  }, locale)
                 }
               </p>
             )}

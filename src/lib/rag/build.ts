@@ -54,7 +54,7 @@ function pick(field: L10n | null | undefined, locale: "vi" | "en" | "de"): strin
 }
 
 function citationFor(base: string, locale: "vi" | "en" | "de", page?: number | null): L10n {
-  const pageWord = { vi: "trang", en: "page", de: "Seite" }[locale];
+  const pageWord = pick({ vi: "trang", en: "page", de: "Seite" }, locale);
   return { [locale]: page ? `${base}, ${pageWord} ${page}` : base } as unknown as L10n;
 }
 
@@ -116,16 +116,16 @@ export async function collectDrafts(): Promise<Draft[]> {
       if (!title) continue;
       const school = program.schoolId ? schoolById.get(program.schoolId) : undefined;
       const lines = [
-        school ? `${{ vi: "Trường", en: "School", de: "Schule" }[locale]}: ${pick(school.name, locale)}` : "",
-        `${{ vi: "Trình độ", en: "Level", de: "Niveau" }[locale]}: ${pick(LEVEL_LABEL[program.level], locale)}`,
+        school ? `${pick({ vi: "Trường", en: "School", de: "Schule" }, locale)}: ${pick(school.name, locale)}` : "",
+        `${pick({ vi: "Trình độ", en: "Level", de: "Niveau" }, locale)}: ${pick(LEVEL_LABEL[program.level], locale)}`,
         program.officialCode
-          ? `${{ vi: "Mã ngành/nghề", en: "Official code", de: "Amtlicher Code" }[locale]}: ${program.officialCode}`
+          ? `${pick({ vi: "Mã ngành/nghề", en: "Official code", de: "Amtlicher Code" }, locale)}: ${program.officialCode}`
           : "",
         program.intakeQuota
-          ? `${{ vi: "Quy mô tuyển sinh", en: "Annual intake quota", de: "Aufnahmekapazität" }[locale]}: ${program.intakeQuota}/${{ vi: "năm", en: "year", de: "Jahr" }[locale]}`
+          ? `${pick({ vi: "Quy mô tuyển sinh", en: "Annual intake quota", de: "Aufnahmekapazität" }, locale)}: ${program.intakeQuota}/${pick({ vi: "năm", en: "year", de: "Jahr" }, locale)}`
           : "",
         program.locationCity
-          ? `${{ vi: "Địa điểm", en: "Location", de: "Standort" }[locale]}: ${pick(program.locationCity, locale)}`
+          ? `${pick({ vi: "Địa điểm", en: "Location", de: "Standort" }, locale)}: ${pick(program.locationCity, locale)}`
           : "",
         pick(program.overview, locale),
         (program.careers?.[locale] ?? program.careers?.vi ?? []).map((c) => `- ${c}`).join("\n"),
@@ -223,7 +223,7 @@ export async function collectDrafts(): Promise<Draft[]> {
       const listing = partnerRows
         .map((p) => `- ${p.name}${p.country ? ` (${p.country})` : ""}`)
         .join("\n");
-      const heading = { vi: "Đối tác của Việt Đức Group", en: "Viet Duc Group partners", de: "Partner der Viet Duc Group" }[locale];
+      const heading = pick({ vi: "Đối tác của Việt Đức Group", en: "Viet Duc Group partners", de: "Partner der Viet Duc Group" }, locale);
       drafts.push({
         sourceRef: "partners:index",
         sourceKind: "partner",

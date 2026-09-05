@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getFaqs, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState } from "@/components/ui";
@@ -56,14 +56,14 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
       <div className="shell">
         <PageHead
           crumbs={<Breadcrumbs locale={locale} trail={[{ label: dict.nav.faq }]} />}
-          eyebrow={{ vi: "Hỏi đáp", en: "Questions", de: "Fragen" }[locale]}
+          eyebrow={pick({ vi: "Hỏi đáp", en: "Questions", de: "Fragen" }, locale)}
           title={dict.nav.faq}
           lead={
-            {
+            pick({
               vi: "Mỗi câu trả lời dưới đây đều dẫn nguồn từ tài liệu chính thức của Việt Đức Group.",
               en: "Every answer below cites the official Viet Duc Group document it comes from.",
               de: "Jede Antwort nennt das offizielle Dokument, aus dem sie stammt.",
-            }[locale]
+            }, locale)
           }
         />
 

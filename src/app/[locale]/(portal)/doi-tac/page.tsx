@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPartners, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState, SourceNote } from "@/components/ui";
@@ -10,13 +10,13 @@ import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
 import styles from "./partners.module.css";
 
-const REGION_LABEL: Record<string, { vi: string; en: string; de: string }> = {
+const REGION_LABEL: Record<string, { vi: string; en?: string; de?: string }> = {
   europe: { vi: "Châu Âu", en: "Europe", de: "Europa" },
   "middle-east": { vi: "Trung Đông & Tây Á", en: "Middle East & West Asia", de: "Naher Osten & Westasien" },
   asia: { vi: "Châu Á", en: "Asia", de: "Asien" },
 };
 
-const COUNTRY_LABEL: Record<string, { vi: string; en: string; de: string }> = {
+const COUNTRY_LABEL: Record<string, { vi: string; en?: string; de?: string }> = {
   VN: { vi: "Việt Nam", en: "Vietnam", de: "Vietnam" },
   DE: { vi: "CHLB Đức", en: "Germany", de: "Deutschland" },
   AT: { vi: "Áo", en: "Austria", de: "Österreich" },
@@ -74,11 +74,11 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
           <h1>{dict.home.partnersTitle}</h1>
           <p className={shell.lead}>
             {
-              {
+              pick({
                 vi: "Danh sách dưới đây được nêu trong hồ sơ năng lực của Việt Đức Group. Phần lớn đối tác quốc tế đến từ mạng lưới của NIBELC Group – đối tác chiến lược của Việt Đức Group – và được ghi rõ trong từng mục.",
                 en: "The list below is named in the Viet Duc Group capability profile. Most international partners come through the network of NIBELC Group, a strategic partner of Viet Duc Group; each entry says which.",
                 de: "Die folgende Liste stammt aus dem Leistungsprofil der Viet Duc Group. Die meisten internationalen Partner stammen aus dem Netzwerk der NIBELC Group, eines strategischen Partners; jeder Eintrag weist dies aus.",
-              }[locale]
+              }, locale)
             }
           </p>
         </header>
@@ -93,8 +93,8 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
             if (!list?.length) return null;
             const label =
               key === "direct"
-                ? { vi: "Đối tác và tổ chức thành viên", en: "Partners and member organisations", de: "Partner und Mitgliedsorganisationen" }[locale]
-                : (REGION_LABEL[key]?.[locale] ?? key);
+                ? pick({ vi: "Đối tác và tổ chức thành viên", en: "Partners and member organisations", de: "Partner und Mitgliedsorganisationen" }, locale)
+                : (REGION_LABEL[key] ? pick(REGION_LABEL[key], locale) : key);
 
             return (
               <section key={key} className={styles.group}>
@@ -105,7 +105,9 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
                       <span className={styles.name}>{partner.name}</span>
                       {partner.country ? (
                         <span className={styles.country}>
-                          {COUNTRY_LABEL[partner.country]?.[locale] ?? partner.country}
+                          {COUNTRY_LABEL[partner.country]
+                            ? pick(COUNTRY_LABEL[partner.country], locale)
+                            : partner.country}
                         </span>
                       ) : null}
                       {partner.note ? (
@@ -125,11 +127,11 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
           <section className={styles.gallery}>
             <h2>
               {
-                {
+                pick({
                   vi: "Mạng lưới trong ảnh",
                   en: "The network in pictures",
                   de: "Das Netz in Bildern",
-                }[locale]
+                }, locale)
               }
             </h2>
             <PhotoSections

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, tList, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, tList, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import {
   VENTURE_HERO,
@@ -148,11 +148,11 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         <PhotoMarquee
           shots={marquee}
           alt={
-            {
+            pick({
               vi: "Dự án khách sạn, khu nghỉ dưỡng và công trường của Việt Đức Group",
               en: "Viet Duc Group hotel, resort and construction projects",
               de: "Hotel-, Resort- und Bauprojekte der Viet Duc Group",
-            }[locale]
+            }, locale)
           }
           seconds={marquee.length > 12 ? 80 : 55}
         />
@@ -191,22 +191,22 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
             <p className={styles.kicker}>03</p>
             <h2>
               {
-                {
+                pick({
                   vi: "Ngoài hiện trường",
                   en: "On site",
                   de: "Vor Ort",
-                }[locale]
+                }, locale)
               }
             </h2>
           </div>
           <PhotoWall
             shots={siteShots.map((src) => ({
               src,
-              alt: {
+              alt: pick({
                 vi: "Hiện trường hoạt động đầu tư của Việt Đức Group",
                 en: "A Viet Duc Group investment site",
                 de: "Ein Investitionsstandort der Viet Duc Group",
-              }[locale],
+              }, locale),
             }))}
             limit={siteShots.length}
           />

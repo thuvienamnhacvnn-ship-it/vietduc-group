@@ -1,5 +1,5 @@
 import type { L10n } from "./db/schema";
-import { t, type Locale } from "./i18n/config";
+import { pick, t, type Locale } from "./i18n/config";
 
 /** Shared vocabulary for programme facets, used by cards, filters and schema.org. */
 
@@ -57,11 +57,11 @@ export function formatDate(value: string | Date | null | undefined, locale: Loca
   if (!value) return "";
   const date = typeof value === "string" ? new Date(value) : value;
   if (Number.isNaN(date.getTime())) return typeof value === "string" ? value : "";
-  const tag = { vi: "vi-VN", de: "de-DE", en: "en-GB" }[locale];
+  const tag = pick({ vi: "vi-VN", de: "de-DE", en: "en-GB", ja: "ja-JP", ko: "ko-KR", "zh-TW": "zh-TW" }, locale);
   return new Intl.DateTimeFormat(tag, { day: "2-digit", month: "2-digit", year: "numeric" }).format(date);
 }
 
 export function formatNumber(value: number, locale: Locale): string {
-  const tag = { vi: "vi-VN", de: "de-DE", en: "en-GB" }[locale];
+  const tag = pick({ vi: "vi-VN", de: "de-DE", en: "en-GB", ja: "ja-JP", ko: "ko-KR", "zh-TW": "zh-TW" }, locale);
   return new Intl.NumberFormat(tag).format(value);
 }

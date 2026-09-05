@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { localePath, type Locale } from "@/lib/i18n/config";
+import { localePath, type Locale, pick } from "@/lib/i18n/config";
 import { fmt, getDictionary } from "@/lib/i18n/dictionary";
 import styles from "./LeadForm.module.css";
 
@@ -255,7 +255,7 @@ export function LeadForm({
               </div>
             </fieldset>
             <fieldset className={styles.spaced}>
-              <legend>{{ vi: "Thời gian có thể bắt đầu", en: "When you could start", de: "Möglicher Beginn" }[locale]}</legend>
+              <legend>{pick({ vi: "Thời gian có thể bắt đầu", en: "When you could start", de: "Möglicher Beginn" }, locale)}</legend>
               <div className={styles.options}>
                 {Object.entries(dict.form.windows).map(([value, label]) => (
                   <Choice

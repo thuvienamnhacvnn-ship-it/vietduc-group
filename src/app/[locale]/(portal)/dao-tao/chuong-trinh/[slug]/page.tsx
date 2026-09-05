@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, tList, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, tList, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import {
   getCategories,
@@ -219,25 +219,25 @@ export default async function ProgramPage({
             {school?.legalRefs?.length ? (
               <section className={shell.section}>
                 <h2 className={shell.sectionTitle}>
-                  {{ vi: "Cơ sở pháp lý", en: "Legal basis", de: "Rechtsgrundlage" }[locale]}
+                  {pick({ vi: "Cơ sở pháp lý", en: "Legal basis", de: "Rechtsgrundlage" }, locale)}
                 </h2>
                 <div className={shell.tableScroll}>
                   <table className={shell.legalTable}>
                     <caption>
                       {
-                        {
+                        pick({
                           vi: "Các văn bản do cơ quan quản lý nhà nước cấp cho trường thành viên.",
                           en: "Documents issued to the member school by the competent authority.",
                           de: "Von der zuständigen Behörde ausgestellte Dokumente der Mitgliedsschule.",
-                        }[locale]
+                        }, locale)
                       }
                     </caption>
                     <thead>
                       <tr>
-                        <th scope="col">{{ vi: "Văn bản", en: "Document", de: "Dokument" }[locale]}</th>
-                        <th scope="col">{{ vi: "Số hiệu", en: "Number", de: "Nummer" }[locale]}</th>
-                        <th scope="col">{{ vi: "Ngày", en: "Date", de: "Datum" }[locale]}</th>
-                        <th scope="col">{{ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller" }[locale]}</th>
+                        <th scope="col">{pick({ vi: "Văn bản", en: "Document", de: "Dokument" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Số hiệu", en: "Number", de: "Nummer" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Ngày", en: "Date", de: "Datum" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller" }, locale)}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -272,7 +272,7 @@ export default async function ProgramPage({
 
           <aside className={`${shell.aside} ${shell.asideSticky}`}>
             <h2 className={shell.asideTitle}>
-              {{ vi: "Thông tin chương trình", en: "Programme facts", de: "Programmdaten" }[locale]}
+              {pick({ vi: "Thông tin chương trình", en: "Programme facts", de: "Programmdaten" }, locale)}
             </h2>
             <dl className={shell.factList}>
               {facts.map((fact) => (

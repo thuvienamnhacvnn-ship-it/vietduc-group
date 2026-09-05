@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getCategories, getProgramsBySlugs, getSchools } from "@/lib/queries";
 import { languageLabel, levelLabel, modeLabel } from "@/lib/format";
@@ -96,11 +96,11 @@ export default async function ComparePage({
           <h1>{dict.explorer.compare}</h1>
           <p className={shell.lead}>
             {
-              {
+              pick({
                 vi: "Đặt cạnh nhau các thông tin đã được công bố. Ô để trống nghĩa là tài liệu chính thức chưa nêu.",
                 en: "Published facts side by side. An empty cell means the official documents do not state it.",
                 de: "Veröffentlichte Angaben im Vergleich. Eine leere Zelle heißt: die amtlichen Unterlagen nennen es nicht.",
-              }[locale]
+              }, locale)
             }
           </p>
         </header>
@@ -109,11 +109,11 @@ export default async function ComparePage({
           <EmptyState
             title={dict.common.noResults}
             hint={
-              {
+              pick({
                 vi: "Hãy chọn tối đa ba chương trình trong trang tra cứu rồi bấm So sánh.",
                 en: "Pick up to three programmes in the explorer, then choose Compare.",
                 de: "Wählen Sie bis zu drei Programme in der Übersicht und dann Vergleichen.",
-              }[locale]
+              }, locale)
             }
           />
         ) : (

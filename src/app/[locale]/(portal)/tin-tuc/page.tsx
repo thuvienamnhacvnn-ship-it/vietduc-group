@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPosts } from "@/lib/queries";
 import { formatDate } from "@/lib/format";
@@ -42,11 +42,11 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
           <EmptyState
             title={dict.common.empty}
             hint={
-              {
+              pick({
                 vi: "Chưa có bài viết nào được xuất bản. Biên tập viên có thể thêm bài trong trang quản trị – website không hiển thị tin mẫu.",
                 en: "No articles published yet. Editors can add them in the admin area - this site does not display placeholder news.",
                 de: "Noch keine Beiträge veröffentlicht. Die Redaktion kann sie im Redaktionsbereich anlegen - Platzhaltermeldungen zeigt diese Seite nicht.",
-              }[locale]
+              }, locale)
             }
           />
         ) : (

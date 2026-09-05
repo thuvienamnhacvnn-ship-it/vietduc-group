@@ -2,7 +2,7 @@ import { randomBytes } from "node:crypto";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
-import { isLocale } from "@/lib/i18n/config";
+import { isLocale, pick } from "@/lib/i18n/config";
 import { getDb } from "@/lib/db";
 import { newsletter } from "@/lib/db/schema";
 import { check, clientKey, RULES, tooManyRequests } from "@/lib/rate-limit";
@@ -73,16 +73,16 @@ export async function POST(request: NextRequest) {
 
     const result = await send({
       to: email,
-      subject: {
+      subject: pick({
         vi: "Xác nhận đăng ký bản tin Việt Đức Group",
         de: "Newsletter-Anmeldung bestätigen – Viet Duc Group",
         en: "Confirm your Viet Duc Group newsletter subscription",
-      }[locale],
-      text: {
+      }, locale),
+      text: pick({
         vi: `Bấm vào liên kết sau để xác nhận đăng ký nhận bản tin:\n\n${link}\n\nNếu bạn không đăng ký, hãy bỏ qua email này.`,
         de: `Bitte bestätigen Sie Ihre Newsletter-Anmeldung über diesen Link:\n\n${link}\n\nFalls Sie sich nicht angemeldet haben, ignorieren Sie diese E-Mail.`,
         en: `Confirm your newsletter subscription using this link:\n\n${link}\n\nIf you did not sign up, please ignore this email.`,
-      }[locale],
+      }, locale),
     });
 
     if (!result.sent) console.warn(`[newsletter] confirmation not sent (${result.reason})`);

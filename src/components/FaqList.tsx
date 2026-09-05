@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { fold } from "@/lib/text";
-import type { Locale } from "@/lib/i18n/config";
+import { pick, type Locale } from "@/lib/i18n/config";
 import styles from "./FaqList.module.css";
 
 export type FaqItem = {
@@ -15,7 +15,7 @@ export type FaqItem = {
   page: number | null;
 };
 
-const TOPIC_LABEL: Record<string, { vi: string; en: string; de: string }> = {
+const TOPIC_LABEL: Record<string, { vi: string; en?: string; de?: string }> = {
   organisation: { vi: "Tổ chức", en: "The organisation", de: "Organisation" },
   admissions: { vi: "Tuyển sinh", en: "Admissions", de: "Zulassung" },
   programs: { vi: "Chương trình", en: "Programmes", de: "Programme" },
@@ -76,7 +76,7 @@ export function FaqList({ locale, items }: { locale: Locale; items: FaqItem[] })
                 onClick={() => setTopic(value)}
                 aria-pressed={topic === value}
               >
-                {TOPIC_LABEL[value]?.[locale] ?? value}
+                {TOPIC_LABEL[value] ? pick(TOPIC_LABEL[value], locale) : value}
               </button>
             ))}
           </div>

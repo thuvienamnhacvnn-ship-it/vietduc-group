@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getSourceDocuments } from "@/lib/queries";
 import { formatDate } from "@/lib/format";
@@ -37,11 +37,11 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
           <h1>{dict.nav.library}</h1>
           <p className={shell.lead}>
             {
-              {
+              pick({
                 vi: "Các tài liệu nguồn mà nội dung trên website này được biên tập từ đó. Tài liệu chỉ tải xuống được khi quản trị viên cho phép công bố.",
                 en: "The source documents this website's content is edited from. A document can only be downloaded once an editor has cleared it for publication.",
                 de: "Die Quelldokumente, aus denen die Inhalte dieser Website redigiert wurden. Ein Download ist erst nach Freigabe durch die Redaktion möglich.",
-              }[locale]
+              }, locale)
             }
           </p>
         </header>
@@ -71,11 +71,11 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
                     {document.ocrUsed ? (
                       <Badge tone="gold">
                         {
-                          {
+                          pick({
                             vi: "Đọc bằng OCR",
                             en: "Read by OCR",
                             de: "Per OCR gelesen",
-                          }[locale]
+                          }, locale)
                         }
                       </Badge>
                     ) : null}
@@ -90,11 +90,11 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
                   ) : (
                     <span className={styles.unavailable}>
                       {
-                        {
+                        pick({
                           vi: "Chưa công bố tải xuống",
                           en: "Not published for download",
                           de: "Kein Download freigegeben",
-                        }[locale]
+                        }, locale)
                       }
                     </span>
                   )}

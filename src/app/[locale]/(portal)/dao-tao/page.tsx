@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, localePath, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import {
   getActivities,
@@ -116,32 +116,32 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
    * from its own licence data.
    */
   const stats = [
-    { value: "15+", label: { vi: "năm hình thành và phát triển", en: "years of formation and development", de: "Jahre Aufbau und Entwicklung" }[locale] },
-    { value: String(schools.length), label: { vi: "trường thành viên", en: "member schools", de: "Mitgliedsschulen" }[locale] },
-    { value: String(programs.length), label: { vi: "ngành nghề đã đăng ký hoạt động", en: "registered occupations", de: "registrierte Berufsprofile" }[locale] },
-    { value: "200+", label: { vi: "doanh nghiệp đối tác", en: "partner enterprises", de: "Partnerunternehmen" }[locale] },
+    { value: "15+", label: pick({ vi: "năm hình thành và phát triển", en: "years of formation and development", de: "Jahre Aufbau und Entwicklung" }, locale) },
+    { value: String(schools.length), label: pick({ vi: "trường thành viên", en: "member schools", de: "Mitgliedsschulen" }, locale) },
+    { value: String(programs.length), label: pick({ vi: "ngành nghề đã đăng ký hoạt động", en: "registered occupations", de: "registrierte Berufsprofile" }, locale) },
+    { value: "200+", label: pick({ vi: "doanh nghiệp đối tác", en: "partner enterprises", de: "Partnerunternehmen" }, locale) },
   ];
 
   const pathway = [
     {
       step: "01",
-      title: { vi: "Học tập", en: "Study", de: "Lernen" }[locale],
-      body: { vi: "Trang bị kiến thức chuyên môn và ngoại ngữ theo chuẩn nghề nghiệp.", en: "Build professional knowledge and foreign-language skills to occupational standards.", de: "Fachwissen und Fremdsprachen nach beruflichen Standards aufbauen." }[locale],
+      title: pick({ vi: "Học tập", en: "Study", de: "Lernen" }, locale),
+      body: pick({ vi: "Trang bị kiến thức chuyên môn và ngoại ngữ theo chuẩn nghề nghiệp.", en: "Build professional knowledge and foreign-language skills to occupational standards.", de: "Fachwissen und Fremdsprachen nach beruflichen Standards aufbauen." }, locale),
     },
     {
       step: "02",
-      title: { vi: "Thực hành", en: "Practice", de: "Praxis" }[locale],
-      body: { vi: "Rèn kỹ năng nghề tại xưởng thực hành và phòng thí nghiệm của trường.", en: "Develop hands-on skills in the school's workshops and laboratories.", de: "Praktische Fertigkeiten in Werkstätten und Laboren entwickeln." }[locale],
+      title: pick({ vi: "Thực hành", en: "Practice", de: "Praxis" }, locale),
+      body: pick({ vi: "Rèn kỹ năng nghề tại xưởng thực hành và phòng thí nghiệm của trường.", en: "Develop hands-on skills in the school's workshops and laboratories.", de: "Praktische Fertigkeiten in Werkstätten und Laboren entwickeln." }, locale),
     },
     {
       step: "03",
-      title: { vi: "Thực tập", en: "Internship", de: "Praktikum" }[locale],
-      body: { vi: "Làm việc thực tế tại doanh nghiệp đối tác trong và ngoài nước.", en: "Work in real conditions at partner employers in Vietnam and abroad.", de: "Im Betrieb arbeiten – bei Partnern in Vietnam und im Ausland." }[locale],
+      title: pick({ vi: "Thực tập", en: "Internship", de: "Praktikum" }, locale),
+      body: pick({ vi: "Làm việc thực tế tại doanh nghiệp đối tác trong và ngoài nước.", en: "Work in real conditions at partner employers in Vietnam and abroad.", de: "Im Betrieb arbeiten – bei Partnern in Vietnam und im Ausland." }, locale),
     },
     {
       step: "04",
-      title: { vi: "Việc làm", en: "Employment", de: "Beschäftigung" }[locale],
-      body: { vi: "Ứng tuyển và phát triển nghề nghiệp lâu dài với hỗ trợ của nhà trường.", en: "Apply and build a long-term career with the school's support.", de: "Bewerben und mit Unterstützung der Schule langfristig Karriere machen." }[locale],
+      title: pick({ vi: "Việc làm", en: "Employment", de: "Beschäftigung" }, locale),
+      body: pick({ vi: "Ứng tuyển và phát triển nghề nghiệp lâu dài với hỗ trợ của nhà trường.", en: "Apply and build a long-term career with the school's support.", de: "Bewerben und mit Unterstützung der Schule langfristig Karriere machen." }, locale),
     },
   ];
 
@@ -152,39 +152,39 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
    */
   const reasons = [
     {
-      claim: { vi: "Gắn với giấy phép, không phải lời hứa", en: "Tied to licences, not promises", de: "An Zulassungen gebunden, nicht an Versprechen" }[locale],
-      body: { vi: "Mỗi ngành trên website đều kèm mã ngành/nghề và quy mô tuyển sinh trích từ giấy chứng nhận đăng ký hoạt động giáo dục nghề nghiệp, có số hiệu và ngày cấp.", en: "Every programme here carries the occupation code and intake quota transcribed from the vocational-education registration certificate, with its number and date of issue.", de: "Jedes Programm nennt den amtlichen Berufscode und die Aufnahmekapazität aus dem Zulassungsbescheid – mit Nummer und Datum." }[locale],
-      evidence: { vi: `${programs.length} ngành đã đăng ký hoạt động, trích từ giấy chứng nhận của ${schools.length} trường`, en: `${programs.length} registered occupations, transcribed from the certificates of ${schools.length} schools`, de: `${programs.length} registrierte Berufsprofile aus den Bescheiden von ${schools.length} Schulen` }[locale],
+      claim: pick({ vi: "Gắn với giấy phép, không phải lời hứa", en: "Tied to licences, not promises", de: "An Zulassungen gebunden, nicht an Versprechen" }, locale),
+      body: pick({ vi: "Mỗi ngành trên website đều kèm mã ngành/nghề và quy mô tuyển sinh trích từ giấy chứng nhận đăng ký hoạt động giáo dục nghề nghiệp, có số hiệu và ngày cấp.", en: "Every programme here carries the occupation code and intake quota transcribed from the vocational-education registration certificate, with its number and date of issue.", de: "Jedes Programm nennt den amtlichen Berufscode und die Aufnahmekapazität aus dem Zulassungsbescheid – mit Nummer und Datum." }, locale),
+      evidence: pick({ vi: `${programs.length} ngành đã đăng ký hoạt động, trích từ giấy chứng nhận của ${schools.length} trường`, en: `${programs.length} registered occupations, transcribed from the certificates of ${schools.length} schools`, de: `${programs.length} registrierte Berufsprofile aus den Bescheiden von ${schools.length} Schulen` }, locale),
       image: {
         src: "/media/education/trao-thuong-hoc-sinh.webp",
-        alt: { vi: "Trao phần thưởng cho học sinh trong đồng phục nhà trường", en: "Prizes presented to students in school uniform", de: "Preisverleihung an Schülerinnen und Schüler in Schuluniform" }[locale],
+        alt: pick({ vi: "Trao phần thưởng cho học sinh trong đồng phục nhà trường", en: "Prizes presented to students in school uniform", de: "Preisverleihung an Schülerinnen und Schüler in Schuluniform" }, locale),
       },
     },
     {
-      claim: { vi: "Thực hành chiếm phần lớn thời lượng", en: "Practice takes most of the time", de: "Praxis nimmt den größten Teil ein" }[locale],
-      body: { vi: "Các trường kỹ thuật trong hệ thống bố trí khoảng 70% thời lượng cho thực hành tại xưởng và tại doanh nghiệp.", en: "The technical schools in the system devote around 70% of training time to workshop and workplace practice.", de: "Die technischen Schulen widmen rund 70 % der Ausbildungszeit der Praxis." }[locale],
-      evidence: { vi: "Hồ sơ năng lực Việt Đức Group, phần chương trình đào tạo", en: "Viet Duc Group capability profile, training chapter", de: "Leistungsprofil der Viet Duc Group, Kapitel Ausbildung" }[locale],
+      claim: pick({ vi: "Thực hành chiếm phần lớn thời lượng", en: "Practice takes most of the time", de: "Praxis nimmt den größten Teil ein" }, locale),
+      body: pick({ vi: "Các trường kỹ thuật trong hệ thống bố trí khoảng 70% thời lượng cho thực hành tại xưởng và tại doanh nghiệp.", en: "The technical schools in the system devote around 70% of training time to workshop and workplace practice.", de: "Die technischen Schulen widmen rund 70 % der Ausbildungszeit der Praxis." }, locale),
+      evidence: pick({ vi: "Hồ sơ năng lực Việt Đức Group, phần chương trình đào tạo", en: "Viet Duc Group capability profile, training chapter", de: "Leistungsprofil der Viet Duc Group, Kapitel Ausbildung" }, locale),
       image: {
         src: "/media/education/xuong-thuc-hanh-may.webp",
-        alt: { vi: "Học viên thực hành trên dây chuyền máy tại doanh nghiệp trong mạng lưới NIBELC", en: "Trainees at a production line in the NIBELC partner network", de: "Auszubildende an einer Fertigungslinie im NIBELC-Partnernetz" }[locale],
+        alt: pick({ vi: "Học viên thực hành trên dây chuyền máy tại doanh nghiệp trong mạng lưới NIBELC", en: "Trainees at a production line in the NIBELC partner network", de: "Auszubildende an einer Fertigungslinie im NIBELC-Partnernetz" }, locale),
       },
     },
     {
-      claim: { vi: "Một cửa ngõ sang Đức và châu Âu", en: "A route into Germany and Europe", de: "Ein Weg nach Deutschland und Europa" }[locale],
-      body: { vi: "Viện Đào tạo và Giáo dục ITW Berlin chuyển giao chương trình, phương pháp và đào tạo tiếng Đức ngay tại Việt Nam.", en: "The ITW Berlin institute transfers programmes, teaching methods and German-language training directly into Vietnam.", de: "Das itw Berlin überträgt Programme, Methoden und Deutschunterricht direkt nach Vietnam." }[locale],
-      evidence: { vi: "ITW Berlin – thành viên của hệ thống, đặt tại CHLB Đức", en: "ITW Berlin - member of the network, based in Germany", de: "ITW Berlin – Mitglied des Verbunds, Sitz in Deutschland" }[locale],
+      claim: pick({ vi: "Một cửa ngõ sang Đức và châu Âu", en: "A route into Germany and Europe", de: "Ein Weg nach Deutschland und Europa" }, locale),
+      body: pick({ vi: "Viện Đào tạo và Giáo dục ITW Berlin chuyển giao chương trình, phương pháp và đào tạo tiếng Đức ngay tại Việt Nam.", en: "The ITW Berlin institute transfers programmes, teaching methods and German-language training directly into Vietnam.", de: "Das itw Berlin überträgt Programme, Methoden und Deutschunterricht direkt nach Vietnam." }, locale),
+      evidence: pick({ vi: "ITW Berlin – thành viên của hệ thống, đặt tại CHLB Đức", en: "ITW Berlin - member of the network, based in Germany", de: "ITW Berlin – Mitglied des Verbunds, Sitz in Deutschland" }, locale),
       image: {
         src: "/media/education/gap-doi-tac-chau-au.webp",
-        alt: { vi: "Gặp gỡ đối tác châu Âu trong mạng lưới NIBELC", en: "Meeting European partners in the NIBELC network", de: "Treffen mit europäischen Partnern im NIBELC-Netz" }[locale],
+        alt: pick({ vi: "Gặp gỡ đối tác châu Âu trong mạng lưới NIBELC", en: "Meeting European partners in the NIBELC network", de: "Treffen mit europäischen Partnern im NIBELC-Netz" }, locale),
       },
     },
     {
-      claim: { vi: "Sáu trường, một hệ thống", en: "Six schools, one system", de: "Sechs Schulen, ein Verbund" }[locale],
-      body: { vi: "Từ Đà Nẵng, Ninh Bình, Vũng Tàu, Đồng Nai đến Quảng Trị và Berlin – người học chọn ngành trước, chọn nơi học sau.", en: "From Da Nang, Ninh Binh, Vung Tau and Dong Nai to Quang Tri and Berlin: choose the field first, the campus second.", de: "Von Da Nang, Ninh Binh, Vung Tau und Dong Nai bis Quang Tri und Berlin – erst das Fach, dann der Standort." }[locale],
-      evidence: { vi: `${schools.length} trường thành viên, hồ sơ từng trường công bố trên trang Hệ thống trường`, en: `${schools.length} member schools, each with its own record on the network page`, de: `${schools.length} Mitgliedsschulen, jede mit eigenem Profil auf der Verbundseite` }[locale],
+      claim: pick({ vi: "Sáu trường, một hệ thống", en: "Six schools, one system", de: "Sechs Schulen, ein Verbund" }, locale),
+      body: pick({ vi: "Từ Đà Nẵng, Ninh Bình, Vũng Tàu, Đồng Nai đến Quảng Trị và Berlin – người học chọn ngành trước, chọn nơi học sau.", en: "From Da Nang, Ninh Binh, Vung Tau and Dong Nai to Quang Tri and Berlin: choose the field first, the campus second.", de: "Von Da Nang, Ninh Binh, Vung Tau und Dong Nai bis Quang Tri und Berlin – erst das Fach, dann der Standort." }, locale),
+      evidence: pick({ vi: `${schools.length} trường thành viên, hồ sơ từng trường công bố trên trang Hệ thống trường`, en: `${schools.length} member schools, each with its own record on the network page`, de: `${schools.length} Mitgliedsschulen, jede mit eigenem Profil auf der Verbundseite` }, locale),
       image: {
         src: "/media/education/tai-nang-thanh-lich.webp",
-        alt: { vi: "Đêm chung kết cuộc thi Học sinh – Sinh viên tài năng thanh lịch", en: "Final night of the student talent and poise contest", de: "Finalabend des Talentwettbewerbs" }[locale],
+        alt: pick({ vi: "Đêm chung kết cuộc thi Học sinh – Sinh viên tài năng thanh lịch", en: "Final night of the student talent and poise contest", de: "Finalabend des Talentwettbewerbs" }, locale),
       },
     },
   ];
@@ -204,11 +204,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             wide={{ src: "/media/hero/vdg-banner-16x9.webp", width: 1672, height: 941 }}
             tall={{ src: "/media/hero/vdg-hq-portrait.webp", width: 992, height: 1586 }}
             alt={
-              {
+              pick({
                 vi: "Trụ sở Việt Đức Group",
                 en: "The Viet Duc Group headquarters",
                 de: "Der Hauptsitz der Viet Duc Group",
-              }[locale]
+              }, locale)
             }
             priority
             className={styles.heroImage}
@@ -259,18 +259,18 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <SectionHeading
                 eyebrow={dict.home.aboutTitle}
                 title={
-                  {
+                  pick({
                     vi: "Một hệ thống giáo dục nghề nghiệp Việt – Đức, vận hành thật",
                     en: "A Vietnamese–German vocational system that actually runs",
                     de: "Ein vietnamesisch-deutsches Berufsbildungssystem, das wirklich arbeitet",
-                  }[locale]
+                  }, locale)
                 }
                 lead={
-                  {
+                  pick({
                     vi: "Việt Đức Group là hệ thống giáo dục đa cấp, đa ngành, hoạt động trong lĩnh vực đào tạo nghề, cao đẳng, trung cấp và liên kết quốc tế, với sáu trường thành viên tại Việt Nam và CHLB Đức.",
                     en: "Viet Duc Group is a multi-level, multi-field education system working at college, intermediate and vocational levels, with six member schools in Vietnam and Germany.",
                     de: "Die Viet Duc Group ist ein mehrstufiges, fächerübergreifendes Bildungssystem mit sechs Mitgliedsschulen in Vietnam und Deutschland.",
-                  }[locale]
+                  }, locale)
                 }
               />
               {/* Liên kết đặt DƯỚI đoạn dẫn, không nhét vào cạnh nó: trong cột
@@ -283,14 +283,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
             <div className={styles.timelineWrap} data-reveal>
               <h3 className={styles.timelineHead}>
-                {{ vi: "Chặng đường", en: "The road so far", de: "Der Weg bisher" }[locale]}
+                {pick({ vi: "Chặng đường", en: "The road so far", de: "Der Weg bisher" }, locale)}
               </h3>
               <ul className={styles.timeline}>
               {[
-                { year: "2008", text: { vi: "Khởi đầu với các cơ sở đào tạo nghề chất lượng cao.", en: "Established the first colleges and vocational schools.", de: "Gründung der ersten Colleges und Berufsschulen." }[locale] },
-                { year: "2013", text: { vi: "Mở rộng hệ thống, đa dạng ngành đào tạo.", en: "Opened the system and widened the range of programmes.", de: "Ausbau des Verbunds und Erweiterung der Programme." }[locale] },
-                { year: "2018", text: { vi: "Hợp tác quốc tế, nâng tầm chất lượng đào tạo.", en: "Expanded international partnerships and upgraded quality.", de: "Ausbau internationaler Partnerschaften und der Qualität." }[locale] },
-                { year: { vi: "Hiện tại", en: "Today", de: "Heute" }[locale], text: { vi: "Phát triển bền vững trong lĩnh vực giáo dục nghề nghiệp.", en: "Growing sustainably in vocational education.", de: "Nachhaltiges Wachstum in der beruflichen Bildung." }[locale] },
+                { year: "2008", text: pick({ vi: "Khởi đầu với các cơ sở đào tạo nghề chất lượng cao.", en: "Established the first colleges and vocational schools.", de: "Gründung der ersten Colleges und Berufsschulen." }, locale) },
+                { year: "2013", text: pick({ vi: "Mở rộng hệ thống, đa dạng ngành đào tạo.", en: "Opened the system and widened the range of programmes.", de: "Ausbau des Verbunds und Erweiterung der Programme." }, locale) },
+                { year: "2018", text: pick({ vi: "Hợp tác quốc tế, nâng tầm chất lượng đào tạo.", en: "Expanded international partnerships and upgraded quality.", de: "Ausbau internationaler Partnerschaften und der Qualität." }, locale) },
+                { year: pick({ vi: "Hiện tại", en: "Today", de: "Heute" }, locale), text: pick({ vi: "Phát triển bền vững trong lĩnh vực giáo dục nghề nghiệp.", en: "Growing sustainably in vocational education.", de: "Nachhaltiges Wachstum in der beruflichen Bildung." }, locale) },
               ].map((item) => (
                 <li key={item.year}>
                   <span className={styles.timelineYear}>{item.year}</span>
@@ -318,14 +318,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className={`section ${styles.schoolsSection}`}>
         <div className="shell">
           <SectionHeading
-            eyebrow={{ vi: "Hệ thống", en: "The network", de: "Der Verbund" }[locale]}
+            eyebrow={pick({ vi: "Hệ thống", en: "The network", de: "Der Verbund" }, locale)}
             title={dict.home.schoolsTitle}
             lead={
-              {
+              pick({
                 vi: "Mỗi trường có thế mạnh riêng về ngành nghề và địa bàn. Chọn nơi phù hợp với ngành bạn muốn học.",
                 en: "Each school has its own strengths and location. Pick the one that fits the field you want.",
                 de: "Jede Schule hat eigene Schwerpunkte und Standorte. Wählen Sie die passende für Ihr Fach.",
-              }[locale]
+              }, locale)
             }
           />
         </div>
@@ -339,12 +339,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             programCount={(id) => programCountBySchool.get(id) ?? 0}
             countLabel={(count) =>
               count > 0
-                ? ({
-                    vi: `${count} ngành`,
-                    en: `${count} programmes`,
-                    de: `${count} Programme`,
-                  })[locale]
-                : { vi: "Đang cập nhật", en: "Being updated", de: "Wird ergänzt" }[locale]
+                ? pick(
+                    {
+                      vi: `${count} ngành`,
+                      en: `${count} programmes`,
+                      de: `${count} Programme`,
+                    },
+                    locale,
+                  )
+                : pick({ vi: "Đang cập nhật", en: "Being updated", de: "Wird ergänzt" }, locale)
             }
           />
         </div>
@@ -358,33 +361,33 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className={`section ${styles.fieldsSection}`}>
         <div className="shell">
           <SectionHeading
-            eyebrow={{ vi: "Ngành nghề", en: "Fields", de: "Fachbereiche" }[locale]}
+            eyebrow={pick({ vi: "Ngành nghề", en: "Fields", de: "Fachbereiche" }, locale)}
             title={
-              {
+              pick({
                 vi: "Nhóm ngành đào tạo",
                 en: "Fields of training",
                 de: "Ausbildungsbereiche",
-              }[locale]
+              }, locale)
             }
             lead={
-              {
+              pick({
                 vi: "Chọn nhóm ngành để xem toàn bộ chương trình đang tuyển sinh trong nhóm đó.",
                 en: "Pick a field to see every programme currently open inside it.",
                 de: "Wählen Sie einen Bereich, um alle laufenden Programme darin zu sehen.",
-              }[locale]
+              }, locale)
             }
           />
 
           <FieldBoard
             fields={fields}
             locale={locale}
-            unit={{ vi: "ngành", en: "programmes", de: "Programme" }[locale]}
+            unit={pick({ vi: "ngành", en: "programmes", de: "Programme" }, locale)}
             seeAll={
-              {
+              pick({
                 vi: "Xem toàn bộ nhóm ngành này",
                 en: "See every programme in this field",
                 de: "Alle Programme dieses Bereichs",
-              }[locale]
+              }, locale)
             }
           />
         </div>
@@ -394,21 +397,21 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className={`section ${styles.bandBeige}`}>
         <div className="shell">
           <SectionHeading
-            eyebrow={{ vi: "Đào tạo", en: "Training", de: "Ausbildung" }[locale]}
+            eyebrow={pick({ vi: "Đào tạo", en: "Training", de: "Ausbildung" }, locale)}
             title={dict.home.programsTitle}
             lead={
-              {
+              pick({
                 vi: "Danh sách dưới đây lấy trực tiếp từ giấy chứng nhận đăng ký hoạt động giáo dục nghề nghiệp của từng trường.",
                 en: "The list below is taken directly from each school's vocational-education registration certificate.",
                 de: "Die folgende Liste stammt direkt aus den Zulassungsbescheiden der Schulen.",
-              }[locale]
+              }, locale)
             }
             action={<ArrowLink href={path("/dao-tao/chuong-trinh")}>{dict.common.viewAll}</ArrowLink>}
           />
 
           <ProgramCards
             locale={locale}
-            codeLabel={{ vi: "Mã ngành", en: "Code", de: "Code" }[locale]}
+            codeLabel={pick({ vi: "Mã ngành", en: "Code", de: "Code" }, locale)}
             programs={featured.map((program) => ({
               slug: program.slug,
               title: t(program.title, locale),
@@ -429,20 +432,20 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className={`section ${styles.workshopSection}`}>
           <div className="shell">
             <SectionHeading
-              eyebrow={{ vi: "Trong xưởng", en: "In the workshop", de: "In der Werkstatt" }[locale]}
+              eyebrow={pick({ vi: "Trong xưởng", en: "In the workshop", de: "In der Werkstatt" }, locale)}
               title={
-                {
+                pick({
                   vi: "Thực hành trực chiến",
                   en: "Trained on the real thing",
                   de: "Ausbildung am echten Gerät",
-                }[locale]
+                }, locale)
               }
               lead={
-                {
+                pick({
                   vi: "Giờ thực hành tại các trường thành viên: xưởng cơ khí, phòng máy, phòng thực hành nghiệp vụ.",
                   en: "Practicals at the member schools: machine shops, computer rooms, service training rooms.",
                   de: "Übungsstunden an den Mitgliedsschulen: Werkstätten, Rechnerräume, Übungsräume.",
-                }[locale]
+                }, locale)
               }
             />
           </div>
@@ -469,7 +472,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {/* tone="dark" ĐÚNG ở đây: nền mục là var(--band), tối ở cả hai
               theme, khác với mục "Nhóm ngành" trước đây chỉ có lớp phủ mờ. */}
           <SectionHeading
-            eyebrow={{ vi: "Lý do", en: "Why", de: "Warum" }[locale]}
+            eyebrow={pick({ vi: "Lý do", en: "Why", de: "Warum" }, locale)}
             title={dict.home.whyTitle}
             tone="dark"
           />
@@ -477,7 +480,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <ClaimLedger
             claims={reasons}
             evidenceLabel={
-              { vi: "Căn cứ", en: "Evidence", de: "Beleg" }[locale]
+              pick({ vi: "Căn cứ", en: "Evidence", de: "Beleg" }, locale)
             }
           />
 
@@ -491,7 +494,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className={`section ${styles.bandPaper}`}>
         <div className="shell">
           <SectionHeading
-            eyebrow={{ vi: "Lộ trình", en: "Pathway", de: "Weg" }[locale]}
+            eyebrow={pick({ vi: "Lộ trình", en: "Pathway", de: "Weg" }, locale)}
             title={dict.home.roadmapTitle}
             align="center"
           />
@@ -512,7 +515,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className={`section ${styles.activitiesSection}`}>
           <div className="shell">
             <SectionHeading
-              eyebrow={{ vi: "Đời sống", en: "Campus life", de: "Schulleben" }[locale]}
+              eyebrow={pick({ vi: "Đời sống", en: "Campus life", de: "Schulleben" }, locale)}
               title={dict.home.activitiesTitle}
               action={<ArrowLink href={path("/hoat-dong")}>{dict.common.viewAll}</ArrowLink>}
             />
@@ -535,14 +538,14 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className={`section ${styles.bandPaper}`}>
           <div className="shell">
             <SectionHeading
-              eyebrow={{ vi: "Mạng lưới", en: "Network", de: "Netzwerk" }[locale]}
+              eyebrow={pick({ vi: "Mạng lưới", en: "Network", de: "Netzwerk" }, locale)}
               title={dict.home.partnersTitle}
               lead={
-                {
+                pick({
                   vi: "Doanh nghiệp và tổ chức được nêu trong hồ sơ năng lực của Việt Đức Group và mạng lưới đối tác chiến lược NIBELC.",
                   en: "Employers and organisations named in the Viet Duc Group capability profile and in the NIBELC strategic partner network.",
                   de: "Unternehmen und Organisationen aus dem Leistungsprofil der Viet Duc Group und dem Partnernetz von NIBELC.",
-                }[locale]
+                }, locale)
               }
               action={<ArrowLink href={path("/doi-tac")}>{dict.common.viewAll}</ArrowLink>}
             />
@@ -563,7 +566,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <section className={`section ${styles.bandBeige}`}>
           <div className="shell">
             <SectionHeading
-              eyebrow={{ vi: "Tin tức", en: "News", de: "Aktuelles" }[locale]}
+              eyebrow={pick({ vi: "Tin tức", en: "News", de: "Aktuelles" }, locale)}
               title={dict.home.newsTitle}
               action={<ArrowLink href={path("/tin-tuc")}>{dict.common.viewAll}</ArrowLink>}
             />

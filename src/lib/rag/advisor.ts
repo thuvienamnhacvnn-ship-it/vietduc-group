@@ -32,6 +32,9 @@ const LANGUAGE_NAME: Record<Locale, string> = {
   vi: "Vietnamese",
   de: "German",
   en: "English",
+  ja: "Japanese",
+  ko: "Korean",
+  "zh-TW": "Traditional Chinese (Taiwan)",
 };
 
 /**

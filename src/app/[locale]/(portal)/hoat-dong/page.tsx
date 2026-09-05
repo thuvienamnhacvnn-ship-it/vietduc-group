@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getActivities, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState, SourceNote } from "@/components/ui";
@@ -44,11 +44,11 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
           <h1>{dict.home.activitiesTitle}</h1>
           <p className={shell.lead}>
             {
-              {
+              pick({
                 vi: "Hoạt động thường niên của học sinh – sinh viên trong hệ thống. Ảnh chụp tại các trường thành viên, trích từ hồ sơ năng lực.",
                 en: "The student activities that run through the year across the network. Photographs taken at member schools, from the capability profile.",
                 de: "Aktivitäten der Lernenden im Jahresverlauf. Fotos von den Mitgliedsschulen, aus dem Leistungsprofil.",
-              }[locale]
+              }, locale)
             }
           </p>
         </header>
@@ -78,11 +78,11 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
           <section className={styles.gallery}>
             <h2>
               {
-                {
+                pick({
                   vi: "Hình ảnh theo chủ đề",
                   en: "Photographs by theme",
                   de: "Aufnahmen nach Thema",
-                }[locale]
+                }, locale)
               }
             </h2>
             <PhotoSections

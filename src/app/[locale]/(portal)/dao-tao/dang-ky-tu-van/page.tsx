@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { isLocale, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getCategories, getPrograms, getSchools } from "@/lib/queries";
 import { getSiteSettings } from "@/lib/settings";
@@ -85,49 +85,49 @@ export default async function ApplyPage({
           </div>
 
           <aside className={styles.aside}>
-            <h2>{{ vi: "Chúng tôi làm gì với thông tin này", en: "What we do with your details", de: "Was mit Ihren Angaben geschieht" }[locale]}</h2>
+            <h2>{pick({ vi: "Chúng tôi làm gì với thông tin này", en: "What we do with your details", de: "Was mit Ihren Angaben geschieht" }, locale)}</h2>
             <ul>
               <li>
                 {
-                  {
+                  pick({
                     vi: "Chuyển tới phòng tuyển sinh của trường thành viên phụ trách ngành bạn chọn.",
                     en: "Pass them to the admissions office of the member school that runs your chosen field.",
                     de: "Weitergabe an das Zulassungsbüro der zuständigen Mitgliedsschule.",
-                  }[locale]
+                  }, locale)
                 }
               </li>
               <li>
                 {
-                  {
+                  pick({
                     vi: "Chỉ dùng cho mục đích tư vấn tuyển sinh; không chia sẻ cho bên thứ ba vì mục đích tiếp thị.",
                     en: "Use them only for admissions advice; never share them with third parties for marketing.",
                     de: "Nutzung nur zur Bildungsberatung; keine Weitergabe zu Marketingzwecken.",
-                  }[locale]
+                  }, locale)
                 }
               </li>
               <li>
                 {
-                  {
+                  pick({
                     vi: "Lưu tối đa 24 tháng kể từ lần liên hệ cuối, sau đó xoá.",
                     en: "Keep them for at most 24 months after the last contact, then delete them.",
                     de: "Speicherung höchstens 24 Monate nach dem letzten Kontakt.",
-                  }[locale]
+                  }, locale)
                 }
               </li>
               <li>
                 {
-                  {
+                  pick({
                     vi: "Không kết luận bạn có đủ điều kiện trúng tuyển – việc đó do nhà trường quyết định.",
                     en: "Not decide your eligibility - that is the school's decision, not this form's.",
                     de: "Keine Entscheidung über Ihre Zulassung - das obliegt der Schule.",
-                  }[locale]
+                  }, locale)
                 }
               </li>
             </ul>
 
             {tel ? (
               <p className={styles.callout}>
-                {{ vi: "Muốn gọi trực tiếp?", en: "Prefer to call?", de: "Lieber anrufen?" }[locale]}{" "}
+                {pick({ vi: "Muốn gọi trực tiếp?", en: "Prefer to call?", de: "Lieber anrufen?" }, locale)}{" "}
                 <a href={tel}>{settings.contact.admissionsPhone}</a>
               </p>
             ) : null}

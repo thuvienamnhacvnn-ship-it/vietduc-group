@@ -16,8 +16,27 @@ import {
  * Localised string. `vi` is authoritative - it is the language the source
  * documents were written in. `en`/`de` are optional and fall back to `vi`.
  */
-export type L10n = { vi: string; en?: string; de?: string };
-export type L10nList = { vi: string[]; en?: string[]; de?: string[] };
+/*
+ * Trường đa ngôn ngữ. Tiếng Việt bắt buộc vì mọi tài liệu gốc viết bằng tiếng
+ * Việt; năm thứ tiếng còn lại tuỳ chọn và khi thiếu thì t() lùi về tiếng Việt —
+ * một câu đúng nhưng chưa dịch vẫn hơn một ô trống.
+ */
+export type L10n = {
+  vi: string;
+  en?: string;
+  de?: string;
+  ja?: string;
+  ko?: string;
+  "zh-TW"?: string;
+};
+export type L10nList = {
+  vi: string[];
+  en?: string[];
+  de?: string[];
+  ja?: string[];
+  ko?: string[];
+  "zh-TW"?: string[];
+};
 
 /** Where a piece of content came from. Never lost, never guessed. */
 export type Provenance = {

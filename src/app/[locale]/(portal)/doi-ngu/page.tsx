@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { asc, eq } from "drizzle-orm";
-import { isLocale, t, type Locale } from "@/lib/i18n/config";
+import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getDb } from "@/lib/db";
 import { people } from "@/lib/db/schema";
@@ -54,11 +54,11 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
           <h1>{dict.nav.people}</h1>
           <p className={shell.lead}>
             {
-              {
+              pick({
                 vi: "Ban lãnh đạo và đội ngũ giảng viên của các trường thành viên.",
                 en: "The leadership and teaching staff of the member schools.",
                 de: "Leitung und Lehrpersonal der Mitgliedsschulen.",
-              }[locale]
+              }, locale)
             }
           </p>
         </header>
@@ -66,18 +66,18 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
         {!rows.length ? (
           <EmptyState
             title={
-              {
+              pick({
                 vi: "Chưa công bố thông tin đội ngũ",
                 en: "Staff information not published yet",
                 de: "Angaben zum Team noch nicht veröffentlicht",
-              }[locale]
+              }, locale)
             }
             hint={
-              {
+              pick({
                 vi: "Hồ sơ năng lực hiện có không nêu tên, ảnh hay tiểu sử của cá nhân nào. Trang này sẽ hiển thị ngay khi nhà trường cung cấp và biên tập viên duyệt trong trang quản trị — website không dùng ảnh hay hồ sơ minh hoạ.",
                 en: "The available capability profile names no individuals, and this site does not use stand-in portraits or invented biographies. The page fills in as soon as the schools supply the details and an editor approves them.",
                 de: "Das vorliegende Leistungsprofil nennt keine Personen, und diese Website verwendet keine Platzhalterporträts oder erfundenen Lebensläufe. Die Seite füllt sich, sobald die Schulen die Angaben liefern und die Redaktion sie freigibt.",
-              }[locale]
+              }, locale)
             }
           />
         ) : (
