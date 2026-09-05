@@ -24,7 +24,8 @@ import { RiseText } from "@/components/RiseText";
 import { HeroPicture } from "@/components/HeroPicture";
 import { HeroVideo } from "@/components/HeroVideo";
 import { HeroSocial } from "@/components/HeroSocial";
-import { PhotoWall } from "@/components/PhotoWall";
+import { PhotoSections } from "@/components/PhotoSections";
+import { NHOM_NGANH } from "@/content/anh-nhom";
 import { khoAnh } from "@/content/kho-media";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import styles from "./home.module.css";
@@ -268,12 +269,23 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                     de: "Die Viet Duc Group ist ein mehrstufiges, fächerübergreifendes Bildungssystem mit sechs Mitgliedsschulen in Vietnam und Deutschland.",
                   }[locale]
                 }
-                action={<ArrowLink href={path("/gioi-thieu")}>{dict.common.readMore}</ArrowLink>}
               />
-              <StatRow stats={stats} />
+              {/* Liên kết đặt DƯỚI đoạn dẫn, không nhét vào cạnh nó: trong cột
+                  hẹp thế này, đưa vào ô hành động của tiêu đề làm nó lơ lửng
+                  giữa đoạn văn. */}
+              <p className={styles.aboutLink}>
+                <ArrowLink href={path("/gioi-thieu")}>{dict.common.readMore}</ArrowLink>
+              </p>
+              <div className={styles.aboutStats}>
+                <StatRow stats={stats} />
+              </div>
             </div>
 
-            <ul className={styles.timeline} data-reveal>
+            <div className={styles.timelineWrap} data-reveal>
+              <h3 className={styles.timelineHead}>
+                {{ vi: "Chặng đường", en: "The road so far", de: "Der Weg bisher" }[locale]}
+              </h3>
+              <ul className={styles.timeline}>
               {[
                 { year: "2008", text: { vi: "Khởi đầu với các cơ sở đào tạo nghề chất lượng cao.", en: "Established the first colleges and vocational schools.", de: "Gründung der ersten Colleges und Berufsschulen." }[locale] },
                 { year: "2013", text: { vi: "Mở rộng hệ thống, đa dạng ngành đào tạo.", en: "Opened the system and widened the range of programmes.", de: "Ausbau des Verbunds und Erweiterung der Programme." }[locale] },
@@ -285,7 +297,8 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                   <span className={styles.timelineText}>{item.text}</span>
                 </li>
               ))}
-            </ul>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -413,9 +426,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               eyebrow={{ vi: "Trong xưởng", en: "In the workshop", de: "In der Werkstatt" }[locale]}
               title={
                 {
-                  vi: "Học bằng tay, trên máy thật",
-                  en: "Learnt by hand, on real machines",
-                  de: "Gelernt mit den Händen, an echten Maschinen",
+                  vi: "Thực hành trực chiến",
+                  en: "Trained on the real thing",
+                  de: "Ausbildung am echten Gerät",
                 }[locale]
               }
               lead={
@@ -428,16 +441,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             />
           </div>
           <div className={styles.schoolsWide}>
-            <PhotoWall
-              shots={workshop.map((src) => ({
-                src,
-                alt: {
-                  vi: "Giờ thực hành tại trường thành viên",
-                  en: "A practical at a member school",
-                  de: "Eine Übungsstunde an einer Mitgliedsschule",
-                }[locale],
-              }))}
-              limit={12}
+            <PhotoSections
+              groups={NHOM_NGANH}
+              all={workshop}
+              locale={locale}
+              otherLabel={{ vi: "Hình ảnh khác", en: "Other photographs", de: "Weitere Aufnahmen" }}
+              alt={(nhom) => nhom}
             />
           </div>
         </section>

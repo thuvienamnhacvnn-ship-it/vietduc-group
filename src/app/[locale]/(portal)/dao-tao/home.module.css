@@ -669,3 +669,49 @@
 .workshopSection {
   background: linear-gradient(180deg, var(--beige) 0%, var(--paper) 100%);
 }
+
+/* ------------------------------------------------- khối "Về Việt Đức Group" */
+
+/*
+ * Liên kết "Xem chi tiết" nằm dưới đoạn dẫn, sát lề trái.
+ *
+ * Trước đây nó được đưa vào ô hành động của tiêu đề, mà ô đó nằm cùng hàng
+ * ngang với tiêu đề — trong cột hẹp của bố cục hai cột, kết quả là cái liên kết
+ * lơ lửng giữa đoạn văn, không thuộc về đoạn nào.
+ */
+.aboutLink {
+  margin: var(--s-5) 0 0;
+}
+
+/*
+ * Bốn số liệu xếp 2×2 thay vì 1×4.
+ *
+ * Trong cột này, một hàng bốn ô chỉ còn khoảng 170px mỗi ô: "năm hình thành và
+ * phát triển" xuống ba dòng còn "trường thành viên" một dòng, chân các ô so le
+ * nhau. Hai hàng hai cột cho mỗi nhãn gấp đôi bề ngang, phần lớn nằm gọn một
+ * dòng và bốn ô cao bằng nhau.
+ */
+.aboutStats > dl {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-5) var(--s-6);
+}
+
+/* Giữ 2×2 ở mọi bề ngang trong cột này. Bốn ô một hàng thì mỗi ô chỉ còn
+   khoảng 240px, "năm hình thành và phát triển" xuống hai dòng còn "trường
+   thành viên" một dòng — chân bốn ô so le. */
+
+/* Cột phải có tiêu đề riêng để hai cột cùng bắt đầu bằng một dòng chữ, thay vì
+   một bên là chữ còn một bên là vạch kẻ. */
+.timelineWrap {
+  min-width: 0;
+}
+
+.timelineHead {
+  margin: 0 0 var(--s-4);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}

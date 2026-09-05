@@ -4,7 +4,8 @@ import { isLocale, t, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPartners, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState, SourceNote } from "@/components/ui";
-import { PhotoWall } from "@/components/PhotoWall";
+import { PhotoSections } from "@/components/PhotoSections";
+import { NHOM_DOI_TAC } from "@/content/anh-nhom";
 import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
 import styles from "./partners.module.css";
@@ -131,16 +132,12 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
                 }[locale]
               }
             </h2>
-            <PhotoWall
-              shots={network.map((src) => ({
-                src,
-                alt: {
-                  vi: "Hoạt động của mạng lưới đối tác",
-                  en: "The partner network at work",
-                  de: "Das Partnernetz bei der Arbeit",
-                }[locale],
-              }))}
-              limit={24}
+            <PhotoSections
+              groups={NHOM_DOI_TAC}
+              all={network}
+              locale={locale}
+              otherLabel={{ vi: "Hình ảnh khác", en: "Other photographs", de: "Weitere Aufnahmen" }}
+              alt={(nhom) => nhom}
             />
           </section>
         ) : null}

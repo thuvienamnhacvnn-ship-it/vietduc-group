@@ -5,7 +5,8 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { getActivities, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState, SourceNote } from "@/components/ui";
 import { ActivityCard } from "@/components/cards";
-import { PhotoWall } from "@/components/PhotoWall";
+import { PhotoSections } from "@/components/PhotoSections";
+import { NHOM_HOAT_DONG } from "@/content/anh-nhom";
 import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
 import styles from "./activities.module.css";
@@ -78,22 +79,18 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
             <h2>
               {
                 {
-                  vi: "Toàn bộ hình ảnh hoạt động",
-                  en: "Every photograph",
-                  de: "Alle Aufnahmen",
+                  vi: "Hình ảnh theo chủ đề",
+                  en: "Photographs by theme",
+                  de: "Aufnahmen nach Thema",
                 }[locale]
               }
             </h2>
-            <PhotoWall
-              shots={shots.map((src) => ({
-                src,
-                alt: {
-                  vi: "Hoạt động của hệ thống Việt Đức Group",
-                  en: "An event in the Viet Duc Group network",
-                  de: "Eine Veranstaltung im Verbund der Viet Duc Group",
-                }[locale],
-              }))}
-              limit={40}
+            <PhotoSections
+              groups={NHOM_HOAT_DONG}
+              all={shots}
+              locale={locale}
+              otherLabel={{ vi: "Hoạt động khác", en: "Other events", de: "Weitere Veranstaltungen" }}
+              alt={(nhom) => nhom}
             />
           </section>
         ) : null}

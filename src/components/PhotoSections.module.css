@@ -1,0 +1,46 @@
+/*
+ * Nhiều mục ảnh xếp chồng, mỗi mục một tiêu đề riêng.
+ *
+ * Khoảng cách giữa các mục rộng hơn hẳn khoảng cách giữa các ảnh trong cùng
+ * một mục — đó là thứ duy nhất nói cho mắt biết chỗ nào là ranh giới, và nó
+ * làm việc đó tốt hơn bất kỳ đường kẻ nào.
+ */
+.stack {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.group {
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.head h3 {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.8vw, 1.32rem);
+}
+
+/* Số tấm ảnh trong mục. Với ảnh tư liệu thì "bao nhiêu tấm" là một phần của
+   thông tin, nên nó được nói ra chứ không để người xem tự đếm. */
+.count {
+  margin-left: auto;
+  flex: none;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 719px) {
+  .head {
+    margin-bottom: var(--s-3);
+  }
+}
