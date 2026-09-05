@@ -30,6 +30,14 @@
 
 /* On a dark or coloured band the title and the lead have to come with the
    eyebrow, or the lead keeps the body colour and sinks into the background. */
+/*
+ * CHỈ dùng tone="dark" khi mục đó có nền TỐI THẬT, không đổi theo theme.
+ *
+ * Bảng màu ở đây ép cứng chữ trắng. Đặt nó lên một mục mà nền chỉ là lớp phủ
+ * mờ theo theme (kiểu var(--tint-neutral)) thì ở theme đêm trông vẫn ổn, còn
+ * sang theme ngày lớp phủ đó nằm trên nền giấy sáng — thành chữ trắng trên nền
+ * trắng, không đọc được. Đã xảy ra đúng một lần ở mục "Nhóm ngành đào tạo".
+ */
 .headingDark .eyebrow {
   color: var(--gold);
 }

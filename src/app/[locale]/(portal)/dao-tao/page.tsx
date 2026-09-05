@@ -359,7 +359,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 de: "Ausbildungsbereiche",
               }[locale]
             }
-            tone="dark"
             lead={
               {
                 vi: "Chọn nhóm ngành để xem toàn bộ chương trình đang tuyển sinh trong nhóm đó.",
