@@ -20,7 +20,6 @@ import shell from "@/components/venture/venture-shell.module.css";
  * footer and a palette of its own - the education pages and this arm share a
  * brand but should not read as the same website.
  */
-export const dynamic = "force-dynamic";
 
 export default async function VentureLayout({
   children,

@@ -14,12 +14,24 @@ import { localisedSeo, resolveSiteUrl } from "@/lib/site-config";
  * navigation bar of the arms around it; the chrome lives in the route groups
  * below instead.
  *
- * Everything under here renders per request. The content lives in a database,
- * and the local development database (PGlite) is an embedded single-process
- * engine - Next's static-generation workers are separate processes and cannot
- * share it. On a deployment backed by real Postgres this can be relaxed.
+ * Pages here are rendered once and then re-used for five minutes.
+ *
+ * They used to be force-dynamic, which meant every page was rebuilt from the
+ * database on every request - and, worse, that the router could not prefetch
+ * anything, so a tap from the gateway to a landing page sat for well over a
+ * second with the old page still on screen.
+ *
+ * The reason for it was local development: PGlite is an embedded single-process
+ * engine and Next's static-generation workers are separate processes that
+ * cannot share its data directory. That is still true, which is why building
+ * locally needs DATABASE_URL to point at a real Postgres - the server it is
+ * deployed to has one, and the build there uses it.
+ *
+ * Five minutes, not longer: the content is edited through the admin screen a
+ * few times a year, and an editor should see their change without having to be
+ * told about a cache.
  */
-export const dynamic = "force-dynamic";
+export const revalidate = 300;
 
 export async function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));

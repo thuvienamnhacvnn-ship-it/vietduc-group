@@ -20,7 +20,6 @@ import { Reveal } from "@/components/Reveal";
  * are inside it, while the gateway at /vi and the investment arm under
  * /vi/dau-tu carry their own chrome instead.
  */
-export const dynamic = "force-dynamic";
 
 export default async function PortalLayout({
   children,
