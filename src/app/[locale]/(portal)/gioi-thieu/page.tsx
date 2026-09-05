@@ -5,7 +5,7 @@ import { isLocale, localePath, t, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPage, getPartners, getPrograms, getSchools } from "@/lib/queries";
 import { ArrowLink, Breadcrumbs, Prose, SectionHeading, StatRow } from "@/components/ui";
-import { PageBand, bandFlush } from "@/components/PageBand";
+import { PageHead } from "@/components/PageHead";
 import shell from "../page-shell.module.css";
 import styles from "./about.module.css";
 
@@ -109,14 +109,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   ];
 
   return (
-    <div className={`${shell.page} ${bandFlush}`}>
-      <PageBand>
-        <Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />
-        <header className={shell.header}>
-          <h1>{t(page.title, locale)}</h1>
-          <p className={shell.lead}>{dict.brand.motto}</p>
-        </header>
-      </PageBand>
+    <div className={shell.page}>
+      <div className="shell">
+        <PageHead
+          crumbs={<Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />}
+          eyebrow={pick("Việt Đức Group", "Viet Duc Group", "Viet Duc Group")}
+          title={t(page.title, locale)}
+          lead={dict.brand.motto}
+        />
+      </div>
 
       {/* The building, full width, with the numbers riding its lower edge. */}
       <section className={styles.hero}>

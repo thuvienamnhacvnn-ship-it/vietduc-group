@@ -1,0 +1,72 @@
+/*
+ * Đầu trang, đặt trên nền giấy.
+ *
+ * Trước đây chỗ này là một dải đỏ kín chiều ngang. Bỏ đi: màu đỏ của tập đoàn
+ * đắt giá vì nó hiếm — dùng làm nền cho mọi tiêu đề thì nó thành nền, và trang
+ * nào cũng mở ra bằng một tiếng hét giống hệt trang trước.
+ *
+ * Còn lại đúng những gì cần: một vạch vàng mảnh ở trên, dòng chuyên mục nhỏ,
+ * tiêu đề lớn, và câu dẫn. Màu chỉ còn ở vạch vàng và dòng chuyên mục.
+ */
+.head {
+  padding-block: var(--s-7) var(--s-6);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s-7);
+}
+
+/* Vạch vàng ngắn, đặt trên tiêu đề — dấu hiệu duy nhất còn lại của nhận diện.
+   Ngắn chứ không kéo hết chiều ngang: một vạch dài lại thành cái dải cũ. */
+.rule {
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-bottom: var(--s-4);
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  border-radius: 2px;
+}
+
+.eyebrow {
+  margin: 0 0 var(--s-2);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.head h1 {
+  margin: 0;
+  max-width: 20ch;
+}
+
+.lead {
+  margin: var(--s-4) 0 0;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 58ch;
+}
+
+/* Dòng đường dẫn nằm trên cùng, tách khỏi khối tiêu đề. */
+.crumbs {
+  padding-top: var(--s-5);
+}
+
+@media (max-width: 719px) {
+  .head {
+    padding-block: var(--s-5) var(--s-5);
+    margin-bottom: var(--s-6);
+    text-align: center;
+  }
+
+  .rule {
+    margin-inline: auto;
+  }
+
+  /* Trên một cột thì không có lề trái để chữ bám vào; giới hạn số ký tự cũng
+     bỏ đi để khối chữ nằm đều giữa hai lề. */
+  .head h1,
+  .lead {
+    max-width: none;
+  }
+}

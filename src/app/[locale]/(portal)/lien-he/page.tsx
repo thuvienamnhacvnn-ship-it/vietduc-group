@@ -8,7 +8,7 @@ import { getSiteSettings } from "@/lib/settings";
 import { telHref } from "@/lib/site-config";
 import { Breadcrumbs, ButtonLink } from "@/components/ui";
 import { SocialLinks, hasSocial } from "@/components/SocialLinks";
-import { PageBand, bandFlush } from "@/components/PageBand";
+import { PageHead } from "@/components/PageHead";
 import { FooterMap } from "@/components/FooterMap";
 import shell from "../page-shell.module.css";
 import styles from "./contact.module.css";
@@ -37,24 +37,20 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const tel = telHref(contact.phoneE164 || contact.phone);
 
   return (
-    <div className={`${shell.page} ${bandFlush}`}>
-      <PageBand>
-        <Breadcrumbs locale={locale} trail={[{ label: dict.contact.title }]} />
-        <header className={shell.header}>
-          <h1>{dict.contact.title}</h1>
-          <p className={shell.lead}>
-            {
-              {
-                vi: "Liên hệ trực tiếp với văn phòng tập đoàn, hoặc với phòng tuyển sinh của trường thành viên phụ trách ngành bạn quan tâm.",
-                en: "Contact the group office directly, or the admissions office of the member school that runs the programme you are interested in.",
-                de: "Wenden Sie sich an die Zentrale oder direkt an das Zulassungsbüro der zuständigen Mitgliedsschule.",
-              }[locale]
-            }
-          </p>
-        </header>
-      </PageBand>
-
+    <div className={shell.page}>
       <div className="shell">
+        <PageHead
+          crumbs={<Breadcrumbs locale={locale} trail={[{ label: dict.contact.title }]} />}
+          eyebrow={{ vi: "Liên hệ", en: "Contact", de: "Kontakt" }[locale]}
+          title={dict.contact.title}
+          lead={
+            {
+              vi: "Liên hệ trực tiếp với văn phòng tập đoàn, hoặc với phòng tuyển sinh của trường thành viên phụ trách ngành bạn quan tâm.",
+              en: "Contact the group office directly, or the admissions office of the member school that runs the programme you are interested in.",
+              de: "Wenden Sie sich an die Zentrale oder direkt an das Zulassungsbüro der zuständigen Mitgliedsschule.",
+            }[locale]
+          }
+        />
         <div className={styles.grid}>
           <section className={styles.card}>
             <h2>{dict.contact.headquarters}</h2>

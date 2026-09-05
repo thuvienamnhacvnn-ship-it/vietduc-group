@@ -5,7 +5,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { getFaqs, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState } from "@/components/ui";
 import { FaqList } from "@/components/FaqList";
-import { PageBand, bandFlush } from "@/components/PageBand";
+import { PageHead } from "@/components/PageHead";
 import shell from "../../page-shell.module.css";
 
 export async function generateMetadata({
@@ -52,24 +52,20 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
   };
 
   return (
-    <div className={`${shell.page} ${bandFlush}`}>
-      <PageBand>
-        <Breadcrumbs locale={locale} trail={[{ label: dict.nav.faq }]} />
-        <header className={shell.header}>
-          <h1>{dict.nav.faq}</h1>
-          <p className={shell.lead}>
-            {
-              {
-                vi: "Mỗi câu trả lời dưới đây đều dẫn nguồn từ tài liệu chính thức của Việt Đức Group.",
-                en: "Every answer below cites the official Viet Duc Group document it comes from.",
-                de: "Jede Antwort nennt das offizielle Dokument, aus dem sie stammt.",
-              }[locale]
-            }
-          </p>
-        </header>
-      </PageBand>
-
+    <div className={shell.page}>
       <div className="shell">
+        <PageHead
+          crumbs={<Breadcrumbs locale={locale} trail={[{ label: dict.nav.faq }]} />}
+          eyebrow={{ vi: "Hỏi đáp", en: "Questions", de: "Fragen" }[locale]}
+          title={dict.nav.faq}
+          lead={
+            {
+              vi: "Mỗi câu trả lời dưới đây đều dẫn nguồn từ tài liệu chính thức của Việt Đức Group.",
+              en: "Every answer below cites the official Viet Duc Group document it comes from.",
+              de: "Jede Antwort nennt das offizielle Dokument, aus dem sie stammt.",
+            }[locale]
+          }
+        />
 
         {!items.length ? (
           <EmptyState title={dict.common.empty} />
