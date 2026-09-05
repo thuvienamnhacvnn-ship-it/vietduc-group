@@ -31,14 +31,17 @@ import { ProgramFinder } from "@/components/ProgramFinder";
 import styles from "./home.module.css";
 
 /**
- * The banner film and the frame it opens on.
+ * Phim ở banner.
  *
- * The film is hosted on the group's own server rather than shipped with the
- * site: it is two megabytes, it changes on its own schedule, and a deployment
- * is not the place for it. See docs/DATA-NOTES.md section 20.
+ * Phim đặt trên máy chủ của tập đoàn chứ không đi kèm mã nguồn: nó nặng hai
+ * megabyte và thay đổi theo lịch riêng, không thuộc về một lần deploy. Xem
+ * docs/DATA-NOTES.md mục 20.
+ *
+ * Khung hình mở đầu dùng ẢNH TĨNH GỐC chứ không phải khung cắt từ phim: khung
+ * cắt ra từ bản đã nén mờ hơn hẳn, mà đó lại đúng là ảnh người xem nhìn thấy
+ * suốt lúc phim chưa tải xong.
  */
 const HERO_VIDEO = "https://itw-berlin.de/vdg-media/vdg-edu.mp4";
-const HERO_VIDEO_POSTER = "/media/hero/vdg-edu-video-poster.webp";
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -199,7 +202,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               the facade a sliver. */}
           <HeroPicture
             wide={{ src: "/media/hero/vdg-banner-16x9.webp", width: 1672, height: 941 }}
-            tall={{ src: HERO_VIDEO_POSTER, width: 900, height: 1580 }}
+            tall={{ src: "/media/hero/vdg-hq-portrait.webp", width: 992, height: 1586 }}
             alt={
               {
                 vi: "Trụ sở Việt Đức Group",
@@ -211,7 +214,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             className={styles.heroImage}
           />
           {/* Phone only: the film runs over the still it opens on. */}
-          <HeroVideo src={HERO_VIDEO} poster={HERO_VIDEO_POSTER} className={styles.heroVideo} />
+          <HeroVideo src={HERO_VIDEO} poster="/media/hero/vdg-hq-portrait.webp" className={styles.heroVideo} />
           <span className={styles.heroFade} aria-hidden="true" />
         </div>
 
@@ -276,9 +279,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <p className={styles.aboutLink}>
                 <ArrowLink href={path("/gioi-thieu")}>{dict.common.readMore}</ArrowLink>
               </p>
-              <div className={styles.aboutStats}>
-                <StatRow stats={stats} />
-              </div>
             </div>
 
             <div className={styles.timelineWrap} data-reveal>
@@ -299,6 +299,13 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               ))}
               </ul>
             </div>
+          </div>
+
+          {/* Bốn số liệu thành một hàng riêng chạy hết chiều ngang, dưới cả
+              hai cột. Nhét vào cột trái làm cột đó dài hơn hẳn cột phải, để
+              lại một mảng trống lớn bên cạnh bảng chặng đường. */}
+          <div className={styles.aboutStats} data-reveal>
+            <StatRow stats={stats} />
           </div>
         </div>
       </section>

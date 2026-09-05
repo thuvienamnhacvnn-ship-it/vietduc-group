@@ -54,11 +54,17 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
           the message and the words sit inside it. */}
       <section className={styles.hero}>
         <div className={styles.heroMedia}>
-          {/* The wide rendering on a desktop; on a phone the valley shot, which
-              is upright and keeps the mountains behind the building. */}
+          {/*
+            Máy tính dùng bản rộng; điện thoại dùng ảnh thung lũng dựng đứng.
+
+            Ảnh dựng đứng là ảnh tĩnh GỐC, không phải khung cắt từ video. Khung
+            cắt ra từ bản video đã nén mờ hơn hẳn — 95 KB so với 299 KB ở cùng
+            khổ — mà đó lại đúng là ảnh người xem nhìn thấy suốt lúc video chưa
+            tải xong, hoặc mãi mãi nếu trình duyệt từ chối tự phát.
+          */}
           <HeroPicture
             wide={{ src: VENTURE_HERO.src, width: 1672, height: 941 }}
-            tall={{ src: VENTURE_HERO.mobilePoster, width: 900, height: 1580 }}
+            tall={{ src: VENTURE_HERO.mobileSrc, width: 941, height: 1672 }}
             alt=""
             priority
             className={styles.heroImage}
@@ -66,7 +72,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
           {/* Phone only: the film runs over the still it opens on. */}
           <HeroVideo
             src={VENTURE_HERO.mobileVideo}
-            poster={VENTURE_HERO.mobilePoster}
+            poster={VENTURE_HERO.mobileSrc}
             className={styles.heroVideo}
           />
         </div>

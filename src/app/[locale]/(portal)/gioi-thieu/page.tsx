@@ -93,9 +93,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     ? fromKho.map((src) => ({
         src,
         alt: pick(
-          "Hoạt động của các trường thành viên Việt Đức Group",
-          "An event at a Viet Duc Group member school",
-          "Eine Veranstaltung an einer Mitgliedsschule der Viet Duc Group",
+          "Ban lãnh đạo Việt Đức Group",
+          "The Viet Duc Group leadership",
+          "Die Führung der Viet Duc Group",
         ),
       }))
     : [
@@ -226,16 +226,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className={`section ${styles.mosaicSection}`}>
         <div className="shell">
           <SectionHeading
-            eyebrow={pick("Bên trong hệ thống", "Inside the network", "Im Verbund")}
+            eyebrow={pick("Đội ngũ", "Leadership", "Führung")}
             title={pick(
-              "Học ở xưởng, ở bếp, ở quầy lễ tân",
-              "Taught in the workshop, the kitchen, at the front desk",
-              "Unterricht in Werkstatt, Küche und an der Rezeption",
+              "Đội ngũ lãnh đạo",
+              "The people who run it",
+              "Die Führung der Gruppe",
             )}
             lead={pick(
-              "Ảnh chụp tại các trường thành viên: giờ thực hành, lễ trao thưởng và những buổi làm việc với đối tác nước ngoài.",
-              "Photographs from the member schools: practicals, prize-givings and working sessions with partners abroad.",
-              "Aufnahmen aus den Mitgliedsschulen: Übungsstunden, Preisverleihungen und Arbeitstreffen mit Partnern im Ausland.",
+              "Ban lãnh đạo Việt Đức Group tại các lễ kỷ niệm, chuyến công tác và những buổi làm việc với đối tác trong nước và nước ngoài.",
+              "The Viet Duc Group leadership at anniversaries, field visits and working sessions with partners at home and abroad.",
+              "Die Führung der Viet Duc Group bei Jubiläen, Vor-Ort-Besuchen und Arbeitstreffen mit Partnern.",
             )}
           />
         </div>

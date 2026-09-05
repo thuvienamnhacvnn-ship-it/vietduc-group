@@ -160,7 +160,15 @@
 
     --paper: #0f151c;
     --paper-raised: #18202a;
-    --beige: #141c25;
+    /*
+   * Cách --paper một bậc RÕ RÀNG, không phải một sắc độ.
+   *
+   * Bản cũ là #141c25 trong khi --paper là #0f151c — chênh nhau 5 đơn vị, mắt
+   * thường không phân biệt được. Hệ quả: nhịp nền xen kẽ giữa các mục chỉ nhìn
+   * ra ở theme sáng, còn ở theme tối cả trang là một khối liền, đúng như lời
+   * "các section nhìn cực đơn điệu".
+   */
+  --beige: #1a2430;
     --beige-deep: #1d2530;
     --ink: #eae7e1;
 
@@ -209,7 +217,15 @@
 
   --paper: #0f151c;
   --paper-raised: #18202a;
-  --beige: #141c25;
+  /*
+   * Cách --paper một bậc RÕ RÀNG, không phải một sắc độ.
+   *
+   * Bản cũ là #141c25 trong khi --paper là #0f151c — chênh nhau 5 đơn vị, mắt
+   * thường không phân biệt được. Hệ quả: nhịp nền xen kẽ giữa các mục chỉ nhìn
+   * ra ở theme sáng, còn ở theme tối cả trang là một khối liền, đúng như lời
+   * "các section nhìn cực đơn điệu".
+   */
+  --beige: #1a2430;
   --beige-deep: #1d2530;
   --ink: #eae7e1;
 
