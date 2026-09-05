@@ -1,0 +1,69 @@
+/*
+ * Băng ảnh chạy ngang không dứt.
+ *
+ * Chỉ dùng transform, không đụng tới left/margin: trình duyệt chạy transform
+ * trên card đồ hoạ nên băng trôi mượt kể cả khi trang đang tải ảnh khác.
+ */
+.frame {
+  position: relative;
+  overflow: hidden;
+  /* Hai mép mờ dần để băng ảnh trôi RA KHỎI trang chứ không bị cắt phựt bởi
+     một đường thẳng đứng — đó là khác biệt giữa "chạy chữ" và "băng ảnh". */
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+
+.track {
+  display: flex;
+  gap: clamp(0.6rem, 1.2vw, 1rem);
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: run var(--run, 70s) linear infinite;
+}
+
+/* Kéo đúng MỘT NỬA: nửa sau là bản sao của nửa đầu, nên khi đi hết nửa đầu thì
+   nửa sau đã nằm đúng chỗ nửa đầu lúc bắt đầu. Vòng lặp khép kín, không giật. */
+@keyframes run {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Dừng khi rê chuột, để người xem kịp nhìn một tấm cụ thể. */
+.frame:hover .track {
+  animation-play-state: paused;
+}
+
+.track li {
+  flex: none;
+  width: clamp(230px, 26vw, 380px);
+  overflow: hidden;
+  border-radius: var(--r-3);
+  border: 1px solid var(--line);
+  background: var(--beige);
+}
+
+.track img {
+  display: block;
+  width: 100%;
+  height: clamp(160px, 18vw, 250px);
+  object-fit: cover;
+  /* Cao hơn giữa một chút: công trình và núi nằm ở nửa trên khung hình. */
+  object-position: 50% 42%;
+}
+
+/*
+ * Không có chuyển động thì băng đứng yên và người xem tự kéo ngang. Bỏ hẳn
+ * animation mà không cho cách xem khác là giấu mất nửa số ảnh.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .frame {
+    overflow-x: auto;
+    mask-image: none;
+  }
+
+  .track {
+    animation: none;
+  }
+}

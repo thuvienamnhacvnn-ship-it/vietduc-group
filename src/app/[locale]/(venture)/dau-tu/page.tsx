@@ -20,6 +20,7 @@ import { HeroPicture } from "@/components/HeroPicture";
 import { HeroVideo } from "@/components/HeroVideo";
 import { HeroSocial } from "@/components/HeroSocial";
 import { PhotoWall } from "@/components/PhotoWall";
+import { PhotoMarquee } from "@/components/PhotoMarquee";
 import { khoAnh } from "@/content/kho-media";
 import styles from "./venture.module.css";
 
@@ -47,6 +48,21 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
   const settings = await getSiteSettings();
   /* Ảnh hiện trường lấy từ kho tiếp nhận; chưa có ảnh thì cả mục không dựng. */
   const siteShots = khoAnh("investment");
+
+  /*
+   * Băng ảnh dưới banner: CHỈ ảnh chụp và phối cảnh.
+   *
+   * Thư mục hospitality còn có mười ba bản vẽ mặt bằng, vị trí và phân khu —
+   * đó là tài liệu kỹ thuật, đưa vào một băng ảnh đang trôi thì vừa không đọc
+   * được vừa làm hỏng cả dải. Chúng vẫn nằm đầy đủ ở trang chi tiết từng dự án.
+   */
+  const marquee = [
+    "/media/hospitality/bo-trach-exterior.webp",
+    "/media/hospitality/bo-trach-aerial-fields.webp",
+    "/media/hospitality/bo-trach-pool-night.webp",
+    "/media/hospitality/bo-trach-terrace.webp",
+    ...siteShots,
+  ];
 
   return (
     <>
@@ -109,12 +125,21 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         <p className={styles.heroCaption}>{t(VENTURE_HERO.caption, locale)}</p>
       </section>
 
-      <section className={styles.intro}>
-        <div className={styles.introInner}>
-          {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
+      {/* Ngay dưới banner là hình ảnh, không phải một khối chữ. Đoạn chữ vốn
+          nằm đây nói về cách trích số liệu từ hồ sơ — nó thuộc về mục "Cách
+          làm" ở dưới, và đã được chuyển xuống đó. */}
+      <section className={styles.marqueeSection} aria-label={dict.venture.projects}>
+        <PhotoMarquee
+          shots={marquee}
+          alt={
+            {
+              vi: "Dự án khách sạn, khu nghỉ dưỡng và công trường của Việt Đức Group",
+              en: "Viet Duc Group hotel, resort and construction projects",
+              de: "Hotel-, Resort- und Bauprojekte der Viet Duc Group",
+            }[locale]
+          }
+          seconds={marquee.length > 12 ? 80 : 55}
+        />
       </section>
 
       <section id="linh-vuc" className={styles.section} data-reveal>
@@ -178,6 +203,14 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
               hai mục cùng mang số 03 thì dãy số mất hết ý nghĩa. */}
           <p className={styles.kicker}>{siteShots.length ? "04" : "03"}</p>
           <h2>{t(VENTURE_PROCESS.title, locale)}</h2>
+        </div>
+
+        {/* Đoạn chữ chuyển từ dưới banner xuống đây: nó nói về cách trích số
+            liệu từ hồ sơ, tức đúng chủ đề của mục này. */}
+        <div className={styles.processIntro}>
+          {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
 
         <ol className={styles.steps}>

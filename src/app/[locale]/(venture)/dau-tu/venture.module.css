@@ -596,3 +596,35 @@
     font-size: 0.82rem;
   }
 }
+
+/* ------------------------------------------------------------ băng ảnh */
+
+/*
+ * Băng ảnh nằm ngay dưới banner, tràn hết chiều ngang.
+ *
+ * Không bọc trong khung chữ: một băng ảnh bị bó vào cùng bề rộng với đoạn văn
+ * thì trông như một thanh trượt tài liệu, còn tràn hết chiều ngang mới ra dáng
+ * một dải hình ảnh.
+ */
+.marqueeSection {
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+  background: var(--v-paper, var(--paper));
+  border-bottom: 1px solid var(--v-line, var(--line));
+}
+
+/* Đoạn chữ chuyển từ dưới banner xuống mục "Cách làm". */
+.processIntro {
+  max-width: 62ch;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.processIntro p {
+  margin: 0 0 var(--s-4);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.processIntro p:last-child {
+  margin-bottom: 0;
+}
