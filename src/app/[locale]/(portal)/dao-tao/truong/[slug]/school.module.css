@@ -143,3 +143,10 @@
   color: var(--muted-soft);
   font-variant-numeric: tabular-nums;
 }
+
+/* Mục ảnh của trường: nền chuyển nhẹ để tách khỏi phần hồ sơ phía trên, và
+   tường ảnh không phải nằm trên cùng nền trắng với bảng số liệu. */
+.gallerySection {
+  margin-top: var(--s-8);
+  background: linear-gradient(180deg, var(--paper) 0%, var(--beige) 100%);
+}

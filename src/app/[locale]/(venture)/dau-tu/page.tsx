@@ -19,6 +19,8 @@ import { ProjectSheets } from "@/components/venture/ProjectSheets";
 import { HeroPicture } from "@/components/HeroPicture";
 import { HeroVideo } from "@/components/HeroVideo";
 import { HeroSocial } from "@/components/HeroSocial";
+import { PhotoWall } from "@/components/PhotoWall";
+import { khoAnh } from "@/content/kho-media";
 import styles from "./venture.module.css";
 
 export async function generateMetadata({
@@ -43,6 +45,8 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
   const path = (href: string) => localePath(locale, href);
   const projects = publishedProjects();
   const settings = await getSiteSettings();
+  /* Ảnh hiện trường lấy từ kho tiếp nhận; chưa có ảnh thì cả mục không dựng. */
+  const siteShots = khoAnh("investment");
 
   return (
     <>
@@ -129,9 +133,44 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         />
       </section>
 
+      {/*
+        Ảnh công trường của mảng đầu tư. Tiêu đề chỉ nói đúng những gì trong
+        ảnh — chưa xác định được các ảnh này thuộc dự án nào, và đặt tên một dự
+        án mà không biết chắc thì tệ hơn là không đặt tên.
+      */}
+      {siteShots.length ? (
+        <section id="hien-truong" className={styles.section} data-reveal>
+          <div className={styles.sectionHead}>
+            <p className={styles.kicker}>03</p>
+            <h2>
+              {
+                {
+                  vi: "Ngoài hiện trường",
+                  en: "On site",
+                  de: "Vor Ort",
+                }[locale]
+              }
+            </h2>
+          </div>
+          <PhotoWall
+            shots={siteShots.map((src) => ({
+              src,
+              alt: {
+                vi: "Hiện trường hoạt động đầu tư của Việt Đức Group",
+                en: "A Viet Duc Group investment site",
+                de: "Ein Investitionsstandort der Viet Duc Group",
+              }[locale],
+            }))}
+            limit={9}
+          />
+        </section>
+      ) : null}
+
       <section id="cach-lam" className={`${styles.section} ${styles.dark}`} data-reveal>
         <div className={styles.sectionHead}>
-          <p className={styles.kicker}>03</p>
+          {/* 04, không phải 03: mục ảnh hiện trường vừa chen vào trước nó, và
+              hai mục cùng mang số 03 thì dãy số mất hết ý nghĩa. */}
+          <p className={styles.kicker}>{siteShots.length ? "04" : "03"}</p>
           <h2>{t(VENTURE_PROCESS.title, locale)}</h2>
         </div>
 

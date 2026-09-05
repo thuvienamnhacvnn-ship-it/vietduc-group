@@ -6,6 +6,8 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPage, getPartners, getPrograms, getSchools } from "@/lib/queries";
 import { ArrowLink, Breadcrumbs, Prose, SectionHeading, StatRow } from "@/components/ui";
 import { PageHead } from "@/components/PageHead";
+import { PhotoWall } from "@/components/PhotoWall";
+import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
 import styles from "./about.module.css";
 
@@ -76,37 +78,44 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     },
   ];
 
-  /* The workshops and the ceremonies: what the group does, not what it says. */
-  const mosaic = [
-    {
-      src: "/media/education/xuong-thuc-hanh-may.webp",
-      alt: pick("Xưởng thực hành cơ khí", "The machining workshop", "Die Maschinenwerkstatt"),
-      wide: true,
-    },
-    {
-      src: "/media/education/nghiep-vu-le-tan.webp",
-      alt: pick("Thực hành nghiệp vụ lễ tân", "Front-office training", "Rezeptionstraining"),
-      wide: false,
-    },
-    {
-      src: "/media/education/gap-doi-tac-chau-au.webp",
-      alt: pick(
-        "Làm việc với đối tác châu Âu",
-        "Meeting European partners",
-        "Treffen mit europäischen Partnern",
-      ),
-      wide: false,
-    },
-    {
-      src: "/media/education/tien-hoc-vien-len-duong.webp",
-      alt: pick(
-        "Tiễn học viên lên đường",
-        "Seeing students off",
-        "Verabschiedung der Auszubildenden",
-      ),
-      wide: true,
-    },
-  ];
+  /*
+   * Sơ đồ cấu trúc tập đoàn, lấy từ kho. Ảnh thứ hai trong nhóm brand là sơ đồ;
+   * ảnh thứ nhất là logo, đã dùng ở chỗ khác.
+   */
+  const chart = khoAnh("brand")[1] ?? null;
+
+  /*
+   * Ảnh hoạt động lấy từ kho tiếp nhận. Bốn ảnh cũ giữ lại làm dự phòng: nếu
+   * chưa ai đổ ảnh vào kho thì mục này vẫn có cái để dựng thay vì biến mất.
+   */
+  const fromKho = khoAnh("activities");
+  const mosaic = fromKho.length
+    ? fromKho.map((src) => ({
+        src,
+        alt: pick(
+          "Hoạt động của các trường thành viên Việt Đức Group",
+          "An event at a Viet Duc Group member school",
+          "Eine Veranstaltung an einer Mitgliedsschule der Viet Duc Group",
+        ),
+      }))
+    : [
+        {
+          src: "/media/education/xuong-thuc-hanh-may.webp",
+          alt: pick("Xưởng thực hành cơ khí", "The machining workshop", "Die Maschinenwerkstatt"),
+        },
+        {
+          src: "/media/education/nghiep-vu-le-tan.webp",
+          alt: pick("Thực hành nghiệp vụ lễ tân", "Front-office training", "Rezeptionstraining"),
+        },
+        {
+          src: "/media/education/gap-doi-tac-chau-au.webp",
+          alt: pick("Làm việc với đối tác châu Âu", "Meeting European partners", "Treffen mit Partnern"),
+        },
+        {
+          src: "/media/education/tien-hoc-vien-len-duong.webp",
+          alt: pick("Tiễn học viên lên đường", "Seeing students off", "Verabschiedung"),
+        },
+      ];
 
   return (
     <div className={shell.page}>
@@ -178,6 +187,41 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         </div>
       </section>
 
+      {/* Sơ đồ tập đoàn: một tấm nói được nhiều hơn cả trang chữ - ba mảng,
+          năm thương hiệu đầu tư và khách sạn, bảy huy hiệu trường. */}
+      {chart ? (
+        <section className={`section ${styles.chartSection}`}>
+          <div className="shell">
+            <SectionHeading
+              eyebrow={pick("Cấu trúc", "Structure", "Struktur")}
+              title={pick(
+                "Ba mảng dưới một cái tên",
+                "Three arms under one name",
+                "Drei Bereiche unter einem Namen",
+              )}
+              lead={pick(
+                "Giáo dục, đầu tư và khách sạn – lữ hành, cùng các trường thành viên.",
+                "Education, investment, and hospitality, with the member schools.",
+                "Bildung, Investition und Hotellerie, mit den Mitgliedsschulen.",
+              )}
+            />
+            <figure className={styles.chart}>
+              <Image
+                src={chart}
+                alt={pick(
+                  "Sơ đồ cấu trúc Việt Đức Group",
+                  "The Viet Duc Group structure",
+                  "Struktur der Viet Duc Group",
+                )}
+                width={1536}
+                height={1024}
+                sizes="(min-width: 1100px) 1100px, 100vw"
+              />
+            </figure>
+          </div>
+        </section>
+      ) : null}
+
       {/* A band of what the schools actually do. */}
       <section className={`section ${styles.mosaicSection}`}>
         <div className="shell">
@@ -196,24 +240,17 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           />
         </div>
         <div className={styles.mosaicWrap}>
-          <ul className={styles.mosaic}>
-            {mosaic.map((shot, i) => (
-              <li
-                key={shot.src}
-                className={shot.wide ? styles.mosaicWide : undefined}
-                data-reveal
-                style={{ "--reveal-delay": `${i * 90}ms` } as React.CSSProperties}
-              >
-                <Image
-                  src={shot.src}
-                  alt={shot.alt}
-                  width={1400}
-                  height={1000}
-                  sizes="(min-width: 900px) 50vw, 100vw"
-                />
-              </li>
-            ))}
-          </ul>
+          <PhotoWall
+            shots={mosaic}
+            limit={9}
+            moreLabel={(rest) =>
+              pick(
+                `Và ${rest} ảnh nữa trong kho tư liệu của tập đoàn.`,
+                `And ${rest} more in the group's archive.`,
+                `Und ${rest} weitere im Archiv der Gruppe.`,
+              )
+            }
+          />
         </div>
       </section>
 

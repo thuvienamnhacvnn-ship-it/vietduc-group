@@ -13,7 +13,9 @@ import {
 import { getSiteSettings } from "@/lib/settings";
 import { formatDate, levelLabel } from "@/lib/format";
 import { resolveSiteUrl, telHref } from "@/lib/site-config";
-import { Breadcrumbs, ButtonLink, SourceNote, StatRow } from "@/components/ui";
+import { Breadcrumbs, ButtonLink, SectionHeading, SourceNote, StatRow } from "@/components/ui";
+import { PhotoWall } from "@/components/PhotoWall";
+import { khoAnh } from "@/content/kho-media";
 import shell from "../../../page-shell.module.css";
 import styles from "./school.module.css";
 
@@ -55,6 +57,11 @@ export default async function SchoolPage({
     getSourceDocuments(),
     getSiteSettings(),
   ]);
+
+  const schoolName = t(school.shortName ?? school.name, locale);
+  /* Ảnh của riêng trường này, lấy theo mã định danh của nó. Trường chưa có ảnh
+     trong kho thì mảng rỗng và cả mục ảnh không được dựng. */
+  const gallery = khoAnh(`schools/${school.slug}`);
 
   const categoryName = new Map(categories.map((c) => [c.id, t(c.name, locale)]));
   const highlights = school.highlights?.[locale] ?? school.highlights?.vi ?? [];
@@ -280,6 +287,36 @@ export default async function SchoolPage({
           </aside>
         </div>
       </div>
+
+      {/* Ảnh của chính trường này. Trường nào chưa có ảnh trong kho thì cả
+          mục biến mất chứ không mượn ảnh của trường khác. */}
+      {gallery.length ? (
+        <section className={`section ${styles.gallerySection}`}>
+          <div className="shell">
+            <SectionHeading
+              eyebrow={{ vi: "Hình ảnh", en: "Photographs", de: "Bilder" }[locale]}
+              title={
+                {
+                  vi: `Tại ${schoolName}`,
+                  en: `At ${schoolName}`,
+                  de: `An der ${schoolName}`,
+                }[locale]
+              }
+            />
+            <PhotoWall
+              shots={gallery.map((src) => ({ src, alt: schoolName }))}
+              limit={9}
+              moreLabel={(rest) =>
+                ({
+                  vi: `Và ${rest} ảnh nữa trong kho tư liệu của trường.`,
+                  en: `And ${rest} more in the school's archive.`,
+                  de: `Und ${rest} weitere im Archiv der Schule.`,
+                })[locale]
+              }
+            />
+          </div>
+        </section>
+      ) : null}
 
       <script
         type="application/ld+json"

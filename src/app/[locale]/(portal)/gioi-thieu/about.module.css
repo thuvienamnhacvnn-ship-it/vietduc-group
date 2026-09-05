@@ -262,3 +262,27 @@
     transition: none;
   }
 }
+
+/* ---------------------------------------------------------------- sơ đồ */
+
+.chartSection {
+  padding-block: var(--s-8);
+}
+
+/* Sơ đồ là hình vẽ trên nền trắng, không phải ảnh chụp: giữ nền trắng của nó
+   và đóng khung mảnh, chứ không cắt cho vừa một tỷ lệ nào đó. */
+.chart {
+  margin: 0;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+.chart img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 1100px;
+  margin-inline: auto;
+}

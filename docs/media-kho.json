@@ -1,0 +1,397 @@
+{
+ "takenAt": "2026-09-05T13:23:01.183Z",
+ "files": [
+  {
+   "file": "/media/brand/vdg-01.webp",
+   "from": "001-WhatsApp_Image_2026-09-04_at_20.50.21_(2).jpeg"
+  },
+  {
+   "file": "/media/brand/vdg-02.webp",
+   "from": "082-WhatsApp_Image_2026-09-05_at_06.28.17.jpeg"
+  },
+  {
+   "file": "/media/education/nghe-01.webp",
+   "from": "029-WhatsApp_Image_2026-09-04_at_20.50.33_(3).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-02.webp",
+   "from": "032-WhatsApp_Image_2026-09-04_at_20.50.34.jpeg"
+  },
+  {
+   "file": "/media/education/nghe-03.webp",
+   "from": "036-WhatsApp_Image_2026-09-04_at_20.50.38_(1).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-04.webp",
+   "from": "037-WhatsApp_Image_2026-09-04_at_20.50.38_(2).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-05.webp",
+   "from": "038-WhatsApp_Image_2026-09-04_at_20.50.38_(3).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-06.webp",
+   "from": "049-WhatsApp_Image_2026-09-04_at_20.50.39.jpeg"
+  },
+  {
+   "file": "/media/education/nghe-07.webp",
+   "from": "076-WhatsApp_Image_2026-09-04_at_21.24.31.jpeg"
+  },
+  {
+   "file": "/media/education/nghe-08.webp",
+   "from": "077-WhatsApp_Image_2026-09-04_at_21.24.32_(1).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-09.webp",
+   "from": "078-WhatsApp_Image_2026-09-04_at_21.24.32_(2).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-10.webp",
+   "from": "079-WhatsApp_Image_2026-09-04_at_21.24.32_(3).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-11.webp",
+   "from": "080-WhatsApp_Image_2026-09-04_at_21.24.32_(4).jpeg"
+  },
+  {
+   "file": "/media/education/nghe-12.webp",
+   "from": "081-WhatsApp_Image_2026-09-04_at_21.24.32.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-01.webp",
+   "from": "002-WhatsApp_Image_2026-09-04_at_20.50.21_(3).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-02.webp",
+   "from": "003-WhatsApp_Image_2026-09-04_at_20.50.21.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-03.webp",
+   "from": "004-WhatsApp_Image_2026-09-04_at_20.50.22_(1).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-04.webp",
+   "from": "006-WhatsApp_Image_2026-09-04_at_20.50.22.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-05.webp",
+   "from": "007-WhatsApp_Image_2026-09-04_at_20.50.25_(1).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-06.webp",
+   "from": "008-WhatsApp_Image_2026-09-04_at_20.50.25_(2).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-07.webp",
+   "from": "017-WhatsApp_Image_2026-09-04_at_20.50.26.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-08.webp",
+   "from": "018-WhatsApp_Image_2026-09-04_at_20.50.27_(1).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-09.webp",
+   "from": "019-WhatsApp_Image_2026-09-04_at_20.50.27_(2).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-10.webp",
+   "from": "020-WhatsApp_Image_2026-09-04_at_20.50.27.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-11.webp",
+   "from": "023-WhatsApp_Image_2026-09-04_at_20.50.29.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-12.webp",
+   "from": "024-WhatsApp_Image_2026-09-04_at_20.50.30.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-13.webp",
+   "from": "025-WhatsApp_Image_2026-09-04_at_20.50.32_(1).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-14.webp",
+   "from": "026-WhatsApp_Image_2026-09-04_at_20.50.32.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-15.webp",
+   "from": "027-WhatsApp_Image_2026-09-04_at_20.50.33_(1).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-16.webp",
+   "from": "028-WhatsApp_Image_2026-09-04_at_20.50.33_(2).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-17.webp",
+   "from": "030-WhatsApp_Image_2026-09-04_at_20.50.33.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-18.webp",
+   "from": "046-WhatsApp_Image_2026-09-04_at_20.50.39_(7).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-19.webp",
+   "from": "047-WhatsApp_Image_2026-09-04_at_20.50.39_(8).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-20.webp",
+   "from": "055-WhatsApp_Image_2026-09-04_at_20.50.40.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-21.webp",
+   "from": "056-WhatsApp_Image_2026-09-04_at_20.51.40_(1).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-22.webp",
+   "from": "057-WhatsApp_Image_2026-09-04_at_20.51.40_(2).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-23.webp",
+   "from": "058-WhatsApp_Image_2026-09-04_at_20.51.40.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-24.webp",
+   "from": "059-WhatsApp_Image_2026-09-04_at_20.51.41.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-25.webp",
+   "from": "060-WhatsApp_Image_2026-09-04_at_20.51.42_(1).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-26.webp",
+   "from": "061-WhatsApp_Image_2026-09-04_at_20.51.42_(2).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-27.webp",
+   "from": "062-WhatsApp_Image_2026-09-04_at_20.51.42_(3).jpeg"
+  },
+  {
+   "file": "/media/activities/hd-28.webp",
+   "from": "066-WhatsApp_Image_2026-09-04_at_20.51.42.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-29.webp",
+   "from": "075-WhatsApp_Image_2026-09-04_at_21.11.50.jpeg"
+  },
+  {
+   "file": "/media/activities/hd-30.webp",
+   "from": "095-WhatsApp_Image_2026-09-05_at_12.37.43.jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-01.webp",
+   "from": "000-WhatsApp_Image_2026-09-04_at_20.50.21_(1).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-02.webp",
+   "from": "005-WhatsApp_Image_2026-09-04_at_20.50.22_(2).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-03.webp",
+   "from": "009-WhatsApp_Image_2026-09-04_at_20.50.25_(3).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-04.webp",
+   "from": "010-WhatsApp_Image_2026-09-04_at_20.50.25.jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-05.webp",
+   "from": "022-WhatsApp_Image_2026-09-04_at_20.50.29_(2).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-06.webp",
+   "from": "031-WhatsApp_Image_2026-09-04_at_20.50.34_(1).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-07.webp",
+   "from": "033-WhatsApp_Image_2026-09-04_at_20.50.35.jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-08.webp",
+   "from": "039-WhatsApp_Image_2026-09-04_at_20.50.38.jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-09.webp",
+   "from": "048-WhatsApp_Image_2026-09-04_at_20.50.39_(9).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-10.webp",
+   "from": "050-WhatsApp_Image_2026-09-04_at_20.50.40_(1).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-11.webp",
+   "from": "051-WhatsApp_Image_2026-09-04_at_20.50.40_(2).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-12.webp",
+   "from": "052-WhatsApp_Image_2026-09-04_at_20.50.40_(3).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-13.webp",
+   "from": "053-WhatsApp_Image_2026-09-04_at_20.50.40_(4).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-14.webp",
+   "from": "054-WhatsApp_Image_2026-09-04_at_20.50.40_(5).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-15.webp",
+   "from": "083-WhatsApp_Image_2026-09-05_at_12.37.42_(1).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-16.webp",
+   "from": "084-WhatsApp_Image_2026-09-05_at_12.37.42_(2).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-17.webp",
+   "from": "085-WhatsApp_Image_2026-09-05_at_12.37.42_(3).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-18.webp",
+   "from": "086-WhatsApp_Image_2026-09-05_at_12.37.42_(4).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-19.webp",
+   "from": "087-WhatsApp_Image_2026-09-05_at_12.37.42.jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-20.webp",
+   "from": "089-WhatsApp_Image_2026-09-05_at_12.37.43_(2).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-21.webp",
+   "from": "090-WhatsApp_Image_2026-09-05_at_12.37.43_(3).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-22.webp",
+   "from": "091-WhatsApp_Image_2026-09-05_at_12.37.43_(4).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-23.webp",
+   "from": "092-WhatsApp_Image_2026-09-05_at_12.37.43_(5).jpeg"
+  },
+  {
+   "file": "/media/partners/doitac-24.webp",
+   "from": "093-WhatsApp_Image_2026-09-05_at_12.37.43_(6).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-01.webp",
+   "from": "063-WhatsApp_Image_2026-09-04_at_20.51.42_(4).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-02.webp",
+   "from": "064-WhatsApp_Image_2026-09-04_at_20.51.42_(5).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-03.webp",
+   "from": "065-WhatsApp_Image_2026-09-04_at_20.51.42_(6).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-04.webp",
+   "from": "067-WhatsApp_Image_2026-09-04_at_20.51.43_(1).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-05.webp",
+   "from": "068-WhatsApp_Image_2026-09-04_at_20.51.43_(2).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-06.webp",
+   "from": "069-WhatsApp_Image_2026-09-04_at_20.51.43.jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-07.webp",
+   "from": "070-WhatsApp_Image_2026-09-04_at_20.56.58_(1).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-08.webp",
+   "from": "071-WhatsApp_Image_2026-09-04_at_20.56.58_(2).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-09.webp",
+   "from": "072-WhatsApp_Image_2026-09-04_at_20.56.58.jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-10.webp",
+   "from": "098-WhatsApp_Image_2026-09-05_at_12.37.44_(3).jpeg"
+  },
+  {
+   "file": "/media/investment/dautu-11.webp",
+   "from": "099-WhatsApp_Image_2026-09-05_at_12.37.44_(4).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-01.webp",
+   "from": "021-WhatsApp_Image_2026-09-04_at_20.50.29_(1).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-02.webp",
+   "from": "034-WhatsApp_Image_2026-09-04_at_20.50.36_(1).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-03.webp",
+   "from": "035-WhatsApp_Image_2026-09-04_at_20.50.36.jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-04.webp",
+   "from": "040-WhatsApp_Image_2026-09-04_at_20.50.39_(1).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-05.webp",
+   "from": "041-WhatsApp_Image_2026-09-04_at_20.50.39_(2).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-06.webp",
+   "from": "042-WhatsApp_Image_2026-09-04_at_20.50.39_(3).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-07.webp",
+   "from": "043-WhatsApp_Image_2026-09-04_at_20.50.39_(4).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-08.webp",
+   "from": "044-WhatsApp_Image_2026-09-04_at_20.50.39_(5).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-09.webp",
+   "from": "045-WhatsApp_Image_2026-09-04_at_20.50.39_(6).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-10.webp",
+   "from": "094-WhatsApp_Image_2026-09-05_at_12.37.43_(7).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-11.webp",
+   "from": "096-WhatsApp_Image_2026-09-05_at_12.37.44_(1).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-12.webp",
+   "from": "097-WhatsApp_Image_2026-09-05_at_12.37.44_(2).jpeg"
+  },
+  {
+   "file": "/media/schools/trung-cap-nghe-quoc-te-ivs/trung-cap-nghe-quoc-te-ivs-13.webp",
+   "from": "100-WhatsApp_Image_2026-09-05_at_12.37.44.jpeg"
+  },
+  {
+   "file": "/media/schools/itw-berlin/itw-berlin-01.webp",
+   "from": "011-WhatsApp_Image_2026-09-04_at_20.50.26_(1).jpeg"
+  },
+  {
+   "file": "/media/schools/itw-berlin/itw-berlin-02.webp",
+   "from": "012-WhatsApp_Image_2026-09-04_at_20.50.26_(2).jpeg"
+  },
+  {
+   "file": "/media/schools/itw-berlin/itw-berlin-03.webp",
+   "from": "013-WhatsApp_Image_2026-09-04_at_20.50.26_(3).jpeg"
+  },
+  {
+   "file": "/media/schools/itw-berlin/itw-berlin-04.webp",
+   "from": "014-WhatsApp_Image_2026-09-04_at_20.50.26_(4).jpeg"
+  },
+  {
+   "file": "/media/schools/itw-berlin/itw-berlin-05.webp",
+   "from": "015-WhatsApp_Image_2026-09-04_at_20.50.26_(5).jpeg"
+  },
+  {
+   "file": "/media/schools/itw-berlin/itw-berlin-06.webp",
+   "from": "016-WhatsApp_Image_2026-09-04_at_20.50.26_(6).jpeg"
+  }
+ ]
+}
