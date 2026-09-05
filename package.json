@@ -17,7 +17,8 @@
     "media": "tsx scripts/media.ts",
     "media:hospitality": "tsx scripts/media-hospitality.ts",
     "media:education": "tsx scripts/media-education.ts",
-    "snapshot": "tsx scripts/snapshot.ts"
+    "snapshot": "tsx scripts/snapshot.ts",
+    "kho": "tsx scripts/kho.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
