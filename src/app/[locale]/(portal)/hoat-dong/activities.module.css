@@ -16,3 +16,15 @@
 .source {
   margin-top: var(--s-6);
 }
+
+/* Mục ảnh cuối trang: tách khỏi phần danh sách bên trên bằng một vạch mảnh và
+   khoảng thở, để bức tường ảnh không dính vào khối chữ ngay phía trên nó. */
+.gallery {
+  margin-top: var(--s-8);
+  padding-top: var(--s-7);
+  border-top: 1px solid var(--line);
+}
+
+.gallery h2 {
+  margin-bottom: var(--s-5);
+}

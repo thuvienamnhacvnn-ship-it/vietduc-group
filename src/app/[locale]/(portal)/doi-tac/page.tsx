@@ -4,6 +4,8 @@ import { isLocale, t, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPartners, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState, SourceNote } from "@/components/ui";
+import { PhotoWall } from "@/components/PhotoWall";
+import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
 import styles from "./partners.module.css";
 
@@ -60,6 +62,9 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
   const order = ["direct", "europe", "middle-east", "asia", ...groups.keys()];
   const seen = new Set<string>();
 
+  /* Ảnh mạng lưới đối tác lấy từ kho tiếp nhận. */
+  const network = khoAnh("partners");
+
   return (
     <div className={shell.page}>
       <div className="shell">
@@ -112,6 +117,33 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
             );
           })
         )}
+
+        {/* Ảnh mạng lưới đối tác: văn phòng NIBELC ở Hungary, Ba Lan, Rumani,
+            Đức, các buổi ký kết và tuyển dụng. */}
+        {network.length ? (
+          <section className={styles.gallery}>
+            <h2>
+              {
+                {
+                  vi: "Mạng lưới trong ảnh",
+                  en: "The network in pictures",
+                  de: "Das Netz in Bildern",
+                }[locale]
+              }
+            </h2>
+            <PhotoWall
+              shots={network.map((src) => ({
+                src,
+                alt: {
+                  vi: "Hoạt động của mạng lưới đối tác",
+                  en: "The partner network at work",
+                  de: "Das Partnernetz bei der Arbeit",
+                }[locale],
+              }))}
+              limit={24}
+            />
+          </section>
+        ) : null}
 
         {profile ? (
           <div className={styles.source}>

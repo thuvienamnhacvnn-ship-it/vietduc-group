@@ -24,6 +24,8 @@ import { RiseText } from "@/components/RiseText";
 import { HeroPicture } from "@/components/HeroPicture";
 import { HeroVideo } from "@/components/HeroVideo";
 import { HeroSocial } from "@/components/HeroSocial";
+import { PhotoWall } from "@/components/PhotoWall";
+import { khoAnh } from "@/content/kho-media";
 import { ProgramFinder } from "@/components/ProgramFinder";
 import styles from "./home.module.css";
 
@@ -55,6 +57,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       getPosts(3),
       getSiteSettings(),
     ]);
+
+  /* Ảnh xưởng thực hành lấy từ kho tiếp nhận. */
+  const workshop = khoAnh("education");
 
   const programCountBySchool = new Map<number, number>();
   for (const program of programs) {
@@ -398,6 +403,45 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           />
         </div>
       </section>
+
+      {/* Ảnh xưởng thực hành và phòng máy: mục "học nghề" nói bằng ảnh, không
+          bằng chữ. Chưa có ảnh trong kho thì cả mục không dựng. */}
+      {workshop.length ? (
+        <section className={`section ${styles.workshopSection}`}>
+          <div className="shell">
+            <SectionHeading
+              eyebrow={{ vi: "Trong xưởng", en: "In the workshop", de: "In der Werkstatt" }[locale]}
+              title={
+                {
+                  vi: "Học bằng tay, trên máy thật",
+                  en: "Learnt by hand, on real machines",
+                  de: "Gelernt mit den Händen, an echten Maschinen",
+                }[locale]
+              }
+              lead={
+                {
+                  vi: "Giờ thực hành tại các trường thành viên: xưởng cơ khí, phòng máy, phòng thực hành nghiệp vụ.",
+                  en: "Practicals at the member schools: machine shops, computer rooms, service training rooms.",
+                  de: "Übungsstunden an den Mitgliedsschulen: Werkstätten, Rechnerräume, Übungsräume.",
+                }[locale]
+              }
+            />
+          </div>
+          <div className={styles.schoolsWide}>
+            <PhotoWall
+              shots={workshop.map((src) => ({
+                src,
+                alt: {
+                  vi: "Giờ thực hành tại trường thành viên",
+                  en: "A practical at a member school",
+                  de: "Eine Übungsstunde an einer Mitgliedsschule",
+                }[locale],
+              }))}
+              limit={12}
+            />
+          </div>
+        </section>
+      ) : null}
 
       <div className="shell">
         <RunLine />

@@ -5,6 +5,8 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { getActivities, getSourceDocuments } from "@/lib/queries";
 import { Breadcrumbs, EmptyState, SourceNote } from "@/components/ui";
 import { ActivityCard } from "@/components/cards";
+import { PhotoWall } from "@/components/PhotoWall";
+import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
 import styles from "./activities.module.css";
 
@@ -29,6 +31,9 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
 
   const [activities, documents] = await Promise.all([getActivities(), getSourceDocuments()]);
   const profile = documents.find((d) => d.slug === "profile-viet-duc-vi");
+
+  /* Ảnh hoạt động lấy từ kho tiếp nhận. */
+  const shots = khoAnh("activities");
 
   return (
     <div className={shell.page}>
@@ -65,6 +70,33 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
             ))}
           </div>
         )}
+
+        {/* Toàn bộ ảnh hoạt động trong kho, không cắt bớt: đây đúng là trang
+            để xem hết chúng. */}
+        {shots.length ? (
+          <section className={styles.gallery}>
+            <h2>
+              {
+                {
+                  vi: "Toàn bộ hình ảnh hoạt động",
+                  en: "Every photograph",
+                  de: "Alle Aufnahmen",
+                }[locale]
+              }
+            </h2>
+            <PhotoWall
+              shots={shots.map((src) => ({
+                src,
+                alt: {
+                  vi: "Hoạt động của hệ thống Việt Đức Group",
+                  en: "An event in the Viet Duc Group network",
+                  de: "Eine Veranstaltung im Verbund der Viet Duc Group",
+                }[locale],
+              }))}
+              limit={40}
+            />
+          </section>
+        ) : null}
 
         {profile ? (
           <div className={styles.source}>

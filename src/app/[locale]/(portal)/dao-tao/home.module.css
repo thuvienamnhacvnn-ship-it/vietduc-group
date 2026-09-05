@@ -661,3 +661,11 @@
     margin-top: clamp(-2rem, -4vh, -1rem);
   }
 }
+
+/* -------------------------------------------------------- trong xưởng */
+
+/* Nền chuyển nhẹ để dải ảnh xưởng tách khỏi bảng ngành nghề ngay phía trên,
+   mà không cần thêm một đường kẻ nữa. */
+.workshopSection {
+  background: linear-gradient(180deg, var(--beige) 0%, var(--paper) 100%);
+}
