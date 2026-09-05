@@ -19,7 +19,8 @@
     "media:education": "tsx scripts/media-education.ts",
     "snapshot": "tsx scripts/snapshot.ts",
     "kho": "tsx scripts/kho.ts",
-    "media:kho": "tsx scripts/media-kho.ts"
+    "media:kho": "tsx scripts/media-kho.ts",
+    "thieu": "tsx scripts/thieu.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
