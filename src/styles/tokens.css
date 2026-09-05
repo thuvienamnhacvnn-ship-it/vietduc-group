@@ -33,7 +33,13 @@
   /* The navigation rail: the collapsed width the page always leaves clear, and
      the width it grows to over the content when it is hovered or focused. */
   --rail-w: 68px;
-  --rail-open: 244px;
+  /*
+   * 296, không phải 244. Trừ 68px cột biểu tượng và 16px lề phải, bản 244 chỉ
+   * còn ~160px cho chữ, trong khi nhãn dài nhất — "Khách sạn, Resort & Lữ
+   * hành" — cần 190px, nên nó bị cắt cụt mỗi lần menu giãn ra. Đo bằng
+   * scrollWidth trên chính bản đang chạy, không phải ước lượng.
+   */
+  --rail-open: 296px;
   /* The two bars a phone gets instead of the rail. */
   --topbar-h: 54px;
   --bottombar-h: 62px;
