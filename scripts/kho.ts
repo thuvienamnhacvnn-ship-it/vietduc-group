@@ -221,21 +221,30 @@ function report(): void {
   }
 
   const chua = tally(path.join(ROOT, "_chua-phan-loai"));
+  const chuaLink = links(path.join(ROOT, "_chua-phan-loai"));
   const canva = tally(path.join(ROOT, "canva"));
+  const canvaLink = links(path.join(ROOT, "canva"));
 
   console.log("\n  " + "-".repeat(66));
   console.log(
-    `  TỔNG: ${total.anh} ảnh · ${total.video} video · ${total.tailieu} tài liệu · ${total.link} link · ${mb(total.bytes)}`,
+    `  TỔNG: ${total.anh + chua.anh + canva.anh} ảnh · ${total.video + chua.video + canva.video} video · ` +
+      `${total.tailieu + chua.tailieu + canva.tailieu} tài liệu · ${total.link + chuaLink + canvaLink} link · ` +
+      `${mb(total.bytes + chua.bytes + canva.bytes)}`,
   );
 
-  if (chua.anh + chua.video + chua.tailieu > 0) {
+  // Tổng phải gồm cả những thứ chưa phân loại. Một bảng chỉ đếm phần đã xếp gọn
+  // sẽ báo "xong rồi" trong khi vẫn còn một đống chưa ai gán cho ai.
+  if (chua.anh + chua.video + chua.tailieu + chuaLink > 0) {
     console.log(
-      `\n  ⚠ _chua-phan-loai: ${chua.anh} ảnh, ${chua.video} video, ${chua.tailieu} tài liệu (${mb(chua.bytes)})`,
+      `\n  ⚠ _chua-phan-loai: ${chua.anh} ảnh, ${chua.video} video, ${chua.tailieu} tài liệu, ` +
+        `${chuaLink} link (${mb(chua.bytes)})`,
     );
     console.log("    Những thứ này chưa gán được cho trường hay dự án nào.");
   }
-  if (canva.anh + canva.video + canva.tailieu > 0) {
-    console.log(`\n  canva/: ${canva.anh} ảnh, ${canva.tailieu} tài liệu (${mb(canva.bytes)})`);
+  if (canva.anh + canva.video + canva.tailieu + canvaLink > 0) {
+    console.log(
+      `\n  canva/: ${canva.anh} ảnh, ${canva.tailieu} tài liệu, ${canvaLink} link (${mb(canva.bytes)})`,
+    );
   }
 
   if (la.length) {
