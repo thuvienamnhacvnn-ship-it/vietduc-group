@@ -41,7 +41,6 @@ export function ClaimLedger({ claims, evidenceLabel }: { claims: Claim[]; eviden
           </div>
 
           <div className={styles.text}>
-            <span className={styles.no}>{String(index + 1).padStart(2, "0")}</span>
             <h3 className={styles.claim}>{entry.claim}</h3>
             <p className={styles.body}>{entry.body}</p>
 

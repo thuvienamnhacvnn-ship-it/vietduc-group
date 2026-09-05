@@ -741,3 +741,23 @@
   text-transform: uppercase;
   color: var(--accent);
 }
+
+/* ------------------------------------------------------- nhịp nền các mục */
+
+/*
+ * MỌI mục phải khai nền của nó, kể cả khi trùng với nền trang.
+ *
+ * Trước đây bốn mục không khai gì nên nền chúng là trong suốt, ăn theo nền
+ * trang — đo được rgba(0,0,0,0). Kết quả: dù đã đổi màu vài mục, nhìn tổng thể
+ * vẫn là một khối liền, vì phần lớn trang không có ranh giới nào cả.
+ *
+ * Hai lớp này chỉ làm đúng một việc, và mục nào cũng phải mang một trong hai
+ * (hoặc một nền riêng như dải tối, dải đỏ).
+ */
+.bandPaper {
+  background: var(--paper);
+}
+
+.bandBeige {
+  background: var(--beige);
+}

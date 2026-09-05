@@ -252,7 +252,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </div>
 
       {/* --------------------------------------------------------- about */}
-      <section className={`section ${styles.afterHero}`}>
+      <section className={`section ${styles.bandPaper} ${styles.afterHero}`}>
         <div className="shell">
           <div className={styles.aboutGrid}>
             <div data-reveal>
@@ -391,7 +391,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* ------------------------------------------------------ programs */}
-      <section className="section">
+      <section className={`section ${styles.bandBeige}`}>
         <div className="shell">
           <SectionHeading
             eyebrow={{ vi: "Đào tạo", en: "Training", de: "Ausbildung" }[locale]}
@@ -488,7 +488,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       </section>
 
       {/* ------------------------------------------------------- pathway */}
-      <section className="section">
+      <section className={`section ${styles.bandPaper}`}>
         <div className="shell">
           <SectionHeading
             eyebrow={{ vi: "Lộ trình", en: "Pathway", de: "Weg" }[locale]}
@@ -532,7 +532,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ------------------------------------------------------- partners */}
       {partners.length ? (
-        <section className="section">
+        <section className={`section ${styles.bandPaper}`}>
           <div className="shell">
             <SectionHeading
               eyebrow={{ vi: "Mạng lưới", en: "Network", de: "Netzwerk" }[locale]}
@@ -560,7 +560,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       {/* ----------------------------------------------------------- news */}
       {posts.length ? (
-        <section className="section">
+        <section className={`section ${styles.bandBeige}`}>
           <div className="shell">
             <SectionHeading
               eyebrow={{ vi: "Tin tức", en: "News", de: "Aktuelles" }[locale]}
