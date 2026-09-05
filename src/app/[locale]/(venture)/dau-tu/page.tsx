@@ -161,7 +161,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
                 de: "Ein Investitionsstandort der Viet Duc Group",
               }[locale],
             }))}
-            limit={9}
+            limit={siteShots.length}
           />
         </section>
       ) : null}

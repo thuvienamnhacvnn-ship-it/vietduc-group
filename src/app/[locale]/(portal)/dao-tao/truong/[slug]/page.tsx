@@ -305,7 +305,9 @@ export default async function SchoolPage({
             />
             <PhotoWall
               shots={gallery.map((src) => ({ src, alt: schoolName }))}
-              limit={9}
+              /* Hiện hết. Trang của một trường là chỗ để xem ảnh trường đó,
+                 cắt bớt ở đây là giấu đúng thứ người ta vào để xem. */
+              limit={gallery.length}
               moreLabel={(rest) =>
                 ({
                   vi: `Và ${rest} ảnh nữa trong kho tư liệu của trường.`,
