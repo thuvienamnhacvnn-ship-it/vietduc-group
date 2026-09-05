@@ -179,37 +179,48 @@ hr {
 /* --- scroll reveal ------------------------------------------------------ */
 
 /*
- * Four ways in, not one.
+ * Four ways in, not one: một cú nâng nhẹ mặc định, cộng ba biến thể có tên cho
+ * ba loại nội dung không nên xuất hiện giống nhau — tiêu đề được vén ra, một
+ * hàng trong danh sách trượt vào từ lề của nó, và một vạch tự vẽ chính nó.
  *
- * The plain lift is the default. The three named variants exist because the
- * page has three kinds of thing that should not all arrive the same way: a
- * heading is unveiled, a row in a list slides in from the margin it belongs to,
- * and a rule draws itself. Elements ask for one with data-reveal-as, and the
- * observer only ever flips data-reveal to "in".
+ * MỌI LUẬT ẨN ĐỀU NẰM SAU `:root[data-reveal-ready]`.
+ *
+ * Trước đây `[data-reveal]` đặt thẳng `opacity: 0`, nghĩa là nội dung mặc định
+ * là VÔ HÌNH và chỉ hiện ra nếu JavaScript kịp bật lên. Bất kỳ trục trặc nào
+ * của đoạn mã đó - và đã có một trục trặc thật - đều biến cả mảng nội dung
+ * thành khoảng trống, mà máy chủ thì vẫn trả về trang đầy đủ nên nhìn từ ngoài
+ * không thấy gì sai.
+ *
+ * Nay mặc định là HIỆN. Chỉ khi đoạn mã hiệu ứng đã chạy và tự đánh dấu
+ * `data-reveal-ready` lên thẻ <html> thì luật ẩn mới có hiệu lực. Hỏng JavaScript,
+ * chặn JavaScript, hay đoạn mã chạy sai thời điểm — trang vẫn đọc được.
  */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(18px);
   transition:
     opacity var(--dur-3) var(--ease),
     transform var(--dur-3) var(--ease),
     clip-path var(--dur-3) var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
+}
+
+:root[data-reveal-ready] [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
   will-change: opacity, transform;
 }
 
-[data-reveal="in"] {
+:root[data-reveal-ready] [data-reveal="in"] {
   opacity: 1;
   transform: none;
 }
 
 /* Unveil: the text is uncovered left to right rather than fading. */
-[data-reveal-as="unveil"] {
+:root[data-reveal-ready] [data-reveal-as="unveil"] {
   transform: none;
   clip-path: inset(0 100% 0 0);
 }
 
-[data-reveal-as="unveil"][data-reveal="in"] {
+:root[data-reveal-ready] [data-reveal-as="unveil"][data-reveal="in"] {
   clip-path: inset(0 0 0 0);
 }
 
@@ -223,22 +234,22 @@ hr {
  * on a phone the row hangs off its own box and `overflow: hidden` cuts the
  * first character off every school's name.
  */
-[data-reveal-as="slide"] {
+:root[data-reveal-ready] [data-reveal-as="slide"] {
   transform: translateX(-26px);
 }
 
-[data-reveal-as="slide"][data-reveal="in"] {
+:root[data-reveal-ready] [data-reveal-as="slide"][data-reveal="in"] {
   transform: none;
 }
 
 /* Draw: a rule that grows from its own start point. */
-[data-reveal-as="draw"] {
+:root[data-reveal-ready] [data-reveal-as="draw"] {
   opacity: 1;
   transform: none;
   clip-path: inset(0 100% 0 0);
 }
 
-[data-reveal-as="draw"][data-reveal="in"] {
+:root[data-reveal-ready] [data-reveal-as="draw"][data-reveal="in"] {
   clip-path: inset(0 0 0 0);
 }
 
