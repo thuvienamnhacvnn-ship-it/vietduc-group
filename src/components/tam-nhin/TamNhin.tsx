@@ -379,7 +379,22 @@ export function TamNhin({ locale }: { locale: Locale }) {
 
       {/* ------------------------------------------ 09 kết nối và hành động */}
       <div className={`${styles.khoi} ${styles.khoiToi} ${styles.ketNoi}`}>
-        <div className="shell">
+        <div className={`shell ${styles.ketNoiTrong}`}>
+          <p className={styles.ketNoiDeTua}>
+            <span className={styles.cham} aria-hidden="true" />
+            {pick(
+              {
+                vi: "Bắt đầu từ đây",
+                en: "Start here",
+                de: "Hier beginnen",
+                ja: "ここから",
+                ko: "여기서 시작",
+                "zh-TW": "從這裡開始",
+              },
+              locale,
+            )}
+          </p>
+
           <h3 className={styles.ketNoiTieuDe}>{pick(KET_NOI.tieuDe, locale)}</h3>
           <p className={styles.ketNoiMoTa}>{pick(KET_NOI.moTa, locale)}</p>
 
@@ -389,7 +404,8 @@ export function TamNhin({ locale }: { locale: Locale }) {
               <MuiTen />
             </Link>
             <Link className={styles.nutPhu} href={p("/lien-he")}>
-              {pick(KET_NOI.nutPhu, locale)}
+              <span>{pick(KET_NOI.nutPhu, locale)}</span>
+              <MuiTen />
             </Link>
           </div>
         </div>

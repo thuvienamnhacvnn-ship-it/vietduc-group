@@ -228,7 +228,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <SoDoHeSinhThai
             locale={locale}
             tam={{
-              src: "/media/so-do/viet-duc-group.png",
+              src: "/brand/viet-duc-group-logo.png",
               ten: {
                 vi: "Việt Đức Group",
                 en: "Viet Duc Group",

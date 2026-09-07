@@ -959,21 +959,112 @@
 
 /* ================================================ 09 kết nối và hành động */
 
+/*
+ * Khối khép mục.
+ *
+ * Trước đây là hai viên nút to bè giữa một nền trơn. Bản này mượn đúng thứ ngôn
+ * ngữ đã dùng ở sơ đồ hệ sinh thái phía trên: những đường sáng mảnh chạy trên
+ * nền tối. Nhờ vậy phần kết nối lại với phần mở đầu thay vì đứng lạc một mình.
+ *
+ * Lưới điểm và vòng cung đều là gradient, không phải ảnh: không thêm một tệp
+ * nào để tải, và chúng co giãn theo mọi bề ngang.
+ */
 .ketNoi {
+  position: relative;
+  overflow: hidden;
   text-align: center;
+}
+
+/* Lưới điểm mờ, tối dần ra rìa. */
+.ketNoi::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at center,
+    color-mix(in srgb, var(--gold) 26%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 0%, transparent 72%);
+  mask-image: radial-gradient(ellipse 62% 58% at 50% 50%, #000 0%, transparent 72%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Hai vòng cung mảnh, gợi lại các đường nối của sơ đồ hệ sinh thái. */
+.ketNoi::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(1180px, 128%);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--gold) 16%, transparent);
+  box-shadow:
+    inset 0 0 0 1px transparent,
+    0 0 0 1px transparent;
+  pointer-events: none;
+}
+
+.ketNoiTrong {
+  position: relative;
+  z-index: 1;
+}
+
+.ketNoiDeTua {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0 0 var(--s-5);
+  padding: 0.35rem 0.9rem 0.35rem 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--gold) 34%, transparent);
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Chấm sáng nhấp nháy chậm ở đầu nhãn. */
+.cham {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--gold) 60%, transparent);
+  animation: nhip 2.8s ease-out infinite;
+}
+
+@keyframes nhip {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--gold) 55%, transparent);
+  }
+  70%,
+  100% {
+    box-shadow: 0 0 0 9px transparent;
+  }
 }
 
 .ketNoiTieuDe {
   margin: 0 auto;
-  max-width: 20ch;
+  max-width: 18ch;
   font-size: var(--step-4);
-  line-height: 1.1;
+  line-height: 1.06;
+  letter-spacing: -0.02em;
   color: #fff;
+  background: linear-gradient(150deg, #ffffff 0%, #ffffff 46%, #f2e0bc 80%, #d9b871 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .ketNoiMoTa {
   margin: var(--s-5) auto 0;
-  max-width: 52ch;
+  max-width: 50ch;
   font-size: var(--step-1);
   line-height: 1.6;
   color: #b9c3ce;
@@ -982,44 +1073,152 @@
 .ketNoiNut {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  gap: var(--s-4);
+  gap: clamp(1rem, 3vw, 2.2rem);
   margin-top: clamp(2rem, 4vw, 3rem);
 }
 
-.nutChinh,
+/*
+ * Nút chính. Nhỏ hơn hẳn bản cũ, và mũi tên trượt tới khi rê chuột — chuyển
+ * động duy nhất, thay cho việc phóng to cả viên nút.
+ */
+.nutChinh {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.72rem 1.5rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #e8c477 0%, var(--gold) 46%, #b8863c 100%);
+  color: #17202b;
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  overflow: hidden;
+  transition:
+    box-shadow 320ms var(--ease),
+    translate 320ms var(--ease);
+}
+
+.nutChinh:hover,
+.nutChinh:focus-visible {
+  translate: 0 -2px;
+  box-shadow: 0 12px 30px color-mix(in srgb, var(--gold) 28%, transparent);
+}
+
+.nutChinh svg {
+  width: 17px;
+  height: 17px;
+  transition: translate 320ms var(--ease);
+}
+
+.nutChinh:hover svg,
+.nutChinh:focus-visible svg {
+  translate: 3px 0;
+}
+
+/* Vệt sáng quét ngang mặt nút khi rê chuột. */
+.nutChinh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255, 255, 255, 0.5) 50%, transparent 80%);
+  translate: -120% 0;
+  transition: translate 700ms var(--ease);
+}
+
+.nutChinh:hover::after,
+.nutChinh:focus-visible::after {
+  translate: 120% 0;
+}
+
+/*
+ * Nút phụ là một liên kết chữ, không phải viên nút thứ hai.
+ *
+ * Hai viên nút cạnh nhau thì không cái nào là chính. Một viên đặc và một dòng
+ * chữ có gạch chân nói ngay đâu là hành động chính, đâu là lối rẽ.
+ */
 .nutPhu {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.9rem 1.6rem;
-  border-radius: 999px;
-  font-size: 0.98rem;
+  padding: 0.4rem 0;
+  border: 0;
+  background: none;
+  color: #dbe3ec;
+  font-size: 0.94rem;
   font-weight: 600;
   text-decoration: none;
-  transition:
-    background-color var(--dur-2) var(--ease),
-    border-color var(--dur-2) var(--ease),
-    color var(--dur-2) var(--ease);
 }
 
-.nutChinh {
-  background: var(--accent);
-  color: #fff;
+.nutPhu span {
+  position: relative;
+  padding-bottom: 3px;
 }
 
-.nutChinh:hover {
-  background: #a3313f;
+.nutPhu span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--gold);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 320ms var(--ease);
 }
 
-.nutPhu {
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #fff;
-}
-
-.nutPhu:hover {
-  border-color: var(--gold);
+.nutPhu:hover,
+.nutPhu:focus-visible {
   color: var(--gold);
+}
+
+.nutPhu:hover span::after,
+.nutPhu:focus-visible span::after {
+  scale: 1 1;
+}
+
+.nutPhu svg {
+  width: 16px;
+  height: 16px;
+  transition: translate 320ms var(--ease);
+}
+
+.nutPhu:hover svg,
+.nutPhu:focus-visible svg {
+  translate: 3px 0;
+}
+
+@media (max-width: 699px) {
+  .ketNoiNut {
+    flex-direction: column;
+    gap: var(--s-5);
+  }
+
+  .ketNoi::after {
+    width: 150%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cham {
+    animation: none;
+  }
+
+  .nutChinh,
+  .nutChinh svg,
+  .nutChinh::after,
+  .nutPhu svg,
+  .nutPhu span::after {
+    transition: none;
+  }
+
+  .nutChinh:hover {
+    translate: none;
+  }
 }
 
 /* ================================================================ máy tính bảng */

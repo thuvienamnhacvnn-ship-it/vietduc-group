@@ -115,7 +115,7 @@
 }
 
 .moLogo {
-  width: clamp(120px, 12vw, 172px);
+  width: clamp(150px, 15vw, 230px);
   height: auto;
   margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
 }

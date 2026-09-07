@@ -114,7 +114,7 @@ export function SoDoHeSinhThai({
         {/* Tâm */}
         <div className={`${styles.nut} ${styles.tam}`} style={{ left: "50%", top: "50%" }}>
           <span className={styles.vien} aria-hidden="true" />
-          <Image src={tam.src} alt={pick(tam.ten, locale)} width={465} height={327} sizes="240px" />
+          <Image src={tam.src} alt={pick(tam.ten, locale)} width={459} height={167} sizes="260px" />
         </div>
 
         {/* Các nhánh */}
