@@ -41,7 +41,7 @@
   object-fit: cover;
   /* Nhân vật nằm giữa – phải trong bức gốc; neo về phải để vùng trái còn tối
      và trống cho chữ. */
-  object-position: 72% 50%;
+  object-position: 84% 50%;
 }
 
 /* Lớp phủ chuyển sắc, không phải một tấm màn mờ: bên trái đủ đặc để chữ trắng
@@ -770,10 +770,11 @@
 .chuyenDoi {
   display: grid;
   grid-template-columns: 35fr 65fr;
-  gap: clamp(1.5rem, 3vw, 3rem);
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+  row-gap: 0;
   margin: clamp(2rem, 4vw, 3rem) 0 0;
-  /* Chiều cao cố định để trang không nhảy khi đổi mục. */
-  min-height: 26rem;
+  /* Chiều cao tối thiểu để trang không nhảy khi đổi sang mục có ít chữ hơn. */
+  min-height: 24rem;
 }
 
 .chuyenDoiMuc {
@@ -828,7 +829,7 @@
 .chuyenDoiBang {
   grid-column: 2;
   grid-row: 1 / -1;
-  align-self: start;
+  align-self: stretch;
   padding: clamp(1.5rem, 3vw, 2.2rem);
   border: 1px solid var(--line);
   border-radius: var(--r-4);
