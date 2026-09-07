@@ -46,9 +46,9 @@
   display: block;
   width: 100%;
   height: auto;
-  max-height: min(58vh, 560px);
+  max-height: min(62vh, 620px);
   object-fit: cover;
-  object-position: 50% 46%;
+  object-position: 62% 46%;
 }
 
 /* Chân ảnh chìm dần vào nền tối để tấm bảng không cắt ngang một đường sắc. */
@@ -72,26 +72,59 @@
   background: linear-gradient(0deg, var(--band) 4%, rgba(9, 16, 24, 0) 100%);
 }
 
-/* ---- khối tiêu đề, đặt dưới ảnh trên nền tối ---- */
+/* ---- chữ trên mảng tối bên trái banner ---- */
 
-.moChu {
-  position: relative;
+.moLop {
+  position: absolute;
+  inset: 0;
   z-index: 2;
-  padding-block: clamp(1.2rem, 3vw, 2.2rem) clamp(0.5rem, 2vw, 1.2rem);
-  color: #e8edf3;
+  display: grid;
+  align-items: center;
+  pointer-events: none;
 }
 
 /*
- * Đề tựa có một vạch ngắn dẫn vào.
+ * Lớp phủ mỏng bên trái.
  *
- * Chữ hoa nhỏ đứng trơ một mình là thứ mọi trang đều làm; một vạch vàng ngắn
- * trước nó đủ để dòng ấy trông như được đặt vào chỗ, chứ không phải rơi xuống.
+ * Bức ảnh hiện tại đã có sẵn một vùng navy phẳng ở mép trái, nên lớp này gần
+ * như không nhìn thấy. Nó ở đây phòng khi ảnh được thay bằng bức khác sáng hơn
+ * — lúc ấy chữ vẫn đọc được thay vì chìm hẳn.
  */
+.moLop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(8, 14, 22, 0.86) 0%,
+    rgba(8, 14, 22, 0.72) 26%,
+    rgba(8, 14, 22, 0.18) 48%,
+    rgba(8, 14, 22, 0) 62%
+  );
+}
+
+.moChu {
+  position: relative;
+  z-index: 1;
+}
+
+.moTrong {
+  max-width: min(42%, 30rem);
+  pointer-events: auto;
+  color: #eef2f7;
+}
+
+.moLogo {
+  width: clamp(120px, 12vw, 172px);
+  height: auto;
+  margin-bottom: clamp(0.8rem, 2vw, 1.4rem);
+}
+
 .deTua {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  margin: var(--s-5) 0 0;
+  margin: 0;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.24em;
@@ -107,50 +140,35 @@
 }
 
 /*
- * Tiêu đề trang.
- *
- * Chữ lớn hơn hẳn phần còn lại, siết chữ lại một chút, và một dải chuyển sắc
- * chạy dọc nét chữ từ trắng sang vàng nhạt. Chuyển sắc trên chữ chỉ ăn khi có
- * `background-clip: text`; trình duyệt nào không hiểu thì rơi về màu trắng
- * khai ở dòng `color` — vẫn đọc được, chỉ mất phần lấp lánh.
+ * Tiêu đề. Dải chuyển sắc chạy dọc nét chữ từ trắng sang vàng nhạt. Trình
+ * duyệt nào không hiểu background-clip trên chữ thì rơi về màu trắng khai ở
+ * dòng color — mất phần lấp lánh chứ không mất chữ.
  */
 .moTieuDe {
   margin: var(--s-4) 0 0;
-  font-size: var(--step-5);
-  line-height: 1.02;
+  font-size: var(--step-4);
+  line-height: 1.06;
   letter-spacing: -0.02em;
   color: #fff;
-  background: linear-gradient(160deg, #ffffff 0%, #ffffff 42%, #f0dcb4 78%, #d9b871 100%);
+  background: linear-gradient(160deg, #ffffff 0%, #ffffff 44%, #f2e0bc 78%, #dcbc78 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Vạch vàng dưới tiêu đề, kéo dài ra khi khối hiện lên. */
 .vach {
   display: block;
-  width: 0;
+  width: min(220px, 60%);
   height: 2px;
-  margin-top: var(--s-5);
-  background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--gold) 10%, transparent));
-  transition: width 900ms var(--ease) 160ms;
-}
-
-:global(:root[data-reveal-ready]) .vach[data-reveal="in"] {
-  width: min(320px, 42%);
-}
-
-/* Không có JavaScript thì vạch vẫn phải hiện, không thì nó biến mất hẳn. */
-:global(:root:not([data-reveal-ready])) .vach {
-  width: min(320px, 42%);
+  margin-top: var(--s-4);
+  background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--gold) 8%, transparent));
 }
 
 .moDan {
-  margin: var(--s-5) 0 0;
-  max-width: 48ch;
+  margin: var(--s-4) 0 0;
   font-size: var(--step-1);
-  line-height: 1.6;
-  color: #b9c3ce;
+  line-height: 1.55;
+  color: #c9d3de;
 }
 
 /* =============================================================== chuyện */
@@ -422,6 +440,40 @@
 /* ============================================================ điện thoại */
 
 @media (max-width: 699px) {
+  /*
+   * Điện thoại: chữ xuống dưới ảnh.
+   *
+   * Mảng tối bên trái của bức ảnh chỉ tồn tại ở khổ rộng. Ở 375px, sau khi
+   * cắt theo chiều cao thì phần ấy còn chưa tới một phần ba màn hình — đặt cả
+   * logo, tiêu đề và câu dẫn vào đó là chữ đè lên chính người trong ảnh.
+   */
+  .moLop {
+    position: static;
+    display: block;
+    background: var(--band);
+  }
+
+  .moLop::before {
+    display: none;
+  }
+
+  .moChu {
+    padding-block: clamp(1.2rem, 5vw, 2rem);
+  }
+
+  .moTrong {
+    max-width: none;
+  }
+
+  .moAnh {
+    max-height: 34vh;
+    object-position: 58% 46%;
+  }
+
+  .moTieuDe {
+    font-size: var(--step-3);
+  }
+
   .bang {
     margin-top: clamp(-3rem, -8vw, -1.5rem);
     padding: var(--s-5);
@@ -455,10 +507,6 @@
 
   .theTen {
     text-align: left;
-  }
-
-  .moAnh {
-    max-height: 32vh;
   }
 
   .daiAnh {
