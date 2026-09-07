@@ -132,10 +132,11 @@ export function SiteHeader({ locale, social, contact, fields, schools }: Props) 
         <div className={`shell ${styles.inner}`}>
           <Link href={path("/")} className={styles.brand} aria-label={dict.brand.name}>
             <Image
-              src="/brand/viet-duc-group-logo.png"
+              src="/brand/viet-duc-group-logo.svg"
+              unoptimized
               alt=""
-              width={459}
-              height={167}
+              width={1980}
+              height={678}
               className={styles.logo}
               priority
             />

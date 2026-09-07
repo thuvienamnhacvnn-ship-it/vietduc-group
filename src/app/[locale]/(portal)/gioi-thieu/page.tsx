@@ -177,12 +177,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <div className={`shell ${styles.moChu}`}>
               <div className={styles.moTrong} data-reveal>
                 <Image
-                  src="/media/so-do/viet-duc-group.png"
+                  src="/brand/viet-duc-group-logo.svg"
                   alt={dict.brand.name}
-                  width={465}
-                  height={327}
+                  width={1980}
+                  height={678}
                   className={styles.moLogo}
                   priority
+                  unoptimized
                 />
 
                 <p className={styles.deTua}>
@@ -228,7 +229,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <SoDoHeSinhThai
             locale={locale}
             tam={{
-              src: "/brand/viet-duc-group-logo.png",
+              src: "/brand/viet-duc-group-logo.svg",
               ten: {
                 vi: "Việt Đức Group",
                 en: "Viet Duc Group",

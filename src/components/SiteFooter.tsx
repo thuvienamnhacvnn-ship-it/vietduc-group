@@ -36,10 +36,11 @@ export function SiteFooter({ locale, contact, social, schools, categories }: Pro
       <div className={`shell ${styles.office}`}>
         <div className={styles.officeText}>
           <Image
-            src="/brand/viet-duc-group-logo.png"
+            src="/brand/viet-duc-group-logo.svg"
+            unoptimized
             alt={dict.brand.name}
-            width={459}
-            height={167}
+            width={1980}
+            height={678}
             className={styles.logo}
           />
           <p className={styles.motto}>{dict.brand.motto}</p>

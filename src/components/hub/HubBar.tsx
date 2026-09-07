@@ -34,10 +34,11 @@ export function HubBar({ locale, social }: { locale: Locale; social: SocialSetti
             đọc màn hình lẫn máy tìm kiếm. Chỉ giữ lại khẩu hiệu. */}
         <Link href={path("/")} className={styles.brand}>
           <Image
-            src="/brand/viet-duc-group-logo.png"
+            src="/brand/viet-duc-group-logo.svg"
+            unoptimized
             alt={dict.brand.name}
-            width={459}
-            height={167}
+            width={1980}
+            height={678}
             priority
             className={styles.brandMark}
           />

@@ -97,9 +97,10 @@
   place-self: center;
   position: relative;
   z-index: 1;
-  width: 112%;
-  height: 52%;
-  border-radius: 999px;
+  /* Ôm theo logo dọc: gần vuông, bo góc lớn chứ không thành viên nang. */
+  width: 106%;
+  height: 106%;
+  border-radius: 30%;
   background: rgba(10, 16, 28, 0.62);
   border: 1px solid rgba(196, 145, 69, 0.34);
   box-shadow:
@@ -117,9 +118,9 @@
   place-self: center;
   position: relative;
   z-index: 2;
-  /* Logo nằm ngang (459x167) nên lấy gần trọn bề ngang lõi; cao chỉ còn
-     khoảng một phần ba, vừa nằm gọn trong vòng trong. */
-  width: 96%;
+  /* Logo dọc (1349x1278), gần vuông: lấy 88% để còn chừa một viền tấm nền
+     quanh nó thay vì chạm sát mép. */
+  width: 88%;
   height: auto;
   transform: rotateY(var(--lean-x)) rotateX(var(--lean-y)) translateZ(40px);
   transition: transform 400ms var(--ease);

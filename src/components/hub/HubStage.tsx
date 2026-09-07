@@ -125,11 +125,15 @@ export function HubStage({ branches, enterLabel, orbitLabel, heading, channels }
             cả nhóm, phải đọc ra tên chứ không chỉ ra biểu tượng. */}
         <div className={styles.core}>
           <span className={styles.glow} aria-hidden="true" />
+          {/* Bản dọc, không phải bản ngang: lõi là hình vuông nằm giữa một vòng
+              tròn, logo gần vuông lấp đầy nó, còn logo ngang thì chỉ chiếm một
+              dải mỏng giữa vòng và bỏ trống trên dưới. */}
           <Image
-            src="/brand/viet-duc-group-logo.png"
+            src="/brand/viet-duc-group-doc.svg"
+            unoptimized
             alt=""
-            width={459}
-            height={167}
+            width={1349}
+            height={1278}
             priority
             className={styles.mark}
           />
