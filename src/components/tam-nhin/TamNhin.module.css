@@ -1062,6 +1062,45 @@
   .moDauChu {
     max-width: 74%;
   }
+
+  .mucLucTrong {
+    display: block;
+    padding-block: 0;
+  }
+
+  .mucLucNhan {
+    display: none;
+  }
+
+  .mucLucNut {
+    display: flex;
+  }
+
+  /*
+   * Danh sách chỉ hiện khi bấm nút, và mở ra theo chiều dọc với mỗi dòng đủ
+   * cao cho đầu ngón tay. Đóng/mở làm bằng lớp CSS chứ không bằng thuộc tính
+   * `hidden`: `hidden` sẽ giấu luôn ở khổ máy tính, nơi bảy chặng phải bày ra
+   * hết trên một hàng.
+   */
+  .mucLucDs {
+    display: none;
+  }
+
+  .mucLucDsMo {
+    display: grid;
+    gap: 0;
+    padding-bottom: var(--s-3);
+    border-top: 1px solid var(--line);
+  }
+
+  .mucLucDsMo a {
+    padding: 0.7rem 0;
+    border-radius: 0;
+  }
+
+  .mucLucDsMo a[aria-current="true"] {
+    box-shadow: none;
+  }
 }
 
 /* ================================================================ điện thoại */
@@ -1101,45 +1140,6 @@
     margin-top: var(--s-5);
     font-size: 3.4rem;
     color: rgba(255, 255, 255, 0.22);
-  }
-
-  .mucLucTrong {
-    display: block;
-    padding-block: 0;
-  }
-
-  .mucLucNhan {
-    display: none;
-  }
-
-  .mucLucNut {
-    display: flex;
-  }
-
-  /*
-   * Danh sách chỉ hiện khi bấm nút, và mở ra theo chiều dọc với mỗi dòng đủ
-   * cao cho đầu ngón tay. Đóng/mở làm bằng lớp CSS chứ không bằng thuộc tính
-   * `hidden`: `hidden` sẽ giấu luôn ở khổ máy tính, nơi bảy chặng phải bày ra
-   * hết trên một hàng.
-   */
-  .mucLucDs {
-    display: none;
-  }
-
-  .mucLucDsMo {
-    display: grid;
-    gap: 0;
-    padding-bottom: var(--s-3);
-    border-top: 1px solid var(--line);
-  }
-
-  .mucLucDsMo a {
-    padding: 0.7rem 0;
-    border-radius: 0;
-  }
-
-  .mucLucDsMo a[aria-current="true"] {
-    box-shadow: none;
   }
 
   .ungDung {
