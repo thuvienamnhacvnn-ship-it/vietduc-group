@@ -131,6 +131,28 @@
   translate: -50% 0;
 }
 
+/* Nhánh sát rìa: nhãn neo vào rìa ấy thay vì neo giữa. */
+.nhanPhai .nhan {
+  left: auto;
+  right: 0;
+  translate: 0 4px;
+}
+
+.nhanPhai:hover .nhan,
+.nhanPhai:focus-visible .nhan {
+  translate: 0 0;
+}
+
+.nhanTrai .nhan {
+  left: 0;
+  translate: 0 4px;
+}
+
+.nhanTrai:hover .nhan,
+.nhanTrai:focus-visible .nhan {
+  translate: 0 0;
+}
+
 .nut:hover .vien,
 .nut:focus-visible .vien {
   border-color: var(--gold);
@@ -230,11 +252,14 @@
     height: 78%;
   }
 
-  .nhan {
+  .nhan,
+  .nhanPhai .nhan,
+  .nhanTrai .nhan {
     position: static;
     translate: none;
     opacity: 1;
-    max-width: none;
+    width: 100%;
+    max-width: 100%;
     margin-top: 0.35rem;
     padding: 0;
     border: 0;

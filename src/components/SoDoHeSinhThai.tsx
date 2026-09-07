@@ -116,8 +116,14 @@ export function SoDoHeSinhThai({
               <span className={styles.nhan}>{ten}</span>
             </>
           );
+          /*
+           * Nhãn neo theo phía. Nhánh nằm sát rìa phải mà nhãn vẫn neo giữa thì
+           * một nửa nhãn thò ra ngoài khung — và vì nó là phần tử tuyệt đối, nó
+           * kéo cả trang cuộn ngang chứ không chỉ bị cắt.
+           */
+          const phia = n.x > 66 ? styles.nhanPhai : n.x < 34 ? styles.nhanTrai : "";
           const chung = {
-            className: `${styles.nut} ${n.vong === "trong" ? styles.trong : styles.ngoai}`,
+            className: `${styles.nut} ${n.vong === "trong" ? styles.trong : styles.ngoai} ${phia}`,
             style: { left: `${n.x}%`, top: `${n.y}%` },
             onMouseEnter: () => setDangRe(n.src),
             onMouseLeave: () => setDangRe(null),
