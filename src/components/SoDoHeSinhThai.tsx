@@ -44,29 +44,34 @@ export function SoDoHeSinhThai({
   const [dangRe, setDangRe] = useState<string | null>(null);
 
   /*
-   * Toạ độ phần trăm. Góc tính từ 12 giờ, quay theo chiều kim đồng hồ.
+   * Bố cục hai hàng, không phải vòng tròn.
    *
-   * Elip chứ không phải đường tròn: khung là một dải ngang nối tiếp banner, nên
-   * bán kính ngang lớn hơn bán kính dọc. Vòng tròn đều ở đây sẽ cao bằng cả một
-   * màn hình và tách rời khỏi banner phía trên.
+   * Vòng tròn đều thì cao bằng bề ngang — ở một dải nối tiếp banner, nó đội
+   * chiều cao lên gấp đôi. Ép thành elip dẹt thì các nút dồn lại ở hai đầu và
+   * chồng lên nhau, vì trên elip các điểm chia đều theo góc KHÔNG chia đều
+   * theo cung.
+   *
+   * Hai hàng ngang giải quyết cả hai: khoảng cách giữa các nút do phép chia
+   * quyết định nên luôn đều, chiều cao do mình đặt, và hình vẫn đọc ra là một
+   * tâm toả ra hai tầng nhánh.
    */
-  const diem = (goc: number, rx: number, ry: number) => {
-    const rad = ((goc - 90) * Math.PI) / 180;
-    return { x: 50 + Math.cos(rad) * rx, y: 50 + Math.sin(rad) * ry };
-  };
+  const hang = (n: number, i: number, y: number, le: number) => ({
+    x: n === 1 ? 50 : le + ((100 - le * 2) / (n - 1)) * i,
+    y,
+  });
 
   const nut = [
+    /* Hàng dưới: năm thương hiệu. Hẹp hơn hàng trên vì ít nút hơn. */
     ...vongTrong.map((n, i) => ({
       ...n,
       vong: "trong" as const,
-      ...diem((360 / vongTrong.length) * i, 24, 30),
+      ...hang(vongTrong.length, i, 84, 16),
     })),
-    /* Vòng ngoài lệch nửa bước so với vòng trong: nhánh ngoài không nằm thẳng
-       sau nhánh trong, nên không có đường nối nào bị che khuất. */
+    /* Hàng trên: các trường thành viên. */
     ...vongNgoai.map((n, i) => ({
       ...n,
       vong: "ngoai" as const,
-      ...diem((360 / vongNgoai.length) * i + 360 / vongNgoai.length / 2, 43, 43),
+      ...hang(vongNgoai.length, i, 16, 8),
     })),
   ];
 

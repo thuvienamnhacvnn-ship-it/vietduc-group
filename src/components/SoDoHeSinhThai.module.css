@@ -22,7 +22,7 @@
   margin-inline: auto;
   /* Dải ngang: cao bằng khoảng 46% bề ngang, vừa đủ cho hai vòng elip mà không
      đẩy phần nội dung phía dưới xuống quá sâu. */
-  aspect-ratio: 22 / 10;
+  aspect-ratio: 20 / 9;
 }
 
 /* ---------------------------------------------------------- đường nối */
@@ -135,6 +135,12 @@
   translate: -50% 0;
 }
 
+/* Hàng trên: nhãn mọc ngược lên, nếu không nó đè vào đường nối và vào tâm. */
+.ngoai .nhan {
+  top: auto;
+  bottom: calc(100% + 0.5rem);
+}
+
 /* Nhánh sát rìa: nhãn neo vào rìa ấy thay vì neo giữa. */
 .nhanPhai .nhan {
   left: auto;
@@ -178,7 +184,7 @@
 /* ---- ba cỡ ---- */
 
 .tam {
-  width: 19%;
+  width: 17%;
   aspect-ratio: 1;
   height: auto;
   z-index: 2;
@@ -196,7 +202,7 @@
 }
 
 .trong {
-  width: 12.5%;
+  width: 11.5%;
   aspect-ratio: 1;
   height: auto;
   z-index: 2;
