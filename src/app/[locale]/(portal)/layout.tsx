@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { isLocale, type Locale } from "@/lib/i18n/config";
+import { isLocale, pick, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getSiteSettings } from "@/lib/settings";
 import { telHref } from "@/lib/site-config";
@@ -61,7 +61,17 @@ export default async function PortalLayout({
         locale={locale}
         items={railItems}
         langBase="/dao-tao"
-        cta={{ href: "/dao-tao/dang-ky-tu-van", label: dict.nav.apply }}
+        cta={{
+          href: "/dao-tao/dang-ky-tu-van",
+          label: dict.nav.apply,
+          /* Nút giữa thanh dưới chỉ rộng 76px: "Đăng ký tư vấn" bị cắt thành
+             "Đăng ký tư v…". Một chữ ngắn nói đủ, vì cái biểu tượng dấu cộng
+             ở ngay trên đã cho biết đây là hành động chính. */
+          short: pick(
+            { vi: "Tư vấn", en: "Advice", de: "Beratung", ja: "相談", ko: "상담", "zh-TW": "諮詢" },
+            locale,
+          ),
+        }}
         withSearch
         tel={telHref(settings.contact.phoneE164 || settings.contact.phone)}
         callLabel={dict.contact.callNow}
