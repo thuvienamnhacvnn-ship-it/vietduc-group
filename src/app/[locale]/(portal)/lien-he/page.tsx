@@ -41,13 +41,16 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
       <div className="shell">
         <PageHead
           crumbs={<Breadcrumbs locale={locale} trail={[{ label: dict.contact.title }]} />}
-          eyebrow={pick({ vi: "Liên hệ", en: "Contact", de: "Kontakt" }, locale)}
+          eyebrow={pick({ vi: "Liên hệ", en: "Contact", de: "Kontakt", ja: "お問い合わせ", ko: "문의하기", "zh-TW": "聯絡我們" }, locale)}
           title={dict.contact.title}
           lead={
             pick({
               vi: "Liên hệ trực tiếp với văn phòng tập đoàn, hoặc với phòng tuyển sinh của trường thành viên phụ trách ngành bạn quan tâm.",
               en: "Contact the group office directly, or the admissions office of the member school that runs the programme you are interested in.",
               de: "Wenden Sie sich an die Zentrale oder direkt an das Zulassungsbüro der zuständigen Mitgliedsschule.",
+              ja: "グループ本部へ直接、またはご関心の課程を運営する加盟校の入学窓口へ、どちらでもご連絡いただけます。",
+              ko: "그룹 본부로 직접 연락하시거나, 관심 있는 과정을 운영하는 회원 학교의 입학 담당 부서로 연락하셔도 됩니다.",
+              "zh-TW": "您可直接聯絡集團辦公室，或聯絡開設該課程之成員學校的招生單位。",
             }, locale)
           }
         />
@@ -86,7 +89,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
               ) : null}
               {contact.officeHours ? (
                 <div>
-                  <dt>{pick({ vi: "Giờ làm việc", en: "Office hours", de: "Öffnungszeiten" }, locale)}</dt>
+                  <dt>{pick({ vi: "Giờ làm việc", en: "Office hours", de: "Öffnungszeiten", ja: "受付時間", ko: "업무 시간", "zh-TW": "服務時間" }, locale)}</dt>
                   <dd>{t(contact.officeHours, locale)}</dd>
                 </div>
               ) : null}
@@ -115,6 +118,9 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                     vi: "Các kênh mạng xã hội chính thức sẽ hiển thị tại đây khi được cập nhật trong trang quản trị.",
                     en: "Official social channels will appear here once they are set in the admin area.",
                     de: "Offizielle Social-Media-Kanäle erscheinen hier, sobald sie im Redaktionsbereich hinterlegt sind.",
+                    ja: "公式ソーシャルチャンネルは、管理画面で設定されしだいここに表示されます。",
+                    ko: "공식 소셜 채널은 관리자 화면에서 설정하는 대로 이곳에 표시됩니다.",
+                    "zh-TW": "官方社群頻道將於管理後台設定完成後顯示於此。",
                   }, locale)
                 }
               </p>

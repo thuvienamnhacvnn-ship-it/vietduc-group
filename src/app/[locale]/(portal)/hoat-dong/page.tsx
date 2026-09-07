@@ -48,6 +48,9 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                 vi: "Hoạt động thường niên của học sinh – sinh viên trong hệ thống. Ảnh chụp tại các trường thành viên, trích từ hồ sơ năng lực.",
                 en: "The student activities that run through the year across the network. Photographs taken at member schools, from the capability profile.",
                 de: "Aktivitäten der Lernenden im Jahresverlauf. Fotos von den Mitgliedsschulen, aus dem Leistungsprofil.",
+                ja: "系列各校で一年を通して行われる学生行事です。写真は加盟校で撮影され、会社案内から採録しました。",
+                ko: "체계 안의 학교들에서 한 해 동안 이어지는 학생 행사입니다. 사진은 회원 학교에서 촬영했으며 역량 소개서에서 가져왔습니다.",
+                "zh-TW": "體系內各校全年舉辦的學生活動。照片攝於各成員學校，取自能力簡介。",
               }, locale)
             }
           </p>
@@ -82,6 +85,9 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
                   vi: "Hình ảnh theo chủ đề",
                   en: "Photographs by theme",
                   de: "Aufnahmen nach Thema",
+                  ja: "テーマ別の写真",
+                  ko: "주제별 사진",
+                  "zh-TW": "依主題分類的照片",
                 }, locale)
               }
             </h2>
@@ -89,7 +95,7 @@ export default async function ActivitiesPage({ params }: { params: Promise<{ loc
               groups={NHOM_HOAT_DONG}
               all={shots}
               locale={locale}
-              otherLabel={{ vi: "Hoạt động khác", en: "Other events", de: "Weitere Veranstaltungen" }}
+              otherLabel={{ vi: "Hoạt động khác", en: "Other events", de: "Weitere Veranstaltungen", ja: "その他の行事", ko: "그 밖의 행사", "zh-TW": "其他活動" }}
               alt={(nhom) => nhom}
             />
           </section>

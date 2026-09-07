@@ -1,4 +1,7 @@
 import type { Locale } from "./config";
+import { ja } from "./dictionary.ja";
+import { ko } from "./dictionary.ko";
+import { zhTW } from "./dictionary.zh-TW";
 
 /**
  * UI chrome only. Editorial content lives in the database with its own
@@ -1007,14 +1010,15 @@ const en: Dictionary = {
 };
 
 /*
- * Nhật, Hàn và Đài Loan tạm trỏ về bộ tiếng Việt.
+ * Sáu ngôn ngữ, sáu bộ từ điển thật.
  *
- * Không phải "đã dịch" — là chỗ giữ sẵn để trang chạy được ở sáu ngôn ngữ ngay
- * bây giờ trong khi bản dịch điền dần. Nếu để thiếu khoá, cả bản dựng gãy và
- * không ngôn ngữ nào xem được. Còn lùi về tiếng Việt thì trang vẫn đọc được,
- * chỉ là chưa dịch — và `npm run i18n` chỉ ra chính xác còn thiếu những gì.
+ * Nhật, Hàn và Đài Loan để riêng file: bộ tiếng Việt, Đức, Anh trong file này
+ * đã hơn nghìn dòng, dồn thêm ba bộ nữa vào thì không ai mở ra sửa được.
+ *
+ * `getDictionary` vẫn lùi về tiếng Việt khi tra một khoá không có — đó là lưới
+ * an toàn cho ngôn ngữ thêm sau này, không phải chỗ dựa của ba bộ này.
  */
-const DICTIONARIES: Record<Locale, Dictionary> = { vi, de, en, ja: vi, ko: vi, "zh-TW": vi };
+const DICTIONARIES: Record<Locale, Dictionary> = { vi, de, en, ja, ko, "zh-TW": zhTW };
 
 export function getDictionary(locale: Locale): Dictionary {
   return DICTIONARIES[locale] ?? DICTIONARIES.vi;

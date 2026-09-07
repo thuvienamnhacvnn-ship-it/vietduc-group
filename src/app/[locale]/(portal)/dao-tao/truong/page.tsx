@@ -43,6 +43,9 @@ export default async function SchoolsPage({ params }: { params: Promise<{ locale
                 vi: "Sáu cơ sở đào tạo, mỗi nơi một thế mạnh ngành nghề và địa bàn. Số ngành hiển thị là số ngành đã đăng ký hoạt động giáo dục nghề nghiệp.",
                 en: "Six institutions, each with its own strengths and location. The programme count shown is the number of registered occupations.",
                 de: "Sechs Einrichtungen mit je eigenen Schwerpunkten und Standorten. Die Zahl nennt die registrierten Berufsprofile.",
+                ja: "六つの教育機関は、それぞれ得意分野と所在地が異なります。表示している課程数は、認可を受けた職種の数です。",
+                ko: "여섯 개 교육 기관은 각각 강점 분야와 소재지가 다릅니다. 표시된 과정 수는 인가받은 직종의 수입니다.",
+                "zh-TW": "六所教育機構各有專長領域與所在地。所顯示的課程數為已立案的職類數量。",
               }, locale)
             }
           </p>
@@ -66,7 +69,7 @@ export default async function SchoolsPage({ params }: { params: Promise<{ locale
                   },
                   locale,
                 )
-              : pick({ vi: "Đang cập nhật", en: "Being updated", de: "Wird ergänzt" }, locale)
+              : pick({ vi: "Đang cập nhật", en: "Being updated", de: "Wird ergänzt", ja: "更新中", ko: "업데이트 중", "zh-TW": "更新中" }, locale)
           }
         />
       </div>

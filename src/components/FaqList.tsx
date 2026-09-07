@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { fold } from "@/lib/text";
-import { pick, type Locale } from "@/lib/i18n/config";
+import { pick, type Locale, type L10nMap } from "@/lib/i18n/config";
 import styles from "./FaqList.module.css";
 
 export type FaqItem = {
@@ -15,13 +15,13 @@ export type FaqItem = {
   page: number | null;
 };
 
-const TOPIC_LABEL: Record<string, { vi: string; en?: string; de?: string }> = {
-  organisation: { vi: "Tổ chức", en: "The organisation", de: "Organisation" },
-  admissions: { vi: "Tuyển sinh", en: "Admissions", de: "Zulassung" },
-  programs: { vi: "Chương trình", en: "Programmes", de: "Programme" },
-  international: { vi: "Quốc tế", en: "International", de: "International" },
-  partners: { vi: "Đối tác", en: "Partners", de: "Partner" },
-  general: { vi: "Chung", en: "General", de: "Allgemein" },
+const TOPIC_LABEL: Record<string, L10nMap> = {
+  organisation: { vi: "Tổ chức", en: "The organisation", de: "Organisation", ja: "組織について", ko: "조직", "zh-TW": "組織" },
+  admissions: { vi: "Tuyển sinh", en: "Admissions", de: "Zulassung", ja: "入学・募集", ko: "입학·모집", "zh-TW": "招生" },
+  programs: { vi: "Chương trình", en: "Programmes", de: "Programme", ja: "課程", ko: "과정", "zh-TW": "課程" },
+  international: { vi: "Quốc tế", en: "International", de: "International", ja: "国際", ko: "국제", "zh-TW": "國際" },
+  partners: { vi: "Đối tác", en: "Partners", de: "Partner", ja: "パートナー", ko: "파트너", "zh-TW": "合作夥伴" },
+  general: { vi: "Chung", en: "General", de: "Allgemein", ja: "その他", ko: "일반", "zh-TW": "一般" },
 };
 
 /** Instant client-side filter: the whole FAQ is small enough to ship at once. */

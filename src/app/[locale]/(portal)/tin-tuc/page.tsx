@@ -46,6 +46,9 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
                 vi: "Chưa có bài viết nào được xuất bản. Biên tập viên có thể thêm bài trong trang quản trị – website không hiển thị tin mẫu.",
                 en: "No articles published yet. Editors can add them in the admin area - this site does not display placeholder news.",
                 de: "Noch keine Beiträge veröffentlicht. Die Redaktion kann sie im Redaktionsbereich anlegen - Platzhaltermeldungen zeigt diese Seite nicht.",
+                ja: "まだ公開された記事はありません。編集者は管理画面から追加できます。このサイトはダミー記事を表示しません。",
+                ko: "아직 공개된 글이 없습니다. 편집자는 관리자 화면에서 추가할 수 있으며, 이 사이트는 예시 기사를 표시하지 않습니다.",
+                "zh-TW": "目前尚無已發布的文章。編輯者可於管理後台新增；本網站不會顯示範例新聞。",
               }, locale)
             }
           />

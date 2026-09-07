@@ -56,13 +56,16 @@ export default async function FaqPage({ params }: { params: Promise<{ locale: st
       <div className="shell">
         <PageHead
           crumbs={<Breadcrumbs locale={locale} trail={[{ label: dict.nav.faq }]} />}
-          eyebrow={pick({ vi: "Hỏi đáp", en: "Questions", de: "Fragen" }, locale)}
+          eyebrow={pick({ vi: "Hỏi đáp", en: "Questions", de: "Fragen", ja: "質問と回答", ko: "질문과 답변", "zh-TW": "問與答" }, locale)}
           title={dict.nav.faq}
           lead={
             pick({
               vi: "Mỗi câu trả lời dưới đây đều dẫn nguồn từ tài liệu chính thức của Việt Đức Group.",
               en: "Every answer below cites the official Viet Duc Group document it comes from.",
               de: "Jede Antwort nennt das offizielle Dokument, aus dem sie stammt.",
+              ja: "以下の回答はいずれも、Viet Duc Group の正式な資料を出典として示しています。",
+              ko: "아래의 모든 답변은 Viet Duc Group의 공식 자료를 출처로 밝히고 있습니다.",
+              "zh-TW": "以下每則回答均註明其所依據的 Viet Duc Group 正式文件。",
             }, locale)
           }
         />

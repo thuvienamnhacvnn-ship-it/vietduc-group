@@ -42,10 +42,10 @@ type Draft = {
 };
 
 const LEVEL_LABEL: Record<string, L10n> = {
-  cao_dang: { vi: "Cao đẳng", en: "College", de: "College" },
-  trung_cap: { vi: "Trung cấp", en: "Intermediate", de: "Fachschule" },
-  so_cap: { vi: "Sơ cấp", en: "Elementary", de: "Grundstufe" },
-  lien_ket: { vi: "Liên kết quốc tế", en: "International partnership", de: "Internationale Kooperation" },
+  cao_dang: { vi: "Cao đẳng", en: "College", de: "College", ja: "短期大学課程", ko: "전문대 과정", "zh-TW": "專科" },
+  trung_cap: { vi: "Trung cấp", en: "Intermediate", de: "Fachschule", ja: "中級課程", ko: "중급 과정", "zh-TW": "中級" },
+  so_cap: { vi: "Sơ cấp", en: "Elementary", de: "Grundstufe", ja: "初級課程", ko: "초급 과정", "zh-TW": "初級" },
+  lien_ket: { vi: "Liên kết quốc tế", en: "International partnership", de: "Internationale Kooperation", ja: "国際連携課程", ko: "국제 협력 과정", "zh-TW": "國際合作課程" },
 };
 
 function pick(field: L10n | null | undefined, locale: "vi" | "en" | "de"): string {
@@ -54,7 +54,7 @@ function pick(field: L10n | null | undefined, locale: "vi" | "en" | "de"): strin
 }
 
 function citationFor(base: string, locale: "vi" | "en" | "de", page?: number | null): L10n {
-  const pageWord = pick({ vi: "trang", en: "page", de: "Seite" }, locale);
+  const pageWord = pick({ vi: "trang", en: "page", de: "Seite", ja: "ページ", ko: "쪽", "zh-TW": "頁" }, locale);
   return { [locale]: page ? `${base}, ${pageWord} ${page}` : base } as unknown as L10n;
 }
 
@@ -116,16 +116,16 @@ export async function collectDrafts(): Promise<Draft[]> {
       if (!title) continue;
       const school = program.schoolId ? schoolById.get(program.schoolId) : undefined;
       const lines = [
-        school ? `${pick({ vi: "Trường", en: "School", de: "Schule" }, locale)}: ${pick(school.name, locale)}` : "",
-        `${pick({ vi: "Trình độ", en: "Level", de: "Niveau" }, locale)}: ${pick(LEVEL_LABEL[program.level], locale)}`,
+        school ? `${pick({ vi: "Trường", en: "School", de: "Schule", ja: "学校", ko: "학교", "zh-TW": "學校" }, locale)}: ${pick(school.name, locale)}` : "",
+        `${pick({ vi: "Trình độ", en: "Level", de: "Niveau", ja: "課程レベル", ko: "과정 단계", "zh-TW": "課程層級" }, locale)}: ${pick(LEVEL_LABEL[program.level], locale)}`,
         program.officialCode
-          ? `${pick({ vi: "Mã ngành/nghề", en: "Official code", de: "Amtlicher Code" }, locale)}: ${program.officialCode}`
+          ? `${pick({ vi: "Mã ngành/nghề", en: "Official code", de: "Amtlicher Code", ja: "職種コード", ko: "직종 코드", "zh-TW": "職類代碼" }, locale)}: ${program.officialCode}`
           : "",
         program.intakeQuota
-          ? `${pick({ vi: "Quy mô tuyển sinh", en: "Annual intake quota", de: "Aufnahmekapazität" }, locale)}: ${program.intakeQuota}/${pick({ vi: "năm", en: "year", de: "Jahr" }, locale)}`
+          ? `${pick({ vi: "Quy mô tuyển sinh", en: "Annual intake quota", de: "Aufnahmekapazität", ja: "年間定員", ko: "연간 모집 정원", "zh-TW": "每年招生名額" }, locale)}: ${program.intakeQuota}/${pick({ vi: "năm", en: "year", de: "Jahr", ja: "年", ko: "년", "zh-TW": "年" }, locale)}`
           : "",
         program.locationCity
-          ? `${pick({ vi: "Địa điểm", en: "Location", de: "Standort" }, locale)}: ${pick(program.locationCity, locale)}`
+          ? `${pick({ vi: "Địa điểm", en: "Location", de: "Standort", ja: "所在地", ko: "소재지", "zh-TW": "地點" }, locale)}: ${pick(program.locationCity, locale)}`
           : "",
         pick(program.overview, locale),
         (program.careers?.[locale] ?? program.careers?.vi ?? []).map((c) => `- ${c}`).join("\n"),
@@ -223,7 +223,7 @@ export async function collectDrafts(): Promise<Draft[]> {
       const listing = partnerRows
         .map((p) => `- ${p.name}${p.country ? ` (${p.country})` : ""}`)
         .join("\n");
-      const heading = pick({ vi: "Đối tác của Việt Đức Group", en: "Viet Duc Group partners", de: "Partner der Viet Duc Group" }, locale);
+      const heading = pick({ vi: "Đối tác của Việt Đức Group", en: "Viet Duc Group partners", de: "Partner der Viet Duc Group", ja: "Viet Duc Group の提携先", ko: "Viet Duc Group의 협력사", "zh-TW": "Viet Duc Group 的合作夥伴" }, locale);
       drafts.push({
         sourceRef: "partners:index",
         sourceKind: "partner",

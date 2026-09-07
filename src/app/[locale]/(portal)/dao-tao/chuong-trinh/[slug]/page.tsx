@@ -219,7 +219,7 @@ export default async function ProgramPage({
             {school?.legalRefs?.length ? (
               <section className={shell.section}>
                 <h2 className={shell.sectionTitle}>
-                  {pick({ vi: "Cơ sở pháp lý", en: "Legal basis", de: "Rechtsgrundlage" }, locale)}
+                  {pick({ vi: "Cơ sở pháp lý", en: "Legal basis", de: "Rechtsgrundlage", ja: "法的根拠", ko: "법적 근거", "zh-TW": "法律依據" }, locale)}
                 </h2>
                 <div className={shell.tableScroll}>
                   <table className={shell.legalTable}>
@@ -229,15 +229,18 @@ export default async function ProgramPage({
                           vi: "Các văn bản do cơ quan quản lý nhà nước cấp cho trường thành viên.",
                           en: "Documents issued to the member school by the competent authority.",
                           de: "Von der zuständigen Behörde ausgestellte Dokumente der Mitgliedsschule.",
+                          ja: "所管の行政機関が加盟校に交付した文書です。",
+                          ko: "관할 행정 기관이 회원 학교에 발급한 문서입니다.",
+                          "zh-TW": "由主管機關核發給成員學校的文件。",
                         }, locale)
                       }
                     </caption>
                     <thead>
                       <tr>
-                        <th scope="col">{pick({ vi: "Văn bản", en: "Document", de: "Dokument" }, locale)}</th>
-                        <th scope="col">{pick({ vi: "Số hiệu", en: "Number", de: "Nummer" }, locale)}</th>
-                        <th scope="col">{pick({ vi: "Ngày", en: "Date", de: "Datum" }, locale)}</th>
-                        <th scope="col">{pick({ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Văn bản", en: "Document", de: "Dokument", ja: "文書", ko: "문서", "zh-TW": "文件" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Số hiệu", en: "Number", de: "Nummer", ja: "文書番号", ko: "문서 번호", "zh-TW": "文號" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Ngày", en: "Date", de: "Datum", ja: "日付", ko: "날짜", "zh-TW": "日期" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller", ja: "発行機関", ko: "발급 기관", "zh-TW": "核發機關" }, locale)}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -272,7 +275,7 @@ export default async function ProgramPage({
 
           <aside className={`${shell.aside} ${shell.asideSticky}`}>
             <h2 className={shell.asideTitle}>
-              {pick({ vi: "Thông tin chương trình", en: "Programme facts", de: "Programmdaten" }, locale)}
+              {pick({ vi: "Thông tin chương trình", en: "Programme facts", de: "Programmdaten", ja: "課程データ", ko: "과정 정보", "zh-TW": "課程資料" }, locale)}
             </h2>
             <dl className={shell.factList}>
               {facts.map((fact) => (

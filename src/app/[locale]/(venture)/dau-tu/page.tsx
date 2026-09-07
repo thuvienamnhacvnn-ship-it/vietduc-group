@@ -152,6 +152,9 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
               vi: "Dự án khách sạn, khu nghỉ dưỡng và công trường của Việt Đức Group",
               en: "Viet Duc Group hotel, resort and construction projects",
               de: "Hotel-, Resort- und Bauprojekte der Viet Duc Group",
+              ja: "Viet Duc Group のホテル・リゾート・建設現場のプロジェクト",
+              ko: "Viet Duc Group의 호텔·리조트·건설 현장 프로젝트",
+              "zh-TW": "Viet Duc Group 的飯店、度假村與工地專案",
             }, locale)
           }
           seconds={marquee.length > 12 ? 80 : 55}
@@ -195,6 +198,9 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
                   vi: "Ngoài hiện trường",
                   en: "On site",
                   de: "Vor Ort",
+                  ja: "現場から",
+                  ko: "현장에서",
+                  "zh-TW": "在工地現場",
                 }, locale)
               }
             </h2>
@@ -206,6 +212,9 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
                 vi: "Hiện trường hoạt động đầu tư của Việt Đức Group",
                 en: "A Viet Duc Group investment site",
                 de: "Ein Investitionsstandort der Viet Duc Group",
+                ja: "Viet Duc Group の投資事業の現場",
+                ko: "Viet Duc Group 투자 사업 현장",
+                "zh-TW": "Viet Duc Group 投資事業的現場",
               }, locale),
             }))}
             limit={siteShots.length}

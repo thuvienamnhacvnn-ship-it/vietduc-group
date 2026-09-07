@@ -20,7 +20,8 @@
     "snapshot": "tsx scripts/snapshot.ts",
     "kho": "tsx scripts/kho.ts",
     "media:kho": "tsx scripts/media-kho.ts",
-    "thieu": "tsx scripts/thieu.ts"
+    "thieu": "tsx scripts/thieu.ts",
+    "i18n": "tsx scripts/i18n.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",

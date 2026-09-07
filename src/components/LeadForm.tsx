@@ -255,7 +255,7 @@ export function LeadForm({
               </div>
             </fieldset>
             <fieldset className={styles.spaced}>
-              <legend>{pick({ vi: "Thời gian có thể bắt đầu", en: "When you could start", de: "Möglicher Beginn" }, locale)}</legend>
+              <legend>{pick({ vi: "Thời gian có thể bắt đầu", en: "When you could start", de: "Möglicher Beginn", ja: "入学できる時期", ko: "시작 가능한 시기", "zh-TW": "可入學的時間" }, locale)}</legend>
               <div className={styles.options}>
                 {Object.entries(dict.form.windows).map(([value, label]) => (
                   <Choice

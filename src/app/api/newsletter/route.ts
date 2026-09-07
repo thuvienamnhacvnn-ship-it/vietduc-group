@@ -77,6 +77,9 @@ export async function POST(request: NextRequest) {
         vi: "Xác nhận đăng ký bản tin Việt Đức Group",
         de: "Newsletter-Anmeldung bestätigen – Viet Duc Group",
         en: "Confirm your Viet Duc Group newsletter subscription",
+        ja: "Viet Duc Group ニュースレター登録の確認",
+        ko: "Viet Duc Group 소식지 구독 확인",
+        "zh-TW": "確認訂閱 Viet Duc Group 電子報",
       }, locale),
       text: pick({
         vi: `Bấm vào liên kết sau để xác nhận đăng ký nhận bản tin:\n\n${link}\n\nNếu bạn không đăng ký, hãy bỏ qua email này.`,

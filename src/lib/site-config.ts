@@ -1,4 +1,4 @@
-import { pick, type Locale } from "./i18n/config";
+import { pick, type Locale, type L10nMap } from "./i18n/config";
 
 /**
  * Shape of the editable site configuration. Values live in the `settings`
@@ -50,7 +50,7 @@ export type ContactSettings = {
   email: string;
   website: string;
   admissionsPhone: string;
-  officeHours: { vi: string; de?: string; en?: string } | null;
+  officeHours: L10nMap | null;
   /** Google Maps embed URL. Left empty until someone supplies the real one. */
   mapEmbedUrl: string;
 };
@@ -59,8 +59,8 @@ export type SocialSettings = Record<SocialKey, string>;
 
 export type SeoSettings = {
   siteName: string;
-  defaultTitle: { vi: string; de?: string; en?: string };
-  defaultDescription: { vi: string; de?: string; en?: string };
+  defaultTitle: L10nMap;
+  defaultDescription: L10nMap;
   /** Absolute origin used for canonical URLs and sitemaps. */
   siteUrl: string;
   ogImage: string;
@@ -111,11 +111,17 @@ export const DEFAULT_SETTINGS: SiteSettings = {
       vi: "Việt Đức Group – Kiến tạo tri thức, dẫn lối tương lai",
       de: "Viet Duc Group – Wissen schaffen, die Zukunft weisen",
       en: "Viet Duc Group – Creating knowledge, shaping the future",
+      ja: "Viet Duc Group — 知を創り、未来を拓く",
+      ko: "Viet Duc Group — 지식을 세우고 미래를 엽니다",
+      "zh-TW": "Viet Duc Group — 創造知識，引領未來",
     },
     defaultDescription: {
       vi: "Hệ thống giáo dục nghề nghiệp Việt – Đức với sáu trường thành viên: đào tạo thực hành, gắn kết doanh nghiệp và hợp tác quốc tế.",
       de: "Vietnamesisch-deutsches Berufsbildungsnetzwerk mit sechs Mitgliedsschulen: praxisnahe Ausbildung, Unternehmensbindung und internationale Zusammenarbeit.",
       en: "A Vietnamese–German vocational education system of six member schools: practical training, employer partnerships and international cooperation.",
+      ja: "六つの加盟校からなる越独技能教育の体系。実習中心の教育、企業との連携、そして国際協力。",
+      ko: "여섯 개 회원 학교로 이루어진 베트남·독일 직업교육 체계. 실습 중심 교육, 기업 연계, 그리고 국제 협력.",
+      "zh-TW": "由六所成員學校組成的越德技職教育體系：實作導向的訓練、與企業連結，以及國際合作。",
     },
     siteUrl: "",
     ogImage: "/brand/og-default.png",

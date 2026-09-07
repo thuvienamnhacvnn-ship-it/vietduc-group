@@ -100,6 +100,9 @@ export default async function ComparePage({
                 vi: "Đặt cạnh nhau các thông tin đã được công bố. Ô để trống nghĩa là tài liệu chính thức chưa nêu.",
                 en: "Published facts side by side. An empty cell means the official documents do not state it.",
                 de: "Veröffentlichte Angaben im Vergleich. Eine leere Zelle heißt: die amtlichen Unterlagen nennen es nicht.",
+                ja: "公表されている情報を並べて比べます。空欄は、正式な資料に記載がないことを意味します。",
+                ko: "공개된 정보를 나란히 놓고 비교합니다. 빈 칸은 공식 자료에 언급이 없다는 뜻입니다.",
+                "zh-TW": "將已公開的資訊並列比較。空白欄位表示正式文件尚未載明。",
               }, locale)
             }
           </p>
@@ -113,6 +116,9 @@ export default async function ComparePage({
                 vi: "Hãy chọn tối đa ba chương trình trong trang tra cứu rồi bấm So sánh.",
                 en: "Pick up to three programmes in the explorer, then choose Compare.",
                 de: "Wählen Sie bis zu drei Programme in der Übersicht und dann Vergleichen.",
+                ja: "課程一覧で最大三つまで選び、「比較」を押してください。",
+                ko: "과정 찾기에서 최대 세 개까지 고른 뒤 「비교」를 누르세요.",
+                "zh-TW": "請在課程查詢頁最多挑選三個課程，然後按「比較」。",
               }, locale)
             }
           />

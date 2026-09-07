@@ -126,7 +126,7 @@ export default async function SchoolPage({
               <Image
                 src={school.coverPath}
                 alt={`${t(school.name, locale)} — ${
-                  pick({ vi: "khuôn viên", en: "campus", de: "Campus" }, locale)
+                  pick({ vi: "khuôn viên", en: "campus", de: "Campus", ja: "キャンパス", ko: "캠퍼스", "zh-TW": "校園" }, locale)
                 }`}
                 width={1400}
                 height={1000}
@@ -169,7 +169,7 @@ export default async function SchoolPage({
             {highlights.length ? (
               <section className={shell.section}>
                 <h2 className={shell.sectionTitle}>
-                  {pick({ vi: "Điểm nổi bật", en: "Highlights", de: "Schwerpunkte" }, locale)}
+                  {pick({ vi: "Điểm nổi bật", en: "Highlights", de: "Schwerpunkte", ja: "特色", ko: "주요 특징", "zh-TW": "特色亮點" }, locale)}
                 </h2>
                 <ul className={styles.highlights}>
                   {highlights.map((item) => (
@@ -211,16 +211,16 @@ export default async function SchoolPage({
             {school.legalRefs?.length ? (
               <section className={shell.section}>
                 <h2 className={shell.sectionTitle}>
-                  {pick({ vi: "Hồ sơ pháp lý", en: "Legal record", de: "Rechtliche Grundlage" }, locale)}
+                  {pick({ vi: "Hồ sơ pháp lý", en: "Legal record", de: "Rechtliche Grundlage", ja: "法的記録", ko: "법적 기록", "zh-TW": "法律文件紀錄" }, locale)}
                 </h2>
                 <div className={shell.tableScroll}>
                   <table className={shell.legalTable}>
                     <thead>
                       <tr>
-                        <th scope="col">{pick({ vi: "Văn bản", en: "Document", de: "Dokument" }, locale)}</th>
-                        <th scope="col">{pick({ vi: "Số hiệu", en: "Number", de: "Nummer" }, locale)}</th>
-                        <th scope="col">{pick({ vi: "Ngày", en: "Date", de: "Datum" }, locale)}</th>
-                        <th scope="col">{pick({ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Văn bản", en: "Document", de: "Dokument", ja: "文書", ko: "문서", "zh-TW": "文件" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Số hiệu", en: "Number", de: "Nummer", ja: "文書番号", ko: "문서 번호", "zh-TW": "文號" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Ngày", en: "Date", de: "Datum", ja: "日付", ko: "날짜", "zh-TW": "日期" }, locale)}</th>
+                        <th scope="col">{pick({ vi: "Cơ quan cấp", en: "Issued by", de: "Aussteller", ja: "発行機関", ko: "발급 기관", "zh-TW": "核發機關" }, locale)}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -274,7 +274,7 @@ export default async function SchoolPage({
               ) : null}
               {school.legalNameEn ? (
                 <div>
-                  <dt>{pick({ vi: "Tên giao dịch quốc tế", en: "International name", de: "Internationaler Name" }, locale)}</dt>
+                  <dt>{pick({ vi: "Tên giao dịch quốc tế", en: "International name", de: "Internationaler Name", ja: "英文名称", ko: "국제 명칭", "zh-TW": "國際名稱" }, locale)}</dt>
                   <dd>{school.legalNameEn}</dd>
                 </div>
               ) : null}
@@ -294,7 +294,7 @@ export default async function SchoolPage({
         <section className={`section ${styles.gallerySection}`}>
           <div className="shell">
             <SectionHeading
-              eyebrow={pick({ vi: "Hình ảnh", en: "Photographs", de: "Bilder" }, locale)}
+              eyebrow={pick({ vi: "Hình ảnh", en: "Photographs", de: "Bilder", ja: "写真", ko: "사진", "zh-TW": "照片" }, locale)}
               title={
                 pick({
                   vi: `Tại ${schoolName}`,

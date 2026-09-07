@@ -41,6 +41,9 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
                 vi: "Các tài liệu nguồn mà nội dung trên website này được biên tập từ đó. Tài liệu chỉ tải xuống được khi quản trị viên cho phép công bố.",
                 en: "The source documents this website's content is edited from. A document can only be downloaded once an editor has cleared it for publication.",
                 de: "Die Quelldokumente, aus denen die Inhalte dieser Website redigiert wurden. Ein Download ist erst nach Freigabe durch die Redaktion möglich.",
+                ja: "本サイトの内容を編集する際に用いた原資料です。管理者が公開を許可した資料のみダウンロードできます。",
+                ko: "이 사이트의 내용을 편집할 때 사용한 원자료입니다. 관리자가 공개를 허가한 자료만 내려받을 수 있습니다.",
+                "zh-TW": "本網站內容所依據的原始文件。僅在管理者核准公開後方可下載。",
               }, locale)
             }
           </p>
@@ -75,6 +78,9 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
                             vi: "Đọc bằng OCR",
                             en: "Read by OCR",
                             de: "Per OCR gelesen",
+                            ja: "OCR で読み取り",
+                            ko: "OCR로 판독",
+                            "zh-TW": "以 OCR 辨識",
                           }, locale)
                         }
                       </Badge>
@@ -94,6 +100,9 @@ export default async function LibraryPage({ params }: { params: Promise<{ locale
                           vi: "Chưa công bố tải xuống",
                           en: "Not published for download",
                           de: "Kein Download freigegeben",
+                          ja: "ダウンロード未公開",
+                          ko: "내려받기 미공개",
+                          "zh-TW": "尚未開放下載",
                         }, locale)
                       }
                     </span>

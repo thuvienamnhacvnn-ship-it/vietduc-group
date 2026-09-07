@@ -7,29 +7,29 @@ export const LEVELS = ["cao_dang", "trung_cap", "so_cap", "lien_ket"] as const;
 export type Level = (typeof LEVELS)[number];
 
 export const LEVEL_LABEL: Record<string, L10n> = {
-  cao_dang: { vi: "Cao đẳng", en: "College", de: "College" },
-  trung_cap: { vi: "Trung cấp", en: "Intermediate", de: "Fachschule" },
-  so_cap: { vi: "Sơ cấp", en: "Elementary", de: "Grundstufe" },
-  lien_ket: { vi: "Liên kết quốc tế", en: "International partnership", de: "Internationale Kooperation" },
+  cao_dang: { vi: "Cao đẳng", en: "College", de: "College", ja: "短期大学課程", ko: "전문대 과정", "zh-TW": "專科" },
+  trung_cap: { vi: "Trung cấp", en: "Intermediate", de: "Fachschule", ja: "中級課程", ko: "중급 과정", "zh-TW": "中級" },
+  so_cap: { vi: "Sơ cấp", en: "Elementary", de: "Grundstufe", ja: "初級課程", ko: "초급 과정", "zh-TW": "初級" },
+  lien_ket: { vi: "Liên kết quốc tế", en: "International partnership", de: "Internationale Kooperation", ja: "国際連携課程", ko: "국제 협력 과정", "zh-TW": "國際合作課程" },
 };
 
 export const MODES = ["offline", "blended", "online", "abroad"] as const;
 export type Mode = (typeof MODES)[number];
 
 export const MODE_LABEL: Record<string, L10n> = {
-  offline: { vi: "Học tại trường", en: "On campus", de: "Präsenz" },
-  blended: { vi: "Kết hợp", en: "Blended", de: "Kombiniert" },
-  online: { vi: "Trực tuyến", en: "Online", de: "Online" },
-  abroad: { vi: "Có giai đoạn ở nước ngoài", en: "Includes a phase abroad", de: "Mit Auslandsphase" },
+  offline: { vi: "Học tại trường", en: "On campus", de: "Präsenz", ja: "通学", ko: "등교 수업", "zh-TW": "到校上課" },
+  blended: { vi: "Kết hợp", en: "Blended", de: "Kombiniert", ja: "通学とオンラインの併用", ko: "등교와 온라인 병행", "zh-TW": "混合式" },
+  online: { vi: "Trực tuyến", en: "Online", de: "Online", ja: "オンライン", ko: "온라인", "zh-TW": "線上" },
+  abroad: { vi: "Có giai đoạn ở nước ngoài", en: "Includes a phase abroad", de: "Mit Auslandsphase", ja: "海外での研修期間あり", ko: "해외 연수 기간 포함", "zh-TW": "含海外階段" },
 };
 
 export const LANGUAGE_LABEL: Record<string, L10n> = {
-  vi: { vi: "Tiếng Việt", en: "Vietnamese", de: "Vietnamesisch" },
-  de: { vi: "Tiếng Đức", en: "German", de: "Deutsch" },
-  en: { vi: "Tiếng Anh", en: "English", de: "Englisch" },
-  ko: { vi: "Tiếng Hàn", en: "Korean", de: "Koreanisch" },
-  ja: { vi: "Tiếng Nhật", en: "Japanese", de: "Japanisch" },
-  zh: { vi: "Tiếng Trung", en: "Chinese", de: "Chinesisch" },
+  vi: { vi: "Tiếng Việt", en: "Vietnamese", de: "Vietnamesisch", ja: "ベトナム語", ko: "베트남어", "zh-TW": "越南語" },
+  de: { vi: "Tiếng Đức", en: "German", de: "Deutsch", ja: "ドイツ語", ko: "독일어", "zh-TW": "德語" },
+  en: { vi: "Tiếng Anh", en: "English", de: "Englisch", ja: "英語", ko: "영어", "zh-TW": "英語" },
+  ko: { vi: "Tiếng Hàn", en: "Korean", de: "Koreanisch", ja: "韓国語", ko: "한국어", "zh-TW": "韓語" },
+  ja: { vi: "Tiếng Nhật", en: "Japanese", de: "Japanisch", ja: "日本語", ko: "일본어", "zh-TW": "日語" },
+  zh: { vi: "Tiếng Trung", en: "Chinese", de: "Chinesisch", ja: "中国語", ko: "중국어", "zh-TW": "華語" },
 };
 
 export function levelLabel(level: string, locale: Locale): string {

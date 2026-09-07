@@ -42,8 +42,18 @@ export const LOCALE_TAG: Record<Locale, string> = {
  * ngôn ngữ nào thì trả về tiếng Việt, nên thêm ngôn ngữ không làm vỡ gì, và
  * bản dịch điền dần được.
  */
+/**
+ * Một khối chữ nhiều ngôn ngữ: tiếng Việt bắt buộc, còn lại tuỳ có.
+ *
+ * Trước đây bảy chỗ trong mã nguồn tự khai báo `{ vi: string; en?: string;
+ * de?: string }`. Thêm ngôn ngữ là cả bảy chỗ cùng báo lỗi, mà lỗi lại hiện ở
+ * nơi dùng chứ không ở nơi khai báo. Gom về một kiểu thì thêm ngôn ngữ chỉ sửa
+ * đúng dòng `LOCALES` ở đầu file này.
+ */
+export type L10nMap<T extends string | string[] = string> = Partial<Record<Locale, T>> & { vi: T };
+
 export function pick<T extends string | string[]>(
-  map: Partial<Record<Locale, T>> & { vi: T },
+  map: L10nMap<T>,
   locale: Locale,
 ): T {
   return map[locale] ?? map.vi;

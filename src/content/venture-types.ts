@@ -6,8 +6,10 @@
  * rather than summarised.
  */
 
-export type Localised = { vi: string; de?: string; en?: string };
-export type LocalisedList = { vi: string[]; de?: string[]; en?: string[] };
+import type { L10nMap } from "@/lib/i18n/config";
+
+export type Localised = L10nMap;
+export type LocalisedList = L10nMap<string[]>;
 
 export type VentureImage = {
   src: string;

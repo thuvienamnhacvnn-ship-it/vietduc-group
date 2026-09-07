@@ -29,3 +29,9 @@ next-env.d.ts
 .vercel
 .env*
 !.env.example
+
+# Đồ nghề dịch sáu ngôn ngữ: bản bóc chữ, bản dịch thô và các script chạy một
+# lần. Bản dịch thật đã nằm trong mã nguồn, mấy file này chỉ là giàn giáo.
+/_l10n.json
+/_dich/
+/scripts/_*.ts
