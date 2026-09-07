@@ -770,6 +770,13 @@
 .chuyenDoi {
   display: grid;
   grid-template-columns: 35fr 65fr;
+  /*
+   * Khai rõ năm hàng. Không có dòng này thì mọi hàng đều là hàng ngầm, mà
+   * `grid-row: 1 / -1` của bảng nội dung lại tính `-1` theo mép lưới TƯỜNG MINH
+   * — tức là hàng 1. Bảng vì thế chỉ nằm trong hàng đầu, kéo riêng hàng ấy cao
+   * vống lên rồi để trống phần còn lại của cột phải.
+   */
+  grid-template-rows: repeat(5, auto);
   column-gap: clamp(1.5rem, 3vw, 3rem);
   row-gap: 0;
   margin: clamp(2rem, 4vw, 3rem) 0 0;
