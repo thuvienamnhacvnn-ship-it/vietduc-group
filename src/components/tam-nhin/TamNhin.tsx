@@ -309,7 +309,7 @@ export function TamNhin({ locale }: { locale: Locale }) {
             {TAM_NHIN_2045.nam}
           </span>
           <h3 className={styles.tieuDeKhoi}>
-            <span className="sr-only">{TAM_NHIN_2045.nam} — </span>
+            <span className="visually-hidden">{TAM_NHIN_2045.nam} — </span>
             {pick(TAM_NHIN_2045.tieuDe, locale)}
           </h3>
 
