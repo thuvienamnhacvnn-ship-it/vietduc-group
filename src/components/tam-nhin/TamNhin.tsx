@@ -57,12 +57,22 @@ export function TamNhin({ locale }: { locale: Locale }) {
       {/*
         ---------------------------------------------------- 01 mở đầu
 
-        Không có ảnh nền. Bức ảnh chủ đạo của tập đoàn đã lên làm banner ở đầu
-        trang Giới thiệu, nơi nó không mang chữ nào; đặt lại nó ở đây rồi phủ
-        chữ lên là quay về đúng chỗ hỏng — chữ rơi vào mặt người. Khối này đứng
-        bằng chữ trên nền navy, và con số 2045 làm điểm tựa thị giác.
+        Ảnh nền là phối cảnh nhà máy thông minh, phủ một lớp navy đậm dần về bên
+        trái. Chữ chỉ nằm trên phần tường tối của bức ảnh, không bao giờ chạm
+        vào người — đó là điều kiện để dùng được ảnh nền ở đây.
       */}
       <div className={styles.moDau}>
+        <Image
+          src={MO_DAU.anhNen.src}
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          className={styles.moDauAnh}
+        />
+        <span className={styles.moDauPhu} aria-hidden="true" />
+        <span className={styles.moDauLuoi} aria-hidden="true" />
+
         <div className={`shell ${styles.moDauTrong}`}>
           <div className={styles.moDauChu}>
             <p className={styles.nhan}>{pick(MO_DAU.nhan, locale)}</p>
@@ -79,9 +89,9 @@ export function TamNhin({ locale }: { locale: Locale }) {
           </div>
         </div>
 
-        <span className={styles.moDauNam} aria-hidden="true">
-          {TAM_NHIN_2045.nam}
-        </span>
+        {/* Lời chú của ảnh nền. Ảnh nào đặt xuống cũng phải nói rõ nó là gì —
+            đây là phối cảnh dựng, không phải xưởng của Việt Đức Group. */}
+        <p className={styles.moDauChuThich}>{pick(MO_DAU.anhNen.alt, locale)}</p>
       </div>
 
       <MucLuc locale={locale} />
@@ -340,47 +350,68 @@ export function TamNhin({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* ------------------------------------------------ 08 tầm nhìn 2045 */}
-      <div id="nam-2045" className={`${styles.khoi} ${styles.khoiToi}`}>
-        <div className="shell">
-          <span className={styles.namLon} aria-hidden="true">
-            {TAM_NHIN_2045.nam}
-          </span>
-          <h3 className={styles.tieuDeKhoi}>
-            <span className="visually-hidden">{TAM_NHIN_2045.nam} — </span>
-            {pick(TAM_NHIN_2045.tieuDe, locale)}
-          </h3>
+      {/*
+        ------------------------------------------------ 08 tầm nhìn 2045
 
-          <div className={styles.n2045}>
-            <div>
+        Bố cục khác hẳn các khối còn lại: ảnh tràn hết bề ngang làm nền, con số
+        2045 vẽ bằng viền rỗng đè lên mép ảnh, ba hướng đi thành một dải thẻ
+        kính chạy ngang dưới cùng. Đây là khối đích của cả mục nên nó được phép
+        phá nhịp hai cột mà tám khối kia đang giữ.
+      */}
+      <div id="nam-2045" className={`${styles.khoi} ${styles.khoiToi} ${styles.n2045Khoi}`}>
+        <div className={styles.n2045Anh}>
+          <Image
+            src={TAM_NHIN_2045.anh.src}
+            alt=""
+            fill
+            sizes="100vw"
+            className={styles.n2045Nen}
+          />
+          <span className={styles.n2045Phu} aria-hidden="true" />
+          <span className={styles.n2045Quet} aria-hidden="true" />
+        </div>
+
+        <div className={`shell ${styles.n2045Trong}`}>
+          <div className={styles.n2045Dau}>
+            {/* Con số vẽ bằng viền rỗng nên ảnh đọc xuyên qua được. Nó là hình,
+                không phải chữ — tên khối nằm trong <h3> ngay bên cạnh. */}
+            <span className={styles.n2045So} aria-hidden="true">
+              {TAM_NHIN_2045.nam}
+            </span>
+
+            <div className={styles.n2045Chu} data-reveal>
+              <h3 className={styles.tieuDeKhoi}>
+                <span className="visually-hidden">{TAM_NHIN_2045.nam} — </span>
+                {pick(TAM_NHIN_2045.tieuDe, locale)}
+              </h3>
               <p className={styles.tuyenNgon}>{pick(TAM_NHIN_2045.tuyenNgon, locale)}</p>
-              <ol className={styles.huong2045}>
-                {TAM_NHIN_2045.huong.map((h) => (
-                  <li key={h.vi}>{pick(h, locale)}</li>
-                ))}
-              </ol>
             </div>
-
-            <figure className={styles.n2045Anh}>
-              {/* alt rỗng vì figcaption ngay dưới đã mô tả đúng bức ảnh này.
-                  Để cả hai thì trình đọc màn hình đọc câu ấy hai lần. */}
-              <Image
-                src={TAM_NHIN_2045.anh.src}
-                alt=""
-                width={1672}
-                height={941}
-                sizes="(min-width: 1000px) 46vw, 100vw"
-              />
-              <figcaption>{pick(TAM_NHIN_2045.anh.alt, locale)}</figcaption>
-            </figure>
           </div>
 
+          <ol className={styles.huong2045}>
+            {TAM_NHIN_2045.huong.map((h, i) => (
+              <li key={h.vi} data-reveal style={{ "--reveal-delay": `${i * 110}ms` } as React.CSSProperties}>
+                <span className={styles.huongSo} aria-hidden="true" />
+                <span className={styles.huongChu}>{pick(h, locale)}</span>
+              </li>
+            ))}
+          </ol>
+
           <p className={styles.chotKhoi}>{pick(TAM_NHIN_2045.chot, locale)}</p>
+          <p className={styles.n2045ChuThich}>{pick(TAM_NHIN_2045.anh.alt, locale)}</p>
         </div>
       </div>
 
       {/* ------------------------------------------ 09 kết nối và hành động */}
       <div className={`${styles.khoi} ${styles.khoiToi} ${styles.ketNoi}`}>
+        <span className={styles.ketNoiQuet} aria-hidden="true" />
+        {/* Ba vòng tín hiệu nở ra từ giữa khối, lệch pha nhau. */}
+        <span className={styles.ketNoiSong} aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </span>
+
         <div className={`shell ${styles.ketNoiTrong}`}>
           <p className={styles.ketNoiDeTua}>
             <span className={styles.cham} aria-hidden="true" />

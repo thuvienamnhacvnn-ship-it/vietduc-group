@@ -48,6 +48,24 @@ export const MO_DAU = {
     ko: "실습과 기술, 기업을 잇대어 끊임없이 달라지는 세상에서 배우는 이가 역량을 계속 키워 가도록 합니다.",
     "zh-TW": "串連實作、技術與企業，讓學習者在不斷變動的世界中持續累積能力。",
   } satisfies L10nMap,
+  /*
+   * Ảnh nền của khối mở đầu.
+   *
+   * Chọn được bức này vì một phần ba bên trái của nó là mảng tường tối trơn:
+   * chữ đặt lên đó không rơi vào mặt ai, mà vẫn thấy dây chuyền và kỹ thuật
+   * viên ở nửa phải. Lời chú nằm ở góc, ghi rõ đây là ảnh minh hoạ.
+   */
+  anhNen: {
+    src: "/media/vision/nha-may-thong-minh.webp",
+    alt: {
+      vi: "Minh hoạ nhà máy thông minh: dây chuyền tự động và kỹ thuật viên vận hành trong cùng một không gian",
+      en: "An illustration of a smart factory: automated lines and the technicians running them share one floor",
+      de: "Illustration einer intelligenten Fabrik: automatisierte Linien und das Fachpersonal, das sie steuert, teilen sich eine Halle",
+      ja: "スマート工場のイメージ図。自動化されたラインと、それを動かす技術者が同じフロアにいる",
+      ko: "스마트 공장을 그린 그림. 자동화된 라인과 그것을 운용하는 기술자가 같은 공간에 있습니다",
+      "zh-TW": "智慧工廠示意圖：自動化產線與操作產線的技術人員同處一個廠區",
+    },
+  },
   cauDan: {
     vi: "Liệu trường nghề sẽ thích nghi để dẫn đầu, hay trở thành “Nokia” của thời đại AI?",
     en: "Will vocational schools adapt and lead — or become the “Nokia” of the age of AI?",

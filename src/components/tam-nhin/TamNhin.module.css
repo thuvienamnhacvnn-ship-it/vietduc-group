@@ -23,21 +23,68 @@
 /* ================================================================ 01 mở đầu */
 
 /*
- * Khối mở đầu: chữ trên nền navy, không ảnh.
+ * Khối mở đầu: ảnh nhà máy thông minh, phủ navy đậm dần về bên trái.
  *
- * Bức ảnh chủ đạo của tập đoàn đã lên làm banner ở đầu trang Giới thiệu. Đặt
- * lại nó ở đây rồi phủ chữ lên là quay về đúng chỗ hỏng cũ — nhân vật đứng
- * giữa khung, mọi dòng chữ đè lên đều rơi vào mặt.
- *
- * Một dải sáng rất nhạt hắt từ góc trên bên phải, đủ để nền không phẳng lì.
+ * Điều kiện để đặt được ảnh nền ở đây là chữ không bao giờ chạm vào người. Bức
+ * này hợp vì một phần ba bên trái của nó là mảng tường tối trơn — lớp phủ kéo
+ * mảng ấy đặc thêm, còn nửa phải (dây chuyền, kỹ thuật viên, thành phố lên đèn)
+ * để hở. Bố cục chữ vì thế bị giới hạn trong cột trái, không được tràn sang.
  */
 .moDau {
   position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(70% 90% at 88% 8%, rgba(196, 145, 69, 0.16), transparent 62%),
-    var(--band);
+  background: var(--band);
   color: #f2f5f9;
+  isolation: isolate;
+}
+
+.moDauAnh {
+  object-fit: cover;
+  /* Neo về bên phải: khi khung hẹp lại, phần bị cắt phải là rìa trái trống chứ
+     không phải khu vực dây chuyền. */
+  object-position: 72% 50%;
+  z-index: 0;
+}
+
+/*
+ * Lớp phủ hai tầng.
+ *
+ * Tầng ngang kéo navy đặc ở mép trái và nhả dần tới khoảng giữa khung, đủ để
+ * mọi cỡ chữ đọc được mà không phải dùng bóng đổ. Tầng dọc dìm mép trên và mép
+ * dưới, gắn khối này vào thanh mục lục ngay bên dưới.
+ */
+.moDauPhu {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      100deg,
+      var(--band) 0%,
+      color-mix(in srgb, var(--band) 92%, transparent) 30%,
+      color-mix(in srgb, var(--band) 55%, transparent) 52%,
+      color-mix(in srgb, var(--band) 18%, transparent) 74%
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--band) 70%, transparent) 0%,
+      transparent 26%,
+      transparent 68%,
+      color-mix(in srgb, var(--band) 78%, transparent) 100%
+    );
+  pointer-events: none;
+}
+
+/* Lưới điểm rất mờ, chỉ đọc ra khi nhìn kỹ: đủ để mảng tối bên trái không
+   phẳng lì mà không thành hoạ tiết. */
+.moDauLuoi {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: radial-gradient(rgba(196, 145, 69, 0.16) 1px, transparent 1px);
+  background-size: 26px 26px;
+  mask-image: linear-gradient(95deg, #000 0%, transparent 46%);
+  pointer-events: none;
 }
 
 .moDauTrong {
@@ -50,8 +97,10 @@
   padding-block: clamp(3rem, 8vw, 6rem);
 }
 
+/* Chữ khoá trong cột trái, nơi lớp phủ đặc nhất. Tràn sang phải là rơi vào
+   dây chuyền và vào người. */
 .moDauChu {
-  max-width: none;
+  max-width: min(56ch, 58%);
 }
 
 .nhan {
@@ -121,19 +170,26 @@
   height: 17px;
 }
 
-/* Con số năm, đặt chìm bên phải. Cỡ lớn nhưng độ tương phản thấp: nó là nền,
-   không tranh chỗ với tiêu đề. */
-.moDauNam {
+/*
+ * Lời chú ảnh nền.
+ *
+ * Chỗ này trước đây là con số 2045 cỡ lớn đặt chìm. Nay khối có ảnh thật, một
+ * con số khổng lồ nữa chồng lên dây chuyền chỉ thành nhiễu — mà 2045 vốn đã có
+ * khối riêng ở cuối mục. Thay bằng lời chú, đúng luật "ảnh nào cũng phải nói rõ
+ * nó là gì".
+ */
+.moDauChuThich {
   position: absolute;
-  right: clamp(1rem, 4vw, 3rem);
-  bottom: clamp(1rem, 4vw, 3rem);
+  right: clamp(0.9rem, 3vw, 2rem);
+  bottom: clamp(0.7rem, 2vw, 1.2rem);
   z-index: 2;
-  font-family: var(--font-display);
-  font-size: clamp(3.5rem, 9vw, 8rem);
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: rgba(255, 255, 255, 0.2);
-  font-variant-numeric: tabular-nums;
+  margin: 0;
+  max-width: min(38ch, 46%);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.62);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75);
   pointer-events: none;
 }
 
@@ -518,11 +574,19 @@
   border-radius: var(--r-4);
 }
 
-/* Hàng hợp tác được nhấn: nền màu thương hiệu rất nhạt và viền đậm hơn. Đây
-   là quy trình được đề xuất, phải nhìn ra ngay khác với hàng trên. */
+/*
+ * Hàng hợp tác được nhấn: nền ĐỎ ĐẶC, không phải đỏ pha loãng.
+ *
+ * Trước đây chỗ này dùng `--burgundy-tint`, mà token ấy là hồng nhạt #f4e6e7 ở
+ * nền sáng và đỏ trong suốt 18% ở nền tối — cả hai đều ra "đỏ mờ", không đủ
+ * nhấn. Nay lấy thẳng màu thương hiệu làm nền và lật toàn bộ chữ bên trong
+ * sang màu sáng; các luật dưới đây phải viết đủ vì mặc định chúng đang ăn màu
+ * chữ tối của nền giấy.
+ */
 .quyTrinhHopTac {
-  background: var(--burgundy-tint);
-  border-color: var(--burgundy);
+  background: var(--burgundy);
+  border-color: var(--burgundy-deep);
+  color: #fdf3f4;
 }
 
 .quyTrinhNhan {
@@ -534,8 +598,13 @@
   color: var(--muted-soft);
 }
 
-.quyTrinhHopTac .quyTrinhNhan {
-  color: var(--burgundy);
+/* ---- chữ và ô nằm trên tấm đỏ đặc ----
+   Hai khối dùng chung bộ này: hàng hợp tác (khối doanh nghiệp) và vòng lặp học
+   suốt đời. Gộp lại một chỗ để hai tấm không bao giờ lệch nhau. */
+
+.quyTrinhHopTac .quyTrinhNhan,
+.hanhTrinhLap .quyTrinhNhan {
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .buoc {
@@ -556,8 +625,9 @@
   color: var(--muted);
 }
 
-.quyTrinhHopTac .buoc li {
-  color: var(--ink);
+.quyTrinhHopTac .buoc li,
+.hanhTrinhLap .buoc li {
+  color: #fdf3f4;
   font-weight: 500;
 }
 
@@ -568,8 +638,15 @@
   background: var(--paper-raised);
 }
 
-.quyTrinhHopTac .buocO {
-  border-color: color-mix(in srgb, var(--burgundy) 45%, transparent);
+.quyTrinhHopTac .buocO,
+.hanhTrinhLap .buocO {
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.quyTrinhHopTac .buocMuiTen,
+.hanhTrinhLap .buocMuiTen {
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .buocMuiTen {
@@ -592,9 +669,9 @@
   gap: 0.5rem;
   margin-top: var(--s-4);
   padding-top: var(--s-4);
-  border-top: 1px dashed color-mix(in srgb, var(--burgundy) 55%, transparent);
+  border-top: 1px dashed rgba(255, 255, 255, 0.38);
   font-size: 0.86rem;
-  color: var(--burgundy);
+  color: #fdf3f4;
 }
 
 .phanHoi svg {
@@ -711,9 +788,11 @@
 .hanhTrinhLap {
   position: relative;
   padding: clamp(1.2rem, 2.5vw, 1.8rem);
-  border: 1px solid var(--burgundy);
+  border: 1px solid var(--burgundy-deep);
   border-radius: var(--r-4);
-  background: var(--burgundy-tint);
+  /* Đỏ đặc, xem lời chú ở .quyTrinhHopTac. */
+  background: var(--burgundy);
+  color: #fdf3f4;
 }
 
 /* Mũi tên quay lại: nói rằng hành trình này không kết thúc ở bước cuối. */
@@ -723,9 +802,9 @@
   gap: 0.5rem;
   margin-top: var(--s-4);
   padding-top: var(--s-4);
-  border-top: 1px dashed color-mix(in srgb, var(--burgundy) 55%, transparent);
+  border-top: 1px dashed rgba(255, 255, 255, 0.38);
   font-size: 0.86rem;
-  color: var(--burgundy);
+  color: #fdf3f4;
 }
 
 .vongLai svg {
@@ -887,76 +966,216 @@
 
 /* ================================================ 08 tầm nhìn 2045 */
 
-.namLon {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(4rem, 13vw, 11rem);
-  line-height: 0.9;
-  letter-spacing: -0.03em;
-  color: var(--gold);
-  font-variant-numeric: tabular-nums;
-}
-
-.n2045 {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(2rem, 4vw, 3.5rem);
-  align-items: center;
-  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+/*
+ * Khối đích của cả mục, nên nó phá nhịp hai cột mà tám khối kia đang giữ: ảnh
+ * tràn hết bề ngang làm nền, con số vẽ bằng viền rỗng đè lên, ba hướng đi xếp
+ * thành một dải thẻ kính chạy ngang dưới cùng.
+ */
+.n2045Khoi {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: clamp(4rem, 9vw, 8rem);
 }
 
 .n2045Anh {
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--r-4);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
-.n2045Anh img {
-  display: block;
-  width: 100%;
-  height: auto;
-  /* Đúng tỉ lệ tệp gốc (1672x941). Ép 16/10 thì object-fit: cover cắt mất dải
-     trời và đường chân trời thành phố ở mép trên. */
-  aspect-ratio: 16 / 9;
+.n2045Nen {
   object-fit: cover;
+  object-position: 50% 42%;
+}
+
+/* Phủ đủ đậm để mọi dòng chữ đọc được, nhưng chừa một khoảng sáng chéo ở góc
+   trên phải để ảnh vẫn còn là ảnh chứ không thành một mảng tối. */
+.n2045Phu {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      170deg,
+      color-mix(in srgb, var(--band) 62%, transparent) 0%,
+      color-mix(in srgb, var(--band) 88%, transparent) 46%,
+      var(--band) 100%
+    ),
+    linear-gradient(
+      90deg,
+      var(--band) 0%,
+      color-mix(in srgb, var(--band) 72%, transparent) 42%,
+      color-mix(in srgb, var(--band) 40%, transparent) 100%
+    );
+  pointer-events: none;
+}
+
+/*
+ * Vệt sáng quét ngang, rất chậm.
+ *
+ * Chỉ một dải vàng mờ trượt qua khung mỗi 9 giây. Đủ để khối "sống" mà không
+ * kéo mắt khỏi phần chữ; tắt hẳn khi người đọc xin giảm chuyển động.
+ */
+.n2045Quet {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgba(196, 145, 69, 0.14) 50%,
+    transparent 62%
+  );
+  background-size: 260% 100%;
+  animation: quet2045 9s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes quet2045 {
+  from {
+    background-position: 160% 0;
+  }
+  to {
+    background-position: -60% 0;
+  }
+}
+
+.n2045Trong {
+  position: relative;
+  z-index: 2;
+}
+
+/* Con số và tiêu đề cùng một hàng: số làm mỏ neo bên trái, chữ dựa vào nó. */
+.n2045Dau {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.2rem, 3vw, 2.6rem);
+}
+
+/*
+ * Con số vẽ bằng viền rỗng: ảnh nền đọc xuyên qua ruột chữ. Dùng
+ * -webkit-text-stroke vì nó là cách duy nhất được mọi trình duyệt hiện nay hiểu
+ * cho nét viền chữ; `paint-order` giữ nét không ăn vào thân chữ.
+ */
+.n2045So {
+  font-family: var(--font-display);
+  font-size: clamp(4.2rem, 12vw, 11rem);
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(196, 145, 69, 0.85);
+  paint-order: stroke fill;
+  user-select: none;
+}
+
+.n2045Chu {
+  border-left: 1px solid rgba(196, 145, 69, 0.4);
+  padding-left: clamp(1.2rem, 3vw, 2.4rem);
 }
 
 .tuyenNgon {
-  margin: 0;
-  max-width: 44ch;
+  margin: var(--s-5) 0 0;
+  max-width: 52ch;
   font-size: var(--step-1);
   line-height: 1.65;
   color: #cdd6e0;
 }
 
+/* ---- ba hướng đi: dải thẻ kính ngang ---- */
+
 .huong2045 {
   display: grid;
-  gap: var(--s-4);
-  margin: var(--s-6) 0 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.9rem, 2vw, 1.6rem);
+  margin: clamp(2.2rem, 5vw, 3.6rem) 0 0;
   padding: 0;
   list-style: none;
   counter-reset: huong;
 }
 
 .huong2045 li {
+  position: relative;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: 2rem minmax(0, 1fr);
   gap: var(--s-3);
-  padding-top: var(--s-4);
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  padding: clamp(1.1rem, 2.4vw, 1.7rem);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: var(--r-4);
+  background: rgba(9, 15, 26, 0.55);
+  backdrop-filter: blur(10px) saturate(1.1);
+  counter-increment: huong;
+  transition:
+    border-color var(--dur-2) var(--ease),
+    background-color var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+}
+
+/* Vạch vàng mọc từ trái sang khi rê chuột. */
+.huong2045 li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-3) var(--ease);
+}
+
+.huong2045 li:hover,
+.huong2045 li:focus-within {
+  border-color: rgba(196, 145, 69, 0.55);
+  background: rgba(9, 15, 26, 0.72);
+  transform: translateY(-4px);
+}
+
+.huong2045 li:hover::after,
+.huong2045 li:focus-within::after {
+  transform: scaleX(1);
+}
+
+.huongSo::before {
+  content: counter(huong, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+
+.huongChu {
   font-size: 1rem;
   line-height: 1.55;
   color: #e8edf3;
-  counter-increment: huong;
 }
 
-.huong2045 li::before {
-  content: counter(huong, decimal-leading-zero);
-  font-family: var(--font-display);
-  font-size: 0.82rem;
-  letter-spacing: 0.08em;
-  color: var(--gold);
+/* Lời chú ảnh nền, đặt cuối khối và rất nhạt: nó là ghi chú, không phải nội
+   dung. */
+.n2045ChuThich {
+  margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
+  max-width: 62ch;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .n2045Quet {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .huong2045 li,
+  .huong2045 li::after {
+    transition: none;
+  }
+
+  .huong2045 li:hover,
+  .huong2045 li:focus-within {
+    transform: none;
+  }
 }
 
 /* ================================================ 09 kết nối và hành động */
@@ -974,7 +1193,96 @@
 .ketNoi {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   text-align: center;
+  /*
+   * Nền chuyển sắc ba tầng thay cho nền navy trơn.
+   *
+   * Một quầng vàng hắt từ đỉnh, một quầng đỏ thương hiệu rất mờ dâng từ đáy
+   * trái, phần còn lại chuyển từ navy sang một sắc sâu hơn. Ba tầng chồng lên
+   * nhau nên không chỗ nào phẳng, mà vẫn không thêm màu thứ tư nào ngoài bộ màu
+   * của site.
+   */
+  background:
+    radial-gradient(88% 62% at 50% -8%, color-mix(in srgb, var(--gold) 20%, transparent), transparent 64%),
+    radial-gradient(70% 70% at 6% 108%, color-mix(in srgb, var(--burgundy) 30%, transparent), transparent 62%),
+    linear-gradient(168deg, #16273a 0%, var(--band) 44%, #080f1b 100%);
+}
+
+/*
+ * Dải quét chéo, rất chậm.
+ *
+ * Cùng thủ pháp với khối 2045 nên hai khối tối ở hai đầu mục nói cùng một thứ
+ * tiếng. Nằm dưới lưới điểm và dưới chữ.
+ */
+.ketNoiQuet {
+  position: absolute;
+  inset: -20%;
+  z-index: 0;
+  background: linear-gradient(
+    108deg,
+    transparent 40%,
+    color-mix(in srgb, var(--gold) 13%, transparent) 50%,
+    transparent 60%
+  );
+  background-size: 240% 100%;
+  animation: quetKet 11s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes quetKet {
+  from {
+    background-position: 150% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+
+/*
+ * Ba vòng tròn đồng tâm nở ra rồi tan, như tín hiệu phát đi từ giữa khối. Lệch
+ * pha nhau nên lúc nào cũng có một vòng đang đi.
+ */
+.ketNoiSong {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: min(620px, 84vw);
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  pointer-events: none;
+}
+
+.ketNoiSong span {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--gold) 34%, transparent);
+  opacity: 0;
+  animation: song 7s ease-out infinite;
+}
+
+.ketNoiSong span:nth-child(2) {
+  animation-delay: 2.33s;
+}
+
+.ketNoiSong span:nth-child(3) {
+  animation-delay: 4.66s;
+}
+
+@keyframes song {
+  0% {
+    scale: 0.42;
+    opacity: 0;
+  }
+  18% {
+    opacity: 0.55;
+  }
+  100% {
+    scale: 1.25;
+    opacity: 0;
+  }
 }
 
 /* Lưới điểm mờ, tối dần ra rìa. */
@@ -982,6 +1290,7 @@
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background-image: radial-gradient(
     circle at center,
     color-mix(in srgb, var(--gold) 26%, transparent) 1px,
@@ -998,6 +1307,7 @@
 .ketNoi::after {
   content: "";
   position: absolute;
+  z-index: 1;
   left: 50%;
   top: 50%;
   width: min(1180px, 128%);
@@ -1013,7 +1323,7 @@
 
 .ketNoiTrong {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .ketNoiDeTua {
@@ -1039,6 +1349,17 @@
   background: var(--gold);
   box-shadow: 0 0 0 0 color-mix(in srgb, var(--gold) 60%, transparent);
   animation: nhip 2.8s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ketNoiQuet,
+  .ketNoiSong span {
+    animation: none;
+  }
+
+  .ketNoiSong span {
+    opacity: 0.28;
+  }
 }
 
 @keyframes nhip {
@@ -1254,8 +1575,23 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .n2045 {
+  /* Khối 2045: số và tiêu đề xuống dòng, ba hướng đi thành một cột. */
+  .n2045Dau {
     grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+  }
+
+  .n2045Chu {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .huong2045 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .n2045ChuThich {
+    max-width: none;
   }
 
   .moDauTieuDe {
@@ -1314,11 +1650,29 @@
     max-width: none;
   }
 
-  .moDauNam {
+  /*
+   * Trên điện thoại chữ trải hết bề ngang, nên lớp phủ nghiêng theo phương
+   * ngang không còn đỡ được: nửa phải của mọi dòng chữ sẽ rơi thẳng lên dây
+   * chuyền. Đổi sang phủ đều cả khung, đậm hơn.
+   */
+  .moDauPhu {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--band) 92%, transparent) 0%,
+      color-mix(in srgb, var(--band) 80%, transparent) 55%,
+      color-mix(in srgb, var(--band) 94%, transparent) 100%
+    );
+  }
+
+  .moDauLuoi {
+    mask-image: linear-gradient(to bottom, #000 0%, transparent 60%);
+  }
+
+  .moDauChuThich {
     position: static;
     margin-top: var(--s-5);
-    font-size: 3.4rem;
-    color: rgba(255, 255, 255, 0.22);
+    max-width: none;
+    text-align: left;
   }
 
   .ungDung {
@@ -1411,7 +1765,6 @@
  * chỗ nói rõ đang nhìn thấy cái gì, thay vì để người đọc tự đoán.
  */
 .giaTriAnh figcaption,
-.n2045Anh figcaption,
 .anhRong figcaption,
 .daiAnh figcaption {
   padding: var(--s-3) var(--s-4);
@@ -1420,13 +1773,6 @@
   color: var(--muted-soft);
   background: var(--paper-raised);
   border-top: 1px solid var(--line);
-}
-
-/* Trong khối nền tối, chú thích phải đổi cả nền lẫn màu chữ. */
-.khoiToi .n2045Anh figcaption {
-  color: #aab4c0;
-  background: rgba(255, 255, 255, 0.04);
-  border-top-color: rgba(255, 255, 255, 0.14);
 }
 
 /* Ảnh rộng một cột, dùng ở khối hợp tác doanh nghiệp. */

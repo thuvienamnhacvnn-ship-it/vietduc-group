@@ -478,18 +478,17 @@ export const TAM_NHIN_2045 = {
     ko: "미래는 끊임없이 배우고 맞춰 가는 조직의 것입니다.",
     "zh-TW": "未來屬於不斷學習與調適的組織。",
   } satisfies L10nMap,
-  /* Ảnh minh hoạ, không phải ảnh chụp cơ sở của Việt Đức Group. Lời chú phải
-     nói rõ điều đó — đặt một phối cảnh dựng dưới khối "tầm nhìn 2045" mà không
-     ghi chú thì người đọc mặc nhiên hiểu là nhà máy của mình. */
+  /* Chỗ giữ tạm: ảnh riêng cho khối 2045 đang chờ. Ảnh nhà máy thông minh đã
+     chuyển lên khối mở đầu, nơi nó minh hoạ đúng câu "thời đại AI". */
   anh: {
-    src: "/media/vision/nha-may-thong-minh-2045.webp",
+    src: "/media/vision/toa-nha-viet-duc.webp",
     alt: {
-      vi: "Minh hoạ nhà máy thông minh: dây chuyền tự động và kỹ thuật viên vận hành trong cùng một không gian",
-      en: "An illustration of a smart factory: automated lines and the technicians running them share one floor",
-      de: "Illustration einer intelligenten Fabrik: automatisierte Linien und das Fachpersonal, das sie steuert, teilen sich eine Halle",
-      ja: "スマート工場のイメージ図。自動化されたラインと、それを動かす技術者が同じフロアにいる",
-      ko: "스마트 공장을 그린 그림. 자동화된 라인과 그것을 운용하는 기술자가 같은 공간에 있습니다",
-      "zh-TW": "智慧工廠示意圖：自動化產線與操作產線的技術人員同處一個廠區",
+      vi: "Toà nhà mang tên Việt Đức Group",
+      en: "The building carrying the Viet Duc Group name",
+      de: "Das Gebäude mit dem Namen der Viet Duc Group",
+      ja: "Viet Duc Group の名を掲げた建物",
+      ko: "Viet Duc Group의 이름을 내건 건물",
+      "zh-TW": "掛有 Viet Duc Group 名號的建築",
     },
   } satisfies Anh,
 };
