@@ -13,6 +13,7 @@ import {
   posts,
   programs,
   schools,
+  type Arm,
 } from "./db/schema";
 
 /**
@@ -126,12 +127,25 @@ export const getFaqs = cache(async (): Promise<FaqRow[]> => {
   return db.select().from(faqs).where(eq(faqs.status, "approved")).orderBy(asc(faqs.order));
 });
 
-export const getPosts = cache(async (limit?: number): Promise<PostRow[]> => {
+/**
+ * Bài đã xuất bản của một mảng.
+ *
+ * `arm` bỏ trống thì lấy cả hai — dùng cho sitemap và tìm kiếm, nơi mọi bài
+ * đều nên xuất hiện. Còn trang tin của từng mảng thì luôn truyền `arm` vào,
+ * để tin khai giảng không lọt vào danh sách của mảng khách sạn.
+ */
+export const getPosts = cache(async (limit?: number, arm?: Arm): Promise<PostRow[]> => {
   const db = await getDb();
   const rows = await db
     .select()
     .from(posts)
-    .where(and(eq(posts.status, "approved"), isNotNull(posts.publishedAt)))
+    .where(
+      and(
+        eq(posts.status, "approved"),
+        isNotNull(posts.publishedAt),
+        ...(arm ? [eq(posts.arm, arm)] : []),
+      ),
+    )
     .orderBy(desc(posts.publishedAt));
   return limit ? rows.slice(0, limit) : rows;
 });

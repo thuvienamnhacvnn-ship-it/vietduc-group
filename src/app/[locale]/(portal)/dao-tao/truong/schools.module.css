@@ -1,0 +1,290 @@
+/*
+ * Trang các trường thành viên.
+ *
+ * Trước đây trang này chỉ có một dòng tiêu đề và lưới sáu thẻ, còn địa chỉ và
+ * số điện thoại từng trường thì nằm nhờ ở trang Liên hệ. Hệ thống sáu trường
+ * là thứ đáng giá nhất của tập đoàn mà lại không có chỗ đứng riêng.
+ */
+
+/* ---------- mở đầu ---------- */
+
+.hero {
+  position: relative;
+  padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(2rem, 5vw, 3.5rem);
+  overflow: hidden;
+}
+
+/* Vệt sáng chéo phía sau chữ. Không phải ảnh: một dải gradient rất nhạt, đủ để
+   phần mở đầu không phẳng lì mà cũng không tranh chỗ với ảnh các trường. */
+.heroGlow {
+  position: absolute;
+  inset: -30% -10% auto;
+  height: 130%;
+  background:
+    radial-gradient(60% 55% at 18% 20%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(50% 45% at 82% 10%, color-mix(in srgb, var(--gold) 14%, transparent), transparent 72%);
+  pointer-events: none;
+}
+
+.heroInner {
+  position: relative;
+}
+
+.eyebrow {
+  margin: 0 0 var(--s-3);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--step-5);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  margin: var(--s-5) 0 0;
+  max-width: 58ch;
+  font-size: var(--step-1);
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+/* ---------- các con số ---------- */
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin-top: clamp(2rem, 5vw, 3.2rem);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+.figure {
+  min-width: 0;
+}
+
+.figureValue {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 5vw, 3rem);
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.figureLabel {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--muted-soft);
+}
+
+/* ---------- dải địa bàn ---------- */
+
+.places {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: clamp(1.6rem, 4vw, 2.4rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.place {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-raised);
+  font-size: 0.86rem;
+  color: var(--muted);
+}
+
+.place svg {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+}
+
+/* ---------- danh bạ từng trường ---------- */
+
+.directory {
+  padding-block: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.list {
+  display: grid;
+  gap: var(--s-5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: truong;
+}
+
+/* Mỗi trường một khối ngang: huy hiệu, tên và khẩu hiệu, rồi cột liên hệ.
+   Ở đây mới là chỗ của số điện thoại từng trường — không phải trang Liên hệ. */
+.entry {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) minmax(0, 15rem);
+  gap: var(--s-5);
+  align-items: start;
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--paper-raised);
+  transition: border-color var(--dur-2) var(--ease);
+}
+
+.entry:hover {
+  border-color: var(--line-strong);
+}
+
+.crest {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  padding: 8px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid var(--line);
+}
+
+.crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.entryMain {
+  min-width: 0;
+}
+
+.entryCity {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.entryName {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.25;
+}
+
+.entryName a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.entryName a:hover {
+  color: var(--accent);
+}
+
+.entryTagline {
+  margin: 0.4rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.entryMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.9rem;
+  margin-top: var(--s-4);
+  font-size: 0.84rem;
+  color: var(--muted-soft);
+}
+
+.entryBadge {
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.contact {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.contact div {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.contactLabel {
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.contact a,
+.contact span:not(.contactLabel) {
+  color: var(--muted);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.contact a:hover {
+  color: var(--accent);
+}
+
+/* ---------- điện thoại ---------- */
+
+@media (max-width: 899px) {
+  .entry {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .crest {
+    width: 56px;
+    height: 56px;
+    padding: 6px;
+  }
+
+  .contact {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-top: var(--s-4);
+    border-top: 1px solid var(--line);
+  }
+}
+
+@media (max-width: 699px) {
+  .figures {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-5) var(--s-4);
+  }
+
+  .entry {
+    padding: var(--s-4);
+    gap: var(--s-4);
+  }
+
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.6rem;
+  }
+}

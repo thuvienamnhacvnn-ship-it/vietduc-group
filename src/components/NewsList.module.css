@@ -1,0 +1,148 @@
+/*
+ * Danh sách tin và sự kiện, dùng chung cho cả hai mảng.
+ *
+ * Trên máy tính: lưới thẻ. Trên điện thoại: hàng ngang, ảnh nhỏ bên trái —
+ * cùng lối với danh sách trường. Thẻ có ảnh phủ hết bề ngang thì mỗi tin cao
+ * gần 400px, mười tin là mười màn hình, mà tin tức lại đúng là thứ người ta
+ * lướt để quét tiêu đề chứ không đọc từng cái một.
+ */
+.grid {
+  display: grid;
+  gap: var(--s-5);
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  overflow: hidden;
+  transition:
+    border-color var(--dur-1) var(--ease),
+    box-shadow var(--dur-1) var(--ease);
+}
+
+.card:hover {
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-1);
+}
+
+.media {
+  display: block;
+  line-height: 0;
+}
+
+.media img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+.body {
+  padding: var(--s-5);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  font-weight: 600;
+}
+
+/* Dấu hiệu duy nhất phân biệt sự kiện với tin thường. Sự kiện có ngày giờ và
+   nơi chốn, người đọc cần nhận ra ngay để còn kịp thu xếp. */
+.eventTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.16rem 0.5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  letter-spacing: 0.06em;
+}
+
+.place {
+  color: var(--muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+
+.body h3 {
+  margin: var(--s-2) 0 0;
+  font-size: var(--step-1);
+  line-height: 1.28;
+}
+
+.body h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.body h3 a:hover {
+  color: var(--accent);
+}
+
+.body p {
+  margin: var(--s-3) 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+@media (max-width: 699px) {
+  .grid {
+    gap: 0.7rem;
+  }
+
+  .card {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .media {
+    flex: none;
+    width: 108px;
+  }
+
+  .media img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .body {
+    min-width: 0;
+    padding: 0.7rem 0.85rem;
+  }
+
+  .meta {
+    gap: 0.45rem;
+    font-size: 0.68rem;
+  }
+
+  .body h3 {
+    margin-top: 0.2rem;
+    font-size: 1rem;
+  }
+
+  /* Tóm tắt bị cắt còn hai dòng: ở hàng ngang, đoạn tóm tắt đầy đủ kéo mỗi tin
+     cao gấp đôi mà cũng chẳng ai đọc hết trước khi bấm vào. */
+  .body p {
+    margin-top: 0.25rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}

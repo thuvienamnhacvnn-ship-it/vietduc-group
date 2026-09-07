@@ -47,7 +47,9 @@ export default async function PostPage({
   const dict = getDictionary(locale);
 
   const post = await getPost(slug);
-  if (!post) notFound();
+  /* Bài của mảng khách sạn có đường dẫn riêng dưới /dau-tu/tin-tuc; để mở được
+     ở cả hai nơi là tự tạo ra hai địa chỉ cho cùng một bài. */
+  if (!post || post.arm !== "education") notFound();
   const settings = await getSiteSettings();
 
   const articleSchema = {

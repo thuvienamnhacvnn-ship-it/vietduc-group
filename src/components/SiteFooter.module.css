@@ -252,6 +252,18 @@
     text-align: center;
   }
 
+  /*
+   * Email và website chiếm cả bề ngang.
+   *
+   * Nửa màn hình 390px còn khoảng 170px, mà "info@vietducgroup.com.vn" cần
+   * hơn thế. `overflow-wrap: anywhere` ở trên bèn cắt ngay giữa tên miền, ra
+   * thành "info@vietducgroup.co" xuống dòng "m.vn" — đọc như địa chỉ sai. Cho
+   * hai dòng này nguyên bề ngang thì chúng vừa đủ một dòng, không phải cắt.
+   */
+  .contactList > div:nth-child(n + 3) {
+    grid-column: 1 / -1;
+  }
+
   .socialWrap {
     justify-items: center;
     text-align: center;

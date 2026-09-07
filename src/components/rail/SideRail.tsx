@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactElement } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LOCALES, LOCALE_SHORT, localePath, type Locale } from "@/lib/i18n/config";
+import { LOCALES, LOCALE_SHORT, LOCALE_LABEL, localePath, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { SearchDialog } from "@/components/SearchDialog";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -28,6 +28,13 @@ export type RailIcon = keyof typeof ICONS;
  * the rail widens on hover and on focus, and every label is always in the DOM.
  */
 const ICONS = {
+  news: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <path d="M4.4 5.6h11.2v12.8H6a1.6 1.6 0 0 1-1.6-1.6V5.6Z" strokeLinejoin="round" />
+      <path d="M15.6 9.2h2.4a1.6 1.6 0 0 1 1.6 1.6v6a1.6 1.6 0 0 1-1.6 1.6h-2.4" strokeLinejoin="round" />
+      <path d="M7.2 8.8h5.6M7.2 11.8h5.6M7.2 14.8h3.2" strokeLinecap="round" />
+    </svg>
+  ),
   about: (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
       <circle cx="12" cy="12" r="9" />
@@ -144,6 +151,7 @@ export function SideRail({
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const path = (href: string) => localePath(locale, href);
 
   // A route change closes the mobile panel; without this it survives navigation
@@ -153,6 +161,7 @@ export function SideRail({
   if (pathname !== renderedPath) {
     setRenderedPath(pathname);
     setOpen(false);
+    setLangOpen(false);
   }
 
   useEffect(() => {
@@ -210,20 +219,59 @@ export function SideRail({
             <ThemeToggle locale={locale} />
           </div>
 
-          <ul className={styles.topLangs} aria-label={dict.nav.language}>
-            {LOCALES.map((code) => (
-              <li key={code}>
-                <Link
-                  href={localePath(code, langBase)}
-                  hrefLang={code}
-                  aria-current={code === locale ? "true" : undefined}
-                  className={code === locale ? styles.langOn : undefined}
-                >
-                  {LOCALE_SHORT[code]}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/*
+            Sáu ngôn ngữ, một nút.
+
+            Bày cả sáu mã ra thanh trên thì chúng chiếm trọn bề ngang điện
+            thoại, mà mỗi mã chỉ còn ô bấm 26×33px với chữ 11px — nhỏ hơn đầu
+            ngón tay, và bấm nhầm sang tiếng Hàn khi định bấm tiếng Nhật là
+            chuyện thường. Gói lại thành một nút mở ra danh sách: thanh trên
+            thoáng, mỗi dòng trong danh sách cao 46px và có tên đầy đủ chứ
+            không phải hai chữ viết tắt.
+          */}
+          <div className={styles.langWrap}>
+            <button
+              type="button"
+              className={styles.langButton}
+              aria-expanded={langOpen}
+              aria-haspopup="true"
+              aria-label={dict.nav.language}
+              onClick={() => setLangOpen((v) => !v)}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                <circle cx="12" cy="12" r="8.4" />
+                <path d="M3.6 12h16.8M12 3.6a15 15 0 0 1 0 16.8 15 15 0 0 1 0-16.8" />
+              </svg>
+              <span>{LOCALE_SHORT[locale]}</span>
+            </button>
+
+            {langOpen ? (
+              <>
+                <button
+                  type="button"
+                  className={styles.langScrim}
+                  aria-label={dict.nav.close}
+                  onClick={() => setLangOpen(false)}
+                />
+                <ul className={styles.langMenu} aria-label={dict.nav.language}>
+                  {LOCALES.map((code) => (
+                    <li key={code}>
+                      <Link
+                        href={localePath(code, langBase)}
+                        hrefLang={code}
+                        aria-current={code === locale ? "true" : undefined}
+                        className={code === locale ? styles.langMenuOn : undefined}
+                        onClick={() => setLangOpen(false)}
+                      >
+                        <span className={styles.langCode}>{LOCALE_SHORT[code]}</span>
+                        <span className={styles.langName}>{LOCALE_LABEL[code]}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </div>
         </div>
       </header>
 

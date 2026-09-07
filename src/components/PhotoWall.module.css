@@ -17,6 +17,43 @@
   list-style: none;
 }
 
+/*
+ * Trên điện thoại: vuốt ngang, không xếp chồng.
+ *
+ * Xếp hai cột nghe thì gọn, nhưng một mục bảy tấm ảnh thành bốn hàng, cao gần
+ * 900px — hết một màn hình rưỡi chỉ để xem ảnh một xưởng. Cả trang Đào tạo vì
+ * thế dài 17.600px, tức hai mươi mốt màn hình. Không ai bao quát nổi.
+ *
+ * Một dải vuốt ngang gói đúng mục ấy vào 230px và trả lại cho người đọc quyền
+ * chọn: lướt tiếp, hay dừng lại vuốt xem. Bề rộng 78% để tấm kế tiếp ló ra —
+ * đó là thứ duy nhất nói cho người ta biết còn ảnh phía sau; cắt đúng mép màn
+ * hình thì dải ảnh trông y hệt một tấm đứng yên.
+ */
+@media (max-width: 699px) {
+  .wall {
+    display: flex;
+    gap: 0.55rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    /* Lùi ra sát mép màn hình rồi đệm lại, để tấm đầu vẫn thẳng lề chữ mà dải
+       ảnh thì chạy tràn hết bề ngang — cắt ở lề trong trông như bị hụt. */
+    margin-inline: calc(var(--s-4) * -1);
+    padding-inline: var(--s-4);
+    scroll-padding-inline: var(--s-4);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .wall::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wall li {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+}
+
 @media (min-width: 700px) {
   .wall {
     grid-template-columns: repeat(4, minmax(0, 1fr));

@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale, pick } from "@/lib/i18n/config";
+import { isLocale, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPosts } from "@/lib/queries";
-import { formatDate } from "@/lib/format";
 import { Breadcrumbs, EmptyState } from "@/components/ui";
+import { NewsList } from "@/components/NewsList";
 import shell from "../page-shell.module.css";
-import styles from "./news.module.css";
 
 export async function generateMetadata({
   params,
@@ -28,7 +25,8 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
   if (!isLocale(raw)) notFound();
   const locale: Locale = raw;
   const dict = getDictionary(locale);
-  const posts = await getPosts();
+  /* Chỉ tin của mảng đào tạo; tin dự án nghỉ dưỡng có trang riêng bên kia. */
+  const posts = await getPosts(undefined, "education");
 
   return (
     <div className={shell.page}>
@@ -53,36 +51,7 @@ export default async function NewsPage({ params }: { params: Promise<{ locale: s
             }
           />
         ) : (
-          <div className={styles.grid}>
-            {posts.map((post) => (
-              <article key={post.id} className={styles.card} data-reveal>
-                {post.coverPath ? (
-                  <Link href={localePath(locale, `/tin-tuc/${post.slug}`)} className={styles.media}>
-                    <Image
-                      src={post.coverPath}
-                      alt=""
-                      width={1200}
-                      height={800}
-                      sizes="(min-width: 900px) 33vw, 100vw"
-                    />
-                  </Link>
-                ) : null}
-                <div className={styles.body}>
-                  {post.publishedAt ? (
-                    <time dateTime={new Date(post.publishedAt).toISOString()}>
-                      {formatDate(post.publishedAt, locale)}
-                    </time>
-                  ) : null}
-                  <h2>
-                    <Link href={localePath(locale, `/tin-tuc/${post.slug}`)}>
-                      {t(post.title, locale)}
-                    </Link>
-                  </h2>
-                  {post.excerpt ? <p>{t(post.excerpt, locale)}</p> : null}
-                </div>
-              </article>
-            ))}
-          </div>
+          <NewsList posts={posts} locale={locale} basePath="/tin-tuc" />
         )}
       </div>
     </div>

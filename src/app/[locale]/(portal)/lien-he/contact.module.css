@@ -210,3 +210,12 @@
 .map iframe {
   height: clamp(300px, 42vw, 440px);
 }
+
+/* Lối dẫn sang trang hệ thống trường, thay cho danh bạ sáu trường từng nằm ở
+   đây. Xem chú thích trong page.tsx. */
+.schoolsLead {
+  margin: 0 0 var(--s-4);
+  font-size: 0.94rem;
+  line-height: 1.6;
+  color: var(--muted);
+}

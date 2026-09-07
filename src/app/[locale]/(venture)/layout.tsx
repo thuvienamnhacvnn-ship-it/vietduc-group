@@ -42,6 +42,7 @@ export default async function VentureLayout({
       short: dict.venture.projects,
       icon: "projects",
     },
+    { href: "/dau-tu/tin-tuc", label: dict.nav.news, icon: "news" },
     { href: "/lien-he", label: dict.nav.contact, icon: "contact" },
     { href: "/dao-tao", label: dict.hub.education.name, icon: "education", cross: true },
   ];

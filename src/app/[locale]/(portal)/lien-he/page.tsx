@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, localePath, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getSchools } from "@/lib/queries";
 import { getSiteSettings } from "@/lib/settings";
 import { telHref } from "@/lib/site-config";
-import { Breadcrumbs, ButtonLink } from "@/components/ui";
+import { ArrowLink, Breadcrumbs, ButtonLink } from "@/components/ui";
 import { SocialLinks, hasSocial } from "@/components/SocialLinks";
 import { PageHead } from "@/components/PageHead";
 import { FooterMap } from "@/components/FooterMap";
@@ -127,39 +126,31 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             )}
           </section>
 
+          {/*
+            Sáu trường có trang riêng của mình.
+
+            Trước đây cả danh bạ sáu trường — địa chỉ, điện thoại, hòm thư,
+            trang web — nằm gọn trong trang Liên hệ. Hệ thống trường là thứ
+            đáng giá nhất của tập đoàn mà lại đứng nhờ trong một trang nói về
+            chuyện khác, còn trang Liên hệ thì dài ra mà không ai đọc hết.
+            Danh bạ nay ở /dao-tao/truong; đây chỉ giữ lối dẫn sang.
+          */}
           <section className={styles.card}>
             <h2>{dict.contact.schoolsTitle}</h2>
-            <ul className={styles.schools}>
-              {schools.map((school) => {
-                const schoolTel = telHref(school.phone ?? "");
-                return (
-                  <li key={school.id}>
-                    <Link
-                      href={localePath(locale, `/dao-tao/truong/${school.slug}`)}
-                      className={styles.schoolName}
-                    >
-                      {t(school.shortName ?? school.name, locale)}
-                    </Link>
-                    {school.address ? <span className={styles.schoolLine}>{school.address}</span> : null}
-                    <span className={styles.schoolContacts}>
-                      {school.phone ? (
-                        schoolTel ? (
-                          <a href={schoolTel}>{school.phone}</a>
-                        ) : (
-                          <span>{school.phone}</span>
-                        )
-                      ) : null}
-                      {school.email ? <a href={`mailto:${school.email}`}>{school.email}</a> : null}
-                      {school.website ? (
-                        <a href={school.website} target="_blank" rel="noopener noreferrer">
-                          {school.website.replace(/^https?:\/\//, "")}
-                        </a>
-                      ) : null}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+            <p className={styles.schoolsLead}>
+              {pick(
+                {
+                  vi: `${schools.length} trường thành viên, mỗi trường một địa bàn và một phòng tuyển sinh riêng. Địa chỉ, điện thoại và hòm thư của từng trường nằm ở trang hệ thống trường.`,
+                  en: `${schools.length} member schools, each with its own place and its own admissions office. Addresses, phones and mailboxes are on the member schools page.`,
+                  de: `${schools.length} Mitgliedsschulen, jede mit eigenem Standort und eigenem Zulassungsbüro. Adressen, Telefonnummern und E-Mail stehen auf der Seite der Mitgliedsschulen.`,
+                  ja: `${schools.length} の加盟校が、それぞれの土地で、それぞれの入学窓口を持っています。所在地・電話・メールは加盟校のページにあります。`,
+                  ko: `${schools.length}개 회원 학교가 저마다의 지역에서 저마다의 입학 부서를 두고 있습니다. 주소와 전화, 메일은 회원 학교 페이지에 있습니다.`,
+                  "zh-TW": `${schools.length} 所成員學校各有所在地與招生單位。地址、電話與電子郵件請見成員學校頁面。`,
+                },
+                locale,
+              )}
+            </p>
+            <ArrowLink href={localePath(locale, "/dao-tao/truong")}>{dict.nav.schools}</ArrowLink>
           </section>
         </div>
 

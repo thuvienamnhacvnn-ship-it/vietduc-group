@@ -50,6 +50,7 @@ export default async function PortalLayout({
     },
     { href: "/dao-tao/thu-vien-tai-lieu", label: dict.nav.library, icon: "library" },
     { href: "/dao-tao/cau-hoi-thuong-gap", label: dict.nav.faq, icon: "faq" },
+    { href: "/tin-tuc", label: dict.nav.news, icon: "news" },
     { href: "/lien-he", label: dict.nav.contact, icon: "contact" },
     { href: "/dau-tu", label: dict.hub.venture.name, icon: "venture", cross: true },
   ];

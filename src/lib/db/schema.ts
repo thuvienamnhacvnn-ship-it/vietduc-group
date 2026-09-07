@@ -60,6 +60,20 @@ export type Role = (typeof ROLES)[number];
 export const STATUSES = ["draft", "pending", "approved", "rejected", "archived"] as const;
 export type Status = (typeof STATUSES)[number];
 
+/**
+ * Mảng hoạt động mà một bài viết thuộc về.
+ *
+ * Tập đoàn có hai mảng chạy song song với hai bộ giao diện riêng: giáo dục –
+ * đào tạo, và khách sạn – du lịch. Tin khai giảng và tin khởi công không nên
+ * nằm chung một danh sách: người vào xem dự án nghỉ dưỡng không tìm lịch nhập
+ * học, và ngược lại.
+ *
+ * Mặc định là "education" vì đó là mảng có sẵn trang tin từ đầu — bài cũ nếu
+ * có thì vẫn đúng chỗ mà không phải sửa gì.
+ */
+export const ARMS = ["education", "venture"] as const;
+export type Arm = (typeof ARMS)[number];
+
 /* ------------------------------------------------------------------ auth */
 
 export const users = pgTable(
@@ -289,11 +303,18 @@ export const posts = pgTable(
     body: jsonb("body").$type<L10n>(),
     coverPath: text("cover_path"),
     publishedAt: timestamp("published_at", { withTimezone: true }),
+    /** Mảng đăng bài: giáo dục hay khách sạn – du lịch. Xem `ARMS`. */
+    arm: text("arm").$type<Arm>().notNull().default("education"),
+    /** Tin thường hay sự kiện có ngày giờ. Sự kiện được xếp lên trước. */
+    isEvent: boolean("is_event").notNull().default(false),
+    /** Ngày diễn ra sự kiện, nếu là sự kiện. Khác với ngày đăng bài. */
+    eventAt: timestamp("event_at", { withTimezone: true }),
+    eventPlace: jsonb("event_place").$type<L10n>(),
     status: text("status").$type<Status>().notNull().default("draft"),
     provenance: jsonb("provenance").$type<Provenance>(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [uniqueIndex("posts_slug_idx").on(t.slug)],
+  (t) => [uniqueIndex("posts_slug_idx").on(t.slug), index("posts_arm_idx").on(t.arm)],
 );
 
 export const faqs = pgTable(

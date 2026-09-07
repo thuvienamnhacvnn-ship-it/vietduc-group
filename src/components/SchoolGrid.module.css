@@ -18,9 +18,82 @@
   }
 }
 
+/*
+ * Trên điện thoại: hàng ngang, không phải thẻ.
+ *
+ * Chú thích cũ ở đầu file nói một cột vẫn ngắn hơn hai cột chật — đúng, nhưng
+ * cả hai đều sai đề. Thẻ có ảnh phủ hết bề ngang cao khoảng 600px; sáu trường
+ * thành 3.600px, tức bốn màn hình rưỡi để đọc một danh sách sáu dòng. Người
+ * dùng không so sánh nổi trường thứ nhất với trường thứ sáu vì không bao giờ
+ * thấy chúng cùng lúc.
+ *
+ * Hàng ngang: ảnh nhỏ bên trái, tên và nơi chốn bên phải, mỗi trường ~112px.
+ * Sáu trường gói trong hơn một màn hình — liếc một cái là thấy cả hệ thống.
+ * Ảnh vẫn còn, chỉ thôi đóng vai trò trang trí cỡ lớn.
+ */
 @media (max-width: 699px) {
   .grid {
     grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .card {
+    grid-template-rows: none;
+    grid-template-columns: 108px minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .figure img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .rank {
+    top: 4px;
+    left: 8px;
+    font-size: 1rem;
+  }
+
+  /* Huy hiệu thu nhỏ và nằm gọn trong ảnh: ở hàng ngang thì không còn "đường
+     nối" giữa ảnh và chữ để nó cưỡi lên. */
+  .crest {
+    right: 6px;
+    bottom: 6px;
+    width: 34px;
+    height: 34px;
+    padding: 3px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .body {
+    gap: 0.15rem;
+    padding: 0.7rem 0.85rem 0.6rem;
+    align-content: center;
+  }
+
+  /* Không còn huy hiệu cưỡi lên góc nên bỏ luôn chỗ chừa cho nó. */
+  .city,
+  .name {
+    padding-right: 0;
+  }
+
+  .name {
+    font-size: 1rem;
+  }
+
+  .foot {
+    margin-top: 0.45rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .count {
+    font-size: 0.8rem;
+  }
+
+  .arrow {
+    width: 26px;
+    height: 26px;
   }
 }
 

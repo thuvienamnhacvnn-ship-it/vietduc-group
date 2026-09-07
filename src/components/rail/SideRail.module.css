@@ -327,32 +327,96 @@
     color: var(--ink);
   }
 
-  .topLangs {
+  /* ---- ngôn ngữ: một nút, mở ra danh sách ---- */
+
+  .langWrap {
+    position: relative;
+  }
+
+  .langButton {
     display: flex;
     align-items: center;
-    gap: 1px;
-    margin: 0;
-    padding: 3px;
-    list-style: none;
+    gap: 0.32rem;
+    height: 38px;
+    padding: 0 0.7rem 0 0.55rem;
     border: 1px solid var(--line);
     border-radius: 999px;
     background: var(--paper);
+    color: var(--ink);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
   }
 
-  .topLangs a {
-    display: block;
-    padding: 0.24rem 0.52rem;
-    border-radius: 999px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.03em;
+  .langButton svg {
+    width: 17px;
+    height: 17px;
     color: var(--muted-soft);
+  }
+
+  /* Nền trong suốt phủ cả màn: bấm ra ngoài là đóng. Không có nó thì trên
+     điện thoại danh sách chỉ đóng được bằng cách bấm lại đúng cái nút. */
+  .langScrim {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: default;
+  }
+
+  .langMenu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    z-index: 2;
+    min-width: 12.5rem;
+    margin: 0;
+    padding: 0.3rem;
+    list-style: none;
+    border: 1px solid var(--line);
+    border-radius: var(--r-3);
+    background: var(--paper-raised);
+    box-shadow: var(--shadow-2);
+  }
+
+  .langMenu a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    /* 46px: đủ cho đầu ngón tay, và đủ để hai dòng cạnh nhau không bấm nhầm. */
+    min-height: 46px;
+    padding: 0 0.65rem;
+    border-radius: var(--r-2);
+    color: var(--ink);
     text-decoration: none;
   }
 
-  .topLangs .langOn {
+  .langMenu .langMenuOn {
     background: var(--accent);
-    color: #fff !important;
+    color: #fff;
+  }
+
+  .langCode {
+    flex: none;
+    width: 2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--muted-soft);
+  }
+
+  .langMenu .langMenuOn .langCode {
+    color: #fff;
+  }
+
+  /* Tên đầy đủ, viết bằng chính thứ tiếng đó: người Hàn tìm "한국어" nhanh hơn
+     nhiều so với tìm hai chữ "KO". */
+  .langName {
+    font-size: 0.92rem;
   }
 
   /* ---- where to go, at the foot ---- */
@@ -402,8 +466,11 @@
     height: 21px;
   }
 
+  /* 0.6rem là 9,6px — nhỏ hơn mức đọc được thoải mái trên điện thoại, và đây
+     là nhãn điều hướng chính chứ không phải chú thích. 0.68rem ≈ 11px vẫn vừa
+     năm ô ngang màn hình 390px. */
   .slotLabel {
-    font-size: 0.6rem;
+    font-size: 0.68rem;
     line-height: 1.2;
     text-align: center;
     max-width: 100%;
