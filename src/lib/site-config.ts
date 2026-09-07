@@ -123,7 +123,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
       ko: "여섯 개 회원 학교로 이루어진 베트남·독일 직업교육 체계. 실습 중심 교육, 기업 연계, 그리고 국제 협력.",
       "zh-TW": "由六所成員學校組成的越德技職教育體系：實作導向的訓練、與企業連結，以及國際合作。",
     },
-    siteUrl: "",
+    /* Tên miền chính thức, trỏ về VPS OVH từ 07/09/2026. */
+    siteUrl: "https://vietducgroup.com.vn",
     ogImage: "/brand/og-default.png",
   },
 };
