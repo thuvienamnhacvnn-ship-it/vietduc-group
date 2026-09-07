@@ -26,19 +26,15 @@
 }
 
 .brand img {
-  width: 34px;
-  height: auto;
+  /* Logo nằm ngang: neo theo chiều cao. */
+  height: 30px;
+  width: auto;
 }
 
 .brand span {
   display: grid;
-  gap: 1px;
-}
-
-.brand strong {
-  font-size: 0.94rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--line);
 }
 
 .brand em {

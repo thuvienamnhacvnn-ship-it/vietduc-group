@@ -121,17 +121,18 @@ export function HubStage({ branches, enterLabel, orbitLabel, heading, channels }
         <span className={styles.ring} aria-hidden="true" />
         <span className={`${styles.ring} ${styles.ringOuter}`} aria-hidden="true" />
 
+        {/* Logo đủ, không phải mỗi ngọn lửa: đây là chỗ nhận diện đầu tiên của
+            cả nhóm, phải đọc ra tên chứ không chỉ ra biểu tượng. */}
         <div className={styles.core}>
           <span className={styles.glow} aria-hidden="true" />
           <Image
-            src="/brand/viet-duc-mark.png"
+            src="/brand/viet-duc-group-logo.png"
             alt=""
-            width={380}
-            height={409}
+            width={459}
+            height={167}
             priority
             className={styles.mark}
           />
-          <span className={styles.plinth} aria-hidden="true" />
         </div>
 
         {branches.map((branch, i) => (

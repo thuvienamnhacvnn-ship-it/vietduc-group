@@ -29,16 +29,19 @@ export function HubBar({ locale, social }: { locale: Locale; social: SocialSetti
   return (
     <header className={`on-dark ${styles.bar}`}>
       <div className={styles.inner}>
+        {/* Logo đủ đã mang sẵn chữ "VIET DUC GROUP". Đặt tên nhóm lần nữa ngay
+            bên cạnh là viết tên hai lần; tên nằm trong `alt` là đủ cho cả trình
+            đọc màn hình lẫn máy tìm kiếm. Chỉ giữ lại khẩu hiệu. */}
         <Link href={path("/")} className={styles.brand}>
           <Image
-            src="/brand/viet-duc-mark.png"
-            alt=""
-            width={40}
-            height={43}
+            src="/brand/viet-duc-group-logo.png"
+            alt={dict.brand.name}
+            width={459}
+            height={167}
+            priority
             className={styles.brandMark}
           />
           <span className={styles.brandText}>
-            <strong>{dict.brand.name}</strong>
             <em>{dict.brand.motto}</em>
           </span>
         </Link>

@@ -38,22 +38,18 @@
 }
 
 .brandMark {
-  width: 40px;
-  height: auto;
+  /* Logo nằm ngang: đặt theo chiều cao rồi để bề ngang tự theo, như vậy
+     đổi tệp logo khác tỉ lệ cũng không phá chiều cao thanh. */
+  height: 34px;
+  width: auto;
   filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.45));
 }
 
 .brandText {
   display: grid;
-  gap: 1px;
   min-width: 0;
-}
-
-.brandText strong {
-  font-family: var(--font-display);
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  padding-left: 0.7rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 .brandText em {
