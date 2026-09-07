@@ -30,7 +30,6 @@
 .mo {
   position: relative;
   margin-top: calc(var(--s-6) * -1);
-  padding-bottom: clamp(2rem, 6vw, 5rem);
   overflow: hidden;
   background: var(--band);
 }
@@ -73,81 +72,85 @@
   background: linear-gradient(0deg, var(--band) 4%, rgba(9, 16, 24, 0) 100%);
 }
 
-.bang {
+/* ---- khối tiêu đề, đặt dưới ảnh trên nền tối ---- */
+
+.moChu {
   position: relative;
   z-index: 2;
-  margin-top: clamp(-7rem, -9vw, -3rem);
-  padding: clamp(1.6rem, 3.5vw, 3rem);
-  border: 1px solid var(--line);
-  border-radius: var(--r-4);
-  background: var(--paper-raised);
-  box-shadow: 0 24px 60px rgba(8, 12, 18, 0.4);
+  padding-block: clamp(1.5rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+  color: #e8edf3;
 }
 
-.bangDau {
-  display: flex;
-  align-items: baseline;
-  gap: var(--s-4);
-  flex-wrap: wrap;
-  margin-bottom: var(--s-4);
-}
-
+/*
+ * Đề tựa có một vạch ngắn dẫn vào.
+ *
+ * Chữ hoa nhỏ đứng trơ một mình là thứ mọi trang đều làm; một vạch vàng ngắn
+ * trước nó đủ để dòng ấy trông như được đặt vào chỗ, chứ không phải rơi xuống.
+ */
 .deTua {
-  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: var(--s-5) 0 0;
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--gold);
 }
 
-.bangTieuDe {
-  margin: 0;
-  font-size: var(--step-4);
-  line-height: 1.06;
-  letter-spacing: -0.015em;
+.gach {
+  display: block;
+  width: 2.4rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
 }
 
-.bangDan {
+/*
+ * Tiêu đề trang.
+ *
+ * Chữ lớn hơn hẳn phần còn lại, siết chữ lại một chút, và một dải chuyển sắc
+ * chạy dọc nét chữ từ trắng sang vàng nhạt. Chuyển sắc trên chữ chỉ ăn khi có
+ * `background-clip: text`; trình duyệt nào không hiểu thì rơi về màu trắng
+ * khai ở dòng `color` — vẫn đọc được, chỉ mất phần lấp lánh.
+ */
+.moTieuDe {
   margin: var(--s-4) 0 0;
-  max-width: 56ch;
+  font-size: var(--step-5);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+  color: #fff;
+  background: linear-gradient(160deg, #ffffff 0%, #ffffff 42%, #f0dcb4 78%, #d9b871 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Vạch vàng dưới tiêu đề, kéo dài ra khi khối hiện lên. */
+.vach {
+  display: block;
+  width: 0;
+  height: 2px;
+  margin-top: var(--s-5);
+  background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--gold) 10%, transparent));
+  transition: width 900ms var(--ease) 160ms;
+}
+
+:global(:root[data-reveal-ready]) .vach[data-reveal="in"] {
+  width: min(320px, 42%);
+}
+
+/* Không có JavaScript thì vạch vẫn phải hiện, không thì nó biến mất hẳn. */
+:global(:root:not([data-reveal-ready])) .vach {
+  width: min(320px, 42%);
+}
+
+.moDan {
+  margin: var(--s-5) 0 0;
+  max-width: 48ch;
   font-size: var(--step-1);
   line-height: 1.6;
-  color: var(--muted);
-}
-
-/* ---- bốn con số trong tấm bảng ---- */
-
-.soLieu {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--s-4);
-  margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
-  padding-top: clamp(1.4rem, 3vw, 2rem);
-  border-top: 1px solid var(--line);
-}
-
-.oSo {
-  min-width: 0;
-  padding-left: var(--s-4);
-  border-left: 2px solid var(--gold);
-}
-
-.soLon {
-  display: block;
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4.2vw, 3.2rem);
-  line-height: 1;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-}
-
-.soNhan {
-  display: block;
-  margin-top: 0.4rem;
-  font-size: 0.86rem;
-  line-height: 1.45;
-  color: var(--muted-soft);
+  color: #b9c3ce;
 }
 
 /* =============================================================== chuyện */

@@ -4,10 +4,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, localePath, t, type Locale, pick as pickLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
-import { getPage, getPartners, getPrograms, getSchools } from "@/lib/queries";
+import { getPage, getSchools } from "@/lib/queries";
 import { ArrowLink, Breadcrumbs, Prose } from "@/components/ui";
 import { PhotoWall } from "@/components/PhotoWall";
-import { SoDem } from "@/components/SoDem";
+import { SoDoHeSinhThai, type Nhanh } from "@/components/SoDoHeSinhThai";
 import { TamNhin } from "@/components/tam-nhin/TamNhin";
 import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
@@ -52,63 +52,78 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const dict = getDictionary(locale);
   const path = (href: string) => localePath(locale, href);
 
-  const [page, schools, programs, partners] = await Promise.all([
-    getPage(SLUG),
-    getSchools(),
-    getPrograms(),
-    getPartners(),
-  ]);
+  const [page, schools] = await Promise.all([getPage(SLUG), getSchools()]);
   if (!page) notFound();
 
   /* Gói chữ tại chỗ cho gọn; thiếu ngôn ngữ nào thì `pick` lùi về tiếng Việt. */
   const say = (map: Parameters<typeof pickLocale<string>>[0]): string => pickLocale(map, locale);
 
-  const soLieu = [
+  /*
+   * Hai vòng của sơ đồ hệ sinh thái.
+   *
+   * Vòng trong là năm thương hiệu, vòng ngoài là các trường thành viên. Logo
+   * đều đã tách nền bằng `_tach-logo.mjs`; trường thì suy đường dẫn từ chính
+   * `logoPath` trong cơ sở dữ liệu, nên thêm trường mới là sơ đồ tự có thêm
+   * một nhánh mà không phải sửa gì ở đây.
+   */
+  const thuongHieu: Nhanh[] = [
     {
-      so: schools.length,
-      nhan: say({
-        vi: "trường thành viên",
-        en: "member schools",
-        de: "Mitgliedsschulen",
-        ja: "の加盟校",
-        ko: "개 회원 학교",
-        "zh-TW": "所成員學校",
-      }),
+      src: "/media/so-do/vgie.png",
+      ten: { vi: "VGIE", en: "VGIE", de: "VGIE", ja: "VGIE", ko: "VGIE", "zh-TW": "VGIE" },
     },
     {
-      so: programs.length,
-      nhan: say({
-        vi: "ngành đã đăng ký hoạt động",
-        en: "registered occupations",
-        de: "registrierte Berufsprofile",
-        ja: "の認可職種",
-        ko: "개 인가 직종",
-        "zh-TW": "個已立案職類",
-      }),
+      src: "/media/so-do/dau-tu-du-lich.png",
+      ten: {
+        vi: "Việt Đức – Đầu tư & Du lịch",
+        en: "Viet Duc – Investment & Tourism",
+        de: "Viet Duc – Investment & Tourismus",
+        ja: "Viet Duc — 投資・観光",
+        ko: "Viet Duc — 투자·관광",
+        "zh-TW": "Viet Duc — 投資與觀光",
+      },
     },
     {
-      so: partners.length,
-      nhan: say({
-        vi: "doanh nghiệp đối tác",
-        en: "partner employers",
-        de: "Partnerunternehmen",
-        ja: "の提携企業",
-        ko: "개 협력 기업",
-        "zh-TW": "家合作企業",
-      }),
+      src: "/media/so-do/khach-san-lu-hanh.png",
+      ten: {
+        vi: "Việt Đức – Khách sạn & Lữ hành",
+        en: "Viet Duc – Hotel & Travel",
+        de: "Viet Duc – Hotel & Reisen",
+        ja: "Viet Duc — ホテル・旅行",
+        ko: "Viet Duc — 호텔·여행",
+        "zh-TW": "Viet Duc — 飯店與旅遊",
+      },
     },
     {
-      so: new Set(schools.map((s) => s.country)).size,
-      nhan: say({
-        vi: "quốc gia",
-        en: "countries",
-        de: "Länder",
-        ja: "か国",
-        ko: "개국",
-        "zh-TW": "個國家",
-      }),
+      src: "/media/so-do/golden-dragon.png",
+      ten: {
+        vi: "Golden Dragon Hotel",
+        en: "Golden Dragon Hotel",
+        de: "Golden Dragon Hotel",
+        ja: "Golden Dragon Hotel",
+        ko: "Golden Dragon Hotel",
+        "zh-TW": "Golden Dragon Hotel",
+      },
+    },
+    {
+      src: "/media/so-do/shdc.png",
+      ten: {
+        vi: "SHDC – Du lịch sinh thái",
+        en: "SHDC – Ecotourism",
+        de: "SHDC – Ökotourismus",
+        ja: "SHDC — エコツーリズム",
+        ko: "SHDC — 생태 관광",
+        "zh-TW": "SHDC — 生態旅遊",
+      },
     },
   ];
+
+  const nhanhTruong: Nhanh[] = schools
+    .filter((s) => s.logoPath)
+    .map((s) => ({
+      src: s.logoPath!.replace("/media/schools/logos/", "/media/so-do/truong-").replace(/.webp$/, ".png"),
+      ten: (s.shortName ?? s.name) as Nhanh["ten"],
+      href: path(`/dao-tao/truong/${s.slug}`),
+    }));
 
   /*
    * Sơ đồ cấu trúc tập đoàn, lấy từ kho. Ảnh thứ hai trong nhóm brand là sơ đồ;
@@ -154,32 +169,20 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <span className={styles.moPhuDuoi} aria-hidden="true" />
         </div>
 
-        <div className="shell">
-          <div className={styles.bang} data-reveal>
-            <Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />
+        <div className={`shell ${styles.moChu}`}>
+          <Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />
 
-            <div className={styles.bangDau}>
-              <p className={styles.deTua}>{dict.brand.name}</p>
-            </div>
-            <h1 className={styles.bangTieuDe}>{t(page.title, locale)}</h1>
-            <p className={styles.bangDan}>{dict.brand.motto}</p>
-
-            <dl className={styles.soLieu}>
-              {soLieu.map((s, i) => (
-                <div
-                  key={s.nhan}
-                  className={styles.oSo}
-                  data-reveal
-                  style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
-                >
-                  <dd className={styles.soLon}>
-                    <SoDem so={s.so} />
-                  </dd>
-                  <dt className={styles.soNhan}>{s.nhan}</dt>
-                </div>
-              ))}
-            </dl>
-          </div>
+          <p className={styles.deTua} data-reveal>
+            <span className={styles.gach} aria-hidden="true" />
+            {dict.brand.name}
+          </p>
+          <h1 className={styles.moTieuDe} data-reveal>
+            {t(page.title, locale)}
+          </h1>
+          <span className={styles.vach} data-reveal aria-hidden="true" />
+          <p className={styles.moDan} data-reveal>
+            {dict.brand.motto}
+          </p>
         </div>
       </section>
 
@@ -343,32 +346,22 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               </p>
             </div>
 
-            <figure className={styles.soDo} data-reveal>
-              <Image
-                src={soDo}
-                alt={say({
-                  vi: "Sơ đồ cấu trúc Việt Đức Group",
-                  en: "The Viet Duc Group structure",
-                  de: "Struktur der Viet Duc Group",
-                  ja: "Viet Duc Group の組織図",
-                  ko: "Viet Duc Group 조직도",
-                  "zh-TW": "Viet Duc Group 組織架構圖",
-                })}
-                width={1536}
-                height={1024}
-                sizes="(min-width: 1100px) 1100px, 100vw"
-              />
-              <figcaption>
-                {say({
-                  vi: "Sơ đồ trích từ hồ sơ năng lực của tập đoàn.",
-                  en: "The chart as printed in the group's capability profile.",
-                  de: "Das Schaubild aus dem Leistungsprofil der Gruppe.",
-                  ja: "グループの会社案内に掲載された組織図。",
-                  ko: "그룹 역량 소개서에 실린 조직도.",
-                  "zh-TW": "取自集團能力簡介的組織架構圖。",
-                })}
-              </figcaption>
-            </figure>
+            <SoDoHeSinhThai
+              locale={locale}
+              tam={{
+                src: "/media/so-do/viet-duc-group.png",
+                ten: {
+                  vi: "Việt Đức Group",
+                  en: "Viet Duc Group",
+                  de: "Viet Duc Group",
+                  ja: "Viet Duc Group",
+                  ko: "Viet Duc Group",
+                  "zh-TW": "Viet Duc Group",
+                },
+              }}
+              vongTrong={thuongHieu}
+              vongNgoai={nhanhTruong}
+            />
           </div>
         </section>
       ) : null}

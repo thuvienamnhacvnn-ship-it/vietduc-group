@@ -1,0 +1,271 @@
+/*
+ * Sơ đồ hệ sinh thái.
+ *
+ * Viền, không nền. Mỗi logo đã tách nền nên đặt trong một vòng tròn chỉ có
+ * đường viền là đủ — thêm nền vào sẽ dựng lại đúng cái mảng đặc mà việc tách
+ * nền vừa gỡ bỏ.
+ *
+ * Chuyển động chỉ có hai thứ: vệt sáng chạy dọc đường nối, và vòng viền quay
+ * khi rê chuột. Cả hai đều tắt dưới `prefers-reduced-motion`.
+ */
+
+.boc {
+  margin-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.khung {
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  margin-inline: auto;
+  aspect-ratio: 1;
+}
+
+/* ---------------------------------------------------------- đường nối */
+
+.day {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.duong {
+  stroke: color-mix(in srgb, var(--gold) 34%, transparent);
+  stroke-width: 0.18;
+  transition: stroke 260ms var(--ease);
+}
+
+.duongSang {
+  stroke: var(--gold);
+  stroke-width: 0.3;
+}
+
+/*
+ * Vệt sáng chạy từ tâm ra nhánh.
+ *
+ * Một nét đứt rất dài chạy trên đường: `stroke-dasharray` đặt phần vẽ ngắn hơn
+ * nhiều so với phần trống, nên trên mỗi đường chỉ có đúng một vệt sáng đang
+ * trôi. Lệch pha giữa các nhánh để chúng không chớp cùng nhịp — cùng nhịp thì
+ * thành đèn nháy, lệch nhau thì thành dòng chảy.
+ */
+.vet {
+  stroke: var(--gold);
+  stroke-width: 0.34;
+  stroke-linecap: round;
+  stroke-dasharray: 3 60;
+  animation: chay 5.5s linear infinite;
+  opacity: 0.85;
+}
+
+@keyframes chay {
+  from {
+    stroke-dashoffset: 63;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ------------------------------------------------------------- các nút */
+
+.nut {
+  position: absolute;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Vòng viền. Là một phần tử riêng để còn quay được mà không kéo theo logo. */
+.vien {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--gold) 42%, transparent);
+  transition:
+    border-color 300ms var(--ease),
+    scale 400ms var(--ease),
+    box-shadow 300ms var(--ease);
+}
+
+.nut img {
+  position: relative;
+  z-index: 1;
+  width: 62%;
+  height: 62%;
+  object-fit: contain;
+  transition: scale 400ms var(--ease);
+}
+
+/* Tên nhánh, nằm dưới vòng. Ẩn đi cho tới khi rê chuột hoặc chạm vào — mười
+   một cái tên hiện cùng lúc quanh một vòng tròn thì đè lên nhau hết. */
+.nhan {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 50%;
+  translate: -50% 0;
+  width: max-content;
+  max-width: 12rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--r-2);
+  background: color-mix(in srgb, var(--band) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, transparent);
+  font-size: 0.76rem;
+  line-height: 1.35;
+  text-align: center;
+  color: #e8edf3;
+  opacity: 0;
+  translate: -50% 4px;
+  transition:
+    opacity 240ms var(--ease),
+    translate 240ms var(--ease);
+  pointer-events: none;
+}
+
+.nut:hover .nhan,
+.nut:focus-visible .nhan {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.nut:hover .vien,
+.nut:focus-visible .vien {
+  border-color: var(--gold);
+  scale: 1.06;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--gold) 22%, transparent),
+    0 0 28px color-mix(in srgb, var(--gold) 26%, transparent);
+}
+
+.nut:hover img,
+.nut:focus-visible img {
+  scale: 1.08;
+}
+
+.nut:focus-visible {
+  outline: none;
+}
+
+/* ---- ba cỡ ---- */
+
+.tam {
+  width: 27%;
+  height: 27%;
+  z-index: 2;
+}
+
+.tam .vien {
+  border-color: color-mix(in srgb, var(--gold) 70%, transparent);
+  border-width: 1.5px;
+  box-shadow: 0 0 40px color-mix(in srgb, var(--gold) 18%, transparent);
+}
+
+.tam img {
+  width: 74%;
+  height: 74%;
+}
+
+.trong {
+  width: 16%;
+  height: 16%;
+  z-index: 2;
+}
+
+.ngoai {
+  width: 14%;
+  height: 14%;
+  z-index: 2;
+}
+
+/* ============================================================ điện thoại */
+
+/*
+ * Dưới 700px bỏ hẳn hình học.
+ *
+ * Ở bề ngang 375px, mười một logo quanh một vòng thì mỗi cái còn bằng đầu ngón
+ * tay và các đường nối chồng lên nhau thành một mớ rối. Xếp lưới thì mỗi logo
+ * to gấp ba, tên hiện thẳng ra không cần rê chuột, mà viền và hiệu ứng vẫn giữ.
+ */
+@media (max-width: 699px) {
+  .khung {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .day {
+    display: none;
+  }
+
+  .nut {
+    position: static;
+    translate: none;
+    width: auto;
+    height: auto;
+    aspect-ratio: 1;
+    padding: 0.6rem;
+  }
+
+  .vien {
+    border-radius: var(--r-4);
+  }
+
+  .nut img {
+    width: 76%;
+    height: 62%;
+  }
+
+  /* Tâm chiếm cả hàng đầu, để vẫn đọc ra đây là gốc của những cái còn lại. */
+  .tam {
+    grid-column: 1 / -1;
+    aspect-ratio: 16 / 7;
+  }
+
+  .tam img {
+    width: 62%;
+    height: 78%;
+  }
+
+  .nhan {
+    position: static;
+    translate: none;
+    opacity: 1;
+    max-width: none;
+    margin-top: 0.35rem;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 0.68rem;
+    color: var(--muted-soft);
+  }
+
+  .tam .nhan {
+    display: none;
+  }
+}
+
+/* ============================================================ chuyển động */
+
+@media (prefers-reduced-motion: reduce) {
+  .vet {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .vien,
+  .nut img,
+  .nhan {
+    transition: none;
+  }
+
+  .nut:hover .vien,
+  .nut:focus-visible .vien,
+  .nut:hover img,
+  .nut:focus-visible img {
+    scale: 1;
+  }
+}
