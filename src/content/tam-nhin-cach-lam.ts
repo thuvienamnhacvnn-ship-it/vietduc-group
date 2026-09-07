@@ -411,14 +411,14 @@ export const TAM_NHIN_2045 = {
     "zh-TW": "未來屬於不斷學習與調適的組織。",
   } satisfies L10nMap,
   anh: {
-    src: "/media/education/xuong-lap-rap.webp",
+    src: "/media/education/nghe-03.webp",
     alt: {
-      vi: "Toàn cảnh xưởng thực hành lắp ráp – điện tử của trường thành viên",
-      en: "A wide view of a member school's assembly and electronics training hall",
-      de: "Weiter Blick in die Montage- und Elektronikhalle einer Mitgliedsschule",
-      ja: "加盟校の組立・電子実習場の全景",
-      ko: "회원 학교 조립·전자 실습장의 전경",
-      "zh-TW": "成員學校組裝與電子實習場的全景",
+      vi: "Buổi học tập trung tại hội trường của trường thành viên",
+      en: "A whole-cohort session in a member school's main hall",
+      de: "Eine Veranstaltung für den ganzen Jahrgang in der Aula einer Mitgliedsschule",
+      ja: "加盟校の講堂で行われた全体授業",
+      ko: "회원 학교 대강당에서 열린 전체 수업",
+      "zh-TW": "成員學校大禮堂中的全體課程",
     },
   } satisfies Anh,
 };
