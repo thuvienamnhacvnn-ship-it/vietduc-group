@@ -54,20 +54,15 @@ export function TamNhin({ locale }: { locale: Locale }) {
 
   return (
     <section className={styles.scope} aria-labelledby="tam-nhin">
-      {/* ---------------------------------------------------- 01 mở đầu */}
-      <div className={styles.moDau}>
-        <div className={styles.moDauAnh}>
-          <Image
-            src="/media/vision/tam-nhin-rong.webp"
-            alt={pick(MO_DAU.anhAlt, locale)}
-            width={2172}
-            height={724}
-            priority
-            sizes="100vw"
-          />
-        </div>
-        <span className={styles.moDauPhu} aria-hidden="true" />
+      {/*
+        ---------------------------------------------------- 01 mở đầu
 
+        Không có ảnh nền. Bức ảnh chủ đạo của tập đoàn đã lên làm banner ở đầu
+        trang Giới thiệu, nơi nó không mang chữ nào; đặt lại nó ở đây rồi phủ
+        chữ lên là quay về đúng chỗ hỏng — chữ rơi vào mặt người. Khối này đứng
+        bằng chữ trên nền navy, và con số 2045 làm điểm tựa thị giác.
+      */}
+      <div className={styles.moDau}>
         <div className={`shell ${styles.moDauTrong}`}>
           <div className={styles.moDauChu}>
             <p className={styles.nhan}>{pick(MO_DAU.nhan, locale)}</p>
@@ -159,6 +154,7 @@ export function TamNhin({ locale }: { locale: Locale }) {
                     height={1050}
                     sizes="(min-width: 700px) 46vw, 100vw"
                   />
+                  <figcaption>{pick(m.anh.alt, locale)}</figcaption>
                 </figure>
                 <div>
                   <span className={styles.giaTriSo} aria-hidden="true">
@@ -222,6 +218,17 @@ export function TamNhin({ locale }: { locale: Locale }) {
             </div>
           </div>
 
+          <figure className={styles.anhRong}>
+            <Image
+              src={DOANH_NGHIEP.anh.src}
+              alt={pick(DOANH_NGHIEP.anh.alt, locale)}
+              width={1600}
+              height={900}
+              sizes="(min-width: 1000px) 1100px, 100vw"
+            />
+            <figcaption>{pick(DOANH_NGHIEP.anh.alt, locale)}</figcaption>
+          </figure>
+
           <p className={styles.chotKhoi}>{pick(DOANH_NGHIEP.chot, locale)}</p>
         </div>
       </div>
@@ -231,6 +238,26 @@ export function TamNhin({ locale }: { locale: Locale }) {
         <div className="shell">
           <h3 className={styles.tieuDeKhoi}>{pick(NANG_LUC_MOI.tieuDe, locale)}</h3>
           <p className={styles.luuY}>{pick(NANG_LUC_MOI.luuY, locale)}</p>
+
+          {/* Ba tấm cho thấy công việc đang nói tới trông ra sao. Danh sách
+              tám nhóm bên dưới cố ý không kèm ảnh: kho tư liệu mới đủ cho năm
+              nhóm, ba nhóm còn lại mà dựng ảnh thì thành bịa thiết bị. */}
+          <ul className={styles.daiAnh}>
+            {NANG_LUC_MOI.dai.map((a) => (
+              <li key={a.src}>
+                <figure>
+                  <Image
+                    src={a.src}
+                    alt={pick(a.alt, locale)}
+                    width={1400}
+                    height={1050}
+                    sizes="(min-width: 700px) 30vw, 100vw"
+                  />
+                  <figcaption>{pick(a.alt, locale)}</figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
 
           <ul className={styles.ngheMoi}>
             {NANG_LUC_MOI.nhom.map((n) => (
@@ -327,10 +354,11 @@ export function TamNhin({ locale }: { locale: Locale }) {
               <Image
                 src={TAM_NHIN_2045.anh.src}
                 alt={pick(TAM_NHIN_2045.anh.alt, locale)}
-                width={1400}
-                height={875}
+                width={1600}
+                height={900}
                 sizes="(min-width: 1000px) 46vw, 100vw"
               />
+              <figcaption>{pick(TAM_NHIN_2045.anh.alt, locale)}</figcaption>
             </figure>
           </div>
 

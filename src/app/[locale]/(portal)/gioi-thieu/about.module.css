@@ -1,4 +1,42 @@
 /*
+ * Banner mở trang.
+ *
+ * Kéo ngược lên bằng đúng khoảng đệm trên của `page` để nó chạm mép trên, và
+ * ra sát hai lề của cột nội dung. Người vào trang Giới thiệu nhìn thấy bức này
+ * trước cả tiêu đề — đó là chủ ý.
+ *
+ * Không có lớp phủ và không có chữ đè lên. Bức ảnh có người ở chính giữa; mọi
+ * dòng chữ phủ lên đều rơi vào mặt hoặc vào vùng dày chi tiết nhất, và không
+ * có gradient nào chữa được điều đó.
+ */
+.banner {
+  display: block;
+  width: 100%;
+  margin-top: calc(var(--s-6) * -1);
+  margin-bottom: var(--s-6);
+  overflow: hidden;
+  background: var(--band);
+}
+
+.bannerImage {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Ảnh gốc tỉ lệ 3:1. Trên màn hẹp, cắt bớt hai bên và neo vào giữa để nhân
+     vật không bị đẩy ra khỏi khung. */
+  max-height: min(46vh, 460px);
+  object-fit: cover;
+  object-position: 50% 42%;
+}
+
+@media (max-width: 699px) {
+  .bannerImage {
+    max-height: 34vh;
+    object-position: 56% 42%;
+  }
+}
+
+/*
  * The group's own page. Built around one editable block of prose, so the layout
  * has to carry the weight the text cannot: a full-width photograph of the
  * building, the counts that can be verified, the workshops, the crests.
@@ -6,53 +44,22 @@
 
 /* ------------------------------------------------------------------ hero */
 
-.hero {
-  position: relative;
-  display: block;
-  /* Full width of the page column, not of the window: the page is inset by the
-     navigation rail, and 100vw would hang off the right edge. */
-  width: 100%;
-  overflow: hidden;
-  isolation: isolate;
-}
-
-.heroImage {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: min(62vh, 620px);
-  object-fit: cover;
-  object-position: 50% 46%;
-}
-
-/* Only the foot is shaded, and only enough to seat the numbers that ride it. */
-.heroFade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(
-    0deg,
-    rgba(10, 14, 20, 0.62) 0%,
-    rgba(10, 14, 20, 0.24) 18%,
-    transparent 42%
-  );
-}
-
-/* The numbers overlap the picture's lower edge, so the two read as one block
-   rather than a picture with a caption under it. */
+/*
+ * Dải số liệu.
+ *
+ * Trước đây nó kéo âm để cưỡi lên mép dưới tấm ảnh trụ sở nằm ngay trên. Banner
+ * nay đã lên đầu trang và phía trên dải này là tiêu đề trang, nên lề âm ấy sẽ
+ * kéo các con số chồng lên chữ. Trả về khoảng cách thường.
+ */
 .statWrap {
   position: relative;
   z-index: 1;
-  margin-top: clamp(-4.5rem, -6vw, -2.5rem);
+  margin-top: var(--s-6);
 }
 
 @media (max-width: 719px) {
-  .heroImage {
-    max-height: 46vh;
-  }
-
   .statWrap {
-    margin-top: clamp(-2.5rem, -6vw, -1.25rem);
+    margin-top: var(--s-5);
   }
 }
 

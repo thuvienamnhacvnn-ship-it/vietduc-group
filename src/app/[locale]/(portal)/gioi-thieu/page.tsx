@@ -124,6 +124,28 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
   return (
     <div className={shell.page}>
+      {/* Banner mở trang. Không đặt chữ lên trên: bức này có người ở chính
+          giữa, mọi dòng chữ phủ lên đều rơi vào mặt hoặc vào vùng dày chi
+          tiết nhất. */}
+      <section className={styles.banner}>
+        <Image
+          src="/media/vision/tam-nhin-rong.webp"
+          alt={say({
+            vi: "Ban lãnh đạo Việt Đức Group cùng hình ảnh các trường thành viên và giờ thực hành nghề",
+            en: "The Viet Duc Group leadership with the member schools and scenes from workshop training",
+            de: "Die Führung der Viet Duc Group mit den Mitgliedsschulen und Szenen aus der Werkstattausbildung",
+            ja: "Viet Duc Group の経営陣と、加盟各校および実習風景",
+            ko: "Viet Duc Group 경영진과 회원 학교들, 그리고 실습 장면",
+            "zh-TW": "Viet Duc Group 經營團隊，以及各成員學校與實作教學的場景",
+          })}
+          width={2172}
+          height={724}
+          priority
+          sizes="100vw"
+          className={styles.bannerImage}
+        />
+      </section>
+
       <div className="shell">
         <PageHead
           crumbs={<Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />}
@@ -133,25 +155,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         />
       </div>
 
-      {/* The building, full width, with the numbers riding its lower edge. */}
-      <section className={styles.hero}>
-        <Image
-          src="/media/hero/vdg-banner-16x9.webp"
-          alt={say({
-            vi: "Trụ sở Việt Đức Group",
-            en: "The Viet Duc Group headquarters",
-            de: "Der Hauptsitz der Viet Duc Group",
-            ja: "Viet Duc Group 本部",
-            ko: "Viet Duc Group 본부",
-            "zh-TW": "Viet Duc Group 總部",
-          })}
-          width={1672}
-          height={941}
-          priority
-          className={styles.heroImage}
-        />
-        <span className={styles.heroFade} aria-hidden="true" />
-      </section>
 
       <div className={`shell ${styles.statWrap}`}>
         <StatRow stats={stats} />

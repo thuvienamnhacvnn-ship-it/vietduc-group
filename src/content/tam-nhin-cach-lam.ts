@@ -79,6 +79,17 @@ export const DOANH_NGHIEP = {
     ko: "채용의 필요가 다시 과정을 고치는 데로 돌아옵니다",
     "zh-TW": "招募需求回流，持續更新課程",
   } satisfies L10nMap,
+  anh: {
+    src: "/media/vision/danh-gia-san-pham-thuc-hanh.webp",
+    alt: {
+      vi: "Nhà trường và doanh nghiệp cùng xem xét chi tiết gia công và bản vẽ trên bàn",
+      en: "School and employer looking over machined parts and drawings together",
+      de: "Schule und Betrieb begutachten gemeinsam Werkstücke und Zeichnungen",
+      ja: "学校と企業がともに、加工した部品と図面を検分する",
+      ko: "학교와 기업이 함께 가공 부품과 도면을 살펴본다",
+      "zh-TW": "校方與企業共同檢視加工零件與圖說",
+    },
+  } satisfies Anh,
   chot: {
     vi: "Nhu cầu thực tế tham gia định hình chương trình ngay từ đầu.",
     en: "Real demand shapes the programme from the very first step.",
@@ -113,6 +124,41 @@ export const NANG_LUC_MOI = {
     ko: "이는 산업에서 새로 생겨나는 역량의 방향이며, 현재 모집 중인 과정 목록이 아닙니다.",
     "zh-TW": "以下為產業中正在形成的能力方向，並非目前招生的課程清單。",
   } satisfies L10nMap,
+  dai: [
+    {
+      src: "/media/vision/robot-cong-nghiep.webp",
+      alt: {
+        vi: "Kỹ thuật viên cầm bộ điều khiển cầm tay, dạy việc cho cánh tay robot công nghiệp",
+        en: "A technician with a handheld pendant, teaching an industrial robot arm",
+        de: "Eine Fachkraft programmiert mit dem Handbediengerät einen Industrieroboter",
+        ja: "ティーチングペンダントを手に、産業用ロボットに動きを教える技術者",
+        ko: "티치 펜던트를 들고 산업용 로봇 팔에 동작을 가르치는 기술자",
+        "zh-TW": "技術員手持示教器，教導工業機器手臂動作",
+      },
+    },
+    {
+      src: "/media/vision/in-3d.webp",
+      alt: {
+        vi: "Học viên cầm chi tiết vừa in 3D, đối chiếu với máy in phía sau",
+        en: "A trainee holding a freshly printed part, next to the 3D printer",
+        de: "Ein Auszubildender hält ein frisch gedrucktes Bauteil neben dem 3D-Drucker",
+        ja: "刷り上がった部品を手に、3D プリンターの前に立つ学習者",
+        ko: "막 출력된 부품을 손에 들고 3D 프린터 앞에 선 학습자",
+        "zh-TW": "學員手持剛列印完成的零件，站在 3D 列印機前",
+      },
+    },
+    {
+      src: "/media/vision/bao-tri-dong-co.webp",
+      alt: {
+        vi: "Kỹ thuật viên đo kiểm động cơ trên dây chuyền, dùng thiết bị cầm tay",
+        en: "A technician measuring a motor on the line with a handheld instrument",
+        de: "Eine Fachkraft misst mit einem Handgerät einen Motor an der Linie",
+        ja: "ライン上のモーターを、手持ちの計測器で点検する技術者",
+        ko: "라인 위 모터를 휴대용 계측기로 점검하는 기술자",
+        "zh-TW": "技術員以手持儀器檢測產線上的馬達",
+      },
+    },
+  ] satisfies Anh[],
   nhom: [
     {
       ten: { vi: "Kỹ thuật viên robot", en: "Robotics technician", de: "Robotiktechnik", ja: "ロボット技術者", ko: "로봇 기술자", "zh-TW": "機器人技術員" },
@@ -411,14 +457,14 @@ export const TAM_NHIN_2045 = {
     "zh-TW": "未來屬於不斷學習與調適的組織。",
   } satisfies L10nMap,
   anh: {
-    src: "/media/education/nghe-03.webp",
+    src: "/media/vision/toa-nha-viet-duc.webp",
     alt: {
-      vi: "Buổi học tập trung tại hội trường của trường thành viên",
-      en: "A whole-cohort session in a member school's main hall",
-      de: "Eine Veranstaltung für den ganzen Jahrgang in der Aula einer Mitgliedsschule",
-      ja: "加盟校の講堂で行われた全体授業",
-      ko: "회원 학교 대강당에서 열린 전체 수업",
-      "zh-TW": "成員學校大禮堂中的全體課程",
+      vi: "Toà nhà mang tên Việt Đức Group",
+      en: "The building carrying the Viet Duc Group name",
+      de: "Das Gebäude mit dem Namen der Viet Duc Group",
+      ja: "Viet Duc Group の名を掲げた建物",
+      ko: "Viet Duc Group의 이름을 내건 건물",
+      "zh-TW": "掛有 Viet Duc Group 名號的建築",
     },
   } satisfies Anh,
 };

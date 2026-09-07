@@ -148,14 +148,14 @@ export const DICH_CHUYEN = {
     } satisfies L10nMap,
   },
   anh: {
-    src: "/media/education/xuong-thuc-hanh-may.webp",
+    src: "/media/vision/cnc-may-tinh.webp",
     alt: {
-      vi: "Giờ thực hành trên máy công cụ tại xưởng của trường thành viên",
-      en: "A machine-tool practical in a member school's workshop",
-      de: "Praktikum an der Werkzeugmaschine in der Werkstatt einer Mitgliedsschule",
-      ja: "加盟校の工場での工作機械実習",
-      ko: "회원 학교 실습장의 공작기계 실습",
-      "zh-TW": "成員學校工場中的工具機實作課",
+      vi: "Học viên đọc chương trình gia công trên máy tính ngay cạnh máy CNC",
+      en: "A trainee reading the machining program on a laptop beside the CNC machine",
+      de: "Ein Auszubildender liest das Bearbeitungsprogramm am Laptop neben der CNC-Maschine",
+      ja: "CNC 機のかたわらで、加工プログラムをノートパソコンで読む学習者",
+      ko: "CNC 기계 옆에서 노트북으로 가공 프로그램을 읽는 학습자",
+      "zh-TW": "學員在 CNC 機台旁以筆電閱讀加工程式",
     },
   } satisfies Anh,
 };
@@ -200,8 +200,8 @@ export const GIA_TRI = {
         "zh-TW": ["與企業實際使用相符的設備", "置於真實職場情境中的練習", "動手階段有指導者在旁"],
       },
       anh: {
-        src: "/media/education/xuong-lap-rap.webp",
-        alt: { vi: "Dãy bàn thực hành lắp ráp, điện – điện tử tại trường thành viên", en: "The assembly and electrical practice benches at a member school", de: "Montage- und Elektro-Übungsplätze in einer Mitgliedsschule", ja: "加盟校の組立・電気実習台", ko: "회원 학교의 조립·전기 실습대", "zh-TW": "成員學校的組裝與電機實作工作檯" },
+        src: "/media/vision/to-thuc-hanh-co-khi.webp",
+        alt: { vi: "Một tổ thực hành tháo lắp cụm truyền động, có đeo găng bảo hộ", en: "A practice team stripping down a gear assembly, wearing protective gloves", de: "Eine Übungsgruppe zerlegt eine Getriebebaugruppe, mit Schutzhandschuhen", ja: "保護手袋を着けて伝動装置を分解する実習班", ko: "보호 장갑을 끼고 전동 장치를 분해하는 실습 조", "zh-TW": "戴著防護手套拆解傳動組件的實作小組" },
       },
     },
     {
@@ -224,8 +224,8 @@ export const GIA_TRI = {
         "zh-TW": ["如同工廠現場的作息與防護裝備", "依規定格式交接、記錄與回報", "分工明確的團隊作業"],
       },
       anh: {
-        src: "/media/education/cong-truong-ky-thuat.webp",
-        alt: { vi: "Học viên mặc đồ bảo hộ và đội mũ trong giờ thực hành kỹ thuật", en: "Trainees in protective gear and helmets during a technical practical", de: "Auszubildende mit Schutzkleidung und Helm im technischen Praktikum", ja: "保護具とヘルメットを着けた技術実習", ko: "보호 장비와 안전모를 착용한 기술 실습", "zh-TW": "身著防護裝備與安全帽的技術實作課" },
+        src: "/media/vision/han-co-nguoi-kem.webp",
+        alt: { vi: "Giờ hàn: mặt nạ, tạp dề và găng đầy đủ, người hướng dẫn đứng kèm bên cạnh", en: "A welding session: full mask, apron and gloves, with an instructor standing alongside", de: "Schweißübung mit Maske, Schürze und Handschuhen – die Lehrkraft steht daneben", ja: "溶接の実習。面・前掛け・手袋を着け、指導者がすぐそばに立つ", ko: "용접 실습. 마스크와 앞치마, 장갑을 갖추고 지도자가 곁에 선다", "zh-TW": "銲接實作：面罩、圍裙與手套齊備，指導者就在一旁" },
       },
     },
     {
@@ -248,8 +248,8 @@ export const GIA_TRI = {
         "zh-TW": ["以招募語言寫成的學習成果", "納入課程之內的企業實習", "協助備審資料、面試與踏入職場的第一步"],
       },
       anh: {
-        src: "/media/education/tien-hoc-vien-len-duong.webp",
-        alt: { vi: "Tiễn học viên lên đường nhận việc", en: "Seeing trainees off as they leave for work", de: "Verabschiedung von Auszubildenden vor dem Arbeitsantritt", ja: "就業に発つ学生の見送り", ko: "일터로 떠나는 학생을 배웅하는 자리", "zh-TW": "歡送學員啟程就業" },
+        src: "/media/vision/nha-may-so.webp",
+        alt: { vi: "Hai kỹ thuật viên trẻ theo dõi dây chuyền qua máy tính bảng ngay tại xưởng", en: "Two young technicians following the line on a tablet, out on the shop floor", de: "Zwei junge Fachkräfte verfolgen die Linie am Tablet – direkt in der Halle", ja: "現場で、タブレットを手にラインを見守る二人の若い技術者", ko: "현장에서 태블릿으로 라인을 지켜보는 두 젊은 기술자", "zh-TW": "兩位年輕技術員在現場以平板監看產線" },
       },
     },
     {
@@ -272,8 +272,8 @@ export const GIA_TRI = {
         "zh-TW": ["與企業共同訂定學習成果", "教師與工程師一同授課", "隨生產的變化更新課程"],
       },
       anh: {
-        src: "/media/education/hoi-nghi-hop-tac.webp",
-        alt: { vi: "Buổi làm việc giữa nhà trường và đối tác doanh nghiệp", en: "A working session between the school and employer partners", de: "Arbeitstreffen zwischen Schule und Unternehmenspartnern", ja: "学校と企業提携先との打ち合わせ", ko: "학교와 기업 협력사의 업무 협의", "zh-TW": "學校與企業夥伴的工作會議" },
+        src: "/media/vision/cung-thiet-ke-voi-doanh-nghiep.webp",
+        alt: { vi: "Người của nhà trường và của doanh nghiệp cùng đứng quanh một mô hình thiết bị", en: "School and company people together around a training rig", de: "Schule und Unternehmen gemeinsam an einem Übungsaufbau", ja: "学校と企業の担当者が、実習装置を囲んでともに立つ", ko: "학교와 기업 관계자가 실습 장비를 함께 둘러선 자리", "zh-TW": "校方與企業人員一同圍在一組教學設備旁" },
       },
     },
   ],

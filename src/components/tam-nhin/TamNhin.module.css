@@ -22,37 +22,22 @@
 
 /* ================================================================ 01 mở đầu */
 
+/*
+ * Khối mở đầu: chữ trên nền navy, không ảnh.
+ *
+ * Bức ảnh chủ đạo của tập đoàn đã lên làm banner ở đầu trang Giới thiệu. Đặt
+ * lại nó ở đây rồi phủ chữ lên là quay về đúng chỗ hỏng cũ — nhân vật đứng
+ * giữa khung, mọi dòng chữ đè lên đều rơi vào mặt.
+ *
+ * Một dải sáng rất nhạt hắt từ góc trên bên phải, đủ để nền không phẳng lì.
+ */
 .moDau {
   position: relative;
   overflow: hidden;
-  background: var(--band);
-  color: #f2f5f9;
-}
-
-.moDauAnh {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.moDauAnh img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Nhân vật nằm giữa – phải trong bức gốc; neo về phải để vùng trái còn tối
-     và trống cho chữ. */
-  object-position: 84% 50%;
-}
-
-/* Lớp phủ chuyển sắc, không phải một tấm màn mờ: bên trái đủ đặc để chữ trắng
-   đọc được, bên phải gần như trong để ảnh còn nguyên. */
-.moDauPhu {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
   background:
-    linear-gradient(100deg, rgba(9, 16, 24, 0.94) 0%, rgba(9, 16, 24, 0.82) 38%, rgba(9, 16, 24, 0.28) 68%, rgba(9, 16, 24, 0.1) 100%),
-    linear-gradient(180deg, rgba(9, 16, 24, 0.5) 0%, rgba(9, 16, 24, 0) 30%);
+    radial-gradient(70% 90% at 88% 8%, rgba(196, 145, 69, 0.16), transparent 62%),
+    var(--band);
+  color: #f2f5f9;
 }
 
 .moDauTrong {
@@ -61,12 +46,12 @@
   display: grid;
   align-content: center;
   gap: var(--s-5);
-  min-height: min(82vh, 780px);
+  min-height: min(64vh, 620px);
   padding-block: clamp(3rem, 8vw, 6rem);
 }
 
 .moDauChu {
-  max-width: 58%;
+  max-width: 40ch;
 }
 
 .nhan {
@@ -1068,7 +1053,7 @@
   }
 
   .moDauChu {
-    max-width: 74%;
+    max-width: 34ch;
   }
 
   .mucLucTrong {
@@ -1114,26 +1099,6 @@
 /* ================================================================ điện thoại */
 
 @media (max-width: 699px) {
-  /*
-   * Khối mở đầu trên điện thoại: chữ trên nền navy đặc, ảnh thành một dải bên
-   * dưới. Không chồng chữ lên ảnh nữa — ở bề ngang này, vùng trống bên trái
-   * của bức ảnh không còn đủ chỗ, chữ sẽ đè lên đúng chỗ đông chi tiết nhất.
-   */
-  .moDauAnh {
-    position: static;
-    display: block;
-    height: 42vw;
-    min-height: 200px;
-  }
-
-  .moDauAnh img {
-    object-position: 62% 50%;
-  }
-
-  .moDauPhu {
-    display: none;
-  }
-
   .moDauTrong {
     min-height: 0;
     padding-block: clamp(2rem, 8vw, 3rem);
@@ -1227,5 +1192,101 @@
   .nutChinh,
   .nutPhu {
     transition: none;
+  }
+}
+
+/* ============================================ chú thích và ảnh thêm vào */
+
+/*
+ * Mọi ảnh trong mục đều có chú thích.
+ *
+ * Chú thích nằm DƯỚI ảnh, không đè lên — mấy bức này đều dày chi tiết và có
+ * người, chữ phủ lên chỗ nào cũng rơi vào mặt hoặc vào thiết bị. Nó cũng là
+ * chỗ nói rõ đang nhìn thấy cái gì, thay vì để người đọc tự đoán.
+ */
+.giaTriAnh figcaption,
+.n2045Anh figcaption,
+.anhRong figcaption,
+.daiAnh figcaption {
+  padding: var(--s-3) var(--s-4);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted-soft);
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line);
+}
+
+/* Trong khối nền tối, chú thích phải đổi cả nền lẫn màu chữ. */
+.khoiToi .n2045Anh figcaption {
+  color: #aab4c0;
+  background: rgba(255, 255, 255, 0.04);
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+/* Ảnh rộng một cột, dùng ở khối hợp tác doanh nghiệp. */
+.anhRong {
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+.anhRong img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Dải ba ảnh mở đầu khối năng lực mới. */
+.daiAnh {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daiAnh figure {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--paper-raised);
+}
+
+.daiAnh img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+@media (max-width: 699px) {
+  /* Vuốt ngang, cùng lối với các dải ảnh khác trên site: ba tấm xếp chồng ở
+     khổ này là thêm gần một màn hình cuộn cho một dải minh hoạ. */
+  .daiAnh {
+    display: flex;
+    gap: 0.55rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: calc(var(--s-4) * -1);
+    padding-inline: var(--s-4);
+    scroll-padding-inline: var(--s-4);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+  }
+
+  .daiAnh::-webkit-scrollbar {
+    display: none;
+  }
+
+  .daiAnh li {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
   }
 }
