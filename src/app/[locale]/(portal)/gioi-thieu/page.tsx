@@ -157,7 +157,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               ko: "해 질 녘 불 밝힌 도시를 배경으로 선 Viet Duc Group 경영진",
               "zh-TW": "暮色中華燈初上的城市前，Viet Duc Group 的經營團隊",
             })}
-            width={2172}
+            width={1742}
             height={724}
             priority
             sizes="100vw"

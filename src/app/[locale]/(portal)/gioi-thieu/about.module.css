@@ -48,7 +48,7 @@
   height: auto;
   max-height: min(62vh, 620px);
   object-fit: cover;
-  object-position: 62% 46%;
+  object-position: 78% 46%;
 }
 
 /* Chân ảnh chìm dần vào nền tối để tấm bảng không cắt ngang một đường sắc. */
