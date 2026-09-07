@@ -35,3 +35,7 @@ next-env.d.ts
 /_l10n.json
 /_dich/
 /scripts/_*.ts
+
+# Ghi chú dành cho công cụ soạn thảo lúc phát triển, không thuộc về sản phẩm.
+/CLAUDE.md
+/AGENTS.md
