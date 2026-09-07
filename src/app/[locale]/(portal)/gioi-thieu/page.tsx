@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, localePath, t, type Locale, pick as pickLocale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPage, getPartners, getPrograms, getSchools } from "@/lib/queries";
-import { ArrowLink, Breadcrumbs, Prose, SectionHeading, StatRow } from "@/components/ui";
-import { PageHead } from "@/components/PageHead";
+import { ArrowLink, Breadcrumbs, Prose } from "@/components/ui";
 import { PhotoWall } from "@/components/PhotoWall";
+import { SoDem } from "@/components/SoDem";
 import { TamNhin } from "@/components/tam-nhin/TamNhin";
 import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
@@ -31,17 +32,18 @@ export async function generateMetadata({
 }
 
 /**
- * The group's own page.
+ * Trang Giới thiệu.
  *
- * The text is the same editable page row the generic CMS template renders -
- * this route exists only to give it somewhere better to live. As plain prose in
- * a narrow column it was a wall of type on paper, which is the wrong first
- * impression for the page a visitor opens to decide whether the group is real.
+ * Mạch trang: ảnh mở đầu với tấm bảng tiêu đề kèm bốn con số — chuyện của tập
+ * đoàn — dải ảnh ngắt chương — sơ đồ ba mảng — đội ngũ — sáu trường thành viên
+ * — rồi mục Tầm nhìn & Triết lý giáo dục.
  *
- * So the words keep their place, and everything the site already knows is set
- * around them: the building, the count of schools and programmes actually
- * registered, photographs from the workshops and the ceremonies, and the crests
- * of the six member schools.
+ * Hai nguyên tắc giữ suốt trang:
+ *
+ *  - Không đặt chữ lên ảnh. Ảnh nào của tập đoàn cũng có người ở trong, và chữ
+ *    phủ lên đều rơi vào mặt. Chỗ của chữ là tấm bảng bên dưới ảnh.
+ *  - Con số lấy thẳng từ cơ sở dữ liệu, không viết tay. Đếm được bao nhiêu
+ *    trường, bao nhiêu ngành đã đăng ký thì hiện bấy nhiêu.
  */
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -61,22 +63,50 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   /* Gói chữ tại chỗ cho gọn; thiếu ngôn ngữ nào thì `pick` lùi về tiếng Việt. */
   const say = (map: Parameters<typeof pickLocale<string>>[0]): string => pickLocale(map, locale);
 
-  const stats = [
+  const soLieu = [
     {
-      value: String(schools.length),
-      label: say({ vi: "trường thành viên", en: "member schools", de: "Mitgliedsschulen", ja: "加盟校", ko: "회원 학교", "zh-TW": "所成員學校" }),
+      so: schools.length,
+      nhan: say({
+        vi: "trường thành viên",
+        en: "member schools",
+        de: "Mitgliedsschulen",
+        ja: "の加盟校",
+        ko: "개 회원 학교",
+        "zh-TW": "所成員學校",
+      }),
     },
     {
-      value: String(programs.length),
-      label: say({ vi: "ngành đã đăng ký", en: "registered programmes", de: "registrierte Programme", ja: "認可課程", ko: "인가 과정", "zh-TW": "已立案課程" }),
+      so: programs.length,
+      nhan: say({
+        vi: "ngành đã đăng ký hoạt động",
+        en: "registered occupations",
+        de: "registrierte Berufsprofile",
+        ja: "の認可職種",
+        ko: "개 인가 직종",
+        "zh-TW": "個已立案職類",
+      }),
     },
     {
-      value: String(partners.length),
-      label: say({ vi: "doanh nghiệp đối tác", en: "partner employers", de: "Partnerunternehmen", ja: "提携企業", ko: "협력 기업", "zh-TW": "合作企業" }),
+      so: partners.length,
+      nhan: say({
+        vi: "doanh nghiệp đối tác",
+        en: "partner employers",
+        de: "Partnerunternehmen",
+        ja: "の提携企業",
+        ko: "개 협력 기업",
+        "zh-TW": "家合作企業",
+      }),
     },
     {
-      value: "2",
-      label: say({ vi: "quốc gia", en: "countries", de: "Länder", ja: "か国", ko: "개국", "zh-TW": "個國家" }),
+      so: new Set(schools.map((s) => s.country)).size,
+      nhan: say({
+        vi: "quốc gia",
+        en: "countries",
+        de: "Länder",
+        ja: "か国",
+        ko: "개국",
+        "zh-TW": "個國家",
+      }),
     },
   ];
 
@@ -84,150 +114,236 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
    * Sơ đồ cấu trúc tập đoàn, lấy từ kho. Ảnh thứ hai trong nhóm brand là sơ đồ;
    * ảnh thứ nhất là logo, đã dùng ở chỗ khác.
    */
-  const chart = khoAnh("brand")[1] ?? null;
+  const soDo = khoAnh("brand")[1] ?? null;
 
-  /*
-   * Ảnh hoạt động lấy từ kho tiếp nhận. Bốn ảnh cũ giữ lại làm dự phòng: nếu
-   * chưa ai đổ ảnh vào kho thì mục này vẫn có cái để dựng thay vì biến mất.
-   */
-  const fromKho = khoAnh("activities");
-  const mosaic = fromKho.length
-    ? fromKho.map((src) => ({
-        src,
-        alt: say({
-          vi: "Ban lãnh đạo Việt Đức Group",
-          en: "The Viet Duc Group leadership",
-          de: "Die Führung der Viet Duc Group",
-          ja: "Viet Duc Group の経営陣",
-          ko: "Viet Duc Group 경영진",
-          "zh-TW": "Viet Duc Group 經營團隊",
-        }),
-      }))
-    : [
-        {
-          src: "/media/education/xuong-thuc-hanh-may.webp",
-          alt: say({ vi: "Xưởng thực hành cơ khí", en: "The machining workshop", de: "Die Maschinenwerkstatt", ja: "機械実習工場", ko: "기계 실습 공장", "zh-TW": "機械實習工場" }),
-        },
-        {
-          src: "/media/education/nghiep-vu-le-tan.webp",
-          alt: say({ vi: "Thực hành nghiệp vụ lễ tân", en: "Front-office training", de: "Rezeptionstraining", ja: "フロント業務の実習", ko: "프런트 업무 실습", "zh-TW": "櫃檯實務操作" }),
-        },
-        {
-          src: "/media/education/gap-doi-tac-chau-au.webp",
-          alt: say({ vi: "Làm việc với đối tác châu Âu", en: "Meeting European partners", de: "Treffen mit Partnern", ja: "ヨーロッパの提携先との打ち合わせ", ko: "유럽 협력사와의 업무 협의", "zh-TW": "與歐洲夥伴的工作會談" }),
-        },
-        {
-          src: "/media/education/tien-hoc-vien-len-duong.webp",
-          alt: say({ vi: "Tiễn học viên lên đường", en: "Seeing students off", de: "Verabschiedung", ja: "旅立つ学生の見送り", ko: "떠나는 학생을 배웅하며", "zh-TW": "歡送學員啟程" }),
-        },
-      ];
+  /* Ảnh đội ngũ lấy từ kho tiếp nhận; chưa có thì mục này không dựng. */
+  const anhDoiNgu = khoAnh("activities").map((src) => ({
+    src,
+    alt: say({
+      vi: "Ban lãnh đạo Việt Đức Group",
+      en: "The Viet Duc Group leadership",
+      de: "Die Führung der Viet Duc Group",
+      ja: "Viet Duc Group の経営陣",
+      ko: "Viet Duc Group 경영진",
+      "zh-TW": "Viet Duc Group 經營團隊",
+    }),
+  }));
 
   return (
-    <div className={shell.page}>
-      {/* Banner mở trang. Không đặt chữ lên trên: bức này có người ở chính
-          giữa, mọi dòng chữ phủ lên đều rơi vào mặt hoặc vào vùng dày chi
-          tiết nhất. */}
-      <section className={styles.banner}>
+    <div className={`${shell.page} ${styles.trang}`}>
+      {/* ------------------------------------------------------- mở đầu */}
+      <section className={styles.mo}>
         <Image
-          src="/media/vision/tam-nhin-rong.webp"
+          src="/media/vision/lanh-dao-do-thi.webp"
           alt={say({
-            vi: "Ban lãnh đạo Việt Đức Group cùng hình ảnh các trường thành viên và giờ thực hành nghề",
-            en: "The Viet Duc Group leadership with the member schools and scenes from workshop training",
-            de: "Die Führung der Viet Duc Group mit den Mitgliedsschulen und Szenen aus der Werkstattausbildung",
-            ja: "Viet Duc Group の経営陣と、加盟各校および実習風景",
-            ko: "Viet Duc Group 경영진과 회원 학교들, 그리고 실습 장면",
-            "zh-TW": "Viet Duc Group 經營團隊，以及各成員學校與實作教學的場景",
+            vi: "Ban lãnh đạo Việt Đức Group trước khu đô thị lên đèn lúc chiều tối",
+            en: "The Viet Duc Group leadership before the lit city at dusk",
+            de: "Die Führung der Viet Duc Group vor der beleuchteten Stadt in der Dämmerung",
+            ja: "夕暮れ、灯りのともる街を背にした Viet Duc Group の経営陣",
+            ko: "해 질 녘 불 밝힌 도시를 배경으로 선 Viet Duc Group 경영진",
+            "zh-TW": "暮色中華燈初上的城市前，Viet Duc Group 的經營團隊",
           })}
           width={2172}
           height={724}
           priority
           sizes="100vw"
-          className={styles.bannerImage}
+          className={styles.moAnh}
         />
-      </section>
+        <span className={styles.moPhu} aria-hidden="true" />
+        <span className={styles.moPhuDuoi} aria-hidden="true" />
 
-      <div className="shell">
-        <PageHead
-          crumbs={<Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />}
-          eyebrow={say({ vi: "Việt Đức Group", en: "Viet Duc Group", de: "Viet Duc Group", ja: "Viet Duc グループ", ko: "Viet Duc 그룹", "zh-TW": "Viet Duc 集團" })}
-          title={t(page.title, locale)}
-          lead={dict.brand.motto}
-        />
-      </div>
-
-
-      <div className={`shell ${styles.statWrap}`}>
-        <StatRow stats={stats} />
-      </div>
-
-      {/* The editable text, with photographs beside it rather than under it. */}
-      <section className={`section ${styles.storySection}`}>
         <div className="shell">
-          <div className={styles.story}>
-            <div className={styles.storyText}>
-              {page.body ? <Prose markdown={t(page.body, locale)} /> : null}
-              <div className={styles.storyLinks}>
-                <ArrowLink href={path("/tam-nhin-su-menh")}>{dict.nav.vision}</ArrowLink>
-                <ArrowLink href={path("/dao-tao/truong")}>{dict.nav.schools}</ArrowLink>
-              </div>
-            </div>
+          <div className={styles.bang} data-reveal>
+            <Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />
 
-            <aside className={styles.storyAside} data-reveal>
-              <figure className={styles.asideFigure}>
-                <Image
-                  src="/media/education/cong-truong-ky-thuat.webp"
-                  alt={say({
-                    vi: "Giờ thực hành kỹ thuật",
-                    en: "A technical practical",
-                    de: "Technische Übungsstunde",
-                    ja: "技術実習の時間",
-                    ko: "기술 실습 시간",
-                    "zh-TW": "技術實作課",
-                  })}
-                  width={1400}
-                  height={1000}
-                />
-              </figure>
-              <figure className={styles.asideFigure}>
-                <Image
-                  src="/media/education/trao-thuong-hoc-sinh.webp"
-                  alt={say({ vi: "Trao thưởng cho học sinh", en: "Prize-giving", de: "Preisverleihung", ja: "生徒への表彰", ko: "학생 시상", "zh-TW": "學生頒獎" })}
-                  width={1400}
-                  height={1000}
-                />
-              </figure>
-            </aside>
+            <div className={styles.bangDau}>
+              <p className={styles.deTua}>{dict.brand.name}</p>
+            </div>
+            <h1 className={styles.bangTieuDe}>{t(page.title, locale)}</h1>
+            <p className={styles.bangDan}>{dict.brand.motto}</p>
+
+            <dl className={styles.soLieu}>
+              {soLieu.map((s, i) => (
+                <div
+                  key={s.nhan}
+                  className={styles.oSo}
+                  data-reveal
+                  style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+                >
+                  <dd className={styles.soLon}>
+                    <SoDem so={s.so} />
+                  </dd>
+                  <dt className={styles.soNhan}>{s.nhan}</dt>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </section>
 
-      {/* Sơ đồ tập đoàn: một tấm nói được nhiều hơn cả trang chữ - ba mảng,
-          năm thương hiệu đầu tư và khách sạn, bảy huy hiệu trường. */}
-      {chart ? (
-        <section className={`section ${styles.chartSection}`}>
+      {/* ------------------------------------------------------- chuyện */}
+      <section className={styles.khoi}>
+        <div className="shell">
+          <div className={styles.chuyen}>
+            <div className={styles.chuyenBen}>
+              <p className={styles.deTua}>
+                {say({
+                  vi: "Câu chuyện",
+                  en: "The story",
+                  de: "Die Geschichte",
+                  ja: "歩み",
+                  ko: "우리의 이야기",
+                  "zh-TW": "我們的故事",
+                })}
+              </p>
+              <h2 className={styles.chuyenTieuDe}>{dict.home.aboutTitle}</h2>
+
+              <div className={styles.anhBen}>
+                <figure className={styles.o} data-reveal>
+                  <Image
+                    src="/media/vision/to-thuc-hanh-co-khi.webp"
+                    alt={say({
+                      vi: "Một tổ thực hành tháo lắp cụm truyền động",
+                      en: "A practice team stripping down a gear assembly",
+                      de: "Eine Übungsgruppe zerlegt eine Getriebebaugruppe",
+                      ja: "伝動装置を分解する実習班",
+                      ko: "전동 장치를 분해하는 실습 조",
+                      "zh-TW": "拆解傳動組件的實作小組",
+                    })}
+                    width={1400}
+                    height={1050}
+                    sizes="(min-width: 1000px) 30vw, 50vw"
+                  />
+                  <figcaption>
+                    {say({
+                      vi: "Giờ thực hành cơ khí",
+                      en: "A mechanical practical",
+                      de: "Praktikum Mechanik",
+                      ja: "機械実習の時間",
+                      ko: "기계 실습 시간",
+                      "zh-TW": "機械實作課",
+                    })}
+                  </figcaption>
+                </figure>
+
+                <figure
+                  className={styles.o}
+                  data-reveal
+                  style={{ "--reveal-delay": "90ms" } as React.CSSProperties}
+                >
+                  <Image
+                    src="/media/vision/cung-thiet-ke-voi-doanh-nghiep.webp"
+                    alt={say({
+                      vi: "Người của nhà trường và của doanh nghiệp cùng đứng quanh một mô hình thiết bị",
+                      en: "School and company people together around a training rig",
+                      de: "Schule und Unternehmen gemeinsam an einem Übungsaufbau",
+                      ja: "学校と企業の担当者が実習装置を囲む",
+                      ko: "학교와 기업 관계자가 실습 장비를 둘러선 자리",
+                      "zh-TW": "校方與企業人員一同圍在教學設備旁",
+                    })}
+                    width={1600}
+                    height={900}
+                    sizes="(min-width: 1000px) 30vw, 50vw"
+                  />
+                  <figcaption>
+                    {say({
+                      vi: "Làm việc cùng doanh nghiệp đối tác",
+                      en: "Working with employer partners",
+                      de: "Zusammenarbeit mit Partnerunternehmen",
+                      ja: "提携企業との協働",
+                      ko: "협력 기업과의 협업",
+                      "zh-TW": "與合作企業共事",
+                    })}
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+
+            <div className={styles.chuyenChu}>
+              {page.body ? <Prose markdown={t(page.body, locale)} /> : null}
+
+              <p className={styles.trich}>{dict.brand.motto}</p>
+
+              <div className={styles.chuyenLink}>
+                <ArrowLink href={path("/tam-nhin-su-menh")}>{dict.nav.vision}</ArrowLink>
+                <ArrowLink href={path("/dao-tao/truong")}>{dict.nav.schools}</ArrowLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------- dải ngắt chương */}
+      <section className={styles.dai}>
+        <Image
+          src="/media/vision/toan-canh-hoang-hon.webp"
+          alt={say({
+            vi: "Toàn cảnh khu đô thị và cơ sở đào tạo nhìn từ trên cao lúc hoàng hôn",
+            en: "An aerial view of the campus and its surroundings at sunset",
+            de: "Luftbild des Campus und seiner Umgebung bei Sonnenuntergang",
+            ja: "夕日のなか、上空から見たキャンパスとその周辺",
+            ko: "해 질 무렵 상공에서 내려다본 캠퍼스와 그 일대",
+            "zh-TW": "夕陽下自空中俯瞰的校區與周邊",
+          })}
+          width={2172}
+          height={724}
+          sizes="100vw"
+          className={styles.daiAnh}
+        />
+        <div className="shell">
+          <p className={styles.daiChu}>
+            {say({
+              vi: "Giáo dục, đầu tư và khách sạn – lữ hành: ba mảng dưới một cái tên.",
+              en: "Education, investment and hospitality: three arms under one name.",
+              de: "Bildung, Investition und Hotellerie: drei Bereiche unter einem Namen.",
+              ja: "教育、投資、そしてホテル・旅行 — ひとつの名の下に三つの領域。",
+              ko: "교육과 투자, 호텔·여행 — 하나의 이름 아래 세 영역.",
+              "zh-TW": "教育、投資與飯店旅遊：一個名字下的三大領域。",
+            })}
+          </p>
+        </div>
+      </section>
+
+      {/* -------------------------------------------------------- sơ đồ */}
+      {soDo ? (
+        <section className={`${styles.khoi} ${styles.khoiNen}`}>
           <div className="shell">
-            <SectionHeading
-              eyebrow={say({ vi: "Cấu trúc", en: "Structure", de: "Struktur", ja: "組織構成", ko: "조직 구성", "zh-TW": "組織架構" })}
-              title={say({
-                vi: "Ba mảng dưới một cái tên",
-                en: "Three arms under one name",
-                de: "Drei Bereiche unter einem Namen",
-                ja: "ひとつの名の下に三つの領域",
-                ko: "하나의 이름 아래 세 영역",
-                "zh-TW": "一個名字，三大領域",
-              })}
-              lead={say({
-                vi: "Giáo dục, đầu tư và khách sạn – lữ hành, cùng các trường thành viên.",
-                en: "Education, investment, and hospitality, with the member schools.",
-                de: "Bildung, Investition und Hotellerie, mit den Mitgliedsschulen.",
-                ja: "教育、投資、そしてホテル・旅行。あわせて加盟各校。",
-                ko: "교육, 투자, 그리고 호텔·여행. 여기에 회원 학교들.",
-                "zh-TW": "教育、投資與飯店旅遊，以及各成員學校。",
-              })}
-            />
-            <figure className={styles.chart}>
+            <div className={styles.dauMuc}>
+              <p className={styles.deTua}>
+                {say({
+                  vi: "Cấu trúc",
+                  en: "Structure",
+                  de: "Struktur",
+                  ja: "組織構成",
+                  ko: "조직 구성",
+                  "zh-TW": "組織架構",
+                })}
+              </p>
+              <h2 className={styles.chuyenTieuDe}>
+                {say({
+                  vi: "Ba mảng dưới một cái tên",
+                  en: "Three arms under one name",
+                  de: "Drei Bereiche unter einem Namen",
+                  ja: "ひとつの名の下に三つの領域",
+                  ko: "하나의 이름 아래 세 영역",
+                  "zh-TW": "一個名字，三大領域",
+                })}
+              </h2>
+              <p>
+                {say({
+                  vi: "Giáo dục, đầu tư và khách sạn – lữ hành, cùng các trường thành viên.",
+                  en: "Education, investment, and hospitality, with the member schools.",
+                  de: "Bildung, Investition und Hotellerie, mit den Mitgliedsschulen.",
+                  ja: "教育、投資、ホテル・旅行、そして加盟各校。",
+                  ko: "교육과 투자, 호텔·여행, 그리고 회원 학교들.",
+                  "zh-TW": "教育、投資與飯店旅遊，以及各成員學校。",
+                })}
+              </p>
+            </div>
+
+            <figure className={styles.soDo} data-reveal>
               <Image
-                src={chart}
+                src={soDo}
                 alt={say({
                   vi: "Sơ đồ cấu trúc Việt Đức Group",
                   en: "The Viet Duc Group structure",
@@ -240,71 +356,113 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 height={1024}
                 sizes="(min-width: 1100px) 1100px, 100vw"
               />
+              <figcaption>
+                {say({
+                  vi: "Sơ đồ trích từ hồ sơ năng lực của tập đoàn.",
+                  en: "The chart as printed in the group's capability profile.",
+                  de: "Das Schaubild aus dem Leistungsprofil der Gruppe.",
+                  ja: "グループの会社案内に掲載された組織図。",
+                  ko: "그룹 역량 소개서에 실린 조직도.",
+                  "zh-TW": "取自集團能力簡介的組織架構圖。",
+                })}
+              </figcaption>
             </figure>
           </div>
         </section>
       ) : null}
 
-      {/* A band of what the schools actually do. */}
-      <section className={`section ${styles.mosaicSection}`}>
-        <div className="shell">
-          <SectionHeading
-            eyebrow={say({ vi: "Đội ngũ", en: "Leadership", de: "Führung", ja: "経営陣", ko: "경영진", "zh-TW": "經營團隊" })}
-            title={say({
-              vi: "Đội ngũ lãnh đạo",
-              en: "The people who run it",
-              de: "Die Führung der Gruppe",
-              ja: "率いている人たち",
-              ko: "이끄는 사람들",
-              "zh-TW": "領導團隊",
-            })}
-            lead={say({
-              vi: "Ban lãnh đạo Việt Đức Group tại các lễ kỷ niệm, chuyến công tác và những buổi làm việc với đối tác trong nước và nước ngoài.",
-              en: "The Viet Duc Group leadership at anniversaries, field visits and working sessions with partners at home and abroad.",
-              de: "Die Führung der Viet Duc Group bei Jubiläen, Vor-Ort-Besuchen und Arbeitstreffen mit Partnern.",
-              ja: "記念式典、視察、そして国内外の提携先との協議に臨む Viet Duc Group の経営陣。",
-              ko: "기념식과 현장 방문, 그리고 국내외 협력사와의 업무 협의에 임한 Viet Duc Group 경영진.",
-              "zh-TW": "Viet Duc Group 經營團隊出席週年慶典、實地訪視，以及與國內外夥伴的工作會談。",
-            })}
-          />
-        </div>
-        <div className={styles.mosaicWrap}>
-          <PhotoWall
-            shots={mosaic}
-            limit={9}
-            moreLabel={(rest) =>
-              say({
-                vi: `Và ${rest} ảnh nữa trong kho tư liệu của tập đoàn.`,
-                en: `And ${rest} more in the group's archive.`,
-                de: `Und ${rest} weitere im Archiv der Gruppe.`,
-              })
-            }
-          />
-        </div>
-      </section>
+      {/* ------------------------------------------------------- đội ngũ */}
+      {anhDoiNgu.length ? (
+        <section className={styles.khoi}>
+          <div className="shell">
+            <div className={styles.dauMuc}>
+              <p className={styles.deTua}>
+                {say({
+                  vi: "Đội ngũ",
+                  en: "Leadership",
+                  de: "Führung",
+                  ja: "経営陣",
+                  ko: "경영진",
+                  "zh-TW": "經營團隊",
+                })}
+              </p>
+              <h2 className={styles.chuyenTieuDe}>
+                {say({
+                  vi: "Đội ngũ lãnh đạo",
+                  en: "The people who run it",
+                  de: "Die Führung der Gruppe",
+                  ja: "率いている人たち",
+                  ko: "이끄는 사람들",
+                  "zh-TW": "領導團隊",
+                })}
+              </h2>
+              <p>
+                {say({
+                  vi: "Ban lãnh đạo Việt Đức Group tại các lễ kỷ niệm, chuyến công tác và những buổi làm việc với đối tác trong nước và nước ngoài.",
+                  en: "The Viet Duc Group leadership at anniversaries, field visits and working sessions with partners at home and abroad.",
+                  de: "Die Führung der Viet Duc Group bei Jubiläen, Vor-Ort-Besuchen und Arbeitstreffen mit Partnern.",
+                  ja: "記念式典、視察、国内外の提携先との協議に臨む Viet Duc Group の経営陣。",
+                  ko: "기념식과 현장 방문, 국내외 협력사와의 업무 협의에 임한 Viet Duc Group 경영진.",
+                  "zh-TW": "Viet Duc Group 經營團隊出席週年慶典、實地訪視，以及與國內外夥伴的工作會談。",
+                })}
+              </p>
+            </div>
+          </div>
+          <div className={`shell ${styles.mosaicWrap}`}>
+            <PhotoWall
+              shots={anhDoiNgu}
+              limit={9}
+              moreLabel={(rest) =>
+                say({
+                  vi: `Và ${rest} ảnh nữa trong kho tư liệu của tập đoàn.`,
+                  en: `And ${rest} more in the group's archive.`,
+                  de: `Und ${rest} weitere im Archiv der Gruppe.`,
+                  ja: `ほかに ${rest} 点がグループの資料庫にあります。`,
+                  ko: `그 밖에 ${rest}장이 그룹 자료실에 있습니다.`,
+                  "zh-TW": `另有 ${rest} 張存於集團資料庫。`,
+                })
+              }
+            />
+          </div>
+        </section>
+      ) : null}
 
-      {/* The crests, as proof the network is six real institutions. */}
-      <section className={`section ${styles.crestSection}`}>
+      {/* -------------------------------------------------------- trường */}
+      <section className={`${styles.khoi} ${styles.khoiNen}`}>
         <div className="shell">
-          <SectionHeading
-            eyebrow={say({ vi: "Hệ thống", en: "The network", de: "Der Verbund", ja: "ネットワーク", ko: "네트워크", "zh-TW": "體系" })}
-            title={dict.home.schoolsTitle}
-          />
+          <div className={styles.dauMuc}>
+            <p className={styles.deTua}>
+              {say({
+                vi: "Hệ thống",
+                en: "The network",
+                de: "Der Verbund",
+                ja: "ネットワーク",
+                ko: "네트워크",
+                "zh-TW": "體系",
+              })}
+            </p>
+            <h2 className={styles.chuyenTieuDe}>{dict.home.schoolsTitle}</h2>
+          </div>
+
           <ul className={styles.crests}>
-            {schools.map((school) => (
-              <li key={school.id}>
-                {school.logoPath ? (
-                  <Image
-                    src={school.logoPath}
-                    alt={t(school.shortName ?? school.name, locale)}
-                    width={160}
-                    height={160}
-                  />
-                ) : null}
-                <span>{t(school.shortName ?? school.name, locale)}</span>
+            {schools.map((school, i) => (
+              <li
+                key={school.id}
+                data-reveal
+                style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
+              >
+                <Link href={path(`/dao-tao/truong/${school.slug}`)} className={styles.the}>
+                  {school.logoPath ? (
+                    <Image src={school.logoPath} alt="" width={160} height={160} />
+                  ) : null}
+                  <span className={styles.theTen}>
+                    {t(school.shortName ?? school.name, locale)}
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>
+
           <div className={styles.crestMore}>
             <ArrowLink href={path("/dao-tao/truong")}>{dict.common.viewAll}</ArrowLink>
           </div>

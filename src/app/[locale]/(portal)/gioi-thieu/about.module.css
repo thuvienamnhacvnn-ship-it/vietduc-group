@@ -1,295 +1,476 @@
 /*
- * Banner mở trang.
+ * Trang Giới thiệu.
  *
- * Kéo ngược lên bằng đúng khoảng đệm trên của `page` để nó chạm mép trên, và
- * ra sát hai lề của cột nội dung. Người vào trang Giới thiệu nhìn thấy bức này
- * trước cả tiêu đề — đó là chủ ý.
+ * Trang này trước đây là chữ trôi trên nền, ảnh nằm trần không khung, và những
+ * mảng trống lớn giữa các mục vì mọi thứ đều căn trái với cùng một bề rộng.
+ * Bản này dựng lại quanh ba thứ:
  *
- * Không có lớp phủ và không có chữ đè lên. Bức ảnh có người ở chính giữa; mọi
- * dòng chữ phủ lên đều rơi vào mặt hoặc vào vùng dày chi tiết nhất, và không
- * có gradient nào chữa được điều đó.
+ *  - KHUNG. Mỗi khối nội dung có một cái khung của nó — viền mảnh, nền hơi
+ *    nổi hơn nền trang. Người đọc nhìn ra ngay đâu là một đơn vị thông tin.
+ *  - NHỊP. Ảnh toàn chiều rộng xen giữa các khối chữ, làm chỗ ngắt chương.
+ *  - PHẢN HỒI. Mọi thứ bấm được hoặc rê chuột vào được đều nhúc nhích: nâng
+ *    lên, viền sáng lên, ảnh phóng nhẹ. Không có gì động đậy vô cớ.
+ *
+ * Mọi chuyển động đều tắt dưới `prefers-reduced-motion` ở cuối file.
  */
-.banner {
-  display: block;
-  width: 100%;
+
+.trang {
+  --nhip: clamp(3rem, 6vw, 7rem);
+}
+
+/* =============================================================== mở đầu */
+
+/*
+ * Ảnh toàn chiều rộng, rồi một tấm bảng nổi lên đè mép dưới của nó.
+ *
+ * Không đặt chữ lên ảnh. Bức nào của tập đoàn cũng có người ở trong, và chữ
+ * phủ lên đều rơi vào mặt — đã thử, đã hỏng, đã sửa. Tấm bảng giải quyết cả
+ * hai việc: chữ đọc được trên nền của chính nó, mà bố cục vẫn có lớp lang.
+ */
+.mo {
+  position: relative;
   margin-top: calc(var(--s-6) * -1);
-  margin-bottom: var(--s-6);
+  padding-bottom: clamp(2rem, 6vw, 5rem);
   overflow: hidden;
   background: var(--band);
 }
 
-.bannerImage {
+.moAnh {
   display: block;
   width: 100%;
   height: auto;
-  /* Ảnh gốc tỉ lệ 3:1. Trên màn hẹp, cắt bớt hai bên và neo vào giữa để nhân
-     vật không bị đẩy ra khỏi khung. */
-  max-height: min(46vh, 460px);
+  max-height: min(58vh, 560px);
   object-fit: cover;
-  object-position: 50% 42%;
+  object-position: 50% 46%;
 }
 
-@media (max-width: 699px) {
-  .bannerImage {
-    max-height: 34vh;
-    object-position: 56% 42%;
-  }
+/* Chân ảnh chìm dần vào nền tối để tấm bảng không cắt ngang một đường sắc. */
+.moPhu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 42%;
+  top: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(9, 16, 24, 0.55) 0%, rgba(9, 16, 24, 0) 100%);
 }
 
-/*
- * The group's own page. Built around one editable block of prose, so the layout
- * has to carry the weight the text cannot: a full-width photograph of the
- * building, the counts that can be verified, the workshops, the crests.
- */
+.moPhuDuoi {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 46%;
+  pointer-events: none;
+  background: linear-gradient(0deg, var(--band) 4%, rgba(9, 16, 24, 0) 100%);
+}
 
-/* ------------------------------------------------------------------ hero */
-
-/*
- * Dải số liệu.
- *
- * Trước đây nó kéo âm để cưỡi lên mép dưới tấm ảnh trụ sở nằm ngay trên. Banner
- * nay đã lên đầu trang và phía trên dải này là tiêu đề trang, nên lề âm ấy sẽ
- * kéo các con số chồng lên chữ. Trả về khoảng cách thường.
- */
-.statWrap {
+.bang {
   position: relative;
-  z-index: 1;
-  margin-top: var(--s-6);
+  z-index: 2;
+  margin-top: clamp(-7rem, -9vw, -3rem);
+  padding: clamp(1.6rem, 3.5vw, 3rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--paper-raised);
+  box-shadow: 0 24px 60px rgba(8, 12, 18, 0.4);
 }
 
-@media (max-width: 719px) {
-  .statWrap {
-    margin-top: var(--s-5);
-  }
+.bangDau {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--s-4);
 }
 
-/* ----------------------------------------------------------------- story */
-
-.storySection {
-  padding-top: var(--s-8);
+.deTua {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
-.story {
+.bangTieuDe {
+  margin: 0;
+  font-size: var(--step-4);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+}
+
+.bangDan {
+  margin: var(--s-4) 0 0;
+  max-width: 56ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ---- bốn con số trong tấm bảng ---- */
+
+.soLieu {
   display: grid;
-  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
+  padding-top: clamp(1.4rem, 3vw, 2rem);
+  border-top: 1px solid var(--line);
 }
 
-@media (min-width: 1000px) {
-  .story {
-    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
-    align-items: start;
-  }
-}
-
-.storyText {
+.oSo {
   min-width: 0;
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--gold);
 }
 
-.storyLinks {
+.soLon {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  line-height: 1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.soNhan {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--muted-soft);
+}
+
+/* =============================================================== chuyện */
+
+.khoi {
+  padding-block: var(--nhip);
+}
+
+.khoiNen {
+  background: var(--paper-raised);
+}
+
+.chuyen {
+  display: grid;
+  grid-template-columns: 4fr 7fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/*
+ * Cột trái dính lại khi cuộn.
+ *
+ * Đoạn chữ bên phải dài hơn cột trái khá nhiều; để cột trái trôi theo thì
+ * người đọc mất đầu đề ngay khi bắt đầu đọc. Dính lại giữ được ngữ cảnh mà
+ * không cần lặp lại tiêu đề.
+ */
+.chuyenBen {
+  position: sticky;
+  top: var(--s-6);
+}
+
+.chuyenTieuDe {
+  margin: var(--s-3) 0 0;
+  font-size: var(--step-3);
+  line-height: 1.12;
+}
+
+.chuyenChu > :global(p) {
+  font-size: var(--step-0);
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.chuyenLink {
   display: flex;
   flex-wrap: wrap;
   gap: var(--s-5);
   margin-top: var(--s-6);
   padding-top: var(--s-5);
-  border-top: 2px solid var(--gold);
+  border-top: 1px solid var(--line);
 }
 
-/* Two photographs stacked, the second dropped so the pair is not a column of
-   equal boxes. */
-.storyAside {
+/* Câu trích, đặt giữa dòng chảy chữ để mắt có chỗ nghỉ. */
+.trich {
+  margin: clamp(1.8rem, 3vw, 2.6rem) 0;
+  padding: clamp(1.2rem, 2.5vw, 1.8rem) clamp(1.4rem, 3vw, 2.2rem);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--r-3) var(--r-3) 0;
+  background: var(--accent-tint, rgba(142, 31, 45, 0.06));
+  font-family: var(--font-display);
+  font-size: clamp(1.08rem, 1.8vw, 1.4rem);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* ---- hai tấm ảnh dọc trong cột trái ---- */
+
+.anhBen {
   display: grid;
   gap: var(--s-4);
-  min-width: 0;
+  margin-top: var(--s-6);
 }
 
-.asideFigure {
+.o {
+  position: relative;
   margin: 0;
   overflow: hidden;
-  border-radius: var(--r-4);
   border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--beige);
 }
 
-.asideFigure img {
+.o img {
   display: block;
   width: 100%;
   height: auto;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  object-position: 50% 30%;
-  transition: scale 900ms var(--ease);
+  transition: scale 700ms var(--ease);
 }
 
-.asideFigure:hover img {
-  scale: 1.04;
-}
-
-@media (min-width: 1000px) {
-  .asideFigure:nth-child(2) {
-    margin-left: var(--s-6);
-  }
-}
-
-/* ---------------------------------------------------------------- mosaic */
-
-.mosaicSection {
-  background: linear-gradient(180deg, var(--paper) 0%, var(--beige) 100%);
-}
-
-.mosaicWrap {
-  width: 100%;
-  max-width: 1560px;
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-.mosaic {
-  display: grid;
-  gap: clamp(0.9rem, 1.6vw, 1.4rem);
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-@media (min-width: 900px) {
-  .mosaic {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  /* Two of the four run double width, so the band is a mosaic rather than a
-     row of identical tiles. */
-  .mosaicWide {
-    grid-column: span 2;
-  }
-}
-
-@media (max-width: 599px) {
-  .mosaic {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-
-.mosaic li {
-  position: relative;
-  min-width: 0;
-  overflow: hidden;
-  border-radius: var(--r-4);
-  border: 1px solid var(--line);
-  background: var(--beige);
-}
-
-.mosaic img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  aspect-ratio: 16 / 10;
-  object-fit: cover;
-  object-position: 50% 40%;
-  transition: scale 1000ms var(--ease);
-}
-
-.mosaic li:hover img {
+.o:hover img {
   scale: 1.05;
 }
 
-/* The group's red rises over the photograph as it is pointed at. */
-.mosaic li::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(142, 31, 45, 0) 44%, rgba(109, 21, 35, 0.62) 100%);
-  opacity: 0;
-  transition: opacity var(--dur-2) var(--ease);
+.o figcaption {
+  padding: var(--s-3) var(--s-4);
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted-soft);
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line);
 }
 
-.mosaic li:hover::after {
-  opacity: 1;
+/* ========================================================= dải ngắt chương */
+
+/*
+ * Ảnh toàn chiều rộng dùng làm chỗ ngắt giữa hai phần.
+ *
+ * Không có chữ đè lên, chỉ một dòng chú thích ở dưới. Nó tồn tại để mắt nghỉ
+ * và để người đọc biết vừa sang phần khác — thứ mà một khoảng trắng lớn không
+ * làm được, vì khoảng trắng chỉ trông như trang bị lỗi.
+ */
+.dai {
+  position: relative;
+  overflow: hidden;
+  background: var(--band);
 }
 
-/* ---------------------------------------------------------------- crests */
-
-.crestSection {
-  padding-block: var(--s-8);
+.daiAnh {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: min(46vh, 460px);
+  object-fit: cover;
 }
+
+.daiChu {
+  padding: var(--s-4) 0;
+  font-size: 0.84rem;
+  color: #9aa5b1;
+}
+
+/* ============================================================== sơ đồ */
+
+/*
+ * Sơ đồ cấu trúc: nền trắng, nên phải có khung riêng.
+ *
+ * Trước đây tấm này nằm trần trên nền tối của trang — một mảng trắng lớn không
+ * đầu không cuối. Đóng khung, đệm trong, và một dòng chú thích ở dưới thì nó
+ * thành một tài liệu được trình bày, không phải một file ảnh bị dán vào.
+ */
+.soDo {
+  margin-top: clamp(1.8rem, 4vw, 3rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: #fff;
+}
+
+.soDo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: clamp(1rem, 3vw, 2.5rem);
+}
+
+.soDo figcaption {
+  padding: var(--s-4) var(--s-5);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted-soft);
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line);
+}
+
+/* ============================================================ đội ngũ */
+
+.mosaicWrap {
+  margin-top: clamp(1.8rem, 4vw, 3rem);
+}
+
+/* ============================================================== trường */
 
 .crests {
   display: grid;
-  gap: var(--s-5);
-  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
-  margin: 0;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: clamp(1.8rem, 4vw, 3rem) 0 0;
   padding: 0;
   list-style: none;
 }
 
 .crests li {
+  min-width: 0;
+}
+
+/* Mỗi huy hiệu là một tấm thẻ bấm được, không phải một hình trang trí. */
+.the {
   display: grid;
   justify-items: center;
   gap: var(--s-3);
-  padding: var(--s-5) var(--s-4);
-  text-align: center;
-  background: var(--paper-raised);
+  height: 100%;
+  padding: var(--s-5) var(--s-3);
   border: 1px solid var(--line);
   border-radius: var(--r-4);
+  background: var(--paper-raised);
+  text-decoration: none;
+  color: inherit;
   transition:
+    transform var(--dur-2) var(--ease),
     border-color var(--dur-2) var(--ease),
-    transform var(--dur-2) var(--ease);
+    box-shadow var(--dur-2) var(--ease);
 }
 
-.crests li:hover {
-  border-color: var(--accent);
+.the:hover,
+.the:focus-visible {
   transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-2);
 }
 
-/* The crests belong to other institutions: white ground, never tinted. */
-.crests img {
+.the img {
   width: 64px;
   height: 64px;
   object-fit: contain;
-  padding: 6px;
-  border-radius: 50%;
-  background: #fff;
+  transition: scale var(--dur-2) var(--ease);
 }
 
-.crests span {
-  font-size: 0.86rem;
-  line-height: 1.4;
-  color: var(--muted);
+.the:hover img {
+  scale: 1.08;
+}
+
+.theTen {
+  font-size: 0.84rem;
+  line-height: 1.35;
+  text-align: center;
+  color: var(--ink);
 }
 
 .crestMore {
   margin-top: var(--s-6);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .asideFigure img,
-  .mosaic img,
-  .mosaic li::after,
-  .crests li {
-    transition: none;
+/* ========================================================== khung chung */
+
+.dauMuc {
+  max-width: 60ch;
+}
+
+.dauMuc p {
+  margin: var(--s-4) 0 0;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ======================================================== máy tính bảng */
+
+@media (max-width: 999px) {
+  .chuyen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chuyenBen {
+    position: static;
+  }
+
+  .anhBen {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .crests {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-/* ---------------------------------------------------------------- sơ đồ */
+/* ============================================================ điện thoại */
 
-.chartSection {
-  padding-block: var(--s-8);
+@media (max-width: 699px) {
+  .bang {
+    margin-top: clamp(-3rem, -8vw, -1.5rem);
+    padding: var(--s-5);
+  }
+
+  .soLieu {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-5) var(--s-4);
+  }
+
+  .anhBen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .crests {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .the {
+    grid-template-columns: 52px minmax(0, 1fr);
+    justify-items: start;
+    align-items: center;
+    padding: 0.7rem 0.85rem;
+  }
+
+  .the img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .theTen {
+    text-align: left;
+  }
+
+  .moAnh {
+    max-height: 32vh;
+  }
+
+  .daiAnh {
+    max-height: 30vh;
+  }
 }
 
-/* Sơ đồ là hình vẽ trên nền trắng, không phải ảnh chụp: giữ nền trắng của nó
-   và đóng khung mảnh, chứ không cắt cho vừa một tỷ lệ nào đó. */
-.chart {
-  margin: 0;
-  padding: clamp(1rem, 3vw, 2.5rem);
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--r-4);
-}
+/* ============================================================ chuyển động */
 
-.chart img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 1100px;
-  margin-inline: auto;
+@media (prefers-reduced-motion: reduce) {
+  .o img,
+  .the,
+  .the img {
+    transition: none;
+  }
+
+  .o:hover img,
+  .the:hover img {
+    scale: 1;
+  }
+
+  .the:hover,
+  .the:focus-visible {
+    transform: none;
+  }
 }
