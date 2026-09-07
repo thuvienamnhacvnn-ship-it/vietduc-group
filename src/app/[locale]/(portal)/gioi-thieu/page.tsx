@@ -165,55 +165,55 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           />
           <span className={styles.moPhu} aria-hidden="true" />
           <span className={styles.moPhuDuoi} aria-hidden="true" />
-        </div>
 
-        {/*
-          Chữ đặt trên mảng tối bên trái của banner.
-          Bức này có một vùng navy phẳng chạy dọc mép trái, dựng riêng để đặt
-          chữ — khác hẳn những bức trước, nơi nhân vật đứng chính giữa và mọi
-          dòng chữ phủ lên đều rơi vào mặt. Vẫn có một lớp phủ mỏng bên dưới
-          phòng khi ảnh được thay bằng bức khác sáng hơn.
-        */}
-        <div className={styles.moLop}>
-          <div className={`shell ${styles.moChu}`}>
-            <div className={styles.moTrong} data-reveal>
-              <Image
-                src="/media/so-do/viet-duc-group.png"
-                alt={dict.brand.name}
-                width={465}
-                height={327}
-                className={styles.moLogo}
-                priority
-              />
+          {/*
+            Chữ đặt trên mảng tối bên trái của banner.
+            Bức này có một vùng navy phẳng chạy dọc mép trái, dựng riêng để đặt
+            chữ — khác hẳn những bức trước, nơi nhân vật đứng chính giữa và mọi
+            dòng chữ phủ lên đều rơi vào mặt. Vẫn có một lớp phủ mỏng bên dưới
+            phòng khi ảnh được thay bằng bức khác sáng hơn.
+          */}
+          <div className={styles.moLop}>
+            <div className={`shell ${styles.moChu}`}>
+              <div className={styles.moTrong} data-reveal>
+                <Image
+                  src="/media/so-do/viet-duc-group.png"
+                  alt={dict.brand.name}
+                  width={465}
+                  height={327}
+                  className={styles.moLogo}
+                  priority
+                />
 
-              <p className={styles.deTua}>
-                <span className={styles.gach} aria-hidden="true" />
-                {t(page.title, locale)}
-              </p>
+                <p className={styles.deTua}>
+                  <span className={styles.gach} aria-hidden="true" />
+                  {t(page.title, locale)}
+                </p>
 
-              <h1 className={styles.moTieuDe}>
-                {say({
-                  vi: "Hệ thống giáo dục nghề nghiệp Việt Đức",
-                  en: "The Viet Duc vocational education system",
-                  de: "Das Berufsbildungssystem der Viet Duc Group",
-                  ja: "Viet Duc の職業教育ネットワーク",
-                  ko: "Viet Duc 직업교육 체계",
-                  "zh-TW": "Viet Duc 技職教育體系",
-                })}
-              </h1>
+                <h1 className={styles.moTieuDe}>
+                  {say({
+                    vi: "Hệ thống giáo dục nghề nghiệp Việt Đức",
+                    en: "The Viet Duc vocational education system",
+                    de: "Das Berufsbildungssystem der Viet Duc Group",
+                    ja: "Viet Duc の職業教育ネットワーク",
+                    ko: "Viet Duc 직업교육 체계",
+                    "zh-TW": "Viet Duc 技職教育體系",
+                  })}
+                </h1>
 
-              <span className={styles.vach} aria-hidden="true" />
+                <span className={styles.vach} aria-hidden="true" />
 
-              <p className={styles.moDan}>
-                {say({
-                  vi: "Hiện đại và luôn đổi mới",
-                  en: "Modern, and always renewing itself",
-                  de: "Modern und stets in Erneuerung",
-                  ja: "現代的であり、つねに新しくありつづける",
-                  ko: "현대적이며, 끊임없이 새로워지는",
-                  "zh-TW": "現代化，且不斷革新",
-                })}
-              </p>
+                <p className={styles.moDan}>
+                  {say({
+                    vi: "Hiện đại và luôn đổi mới",
+                    en: "Modern, and always renewing itself",
+                    de: "Modern und stets in Erneuerung",
+                    ja: "現代的であり、つねに新しくありつづける",
+                    ko: "현대적이며, 끊임없이 새로워지는",
+                    "zh-TW": "現代化，且不斷革新",
+                  })}
+                </p>
+              </div>
             </div>
           </div>
         </div>
