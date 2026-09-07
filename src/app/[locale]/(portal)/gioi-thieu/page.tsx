@@ -125,12 +125,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       href: path(`/dao-tao/truong/${s.slug}`),
     }));
 
-  /*
-   * Sơ đồ cấu trúc tập đoàn, lấy từ kho. Ảnh thứ hai trong nhóm brand là sơ đồ;
-   * ảnh thứ nhất là logo, đã dùng ở chỗ khác.
-   */
-  const soDo = khoAnh("brand")[1] ?? null;
-
   /* Ảnh đội ngũ lấy từ kho tiếp nhận; chưa có thì mục này không dựng. */
   const anhDoiNgu = khoAnh("activities").map((src) => ({
     src,
@@ -169,6 +163,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <span className={styles.moPhuDuoi} aria-hidden="true" />
         </div>
 
+        {/*
+          Tiêu đề trang là KHẨU HIỆU, không phải chữ "Giới thiệu".
+          Đường dẫn phía trên đã nói người đọc đang ở trang nào, nên nhắc lại
+          bằng một dòng chữ cỡ lớn chỉ tốn chỗ mà không thêm gì. Tên trang thật
+          vẫn nằm trong thẻ <title> và trong đường dẫn.
+        */}
         <div className={`shell ${styles.moChu}`}>
           <Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />
 
@@ -177,12 +177,34 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             {dict.brand.name}
           </p>
           <h1 className={styles.moTieuDe} data-reveal>
-            {t(page.title, locale)}
+            {dict.brand.motto}
           </h1>
           <span className={styles.vach} data-reveal aria-hidden="true" />
-          <p className={styles.moDan} data-reveal>
-            {dict.brand.motto}
-          </p>
+        </div>
+
+        {/*
+          Mạng lưới nhánh, đặt liền ngay dưới banner trong cùng một nền tối.
+          Trước đây nó là một mục riêng cách banner cả màn hình, và vì là vòng
+          tròn 760px nên chiếm chỗ như một trang con. Ở đây nó dẹt lại thành
+          một dải ngang, nối tiếp banner thành một khối mở đầu duy nhất.
+        */}
+        <div className="shell">
+          <SoDoHeSinhThai
+            locale={locale}
+            tam={{
+              src: "/media/so-do/viet-duc-group.png",
+              ten: {
+                vi: "Việt Đức Group",
+                en: "Viet Duc Group",
+                de: "Viet Duc Group",
+                ja: "Viet Duc Group",
+                ko: "Viet Duc Group",
+                "zh-TW": "Viet Duc Group",
+              },
+            }}
+            vongTrong={thuongHieu}
+            vongNgoai={nhanhTruong}
+          />
         </div>
       </section>
 
@@ -308,63 +330,6 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </p>
         </div>
       </section>
-
-      {/* -------------------------------------------------------- sơ đồ */}
-      {soDo ? (
-        <section className={`${styles.khoi} ${styles.khoiNen}`}>
-          <div className="shell">
-            <div className={styles.dauMuc}>
-              <p className={styles.deTua}>
-                {say({
-                  vi: "Cấu trúc",
-                  en: "Structure",
-                  de: "Struktur",
-                  ja: "組織構成",
-                  ko: "조직 구성",
-                  "zh-TW": "組織架構",
-                })}
-              </p>
-              <h2 className={styles.chuyenTieuDe}>
-                {say({
-                  vi: "Ba mảng dưới một cái tên",
-                  en: "Three arms under one name",
-                  de: "Drei Bereiche unter einem Namen",
-                  ja: "ひとつの名の下に三つの領域",
-                  ko: "하나의 이름 아래 세 영역",
-                  "zh-TW": "一個名字，三大領域",
-                })}
-              </h2>
-              <p>
-                {say({
-                  vi: "Giáo dục, đầu tư và khách sạn – lữ hành, cùng các trường thành viên.",
-                  en: "Education, investment, and hospitality, with the member schools.",
-                  de: "Bildung, Investition und Hotellerie, mit den Mitgliedsschulen.",
-                  ja: "教育、投資、ホテル・旅行、そして加盟各校。",
-                  ko: "교육과 투자, 호텔·여행, 그리고 회원 학교들.",
-                  "zh-TW": "教育、投資與飯店旅遊，以及各成員學校。",
-                })}
-              </p>
-            </div>
-
-            <SoDoHeSinhThai
-              locale={locale}
-              tam={{
-                src: "/media/so-do/viet-duc-group.png",
-                ten: {
-                  vi: "Việt Đức Group",
-                  en: "Viet Duc Group",
-                  de: "Viet Duc Group",
-                  ja: "Viet Duc Group",
-                  ko: "Viet Duc Group",
-                  "zh-TW": "Viet Duc Group",
-                },
-              }}
-              vongTrong={thuongHieu}
-              vongNgoai={nhanhTruong}
-            />
-          </div>
-        </section>
-      ) : null}
 
       {/* ------------------------------------------------------- đội ngũ */}
       {anhDoiNgu.length ? (

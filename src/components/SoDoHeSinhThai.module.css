@@ -9,16 +9,20 @@
  * khi rê chuột. Cả hai đều tắt dưới `prefers-reduced-motion`.
  */
 
+/* Nối tiếp banner, không cách xa: khối mở đầu là một mạch liền. */
 .boc {
-  margin-top: clamp(2rem, 4vw, 3.5rem);
+  margin-top: clamp(0.5rem, 2vw, 1.5rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3rem);
 }
 
 .khung {
   position: relative;
   width: 100%;
-  max-width: 760px;
+  max-width: 1080px;
   margin-inline: auto;
-  aspect-ratio: 1;
+  /* Dải ngang: cao bằng khoảng 46% bề ngang, vừa đủ cho hai vòng elip mà không
+     đẩy phần nội dung phía dưới xuống quá sâu. */
+  aspect-ratio: 22 / 10;
 }
 
 /* ---------------------------------------------------------- đường nối */
@@ -174,8 +178,9 @@
 /* ---- ba cỡ ---- */
 
 .tam {
-  width: 30%;
-  height: 30%;
+  width: 19%;
+  aspect-ratio: 1;
+  height: auto;
   z-index: 2;
 }
 
@@ -191,14 +196,16 @@
 }
 
 .trong {
-  width: 19%;
-  height: 19%;
+  width: 12.5%;
+  aspect-ratio: 1;
+  height: auto;
   z-index: 2;
 }
 
 .ngoai {
-  width: 15.5%;
-  height: 15.5%;
+  width: 10.5%;
+  aspect-ratio: 1;
+  height: auto;
   z-index: 2;
 }
 

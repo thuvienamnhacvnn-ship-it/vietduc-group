@@ -43,24 +43,30 @@ export function SoDoHeSinhThai({
 }) {
   const [dangRe, setDangRe] = useState<string | null>(null);
 
-  /* Toạ độ phần trăm trong khung vuông. Góc tính từ 12 giờ, quay theo chiều kim đồng hồ. */
-  const diem = (goc: number, banKinh: number) => {
+  /*
+   * Toạ độ phần trăm. Góc tính từ 12 giờ, quay theo chiều kim đồng hồ.
+   *
+   * Elip chứ không phải đường tròn: khung là một dải ngang nối tiếp banner, nên
+   * bán kính ngang lớn hơn bán kính dọc. Vòng tròn đều ở đây sẽ cao bằng cả một
+   * màn hình và tách rời khỏi banner phía trên.
+   */
+  const diem = (goc: number, rx: number, ry: number) => {
     const rad = ((goc - 90) * Math.PI) / 180;
-    return { x: 50 + Math.cos(rad) * banKinh, y: 50 + Math.sin(rad) * banKinh };
+    return { x: 50 + Math.cos(rad) * rx, y: 50 + Math.sin(rad) * ry };
   };
 
   const nut = [
     ...vongTrong.map((n, i) => ({
       ...n,
       vong: "trong" as const,
-      ...diem((360 / vongTrong.length) * i, 28),
+      ...diem((360 / vongTrong.length) * i, 24, 30),
     })),
     /* Vòng ngoài lệch nửa bước so với vòng trong: nhánh ngoài không nằm thẳng
        sau nhánh trong, nên không có đường nối nào bị che khuất. */
     ...vongNgoai.map((n, i) => ({
       ...n,
       vong: "ngoai" as const,
-      ...diem((360 / vongNgoai.length) * i + 360 / vongNgoai.length / 2, 44),
+      ...diem((360 / vongNgoai.length) * i + 360 / vongNgoai.length / 2, 43, 43),
     })),
   ];
 
