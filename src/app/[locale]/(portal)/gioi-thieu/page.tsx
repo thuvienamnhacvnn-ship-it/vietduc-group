@@ -133,24 +133,26 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <div className={`${shell.page} ${styles.trang}`}>
       {/* ------------------------------------------------------- mở đầu */}
       <section className={styles.mo}>
-        <Image
-          src="/media/vision/lanh-dao-do-thi.webp"
-          alt={say({
-            vi: "Ban lãnh đạo Việt Đức Group trước khu đô thị lên đèn lúc chiều tối",
-            en: "The Viet Duc Group leadership before the lit city at dusk",
-            de: "Die Führung der Viet Duc Group vor der beleuchteten Stadt in der Dämmerung",
-            ja: "夕暮れ、灯りのともる街を背にした Viet Duc Group の経営陣",
-            ko: "해 질 녘 불 밝힌 도시를 배경으로 선 Viet Duc Group 경영진",
-            "zh-TW": "暮色中華燈初上的城市前，Viet Duc Group 的經營團隊",
-          })}
-          width={2172}
-          height={724}
-          priority
-          sizes="100vw"
-          className={styles.moAnh}
-        />
-        <span className={styles.moPhu} aria-hidden="true" />
-        <span className={styles.moPhuDuoi} aria-hidden="true" />
+        <div className={styles.moKhung}>
+          <Image
+            src="/media/vision/lanh-dao-do-thi.webp"
+            alt={say({
+              vi: "Ban lãnh đạo Việt Đức Group trước khu đô thị lên đèn lúc chiều tối",
+              en: "The Viet Duc Group leadership before the lit city at dusk",
+              de: "Die Führung der Viet Duc Group vor der beleuchteten Stadt in der Dämmerung",
+              ja: "夕暮れ、灯りのともる街を背にした Viet Duc Group の経営陣",
+              ko: "해 질 녘 불 밝힌 도시를 배경으로 선 Viet Duc Group 경영진",
+              "zh-TW": "暮色中華燈初上的城市前，Viet Duc Group 的經營團隊",
+            })}
+            width={2172}
+            height={724}
+            priority
+            sizes="100vw"
+            className={styles.moAnh}
+          />
+          <span className={styles.moPhu} aria-hidden="true" />
+          <span className={styles.moPhuDuoi} aria-hidden="true" />
+        </div>
 
         <div className="shell">
           <div className={styles.bang} data-reveal>

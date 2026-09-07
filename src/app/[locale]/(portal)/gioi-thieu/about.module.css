@@ -35,6 +35,14 @@
   background: var(--band);
 }
 
+/* Khung riêng cho ảnh: hai lớp chuyển sắc phải bám mép ảnh, không bám mép cả
+   khối — khối còn chứa tấm bảng và khoảng đệm dưới nó. */
+.moKhung {
+  position: relative;
+  display: block;
+  line-height: 0;
+}
+
 .moAnh {
   display: block;
   width: 100%;
