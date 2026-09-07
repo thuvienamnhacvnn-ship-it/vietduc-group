@@ -1,0 +1,1223 @@
+/*
+ * Mục "Tầm nhìn & Triết lý giáo dục" trên trang Giới thiệu.
+ *
+ * Chín khối nối nhau thành một mạch đọc, không phải chín trang rời. Nhịp sáng
+ * — tối được đặt có chủ ý: khối mở đầu, khối 2045 và khối kết là ba chỗ tối và
+ * nổi nhất; giữa chúng là các khối nền giấy để mắt nghỉ.
+ *
+ * KHÔNG đặt bảng màu mới. Đề bài cho phép dùng navy/teal riêng "nếu website
+ * chưa có bộ màu rõ ràng" — site này có: giấy ấm, navy, đỏ burgundy làm nhấn,
+ * vàng làm điểm. Thêm teal vào đây sẽ là màu thứ tư không thuộc về đâu cả.
+ * Chất "công nghệ" lấy từ bố cục và nhịp chữ, không lấy từ một màu mới.
+ *
+ * Cỡ chữ cũng dùng thang có sẵn: --step-5 tối đa 80px (đề bài xin 64–88),
+ * --step-3 tối đa 41,6px (xin 36–52), --step-0 tối đa 17,3px (xin 17–19).
+ */
+
+.scope {
+  /* Khoảng cách dọc giữa các khối: 96–144px trên máy tính, 56–80px trên điện
+     thoại — đúng dải đề bài yêu cầu, viết một lần ở đây. */
+  --nhip: clamp(3.5rem, 7vw, 9rem);
+}
+
+/* ================================================================ 01 mở đầu */
+
+.moDau {
+  position: relative;
+  overflow: hidden;
+  background: var(--band);
+  color: #f2f5f9;
+}
+
+.moDauAnh {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.moDauAnh img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Nhân vật nằm giữa – phải trong bức gốc; neo về phải để vùng trái còn tối
+     và trống cho chữ. */
+  object-position: 72% 50%;
+}
+
+/* Lớp phủ chuyển sắc, không phải một tấm màn mờ: bên trái đủ đặc để chữ trắng
+   đọc được, bên phải gần như trong để ảnh còn nguyên. */
+.moDauPhu {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(100deg, rgba(9, 16, 24, 0.94) 0%, rgba(9, 16, 24, 0.82) 38%, rgba(9, 16, 24, 0.28) 68%, rgba(9, 16, 24, 0.1) 100%),
+    linear-gradient(180deg, rgba(9, 16, 24, 0.5) 0%, rgba(9, 16, 24, 0) 30%);
+}
+
+.moDauTrong {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  align-content: center;
+  gap: var(--s-5);
+  min-height: min(82vh, 780px);
+  padding-block: clamp(3rem, 8vw, 6rem);
+}
+
+.moDauChu {
+  max-width: 58%;
+}
+
+.nhan {
+  display: inline-block;
+  margin: 0 0 var(--s-4);
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--gold);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.moDauTieuDe {
+  margin: 0;
+  font-size: var(--step-5);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+
+.moDauMoTa {
+  margin: var(--s-5) 0 0;
+  max-width: 46ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: #cdd6e0;
+}
+
+/* Câu dẫn nhập. Nghiêng và có vạch bên trái để đọc ra ngay đây là một câu hỏi
+   đặt vấn đề, không phải khẩu hiệu của thương hiệu. */
+.moDauDan {
+  margin: var(--s-6) 0 0;
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--gold);
+  max-width: 44ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.6vw, 1.32rem);
+  font-style: italic;
+  line-height: 1.5;
+  color: #e6ebf1;
+}
+
+.moDauNut {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: var(--s-6);
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--r-pill, 999px);
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--dur-2) var(--ease);
+}
+
+.moDauNut:hover {
+  background: #a3313f;
+}
+
+.moDauNut svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* Con số năm, đặt chìm bên phải. Cỡ lớn nhưng độ tương phản thấp: nó là nền,
+   không tranh chỗ với tiêu đề. */
+.moDauNam {
+  position: absolute;
+  right: clamp(1rem, 4vw, 3rem);
+  bottom: clamp(1rem, 4vw, 3rem);
+  z-index: 2;
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 8rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.16);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+
+/* ============================================================== mục lục */
+
+.mucLuc {
+  position: sticky;
+  z-index: 40;
+  /* Trên máy tính thanh điều hướng nằm dọc bên trái nên không có gì che phía
+     trên; trên điện thoại phải trừ đi chiều cao thanh trên. */
+  top: 0;
+  background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+
+.mucLucTrong {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: 0.55rem;
+}
+
+.mucLucTrong::-webkit-scrollbar {
+  display: none;
+}
+
+.mucLucNhan {
+  flex: none;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.mucLucDs {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mucLucDs a {
+  display: block;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--r-2);
+  font-size: 0.86rem;
+  white-space: nowrap;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color var(--dur-1) var(--ease), background-color var(--dur-1) var(--ease);
+}
+
+.mucLucDs a:hover {
+  color: var(--ink);
+  background: var(--tint-neutral, rgba(0, 0, 0, 0.04));
+}
+
+/* Chặng đang đọc. Không chỉ đổi màu: thêm một vạch dưới, để người phân biệt
+   màu kém vẫn thấy mình đang ở đâu. */
+.mucLucDs a[aria-current="true"] {
+  color: var(--accent);
+  font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* Nút "Trong phần này" của điện thoại. */
+.mucLucNut {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  width: 100%;
+  padding: 0.7rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.mucLucNut svg {
+  width: 16px;
+  height: 16px;
+  color: var(--muted-soft);
+  transition: rotate var(--dur-2) var(--ease);
+}
+
+.mucLucNut[aria-expanded="true"] svg {
+  rotate: 180deg;
+}
+
+.mucLucDangDoc {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ============================================================== khung chung */
+
+.khoi {
+  padding-block: var(--nhip);
+  /* Chừa chỗ cho thanh mục lục dính khi bấm từ mục lục nhảy tới. */
+  scroll-margin-top: 4.5rem;
+}
+
+.khoiToi {
+  background: var(--band);
+  color: #e8edf3;
+}
+
+.khoiNen {
+  background: var(--paper-raised);
+}
+
+.tieuDeKhoi {
+  margin: 0;
+  font-size: var(--step-3);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+}
+
+.khoiToi .tieuDeKhoi {
+  color: #fff;
+}
+
+.deTua {
+  margin: 0 0 var(--s-3);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.khoiToi .deTua {
+  color: var(--gold);
+}
+
+.dan {
+  margin: var(--s-4) 0 0;
+  max-width: 60ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.khoiToi .dan {
+  color: #b9c3ce;
+}
+
+/* ================================================== 02 dịch chuyển tri thức */
+
+.dichChuyen {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns: 5fr 7fr;
+  align-items: start;
+}
+
+.dichChuyenChu p {
+  margin: var(--s-5) 0 0;
+  font-size: var(--step-0);
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 54ch;
+}
+
+/* Câu thông điệp, tách khỏi đoạn văn bằng cỡ chữ và một vạch vàng. */
+.thongDiep {
+  margin: var(--s-5) 0 0;
+  padding-left: var(--s-4);
+  border-left: 3px solid var(--gold);
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.7vw, 1.42rem);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.dichChuyenAnh {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--r-4);
+  border: 1px solid var(--line);
+}
+
+.dichChuyenAnh img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.dichChuyenAnh figcaption {
+  padding: var(--s-3) var(--s-4);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--muted-soft);
+  background: var(--paper-raised);
+  border-top: 1px solid var(--line);
+}
+
+/* Sáu việc AI làm được. Lưới ba cột, mỗi ô một tên và một câu — không icon,
+   vì sáu biểu tượng chung chung không nói thêm được gì. */
+.ungDung {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  overflow: hidden;
+}
+
+.ungDung li {
+  padding: var(--s-5);
+  background: var(--paper-raised);
+}
+
+.ungDung strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ungDung span {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Dải so sánh cũ – mới. */
+.soSanh {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-5);
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+.soSanhO {
+  min-width: 0;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.soSanhCu {
+  color: var(--muted-soft);
+}
+
+.soSanhMoi {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.soSanhMuiTen {
+  flex: none;
+  color: var(--accent);
+}
+
+.soSanhMuiTen svg {
+  display: block;
+  width: 26px;
+  height: 26px;
+}
+
+/* ================================================== 03 bốn giá trị cốt lõi */
+
+.giaTri {
+  display: grid;
+  gap: clamp(3rem, 6vw, 5.5rem);
+  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.giaTriHang {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+/* Hàng chẵn đảo ảnh sang phải. Đảo bằng thứ tự lưới chứ không đổi thứ tự
+   trong mã, để người dùng bàn phím và trình đọc màn hình vẫn đi đúng mạch. */
+.giaTriHang:nth-child(even) .giaTriAnh {
+  order: 2;
+}
+
+.giaTriAnh {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--r-4);
+  border: 1px solid var(--line);
+}
+
+.giaTriAnh img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.giaTriSo {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 5vw, 4.2rem);
+  line-height: 1;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.giaTriTen {
+  margin: var(--s-3) 0 0;
+  font-size: var(--step-2);
+  line-height: 1.16;
+}
+
+.giaTriMoTa {
+  margin: var(--s-4) 0 0;
+  max-width: 46ch;
+  font-size: var(--step-0);
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.giaTriY {
+  display: grid;
+  gap: 0.6rem;
+  margin: var(--s-5) 0 0;
+  padding: var(--s-5) 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.giaTriY li {
+  position: relative;
+  padding-left: 1.35rem;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.giaTriY li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ================================================ 04 đào tạo với doanh nghiệp */
+
+.quyTrinh {
+  display: grid;
+  gap: var(--s-5);
+  margin: clamp(2.5rem, 5vw, 3.5rem) 0 0;
+}
+
+.quyTrinhHang {
+  padding: clamp(1.2rem, 2.5vw, 1.8rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+/* Hàng hợp tác được nhấn: nền màu thương hiệu rất nhạt và viền đậm hơn. Đây
+   là quy trình được đề xuất, phải nhìn ra ngay khác với hàng trên. */
+.quyTrinhHopTac {
+  background: var(--accent-tint, rgba(142, 31, 45, 0.06));
+  border-color: var(--accent);
+}
+
+.quyTrinhNhan {
+  margin: 0 0 var(--s-4);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.quyTrinhHopTac .quyTrinhNhan {
+  color: var(--accent);
+}
+
+.buoc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.buoc li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.quyTrinhHopTac .buoc li {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.buocO {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--paper-raised);
+}
+
+.quyTrinhHopTac .buocO {
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.buocMuiTen {
+  flex: none;
+  color: var(--line-strong);
+}
+
+.buocMuiTen svg {
+  display: block;
+  width: 15px;
+  height: 15px;
+}
+
+/* Đường phản hồi từ tuyển dụng quay về chương trình. Vẽ bằng một khung có
+   viền đứt bám dưới hàng hợp tác — đủ để đọc ra "vòng lặp" mà không cần thêm
+   thư viện vẽ nào. */
+.phanHoi {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  font-size: 0.86rem;
+  color: var(--accent);
+}
+
+.phanHoi svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+}
+
+.chotKhoi {
+  margin: clamp(1.5rem, 3vw, 2.2rem) 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.khoiToi .chotKhoi {
+  color: #fff;
+}
+
+/* ================================================ 05 năng lực đang hình thành */
+
+.luuY {
+  display: inline-block;
+  margin: var(--s-5) 0 0;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-2);
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.ngheMoi {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: nghe;
+}
+
+/*
+ * Lưới bất đối xứng: hai mục đầu chiếm hai ô, sáu mục sau mỗi mục một ô.
+ *
+ * Không có ảnh cho tám nhóm nghề này — kho tư liệu của trường chưa có CNC,
+ * robot, điện tái tạo hay in 3D. Lấy ảnh kho ảnh thương mại về gắn vào đây sẽ
+ * thành "cơ sở vật chất" mà trường không có. Nên khối này dựng bằng chữ và
+ * hình khối; danh sách ảnh cần chụp đã ghi trong phần bàn giao.
+ */
+.ngheMoi li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: var(--s-5);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--paper-raised);
+  counter-increment: nghe;
+}
+
+.ngheMoi li::before {
+  content: counter(nghe, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-deep);
+}
+
+.ngheMoi li:nth-child(-n + 2) {
+  grid-column: span 2;
+  background: var(--band);
+  border-color: transparent;
+  color: #e8edf3;
+}
+
+.ngheMoi li:nth-child(-n + 2)::before {
+  color: var(--gold);
+}
+
+.ngheTen {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.ngheMoi li:nth-child(-n + 2) .ngheTen {
+  font-size: 1.32rem;
+  color: #fff;
+}
+
+.ngheY {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.ngheMoi li:nth-child(-n + 2) .ngheY {
+  color: #b9c3ce;
+}
+
+/* ================================================ 06 học tập suốt đời */
+
+.hanhTrinh {
+  display: grid;
+  gap: var(--s-5);
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+}
+
+.hanhTrinhLap {
+  position: relative;
+  padding: clamp(1.2rem, 2.5vw, 1.8rem);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-4);
+  background: var(--accent-tint, rgba(142, 31, 45, 0.06));
+}
+
+/* Mũi tên quay lại: nói rằng hành trình này không kết thúc ở bước cuối. */
+.vongLai {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent);
+  font-size: 0.86rem;
+  color: var(--accent);
+}
+
+.vongLai svg {
+  flex: none;
+  width: 17px;
+  height: 17px;
+}
+
+.nhomHoc {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--s-4);
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nhomHoc li {
+  padding: var(--s-4) var(--s-5);
+  border-left: 2px solid var(--gold);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+/* ================================================ 07 năm chuyển đổi */
+
+.chuyenDoi {
+  display: grid;
+  grid-template-columns: 35fr 65fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  /* Chiều cao cố định để trang không nhảy khi đổi mục. */
+  min-height: 26rem;
+}
+
+.chuyenDoiMuc {
+  display: contents;
+}
+
+.chuyenDoiNut {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-4);
+  grid-column: 1;
+  width: 100%;
+  padding: var(--s-4) var(--s-4) var(--s-4) 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color var(--dur-1) var(--ease);
+}
+
+.chuyenDoiNut:hover {
+  color: var(--ink);
+}
+
+.chuyenDoiNut[data-mo="true"] {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.chuyenDoiSo {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: 0.86rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-deep);
+}
+
+.chuyenDoiNut[data-mo="true"] .chuyenDoiSo {
+  color: var(--accent);
+}
+
+.chuyenDoiTen {
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.chuyenDoiBang {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: start;
+  padding: clamp(1.5rem, 3vw, 2.2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--paper-raised);
+}
+
+.chuyenDoiDinhHuong {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.chuyenDoiHanhDong {
+  display: grid;
+  gap: 0.7rem;
+  margin: var(--s-5) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: hd;
+}
+
+.chuyenDoiHanhDong li {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  gap: 0.4rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--muted);
+  counter-increment: hd;
+}
+
+.chuyenDoiHanhDong li::before {
+  content: counter(hd);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--gold-deep);
+}
+
+.chuyenDoiGiaTri {
+  margin: var(--s-5) 0 0;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.chuyenDoiGiaTriNhan {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.chuyenDoiGiaTriY {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+/* ================================================ 08 tầm nhìn 2045 */
+
+.namLon {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 13vw, 11rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.n2045 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.n2045Anh {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--r-4);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.n2045Anh img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.tuyenNgon {
+  margin: 0;
+  max-width: 44ch;
+  font-size: var(--step-1);
+  line-height: 1.65;
+  color: #cdd6e0;
+}
+
+.huong2045 {
+  display: grid;
+  gap: var(--s-4);
+  margin: var(--s-6) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: huong;
+}
+
+.huong2045 li {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr);
+  gap: var(--s-3);
+  padding-top: var(--s-4);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  font-size: 1rem;
+  line-height: 1.55;
+  color: #e8edf3;
+  counter-increment: huong;
+}
+
+.huong2045 li::before {
+  content: counter(huong, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+
+/* ================================================ 09 kết nối và hành động */
+
+.ketNoi {
+  text-align: center;
+}
+
+.ketNoiTieuDe {
+  margin: 0 auto;
+  max-width: 20ch;
+  font-size: var(--step-4);
+  line-height: 1.1;
+  color: #fff;
+}
+
+.ketNoiMoTa {
+  margin: var(--s-5) auto 0;
+  max-width: 52ch;
+  font-size: var(--step-1);
+  line-height: 1.6;
+  color: #b9c3ce;
+}
+
+.ketNoiNut {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-4);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.nutChinh,
+.nutPhu {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease),
+    color var(--dur-2) var(--ease);
+}
+
+.nutChinh {
+  background: var(--accent);
+  color: #fff;
+}
+
+.nutChinh:hover {
+  background: #a3313f;
+}
+
+.nutPhu {
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.nutPhu:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* ================================================================ máy tính bảng */
+
+@media (max-width: 999px) {
+  .mucLuc {
+    top: var(--topbar-h);
+  }
+
+  .dichChuyen {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ungDung {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ngheMoi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ngheMoi li:nth-child(-n + 2) {
+    grid-column: span 2;
+  }
+
+  .nhomHoc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .n2045 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .moDauChu {
+    max-width: 74%;
+  }
+}
+
+/* ================================================================ điện thoại */
+
+@media (max-width: 699px) {
+  /*
+   * Khối mở đầu trên điện thoại: chữ trên nền navy đặc, ảnh thành một dải bên
+   * dưới. Không chồng chữ lên ảnh nữa — ở bề ngang này, vùng trống bên trái
+   * của bức ảnh không còn đủ chỗ, chữ sẽ đè lên đúng chỗ đông chi tiết nhất.
+   */
+  .moDauAnh {
+    position: static;
+    display: block;
+    height: 42vw;
+    min-height: 200px;
+  }
+
+  .moDauAnh img {
+    object-position: 62% 50%;
+  }
+
+  .moDauPhu {
+    display: none;
+  }
+
+  .moDauTrong {
+    min-height: 0;
+    padding-block: clamp(2rem, 8vw, 3rem);
+  }
+
+  .moDauChu {
+    max-width: none;
+  }
+
+  .moDauNam {
+    position: static;
+    margin-top: var(--s-5);
+    font-size: 3.4rem;
+    color: rgba(255, 255, 255, 0.22);
+  }
+
+  .mucLucTrong {
+    display: block;
+    padding-block: 0;
+  }
+
+  .mucLucNhan {
+    display: none;
+  }
+
+  .mucLucNut {
+    display: flex;
+  }
+
+  /*
+   * Danh sách chỉ hiện khi bấm nút, và mở ra theo chiều dọc với mỗi dòng đủ
+   * cao cho đầu ngón tay. Đóng/mở làm bằng lớp CSS chứ không bằng thuộc tính
+   * `hidden`: `hidden` sẽ giấu luôn ở khổ máy tính, nơi bảy chặng phải bày ra
+   * hết trên một hàng.
+   */
+  .mucLucDs {
+    display: none;
+  }
+
+  .mucLucDsMo {
+    display: grid;
+    gap: 0;
+    padding-bottom: var(--s-3);
+    border-top: 1px solid var(--line);
+  }
+
+  .mucLucDsMo a {
+    padding: 0.7rem 0;
+    border-radius: 0;
+  }
+
+  .mucLucDsMo a[aria-current="true"] {
+    box-shadow: none;
+  }
+
+  .ungDung {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .soSanh {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-3);
+    text-align: center;
+  }
+
+  .soSanhMuiTen {
+    justify-self: center;
+    rotate: 90deg;
+  }
+
+  .giaTriHang {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-5);
+  }
+
+  /* Ảnh trước, chữ sau — giữ đúng mạch đọc, kể cả ở hàng chẵn. */
+  .giaTriHang:nth-child(even) .giaTriAnh {
+    order: 0;
+  }
+
+  .ngheMoi,
+  .nhomHoc {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ngheMoi li:nth-child(-n + 2) {
+    grid-column: span 1;
+  }
+
+  .ngheMoi li:nth-child(-n + 2) .ngheTen {
+    font-size: 1.14rem;
+  }
+
+  /* Năm chuyển đổi thành đàn xếp: nút và bảng của cùng một mục nằm liền nhau. */
+  .chuyenDoi {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    gap: 0;
+  }
+
+  .chuyenDoiMuc {
+    display: block;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .chuyenDoiNut {
+    border-bottom: 0;
+    padding-block: 0.9rem;
+  }
+
+  .chuyenDoiBang {
+    padding: 0 0 var(--s-5);
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .nhomHoc li {
+    padding-block: var(--s-3);
+  }
+}
+
+/* ================================================================ chuyển động */
+
+@media (prefers-reduced-motion: reduce) {
+  .mucLucNut svg,
+  .mucLucDs a,
+  .chuyenDoiNut,
+  .moDauNut,
+  .nutChinh,
+  .nutPhu {
+    transition: none;
+  }
+}

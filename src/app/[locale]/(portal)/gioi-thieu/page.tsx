@@ -7,6 +7,7 @@ import { getPage, getPartners, getPrograms, getSchools } from "@/lib/queries";
 import { ArrowLink, Breadcrumbs, Prose, SectionHeading, StatRow } from "@/components/ui";
 import { PageHead } from "@/components/PageHead";
 import { PhotoWall } from "@/components/PhotoWall";
+import { TamNhin } from "@/components/tam-nhin/TamNhin";
 import { khoAnh } from "@/content/kho-media";
 import shell from "../page-shell.module.css";
 import styles from "./about.module.css";
@@ -306,6 +307,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </div>
         </div>
       </section>
+
+      <TamNhin locale={locale} />
     </div>
   );
 }

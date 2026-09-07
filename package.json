@@ -22,7 +22,8 @@
     "media:kho": "tsx scripts/media-kho.ts",
     "thieu": "tsx scripts/thieu.ts",
     "i18n": "tsx scripts/i18n.ts",
-    "cau-hinh": "tsx scripts/lam-moi-cau-hinh.ts"
+    "cau-hinh": "tsx scripts/lam-moi-cau-hinh.ts",
+    "i18n:soi": "tsx scripts/i18n-soi.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
