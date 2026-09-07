@@ -177,3 +177,81 @@
   color: var(--accent);
   translate: 3px 0;
 }
+
+/*
+ * Trên điện thoại: hàng ngang, không phải thẻ.
+ *
+ * Đo trang Đào tạo ở khổ iPhone 14: riêng mục "Chương trình đào tạo nổi bật"
+ * cao 2.845px — ba màn hình rưỡi cho sáu chương trình, vì mỗi thẻ có ảnh phủ
+ * hết bề ngang theo tỉ lệ 16:10. Ảnh ấy là ảnh khuôn viên trường, lặp lại ở
+ * nhiều chương trình cùng trường, nên nó tốn chỗ mà không nói thêm được gì.
+ *
+ * Hàng ngang giữ đủ thông tin phân biệt — nhóm ngành, tên, trường, mã ngành —
+ * mà mỗi chương trình chỉ còn khoảng 120px.
+ */
+@media (max-width: 699px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .card {
+    grid-template-rows: none;
+    grid-template-columns: 104px minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .media {
+    aspect-ratio: auto;
+  }
+
+  .cover,
+  .coverFallback {
+    height: 100%;
+  }
+
+  .level {
+    top: 5px;
+    left: 5px;
+    font-size: 0.6rem;
+    padding: 0.12rem 0.4rem;
+  }
+
+  /* Huy hiệu trường bỏ hẳn ở khổ này: ảnh chỉ còn 104px, thêm một vòng tròn
+     đè lên nữa thì che mất chính tấm ảnh. Tên trường đã có ở cột chữ. */
+  .crest {
+    display: none;
+  }
+
+  .body {
+    padding: 0.65rem 0.8rem;
+    align-content: center;
+  }
+
+  .field {
+    font-size: 0.64rem;
+  }
+
+  .title {
+    font-size: 1rem;
+    line-height: 1.28;
+  }
+
+  .school {
+    font-size: 0.8rem;
+  }
+
+  .foot {
+    margin-top: 0.45rem;
+    padding-top: 0.45rem;
+  }
+
+  .code {
+    font-size: 0.74rem;
+  }
+
+  .go {
+    width: 26px;
+    height: 26px;
+  }
+}

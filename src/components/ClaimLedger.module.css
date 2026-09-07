@@ -153,3 +153,57 @@
   color: var(--ink);
   overflow-wrap: anywhere;
 }
+
+/*
+ * Trên điện thoại: ảnh thành dải hẹp bên trái.
+ *
+ * Bốn lý do, mỗi thẻ có ảnh 16:10 phủ hết bề ngang, cộng lại cao 2.368px —
+ * gần ba màn hình cho bốn ý. Ảnh ở đây là ảnh minh chứng nên phải giữ, nhưng
+ * nó không cần to bằng cả màn hình mới làm được việc của mình.
+ *
+ * Dải căn cứ vẫn nằm dưới đáy và vẫn thẳng hàng giữa bốn thẻ: đó là thứ người
+ * đọc lướt qua để nắm cả lập luận, chỗ của nó không đổi.
+ */
+@media (max-width: 699px) {
+  .ledger {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  .row {
+    grid-template-rows: none;
+    grid-template-columns: 96px minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .figure img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .text {
+    gap: 0.3rem;
+    padding: 0.7rem 0.85rem 0.6rem;
+  }
+
+  .claim {
+    font-size: 1.02rem;
+    max-width: none;
+  }
+
+  .body {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    max-width: none;
+  }
+
+  .evidence {
+    margin: 0.55rem -0.85rem -0.6rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  .evidenceValue {
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+}
