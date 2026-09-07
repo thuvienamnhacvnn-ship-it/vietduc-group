@@ -362,11 +362,13 @@ export function TamNhin({ locale }: { locale: Locale }) {
             </div>
 
             <figure className={styles.n2045Anh}>
+              {/* alt rỗng vì figcaption ngay dưới đã mô tả đúng bức ảnh này.
+                  Để cả hai thì trình đọc màn hình đọc câu ấy hai lần. */}
               <Image
                 src={TAM_NHIN_2045.anh.src}
-                alt={pick(TAM_NHIN_2045.anh.alt, locale)}
-                width={1600}
-                height={900}
+                alt=""
+                width={1672}
+                height={941}
                 sizes="(min-width: 1000px) 46vw, 100vw"
               />
               <figcaption>{pick(TAM_NHIN_2045.anh.alt, locale)}</figcaption>

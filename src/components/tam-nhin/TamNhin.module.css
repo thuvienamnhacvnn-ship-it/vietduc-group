@@ -916,7 +916,9 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
+  /* Đúng tỉ lệ tệp gốc (1672x941). Ép 16/10 thì object-fit: cover cắt mất dải
+     trời và đường chân trời thành phố ở mép trên. */
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
