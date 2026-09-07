@@ -148,7 +148,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       <section className={styles.mo}>
         <div className={styles.moKhung}>
           <Image
-            src="/media/vision/lanh-dao-do-thi.webp"
+            src="/media/vision/banner-gioi-thieu.webp"
             alt={say({
               vi: "Ban lãnh đạo Việt Đức Group trước khu đô thị lên đèn lúc chiều tối",
               en: "The Viet Duc Group leadership before the lit city at dusk",
