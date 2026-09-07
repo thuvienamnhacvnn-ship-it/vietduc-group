@@ -263,7 +263,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 eyebrow={dict.home.aboutTitle}
                 title={
                   pick({
-                    vi: "Một hệ thống giáo dục nghề nghiệp Việt – Đức, vận hành thật",
+                    vi: "Một hệ thống giáo dục nghề nghiệp Việt–Đức đang vận hành",
                     en: "A Vietnamese–German vocational system that actually runs",
                     de: "Ein vietnamesisch-deutsches Berufsbildungssystem, das wirklich arbeitet",
                     ja: "実際に動いている越独技能教育の体系",

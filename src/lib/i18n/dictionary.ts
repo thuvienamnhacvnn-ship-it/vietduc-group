@@ -71,7 +71,7 @@ const vi = {
     noResults: "Không tìm thấy kết quả nào",
   },
   home: {
-    heroEyebrow: "Hệ thống giáo dục nghề nghiệp Việt – Đức",
+    heroEyebrow: "Hệ thống giáo dục nghề nghiệp Việt–Đức",
     heroLead:
       "Sáu trường thành viên, một cam kết: đào tạo thực chất, gắn với doanh nghiệp và mở đường ra thị trường lao động quốc tế.",
     findProgram: "Tìm chương trình phù hợp",
@@ -283,7 +283,7 @@ const vi = {
     orbitLabel: "Hai lĩnh vực hoạt động của Việt Đức Group",
     education: {
       name: "Giáo dục & Đào tạo",
-      tagline: "Hệ thống trường nghề Việt – Đức",
+      tagline: "Hệ thống trường nghề Việt–Đức",
       desc: "Sáu trường thành viên, đào tạo nghề gắn với doanh nghiệp và thị trường lao động quốc tế.",
     },
     venture: {

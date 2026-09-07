@@ -13,6 +13,9 @@ const HORIZONTAL_WS = /[^\S\n]+/g;
  */
 export function fold(input: string): string {
   return input
+    /* Dấu cách không ngắt do `giuLien` chèn vào tên riêng: với người tìm
+       kiếm thì nó vẫn là một dấu cách. */
+    .replace(/ /g, " ")
     .normalize("NFD")
     .replace(COMBINING_MARKS, "")
     .replace(/đ/g, "d")

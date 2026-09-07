@@ -116,7 +116,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
       "zh-TW": "Viet Duc Group — 創造知識，引領未來",
     },
     defaultDescription: {
-      vi: "Hệ thống giáo dục nghề nghiệp Việt – Đức với sáu trường thành viên: đào tạo thực hành, gắn kết doanh nghiệp và hợp tác quốc tế.",
+      vi: "Hệ thống giáo dục nghề nghiệp Việt–Đức với sáu trường thành viên: đào tạo thực hành, gắn kết doanh nghiệp và hợp tác quốc tế.",
       de: "Vietnamesisch-deutsches Berufsbildungsnetzwerk mit sechs Mitgliedsschulen: praxisnahe Ausbildung, Unternehmensbindung und internationale Zusammenarbeit.",
       en: "A Vietnamese–German vocational education system of six member schools: practical training, employer partnerships and international cooperation.",
       ja: "六つの加盟校からなる越独技能教育の体系。実習中心の教育、企業との連携、そして国際協力。",
