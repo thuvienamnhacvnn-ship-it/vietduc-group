@@ -229,7 +229,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <SoDoHeSinhThai
             locale={locale}
             tam={{
-              src: "/brand/viet-duc-group-logo.svg",
+              /* Bản dọc: nút tâm là hình tròn, logo vuông mới lấp đầy được. */
+              src: "/brand/viet-duc-group-doc.svg",
               ten: {
                 vi: "Việt Đức Group",
                 en: "Viet Duc Group",

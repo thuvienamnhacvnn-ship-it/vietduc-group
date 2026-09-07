@@ -196,9 +196,12 @@
   box-shadow: 0 0 40px color-mix(in srgb, var(--gold) 18%, transparent);
 }
 
+/* Logo vuông trong một vòng tròn: cạnh lấy 72% đường kính là vừa vặn nội tiếp
+   mà vẫn chừa được viền thở. Bản ngang trước đây phải kéo rộng 78% và bóp cao
+   xuống 58%, tức là nó chỉ nằm vắt ngang giữa vòng chứ không lấp được vòng. */
 .tam img {
-  width: 78%;
-  height: 58%;
+  width: 72%;
+  height: 72%;
 }
 
 .trong {
@@ -255,14 +258,30 @@
   }
 
   /* Tâm chiếm cả hàng đầu, để vẫn đọc ra đây là gốc của những cái còn lại. */
+  /*
+   * `min-height: 0` là bắt buộc, không phải cho đẹp.
+   *
+   * Ô lưới mặc định có chiều cao tối thiểu bằng nội dung của nó. Logo vuông đặt
+   * rộng hết hàng thì tự nó đã cao gần bằng hàng, và cái tối thiểu ấy thắng luôn
+   * `aspect-ratio` — khung phình thành gần vuông, logo chiếm trọn màn hình điện
+   * thoại và đẩy hết phần còn lại xuống dưới.
+   */
   .tam {
     grid-column: 1 / -1;
-    aspect-ratio: 16 / 7;
+    aspect-ratio: 2 / 1;
+    min-height: 0;
   }
 
+  /*
+   * Định cỡ theo bề ngang, KHÔNG theo `height: 100%`: chiều cao của khung do
+   * `aspect-ratio` suy ra, và trình duyệt vẫn coi nó là không xác định khi giải
+   * phần trăm chiều cao — logo rơi về kích thước gốc rồi tràn ra ngoài khung.
+   * `max-height` chỉ là chốt chặn phòng khi tỉ lệ khung đổi.
+   */
   .tam img {
-    width: 62%;
-    height: 78%;
+    width: 40%;
+    height: auto;
+    max-height: 100%;
   }
 
   .nhan,
