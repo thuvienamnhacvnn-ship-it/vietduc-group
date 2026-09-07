@@ -318,6 +318,17 @@ export function TamNhin({ locale }: { locale: Locale }) {
               <li key={n.vi}>{pick(n, locale)}</li>
             ))}
           </ul>
+
+          <figure className={styles.anhRong}>
+            <Image
+              src={HOC_SUOT_DOI.anh.src}
+              alt={pick(HOC_SUOT_DOI.anh.alt, locale)}
+              width={1600}
+              height={900}
+              sizes="(min-width: 1000px) 1100px, 100vw"
+            />
+            <figcaption>{pick(HOC_SUOT_DOI.anh.alt, locale)}</figcaption>
+          </figure>
         </div>
       </div>
 

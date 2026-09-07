@@ -1037,6 +1037,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .daiAnh {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .ngheMoi {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1241,9 +1245,10 @@
 }
 
 /* Dải ba ảnh mở đầu khối năng lực mới. */
+/* Bốn tấm: mỗi tấm một hướng công việc mà khối này nói tới. */
 .daiAnh {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: var(--s-4);
   margin: clamp(2rem, 4vw, 3rem) 0 0;
   padding: 0;

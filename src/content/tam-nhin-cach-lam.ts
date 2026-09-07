@@ -148,6 +148,17 @@ export const NANG_LUC_MOI = {
       },
     },
     {
+      src: "/media/vision/tu-dien-dieu-khien.webp",
+      alt: {
+        vi: "Hai người cùng dò mạch trong tủ điện điều khiển của một cụm tự động hoá",
+        en: "Two people tracing circuits in the control cabinet of an automation cell",
+        de: "Zwei Personen verfolgen Stromkreise im Schaltschrank einer Automatisierungszelle",
+        ja: "自動化セットの制御盤で、回路をたどる二人",
+        ko: "자동화 설비의 제어반에서 회로를 짚어 가는 두 사람",
+        "zh-TW": "兩人在自動化單元的控制箱中追查線路",
+      },
+    },
+    {
       src: "/media/vision/bao-tri-dong-co.webp",
       alt: {
         vi: "Kỹ thuật viên đo kiểm động cơ trên dây chuyền, dùng thiết bị cầm tay",
@@ -248,6 +259,17 @@ export const HOC_SUOT_DOI = {
     { vi: "Kỹ thuật viên cập nhật công nghệ", en: "Technicians keeping up with the technology", de: "Fachkräfte, die technisch am Ball bleiben", ja: "技術の変化に追いつく技術者", ko: "기술 변화를 따라잡는 기술자", "zh-TW": "跟上技術演進的技術人員" },
     { vi: "Doanh nghiệp đào tạo lại nhân sự", en: "Employers retraining their people", de: "Unternehmen, die ihre Belegschaft weiterbilden", ja: "人材を学び直させる企業", ko: "인력을 다시 가르치는 기업", "zh-TW": "為員工再培訓的企業" },
   ] satisfies L10nMap[],
+  anh: {
+    src: "/media/vision/du-lieu-cong-nghiep.webp",
+    alt: {
+      vi: "Hai kỹ thuật viên đối chiếu số liệu trên máy tính bảng trước một cụm robot đang chạy",
+      en: "Two technicians checking figures on a tablet in front of a running robot cell",
+      de: "Zwei Fachkräfte prüfen Kennzahlen am Tablet vor einer laufenden Roboterzelle",
+      ja: "稼働中のロボットセルの前で、タブレットの数値を突き合わせる二人の技術者",
+      ko: "가동 중인 로봇 설비 앞에서 태블릿의 수치를 맞춰 보는 두 기술자",
+      "zh-TW": "兩位技術員在運轉中的機器人單元前，以平板核對數據",
+    },
+  } satisfies Anh,
   chot: {
     vi: "Giá trị của giáo dục không dừng lại ở ngày tốt nghiệp.",
     en: "The value of an education does not stop on graduation day.",
