@@ -279,9 +279,18 @@
 }
 
 @media (max-width: 620px) {
+  /*
+   * Danh mục 59 ngành, mỗi hàng 176px thì trang dài 10.400px — mười ba màn
+   * hình chỉ để lướt một danh sách. Bộ lọc ở đầu trang mới là cách thu hẹp,
+   * nhưng hàng cũng không cần cao đến thế: cắt khoảng đệm, thu nút bấm và cho
+   * tên ngành ôm sát phần chú thích thì mỗi hàng còn khoảng 110px mà không mất
+   * chữ nào.
+   */
   .row {
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
+    gap: 0.5rem;
+    padding: 0.65rem var(--s-2);
   }
   .rowFacts {
     grid-column: 1;
@@ -289,6 +298,24 @@
   }
   .rowActions {
     grid-row: 1 / span 2;
+    gap: 0.3rem;
+  }
+  .rowTags {
+    margin-bottom: 0.15rem;
+    gap: 0.35rem;
+  }
+  .rowMain h3 {
+    font-size: 1rem;
+    line-height: 1.28;
+  }
+  .rowMeta {
+    margin-top: 0.2rem;
+    font-size: 0.8rem;
+  }
+  .icon,
+  .iconOn {
+    width: 34px;
+    height: 34px;
   }
 }
 

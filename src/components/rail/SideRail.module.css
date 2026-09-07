@@ -240,6 +240,29 @@
   color: var(--ink) !important;
 }
 
+
+@media (max-width: 999px) {
+  /*
+   * Ngăn kéo trên điện thoại: danh sách ngôn ngữ ở đây là chỗ bấm thật, không
+   * còn là mấy chữ nhỏ nép bên rìa màn hình rộng như ở bản máy tính. 24px cao
+   * thì ngón tay bấm là trượt sang dòng bên cạnh.
+   */
+  .langs {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .langs a {
+    min-width: 46px;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid var(--line);
+    font-size: 0.78rem;
+    text-align: center;
+  }
+}
+
 .rail:hover .langs,
 .rail:focus-within .langs {
   flex-direction: row;
@@ -533,7 +556,8 @@
 
   .fabLabel {
     position: relative;
-    font-size: 0.6rem;
+    /* 9,6px là quá nhỏ cho nhãn của chính nút mà cả trang mời người ta bấm. */
+    font-size: 0.68rem;
     font-weight: 600;
     line-height: 1.2;
     text-align: center;
