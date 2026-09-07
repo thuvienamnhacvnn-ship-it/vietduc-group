@@ -53,14 +53,14 @@ export function SoDoHeSinhThai({
     ...vongTrong.map((n, i) => ({
       ...n,
       vong: "trong" as const,
-      ...diem((360 / vongTrong.length) * i, 27),
+      ...diem((360 / vongTrong.length) * i, 28),
     })),
     /* Vòng ngoài lệch nửa bước so với vòng trong: nhánh ngoài không nằm thẳng
        sau nhánh trong, nên không có đường nối nào bị che khuất. */
     ...vongNgoai.map((n, i) => ({
       ...n,
       vong: "ngoai" as const,
-      ...diem((360 / vongNgoai.length) * i + 360 / vongNgoai.length / 2, 43),
+      ...diem((360 / vongNgoai.length) * i + 360 / vongNgoai.length / 2, 44),
     })),
   ];
 

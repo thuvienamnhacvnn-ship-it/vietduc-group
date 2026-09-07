@@ -94,8 +94,8 @@
 .nut img {
   position: relative;
   z-index: 1;
-  width: 62%;
-  height: 62%;
+  width: 76%;
+  height: 70%;
   object-fit: contain;
   transition: scale 400ms var(--ease);
 }
@@ -174,8 +174,8 @@
 /* ---- ba cỡ ---- */
 
 .tam {
-  width: 27%;
-  height: 27%;
+  width: 30%;
+  height: 30%;
   z-index: 2;
 }
 
@@ -186,19 +186,19 @@
 }
 
 .tam img {
-  width: 74%;
-  height: 74%;
+  width: 70%;
+  height: 66%;
 }
 
 .trong {
-  width: 16%;
-  height: 16%;
+  width: 19%;
+  height: 19%;
   z-index: 2;
 }
 
 .ngoai {
-  width: 14%;
-  height: 14%;
+  width: 15.5%;
+  height: 15.5%;
   z-index: 2;
 }
 
