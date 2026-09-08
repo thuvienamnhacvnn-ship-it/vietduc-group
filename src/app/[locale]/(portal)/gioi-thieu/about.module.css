@@ -582,3 +582,8 @@
     transform: none;
   }
 }
+
+/* Lối sang trang cơ cấu nhân sự, đặt ngay dưới đoạn mở đầu khối đội ngũ. */
+.dan {
+  margin-top: clamp(0.9rem, 2vw, 1.4rem);
+}

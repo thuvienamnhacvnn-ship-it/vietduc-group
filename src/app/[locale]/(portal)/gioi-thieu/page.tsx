@@ -413,6 +413,26 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   "zh-TW": "Viet Duc Group 經營團隊出席週年慶典、實地訪視，以及與國內外夥伴的工作會談。",
                 })}
               </p>
+              {/*
+                Lối sang trang cơ cấu nhân sự.
+
+                Đây là chỗ duy nhất trên site mà người đọc đang nhìn thẳng vào
+                ban lãnh đạo, nên cũng là chỗ họ muốn biết ai giữ chức gì. Nếu
+                chỉ để trong menu con của "Giới thiệu" thì trang cơ cấu coi như
+                không tồn tại với người không rê chuột vào menu.
+              */}
+              <p className={styles.dan}>
+                <ArrowLink href={path("/doi-ngu")}>
+                  {say({
+                    vi: "Xem cơ cấu nhân sự đầy đủ",
+                    en: "See the full leadership structure",
+                    de: "Vollständige Organisationsstruktur ansehen",
+                    ja: "組織と役職の一覧を見る",
+                    ko: "전체 조직·직책 보기",
+                    "zh-TW": "查看完整的組織與職務",
+                  })}
+                </ArrowLink>
+              </p>
             </div>
           </div>
           <div className={`shell ${styles.mosaicWrap}`}>
