@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPeople, getSchools, type NguoiDayDu, type ChucVuRow } from "@/lib/queries";
 import { Breadcrumbs, EmptyState } from "@/components/ui";
 import { ChanDung } from "@/components/nhan-su/ChanDung";
+import { MangLuoi } from "@/components/nhan-su/MangLuoi";
 import shell from "../page-shell.module.css";
 import styles from "./people.module.css";
 
@@ -135,6 +136,56 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
         ) : (
           <>
             {dungDau ? <DungDau locale={locale} ghe={dungDau} /> : null}
+
+            {/*
+              Mạng lưới đặt TRƯỚC các danh sách, không phải sau.
+
+              Nó trả lời câu hỏi "hệ thống này nối với nhau thế nào" trong một
+              cái nhìn; các khối bên dưới mới là chỗ tra cứu từng ban. Đảo thứ
+              tự thì người đọc phải cuộn qua bốn màn hình danh sách rồi mới
+              hiểu được cấu trúc.
+            */}
+            <MangLuoi
+              locale={locale}
+              nhanTam="Việt Đức Group"
+              donVi={[
+                { khoa: "hdqt", ten: nhan.hdqt, loai: "ban" },
+                { khoa: "dieuhanh", ten: nhan.dieuHanh, loai: "ban" },
+                { khoa: "bks", ten: nhan.bks, loai: "ban" },
+                ...khoiTruong.map((k) => ({
+                  khoa: `truong-${k.truong.id}`,
+                  ten: t(k.truong.shortName ?? k.truong.name, locale),
+                  loai: "truong" as const,
+                  logo: k.truong.logoPath,
+                })),
+              ]}
+              nguoi={nguoi.map((p) => {
+                const tu = p.name.trim().split(/\s+/);
+                return {
+                  slug: p.slug,
+                  ten: p.name,
+                  hocVi: p.honorific,
+                  chuCai: (tu[tu.length - 1]?.[0] ?? p.name[0] ?? "?").toUpperCase(),
+                  chuc: p.headline ? t(p.headline, locale) : "",
+                  // Một người nối tới mọi đơn vị mình giữ chức. Chức vụ ở pháp
+                  // nhân ngoài hệ thống (NIBELC, ITW Berlin) không có nút riêng
+                  // nên bỏ qua, nếu không mạng lưới mọc thêm những nhánh cụt.
+                  donVi: [
+                    ...new Set(
+                      p.chucVu
+                        .map((cv) =>
+                          cv.schoolId
+                            ? `truong-${cv.schoolId}`
+                            : cv.body === "hdqt" || cv.body === "dieuhanh" || cv.body === "bks"
+                              ? cv.body
+                              : null,
+                        )
+                        .filter((x): x is string => x !== null),
+                    ),
+                  ],
+                };
+              })}
+            />
 
             <section className={styles.cap}>
               <h2 className={styles.capTieuDe}>

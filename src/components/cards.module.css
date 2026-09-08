@@ -311,3 +311,44 @@
 .activity_sm .activityCaption p {
   display: none;
 }
+
+/*
+ * Thẻ trường: rê vào thì có phản hồi rõ chứ không chỉ nhích 3px.
+ *
+ * Viền chuyển sang màu nhấn, ảnh phóng mạnh hơn một chút, và một vệt sáng đỏ
+ * chạy dọc mép trên — đủ để biết cả thẻ là một mục bấm được, thay vì phải đoán.
+ */
+.schoolCard {
+  transition:
+    border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+}
+
+.schoolCard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  border-radius: var(--r-4) var(--r-4) 0 0;
+  background: linear-gradient(90deg, var(--burgundy), var(--gold));
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 420ms var(--ease);
+  z-index: 2;
+}
+
+.schoolCard:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line-strong));
+  transform: translateY(-5px);
+}
+
+.schoolCard:hover::before {
+  scale: 1 1;
+}
+
+.schoolCard:hover .schoolImage {
+  transform: scale(1.06);
+}

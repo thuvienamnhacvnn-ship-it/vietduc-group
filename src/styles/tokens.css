@@ -199,11 +199,20 @@
     --line-strong: rgba(255, 255, 255, 0.26);
     --tint-neutral: rgba(255, 255, 255, 0.09);
 
-    /* Burgundy reads well as a fill under white text, but as TEXT on a dark
-       ground it only reaches 2.6:1. The dark palette therefore promotes gold to
-       the text accent - the same thing the navy bands already do in light mode. */
-    --accent: var(--gold);
-    --accent-tint: rgba(210, 162, 89, 0.16);
+    /*
+     * ĐỎ vẫn là màu nhấn trên nền tối, nhưng phải là một sắc đỏ khác.
+     *
+     * Burgundy #b02b3c dùng làm NỀN dưới chữ trắng thì đẹp, nhưng làm CHỮ trên
+     * nền tối chỉ đạt 2.6:1 — dưới ngưỡng đọc được. Trước đây chỗ này đổi hẳn
+     * sang vàng, và hệ quả là cả giao diện tối mất sạch màu đỏ của thương
+     * hiệu, chỉ còn navy với vàng nên nhìn nguội.
+     *
+     * `--do-sang` là đỏ đã nâng độ sáng cho đủ tương phản (~5,3:1 trên nền
+     * #0f151c) mà vẫn còn ra đỏ. Burgundy đặc giữ nguyên vai trò làm nền.
+     */
+    --do-sang: #f0788a;
+    --accent: var(--do-sang);
+    --accent-tint: rgba(240, 120, 138, 0.16);
 
     --focus: #7fb2f0;
     --ok: #6fc79a;
@@ -255,8 +264,12 @@
   --line-strong: rgba(255, 255, 255, 0.26);
   --tint-neutral: rgba(255, 255, 255, 0.09);
 
-  --accent: var(--gold);
-  --accent-tint: rgba(210, 162, 89, 0.16);
+  /* Giống hệt khối `prefers-color-scheme: dark` ở trên — xem lời chú ở đó. Hai
+     chỗ này phải đi cùng nhau, lệch một chỗ là người bật giao diện tối bằng tay
+     nhìn thấy một bảng màu khác người để máy tự chọn. */
+  --do-sang: #f0788a;
+  --accent: var(--do-sang);
+  --accent-tint: rgba(240, 120, 138, 0.16);
 
   --focus: #7fb2f0;
   --ok: #6fc79a;

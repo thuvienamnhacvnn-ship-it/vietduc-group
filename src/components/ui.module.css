@@ -476,3 +476,87 @@
     margin-inline: auto;
   }
 }
+
+/* ------------------------------------------------- chuyển động khi rê chuột */
+
+/*
+ * Nút không chỉ đổi màu nền.
+ *
+ * Bản trước rê vào nút thì nền đậm thêm một chút, hết. Ở kích cỡ nút thật thì
+ * gần như không thấy gì, nên trang cho cảm giác chết cứng. Nay nút nhích lên
+ * nửa hạt, đổ một vệt bóng đỏ dưới chân, và có một dải sáng lướt ngang qua.
+ *
+ * Dải sáng dùng `::after` với `translate` chứ không đổi `background-position`:
+ * trình duyệt chạy được transform trên luồng ghép hình, còn background thì
+ * phải vẽ lại nền mỗi khung hình.
+ */
+.primary,
+.gold,
+.secondary {
+  position: relative;
+  overflow: hidden;
+  transition:
+    background-color var(--dur-1) var(--ease),
+    border-color var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+
+.primary::after,
+.gold::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -40%;
+  width: 35%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  translate: -120% 0;
+  transition: translate 620ms var(--ease);
+  pointer-events: none;
+}
+
+.primary:hover,
+.gold:hover,
+.secondary:hover {
+  transform: translateY(-2px);
+}
+
+.primary:hover {
+  box-shadow: 0 10px 26px rgba(142, 31, 45, 0.38);
+}
+
+.gold:hover {
+  box-shadow: 0 10px 26px rgba(196, 145, 69, 0.34);
+}
+
+.primary:hover::after,
+.gold:hover::after {
+  translate: 420% 0;
+}
+
+.secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Liên kết mũi tên: gạch chân tự vẽ từ trái sang, cùng lối với vạch `draw`
+   của hiệu ứng cuộn — một ngôn ngữ chuyển động cho cả site. */
+.arrowLink {
+  position: relative;
+}
+
+.arrowLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 320ms var(--ease);
+}
+
+.arrowLink:hover::after {
+  scale: 1 1;
+}
