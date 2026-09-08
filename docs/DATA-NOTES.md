@@ -145,6 +145,34 @@ WEB-CŨ:
 → Đề nghị xác nhận lại, vì web cũ là bản dựng chưa hoàn thiện (toàn bộ menu là
 `javascript:void(0)`, tin tức là nội dung mẫu lặp lại).
 
+**08/09/2026 — Việt Đức Group trả lời: địa chỉ trụ sở này CHƯA ĐÚNG.** Chưa có
+địa chỉ thay thế. Website vẫn đang hiện "129 Trần Phú, Hà Nội" ở ba chỗ:
+`src/lib/site-config.ts` (`DEFAULT_SETTINGS.contact.headquarters`) và hai chỗ
+trong `src/content/seed/pages.ts` (trang liên hệ, Impressum). Có địa chỉ chính
+thức thì sửa cả ba rồi chạy `npm run seed`.
+
+## 11b. Địa chỉ các trường sau sáp nhập đơn vị hành chính
+
+Việt Đức Group gửi lại địa chỉ bốn trường ngày **08/09/2026**, sau đợt sáp nhập
+đơn vị hành chính 2025. Địa chỉ in trong PROFILE và trong các giấy chứng nhận
+đều theo địa giới CŨ, nên từ nay hồ sơ giấy và website sẽ không khớp nhau — đó
+là bình thường, không phải lỗi nhập liệu:
+
+| Trường | Địa chỉ cũ (theo hồ sơ) | Địa chỉ nay |
+|---|---|---|
+| CĐ Công nghệ Ngoại Thương | 42–46 Phan Châu Trinh, **quận** Hải Châu, Đà Nẵng | 42–46 Phan Châu Trinh, **phường** Hải Châu, Đà Nẵng |
+| TC nghề Quốc tế (IVS) | Km10 QL1A, xã Gia Trấn, **huyện Gia Viễn**, Ninh Bình | Km10 QL1A, xã Gia Trấn, Ninh Bình |
+| TC Bách Khoa Vũng Tàu | 565 Trương Công Định, **phường 7, TP Vũng Tàu, Bà Rịa – Vũng Tàu** | 565 Trương Công Định, **phường Tam Thắng, TP. Hồ Chí Minh** |
+| TC Việt Hàn | Khu phố Thanh Bình, **phường Tân Bình, TP Đồng Xoài** | Khu phố Thanh Bình, **phường Bình Phước, tỉnh Đồng Nai** |
+
+Trường Bách Khoa Vũng Tàu còn một chuyện đáng ghi: trang thiết kế trong hồ sơ
+ghi "565 Trương Công Định, TP HCM", và trước đây điều đó bị coi là sai vì giấy
+chứng nhận ghi Bà Rịa – Vũng Tàu. Sau sáp nhập thì hoá ra hồ sơ in đúng địa
+giới mới, chỉ thiếu tên phường.
+
+Trường thứ sáu (Trung cấp Công nghệ Việt Đức, Quảng Trị) **không nằm trong đợt
+cập nhật này** — địa chỉ vẫn theo hồ sơ, chưa được xác nhận lại.
+
 ---
 
 # Phần II — Mảng Đầu tư khách sạn, resort và du lịch

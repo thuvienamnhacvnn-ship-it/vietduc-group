@@ -1,28 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { sql } from "drizzle-orm";
+import { napEnv } from "./_env";
 
-/*
- * NẠP `.env.local` TRƯỚC KHI ĐỤNG TỚI `../src/lib/db`.
- *
- * `next dev` tự đọc `.env.local`, còn `tsx` thì không. Mà `getDb()` chọn đích
- * theo đúng một điều kiện: có `DATABASE_URL` thì nối tới Postgres thật, không
- * có thì mở PGlite trong thư mục dữ liệu ở máy.
- *
- * Nghĩa là chạy lệnh này mà thiếu biến môi trường thì migration chạy vào cơ sở
- * dữ liệu ở MÁY, trong khi trang web đang đọc cơ sở dữ liệu TRÊN MẠNG — và nó
- * báo "Applied 1 migration(s)" y như thành công. Trang vẫn lỗi thiếu cột, còn
- * người chạy thì vừa đọc xong một dòng báo thành công nên đi tìm nguyên nhân ở
- * chỗ khác. Đã mất một lượt đúng như vậy.
- *
- * Phải nạp trước dòng `import` của `db`, vì thân module ấy đọc biến môi trường
- * ngay khi được nạp.
- */
-try {
-  process.loadEnvFile(path.resolve(process.cwd(), ".env.local"));
-} catch {
-  // Không có tệp thì thôi: khi ấy PGlite ở máy đúng là đích cần đến.
-}
+napEnv();
 
 const { getDb } = await import("../src/lib/db");
 
@@ -48,7 +29,7 @@ const MIGRATIONS_DIR = path.resolve(process.cwd(), "drizzle");
  * Tệp do drizzle-kit sinh ra đã có sẵn dấu `--> statement-breakpoint`; tệp
  * viết tay thì không, nên phải tự tìm dấu `;` kết câu. Không thể chỉ
  * `split(";")`: dấu chấm phẩy còn nằm trong chuỗi, trong lời chú, và trong
- * thân hàm trích bằng `$`. Hàm này đọc qua một lượt và chỉ cắt ở dấu `;`
+ * thân hàm trích bằng `$$`. Hàm này đọc qua một lượt và chỉ cắt ở dấu `;`
  * thật sự đứng ngoài mọi thứ đó.
  */
 function catCauLenh(body: string): string[] {

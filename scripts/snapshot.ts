@@ -1,7 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { sql } from "drizzle-orm";
-import { getDb } from "../src/lib/db";
+import { napEnv } from "./_env";
+
+// Trước mọi thứ chạm tới cơ sở dữ liệu. Xem lời chú trong `_env.ts`: thiếu bước
+// này thì bản chụp lấy từ PGlite ở máy chứ không phải từ cơ sở dữ liệu thật, và
+// nó vẫn ghi ra tệp như thường.
+napEnv();
+
+const { getDb } = await import("../src/lib/db");
 
 /**
  * Freezes the published content into a file the site can serve without a

@@ -215,7 +215,7 @@ export const SCHOOLS: SeedSchool[] = [
     },
     legalNameEn: "Foreign Trade & Technology College",
     city: { vi: "Đà Nẵng", en: "Da Nang", de: "Da Nang", ja: "ダナン", ko: "다낭", "zh-TW": "峴港" },
-    address: "Số 42–46 Phan Châu Trinh, quận Hải Châu, thành phố Đà Nẵng",
+    address: "Số 42–46 Phan Châu Trinh, phường Hải Châu, thành phố Đà Nẵng",
     phone: "0818 42 44 46",
     email: "ngoaithuongeducation@gmail.com",
     website: "http://www.ntg.edu.vn",
@@ -284,7 +284,7 @@ export const SCHOOLS: SeedSchool[] = [
     ],
     provenance: fromProfileVi(4),
     editorNote:
-      "Trang thiết kế (tr.4) nêu ngành 'Cử nhân Điều dưỡng' và 'Cao đẳng Điều dưỡng' nhưng giấy chứng nhận 69/2023 KHÔNG có mã ngành điều dưỡng. Chưa đưa hai ngành này lên website – cần trường cung cấp giấy phép bổ sung.",
+      "Trang thiết kế (tr.4) nêu ngành 'Cử nhân Điều dưỡng' và 'Cao đẳng Điều dưỡng' nhưng giấy chứng nhận 69/2023 KHÔNG có mã ngành điều dưỡng. Chưa đưa hai ngành này lên website – cần trường cung cấp giấy phép bổ sung. Địa chỉ cập nhật 08/09/2026 theo Việt Đức Group cung cấp: 'quận Hải Châu' đổi thành 'phường Hải Châu' sau sáp nhập đơn vị hành chính.",
   },
   {
     slug: "trung-cap-nghe-quoc-te-ivs",
@@ -316,7 +316,7 @@ export const SCHOOLS: SeedSchool[] = [
     },
     legalNameEn: "International Vocational School (IVS)",
     city: { vi: "Ninh Bình", en: "Ninh Binh", de: "Ninh Binh", ja: "ニンビン", ko: "닌빈", "zh-TW": "寧平" },
-    address: "Km10 Quốc lộ 1A, Ninh Bình – Hà Nội, xã Gia Trấn, huyện Gia Viễn, tỉnh Ninh Bình",
+    address: "Km10 Quốc lộ 1A, Ninh Bình – Hà Nội, xã Gia Trấn, tỉnh Ninh Bình",
     phone: "030 3868231",
     email: "nguyenphan@vietmc.vn",
     website: "http://ivs.edu.vn",
@@ -412,7 +412,7 @@ export const SCHOOLS: SeedSchool[] = [
     ],
     provenance: fromProfileVi(6),
     editorNote:
-      "Các giấy chứng nhận 2017–2018 ghi 'có hiệu lực 05 năm kể từ ngày ký' – cần trường cung cấp giấy chứng nhận gia hạn/cấp lại còn hiệu lực trước khi công bố chỉ tiêu tuyển sinh.",
+      "Các giấy chứng nhận 2017–2018 ghi 'có hiệu lực 05 năm kể từ ngày ký' – cần trường cung cấp giấy chứng nhận gia hạn/cấp lại còn hiệu lực trước khi công bố chỉ tiêu tuyển sinh. Địa chỉ cập nhật 08/09/2026 theo Việt Đức Group cung cấp: bỏ cấp huyện ('huyện Gia Viễn') sau sáp nhập đơn vị hành chính, xã Gia Trấn nay trực thuộc tỉnh Ninh Bình.",
   },
   {
     slug: "trung-cap-bach-khoa-vung-tau",
@@ -443,8 +443,8 @@ export const SCHOOLS: SeedSchool[] = [
       "zh-TW": "頭頓百科中級學校為 Viet Duc Group 的成員學校，專攻工程與技術領域。學校重視實作，培養紮實的專業知識與技能，以因應企業與勞動市場的需求。",
     },
     legalNameEn: "Vung Tau College of Technology",
-    city: { vi: "Vũng Tàu", en: "Vung Tau", de: "Vung Tau", ja: "ブンタウ", ko: "붕따우", "zh-TW": "頭頓" },
-    address: "Số 565 Trương Công Định, phường 7, thành phố Vũng Tàu, tỉnh Bà Rịa – Vũng Tàu",
+    city: { vi: "TP. Hồ Chí Minh", en: "Ho Chi Minh City", de: "Ho-Chi-Minh-Stadt", ja: "ホーチミン市", ko: "호찌민시", "zh-TW": "胡志明市" },
+    address: "Số 565 Trương Công Định, phường Tam Thắng, Thành phố Hồ Chí Minh",
     phone: "0254 3572 505",
     coverPath: "/media/schools/trung-cap-bach-khoa-vung-tau.webp",
     logoPath: "/media/schools/logos/trung-cap-bach-khoa-vung-tau.webp",
@@ -526,7 +526,7 @@ export const SCHOOLS: SeedSchool[] = [
     ],
     provenance: fromProfileVi(7),
     editorNote:
-      "Trang thiết kế trong hồ sơ ghi địa chỉ '565 Trương Công Định, TP HCM'. Giấy chứng nhận 71/GCNĐKHĐ-SLĐTBXH ghi rõ 'phường 7, thành phố Vũng Tàu, tỉnh Bà Rịa – Vũng Tàu'. Đã lấy theo giấy chứng nhận; đề nghị sửa lại hồ sơ in.",
+      "Địa chỉ cập nhật ngày 08/09/2026 theo Việt Đức Group cung cấp: 'Số 565 Trương Công Định, phường Tam Thắng, Thành phố Hồ Chí Minh'. Bà Rịa – Vũng Tàu đã sáp nhập vào TP. Hồ Chí Minh, nên tên tỉnh cũ trong giấy chứng nhận 71/GCNĐKHĐ-SLĐTBXH ('phường 7, thành phố Vũng Tàu, tỉnh Bà Rịa – Vũng Tàu') không còn dùng được. Trang thiết kế trong hồ sơ ghi 'TP HCM' — hoá ra khớp với địa giới mới, chỉ thiếu tên phường.",
   },
   {
     slug: "trung-cap-viet-han",
@@ -556,8 +556,8 @@ export const SCHOOLS: SeedSchool[] = [
       ko: "베트남·한국 중급학교는 Viet Duc Group의 회원 학교로, 베트남·한국 협력 모형에 따라 수준 높은 인재를 길러 냅니다. 직업 기능과 외국어, 산업 현장의 태도, 그리고 국제 사회에서 일할 역량을 중시합니다.",
       "zh-TW": "越韓中級學校為 Viet Duc Group 的成員學校，依越南與韓國的合作模式培育優質人才。學校著重職業技能、外語、產業工作態度，以及與國際接軌的能力。",
     },
-    city: { vi: "Đồng Xoài, Đồng Nai", en: "Dong Xoai, Dong Nai", de: "Dong Xoai, Dong Nai", ja: "ドンナイ省ドンソアイ", ko: "동나이성 동사와이", "zh-TW": "同奈省同帥" },
-    address: "Khu phố Thanh Bình, phường Tân Bình, thành phố Đồng Xoài",
+    city: { vi: "Đồng Nai", en: "Dong Nai", de: "Dong Nai", ja: "ドンナイ省", ko: "동나이성", "zh-TW": "同奈省" },
+    address: "Khu phố Thanh Bình, phường Bình Phước, tỉnh Đồng Nai",
     coverPath: "/media/schools/trung-cap-viet-han.webp",
     logoPath: "/media/schools/logos/trung-cap-viet-han.webp",
     highlights: {
@@ -625,7 +625,7 @@ export const SCHOOLS: SeedSchool[] = [
     ],
     provenance: fromProfileVi(18),
     editorNote:
-      "Hồ sơ in gọi trường là 'Trung cấp Việt Hàn Đồng Nai'; các quyết định gốc ghi địa chỉ tại Bình Phước (nay thuộc tỉnh Đồng Nai sau sáp nhập 2025). Đã dùng tên pháp lý 'Trường Trung cấp Việt Hàn' theo QĐ 1219/QĐ-UBND. Ngoài hai mã ngành sư phạm, hồ sơ chưa kèm giấy chứng nhận đăng ký hoạt động GDNN liệt kê mã ngành nghề khác – các ngành còn lại đang để ở dạng định hướng đào tạo, chưa công bố chỉ tiêu.",
+      "Hồ sơ in gọi trường là 'Trung cấp Việt Hàn Đồng Nai'; các quyết định gốc ghi địa chỉ tại Bình Phước (nay thuộc tỉnh Đồng Nai sau sáp nhập 2025). Đã dùng tên pháp lý 'Trường Trung cấp Việt Hàn' theo QĐ 1219/QĐ-UBND. Ngoài hai mã ngành sư phạm, hồ sơ chưa kèm giấy chứng nhận đăng ký hoạt động GDNN liệt kê mã ngành nghề khác – các ngành còn lại đang để ở dạng định hướng đào tạo, chưa công bố chỉ tiêu. Địa chỉ cập nhật 08/09/2026 theo Việt Đức Group cung cấp: 'Khu phố Thanh Bình, phường Bình Phước, tỉnh Đồng Nai' — tên phường cũ 'Tân Bình' và cấp 'thành phố Đồng Xoài' không còn dùng.",
   },
   {
     slug: "trung-cap-cong-nghe-viet-duc",

@@ -83,6 +83,14 @@ export const SETTINGS_KEYS = {
  * (vietducgroup.tatthanh.info, read 2026-09-01) - the only place they were
  * published. Social URLs start EMPTY: neither the PDFs nor the old site listed
  * a single social profile, and inventing one would be worse than showing none.
+ *
+ * ĐỊA CHỈ TRỤ SỞ DƯỚI ĐÂY CHƯA ĐƯỢC XÁC NHẬN. Ngày 08/09/2026 Việt Đức Group
+ * cho biết "129 Trần Phú, Hà Nội" chưa đúng, nhưng chưa đưa địa chỉ thay thế.
+ * Nó vốn chỉ có trên web cũ — một bản dựng chưa hoàn thiện của Tất Thành, menu
+ * toàn `javascript:void(0)` và tin tức là nội dung mẫu — chứ không có trong bất
+ * kỳ tệp PDF hồ sơ nào. Khi có địa chỉ chính thức thì sửa ở ĐÂY và ở hai chỗ
+ * trong `src/content/seed/pages.ts` (trang liên hệ và Impressum), rồi chạy lại
+ * `npm run seed`.
  */
 export const DEFAULT_SETTINGS: SiteSettings = {
   contact: {
