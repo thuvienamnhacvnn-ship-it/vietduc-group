@@ -41,6 +41,15 @@ export default async function PortalLayout({
 
   const railItems: RailItem[] = [
     { href: "/gioi-thieu", label: dict.nav.about, short: dict.nav.about, icon: "about" },
+    /*
+     * Cơ cấu nhân sự đứng ngay sau "Giới thiệu" trên THANH ĐIỀU HƯỚNG THẬT.
+     *
+     * `SiteHeader` là thanh ngang và nó bị ẩn ở bố cục này; thanh người đọc
+     * thực sự dùng là cái rail dọc bên trái, lấy mục từ đúng danh sách này.
+     * Thêm vào SiteHeader mà quên chỗ này thì mục mới không tồn tại với bất kỳ
+     * ai — đã mất một lượt đúng như vậy.
+     */
+    { href: "/doi-ngu", label: dict.nav.people, short: dict.nav.people, icon: "people" },
     { href: "/dao-tao/truong", label: dict.nav.schools, short: dict.nav.schoolsShort, icon: "schools" },
     {
       href: "/dao-tao/chuong-trinh",

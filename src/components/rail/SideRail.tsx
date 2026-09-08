@@ -104,6 +104,21 @@ const ICONS = {
       <path d="M21.4 9v5.2" strokeLinecap="round" />
     </svg>
   ),
+  /*
+   * Cơ cấu nhân sự: một người ở trên, hai người dưới, nối bằng nhánh.
+   *
+   * Không dùng hình "hai người đứng cạnh nhau" như biểu tượng nhóm thường
+   * thấy — trang này nói về THỨ BẬC và ai báo cáo cho ai, không phải về việc
+   * có nhiều người.
+   */
+  people: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+      <circle cx="12" cy="5.6" r="2.4" />
+      <circle cx="6" cy="18.4" r="2.4" />
+      <circle cx="18" cy="18.4" r="2.4" />
+      <path d="M12 8v3.4M6 16V13h12v3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
 } satisfies Record<string, ReactElement>;
 
 type Props = {
