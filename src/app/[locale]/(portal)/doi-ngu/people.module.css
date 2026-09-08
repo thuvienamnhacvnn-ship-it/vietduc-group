@@ -1,60 +1,287 @@
-.grid {
-  display: grid;
-  gap: var(--s-5);
-  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
-}
+/*
+ * Cơ cấu nhân sự.
+ *
+ * Trang này phải đọc được như một sơ đồ tổ chức chứ không như một danh bạ:
+ * cấp tập đoàn trước, rồi từng trường, và trong mỗi trường là hai ban đặt cạnh
+ * nhau. Thứ bậc thể hiện bằng kích thước và nền, không bằng đường kẻ dày.
+ */
 
-.card {
-  background: var(--paper-raised);
+/* ------------------------------------------------------------ sơ đồ tổ chức */
+
+.soDo {
+  margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
   border: 1px solid var(--line);
   border-radius: var(--r-4);
-  overflow: hidden;
+  background: var(--surface);
 }
 
-.photo,
-.photoFallback {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-
-.photoFallback {
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-size: 3rem;
+.soDoNhan {
+  margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--gold-deep);
-  background: linear-gradient(135deg, var(--beige) 0%, var(--beige-deep) 100%);
 }
 
-.body {
-  padding: var(--s-4) var(--s-5) var(--s-5);
+.soDoDinh {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+  justify-content: center;
 }
 
-.body h2 {
+/*
+ * Các nhánh trường, có đường nối lên khối tập đoàn.
+ *
+ * Đường nối vẽ bằng `::before` trên từng nhánh chứ không bằng một tấm SVG:
+ * số trường thay đổi được, và SVG thì phải vẽ lại mỗi lần.
+ */
+.soDoNhanh {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: clamp(0.6rem, 1.6vw, 1rem);
+  margin-top: 2.25rem;
+  position: relative;
+}
+
+.soDoNhanh::before {
+  content: "";
+  position: absolute;
+  top: -1.15rem;
+  left: 12%;
+  right: 12%;
+  border-top: 1px solid var(--line-strong);
+}
+
+.nhanh {
+  position: relative;
+  display: flex;
+}
+
+.nhanh::before {
+  content: "";
+  position: absolute;
+  top: -1.15rem;
+  left: 50%;
+  height: 1.15rem;
+  border-left: 1px solid var(--line-strong);
+}
+
+.o {
+  display: grid;
+  gap: 0.2rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-3);
+  background: var(--bg);
+  text-align: center;
+}
+
+.o strong {
+  font-size: 0.92rem;
+  line-height: 1.3;
+}
+
+.o span {
+  font-size: 0.76rem;
+  color: var(--muted);
+}
+
+/* Số người trong ban: một con số nhỏ, không phải một huy hiệu ồn ào. */
+.o em {
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+}
+
+.oGoc {
+  min-width: min(22rem, 100%);
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #f1ece3;
+}
+
+.oGoc span {
+  color: color-mix(in srgb, #f1ece3 72%, transparent);
+}
+
+.oGoc em {
+  color: var(--gold);
+}
+
+.oPhu {
+  min-width: min(14rem, 100%);
+  border-color: var(--line-strong);
+}
+
+.oTruong strong {
+  font-size: 0.86rem;
+}
+
+/* ------------------------------------------------------------------ các cấp */
+
+.cap {
+  margin-bottom: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.capTieuDe {
+  margin: 0 0 clamp(1rem, 2.5vw, 1.5rem);
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--gold);
+  font-size: var(--step-2);
+  /* Vạch vàng chỉ dài bằng chữ, không kéo hết bề ngang: nó là gạch chân của
+     tiêu đề chứ không phải đường chia trang. */
+  width: fit-content;
+}
+
+.capLuoi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  align-items: start;
+}
+
+/* ---------------------------------------------------------------- một ban */
+
+.ban {
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  background: var(--surface);
+}
+
+/* Hội đồng quản trị: nền tối, để mắt biết ngay đâu là cấp cao nhất. */
+.banNoiBat {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #eef1f4;
+}
+
+.banDau {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.banDau h4 {
   margin: 0;
   font-size: var(--step-1);
 }
 
-.role {
-  margin: 0.3rem 0 0;
-  font-size: 0.85rem;
-  color: var(--accent);
-  max-width: none;
-}
-
-.school {
-  margin: 0.2rem 0 0;
+.banSo {
   font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-weight: 600;
   color: var(--gold-deep);
-  max-width: none;
 }
 
-.bio {
-  margin: var(--s-3) 0 0;
-  font-size: 0.87rem;
-  line-height: 1.6;
+.banNoiBat .banSo {
+  color: var(--gold);
+}
+
+.nhiemKy {
+  margin: 0 0 0.9rem;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.banNoiBat .nhiemKy {
+  color: color-mix(in srgb, #eef1f4 66%, transparent);
+}
+
+/* Số quyết định: có mặt để tra cứu được, nhưng không tranh chỗ với tên người. */
+.quyetDinh {
+  opacity: 0.85;
+}
+
+.dsNguoi {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------------------------------------------------------------- thẻ người */
+
+.the {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.5rem;
+  margin: -0.5rem;
+  border-radius: var(--r-3);
+  text-decoration: none;
+  color: inherit;
+  transition:
+    background-color var(--dur-1) var(--ease),
+    transform var(--dur-1) var(--ease);
+}
+
+.the:hover {
+  background: var(--tint-neutral);
+  transform: translateX(2px);
+}
+
+.banNoiBat .the:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.theChu {
+  display: grid;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.theTen {
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.hocVi {
+  font-weight: 500;
+  color: var(--gold-deep);
+}
+
+.banNoiBat .hocVi {
+  color: var(--gold);
+}
+
+.theChuc {
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.banNoiBat .theChuc {
+  color: color-mix(in srgb, #eef1f4 70%, transparent);
+}
+
+/* ------------------------------------------------------------- khối trường */
+
+.truong {
+  margin-bottom: clamp(1.5rem, 3.5vw, 2.5rem);
+  padding-top: clamp(1rem, 2.5vw, 1.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.truongDau {
+  margin-bottom: clamp(0.75rem, 2vw, 1.1rem);
+}
+
+.truongDau h3 {
+  margin: 0;
+  font-size: var(--step-2);
+}
+
+.truongNoi {
+  margin: 0.15rem 0 0;
+  font-size: 0.82rem;
   color: var(--muted);
 }

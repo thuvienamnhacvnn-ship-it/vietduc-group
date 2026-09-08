@@ -10,6 +10,8 @@ import {
   faqs,
   pages,
   partners,
+  people,
+  appointments,
   posts,
   programs,
   schools,
@@ -226,3 +228,38 @@ export async function getProgramsBySlugs(slugs: string[]): Promise<ProgramRow[]>
     .from(programs)
     .where(and(inArray(programs.slug, slugs), eq(programs.status, "approved")));
 }
+
+/* ------------------------------------------------------------- nhân sự */
+
+export type NguoiRow = typeof people.$inferSelect;
+export type ChucVuRow = typeof appointments.$inferSelect;
+
+/** Một người kèm mọi chức vụ đang giữ, đã xếp theo thứ bậc. */
+export type NguoiDayDu = NguoiRow & { chucVu: ChucVuRow[] };
+
+/**
+ * Toàn bộ nhân sự đã duyệt, kèm chức vụ.
+ *
+ * Lấy hai bảng rồi ghép trong bộ nhớ thay vì `join`: một người có nhiều chức
+ * vụ nên `join` trả về người bị nhân bản, và mọi nơi dùng đều phải gom lại.
+ * Số bản ghi ở đây tính bằng chục, không phải chục nghìn.
+ */
+export const getPeople = cache(async (): Promise<NguoiDayDu[]> => {
+  const db = await getDb();
+  const [rows, cv] = await Promise.all([
+    db.select().from(people).where(eq(people.status, "approved")).orderBy(asc(people.order)),
+    db.select().from(appointments).orderBy(asc(appointments.rank), asc(appointments.order)),
+  ]);
+  const theoNguoi = new Map<number, ChucVuRow[]>();
+  for (const a of cv) {
+    const ds = theoNguoi.get(a.personId);
+    if (ds) ds.push(a);
+    else theoNguoi.set(a.personId, [a]);
+  }
+  return rows.map((p) => ({ ...p, chucVu: theoNguoi.get(p.id) ?? [] }));
+});
+
+export const getPersonBySlug = cache(async (slug: string): Promise<NguoiDayDu | null> => {
+  const ds = await getPeople();
+  return ds.find((p) => p.slug === slug) ?? null;
+});

@@ -116,6 +116,45 @@ export type SeedFaq = {
   provenance: Provenance;
 };
 
+/**
+ * Một chức vụ tại một đơn vị.
+ *
+ * `school` là slug của trường trong hệ thống; để `null` khi chức vụ ở cấp tập
+ * đoàn hoặc ở một pháp nhân khác (NIBELC Group, ITW Berlin) — khi ấy tên đơn vị
+ * nằm ở `org`.
+ */
+export type SeedAppointment = {
+  school: string | null;
+  org?: L10n;
+  body: "hdqt" | "dieuhanh" | "hdt" | "bks" | "bgh" | "khac";
+  title: L10n;
+  /** Chủ tịch 10, phó 20, thư ký 30, thành viên 40 — để xếp đúng thứ bậc. */
+  rank: number;
+  term?: string;
+  decisionRef?: string;
+};
+
+export type SeedPerson = {
+  slug: string;
+  name: string;
+  honorific?: string | null;
+  birthYear?: number | null;
+  headline: L10n;
+  /** Trường mà người này gắn bó chính; `null` với cấp tập đoàn và ban kiểm soát. */
+  schoolSlug?: string | null;
+  order: number;
+  bio?: L10n | null;
+  quote?: L10n | null;
+  overview?: L10nList;
+  education?: { period?: string; text: L10n }[];
+  competencies?: { title: L10n; text: L10n }[];
+  career?: { time: string; role: L10n; org: L10n }[];
+  highlights?: L10nList;
+  focus?: L10nList;
+  direction?: L10n | null;
+  appointments: SeedAppointment[];
+};
+
 export type SeedPage = {
   slug: string;
   title: L10n;
@@ -143,6 +182,23 @@ export function fromProfileEn(page: number): Provenance {
     page,
     importedAt: IMPORTED_AT,
     method: "pdf-ocr",
+  };
+}
+
+/**
+ * Bộ hồ sơ nhân sự tập đoàn gửi ngày 08/09/2026.
+ *
+ * Gồm hồ sơ cá nhân dạng .docx và bốn quyết định thành lập hội đồng trường
+ * dạng bản quét (phải OCR). Không phải PDF hồ sơ năng lực như các nguồn khác,
+ * nên có mã nguồn riêng.
+ */
+export function fromHoSoNhanSu(): Provenance {
+  return {
+    source: "ho-so-nhan-su-2026",
+    sourceTitle: "CƠ CẤU NHÂN SỰ VIỆT ĐỨC GROUP (hồ sơ cá nhân + quyết định hội đồng trường)",
+    documentDate: "2026-09-08",
+    importedAt: "2026-09-08",
+    method: "manual",
   };
 }
 

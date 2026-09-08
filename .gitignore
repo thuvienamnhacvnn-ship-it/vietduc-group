@@ -39,3 +39,7 @@ next-env.d.ts
 # Ghi chú dành cho công cụ soạn thảo lúc phát triển, không thuộc về sản phẩm.
 /CLAUDE.md
 /AGENTS.md
+
+# Bản OCR danh sách hội đồng trường: có số CCCD, ngày cấp, nơi cấp của từng
+# người. Dữ liệu cá nhân — không đưa vào repo, và không bao giờ lên website.
+/docs/source/nhan-su

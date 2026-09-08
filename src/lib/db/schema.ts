@@ -236,16 +236,47 @@ export const programs = pgTable(
   ],
 );
 
+/** Một mục học vấn: "2000 - 2005" + "Kinh tế - Luật, Đại học ...". */
+export type HocVan = { period?: string; text: L10n };
+/** Một năng lực cốt lõi: tiêu đề ngắn + một câu giải thích. */
+export type NangLuc = { title: L10n; text: L10n };
+/** Một chặng trong hành trình công tác. */
+export type ChangCongTac = { time: string; role: L10n; org: L10n };
+
 export const people = pgTable(
   "people",
   {
     id: serial("id").primaryKey(),
     slug: text("slug").notNull(),
     name: text("name").notNull(),
+    /** Học hàm, học vị viết trước tên: "TS.", "PGS.TS.", "ThS.". */
+    honorific: text("honorific"),
     role: jsonb("role").$type<L10n>(),
+    /** Dòng chức danh chính hiển thị dưới tên trên thẻ và trang hồ sơ. */
+    headline: jsonb("headline").$type<L10n>(),
     /** leadership | lecturer | admissions */
     kind: text("kind").notNull().default("leadership"),
     bio: jsonb("bio").$type<L10n>(),
+    /**
+     * Chỉ NĂM sinh, không phải ngày sinh.
+     *
+     * Danh sách hội đồng trường có đủ ngày sinh và cả số căn cước, nhưng đó là
+     * dữ liệu cá nhân: nó dừng lại ở tệp nguồn, không vào cơ sở dữ liệu và
+     * không lên trang. Năm sinh thì chính các hồ sơ giới thiệu đã tự công bố.
+     */
+    birthYear: integer("birth_year"),
+    quote: jsonb("quote").$type<L10n>(),
+    expertise: jsonb("expertise").$type<L10nList>(),
+    education: jsonb("education").$type<HocVan[]>(),
+    competencies: jsonb("competencies").$type<NangLuc[]>(),
+    career: jsonb("career").$type<ChangCongTac[]>(),
+    /** Các đoạn "tổng quan" trong hồ sơ, giữ nguyên từng đoạn. */
+    overview: jsonb("overview").$type<L10nList>(),
+    /** Dấu ấn kinh nghiệm, dạng gạch đầu dòng. */
+    highlights: jsonb("highlights").$type<L10nList>(),
+    /** Trọng tâm hành động, dạng gạch đầu dòng. */
+    focus: jsonb("focus").$type<L10nList>(),
+    direction: jsonb("direction").$type<L10n>(),
     photoPath: text("photo_path"),
     schoolId: integer("school_id").references(() => schools.id, { onDelete: "set null" }),
     order: integer("sort_order").notNull().default(0),
@@ -253,6 +284,51 @@ export const people = pgTable(
     provenance: jsonb("provenance").$type<Provenance>(),
   },
   (t) => [uniqueIndex("people_slug_idx").on(t.slug)],
+);
+
+/**
+ * Ban trong cơ cấu.
+ *
+ * `hdqt` là THÀNH VIÊN hội đồng quản trị, còn `dieuhanh` là bộ máy điều hành
+ * của pháp nhân tập đoàn (tổng giám đốc, phó giám đốc, trưởng phòng). Trộn hai
+ * thứ vào một ban thì khối "Hội đồng quản trị" hiện ra cả trưởng phòng, và
+ * người đọc không còn biết ai thực sự ngồi trong hội đồng.
+ */
+export const BODIES = ["hdqt", "dieuhanh", "hdt", "bks", "bgh", "khac"] as const;
+export type Body = (typeof BODIES)[number];
+
+/**
+ * Chức vụ của một người tại một đơn vị.
+ *
+ * Một người giữ nhiều chức ở nhiều nơi cùng lúc — chủ tịch HĐQT tập đoàn đồng
+ * thời là chủ tịch hội đồng ba trường và phó chủ tịch trường thứ tư — nên chức
+ * vụ phải là bảng riêng chứ không phải một cột trong `people`.
+ */
+export const appointments = pgTable(
+  "appointments",
+  {
+    id: serial("id").primaryKey(),
+    personId: integer("person_id")
+      .notNull()
+      .references(() => people.id, { onDelete: "cascade" }),
+    /** NULL khi chức vụ ở cấp tập đoàn hoặc ở pháp nhân ngoài hệ thống trường. */
+    schoolId: integer("school_id").references(() => schools.id, { onDelete: "cascade" }),
+    /** Tên đơn vị khi `schoolId` rỗng: "Việt Đức Group", "NIBELC Group", "ITW Berlin". */
+    orgLabel: jsonb("org_label").$type<L10n>(),
+    body: text("body").$type<Body>().notNull().default("khac"),
+    title: jsonb("title").$type<L10n>().notNull(),
+    /** Thứ bậc trong ban: chủ tịch 10, phó 20, thư ký 30, thành viên 40. */
+    rank: integer("rank").notNull().default(50),
+    term: text("term"),
+    decisionRef: text("decision_ref"),
+    isCurrent: boolean("is_current").notNull().default(true),
+    order: integer("sort_order").notNull().default(0),
+  },
+  (t) => [
+    index("appointments_person_idx").on(t.personId),
+    index("appointments_school_idx").on(t.schoolId),
+    index("appointments_body_idx").on(t.body),
+  ],
 );
 
 export const partners = pgTable(

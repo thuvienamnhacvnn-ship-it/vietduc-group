@@ -1,0 +1,52 @@
+/*
+ * Đĩa chân dung.
+ *
+ * Cùng một khung cho cả ảnh thật lẫn chữ cái thay ảnh, để lúc tập đoàn gửi ảnh
+ * sang thì bố cục không xê dịch một pixel nào.
+ */
+.khung {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--navy-soft), var(--navy));
+  border: 1px solid color-mix(in srgb, var(--gold) 42%, transparent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.lon {
+  width: clamp(6.5rem, 14vw, 9rem);
+  height: clamp(6.5rem, 14vw, 9rem);
+  border-width: 1.5px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 30px rgba(16, 29, 43, 0.18);
+}
+
+.anh {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*
+ * Chữ cái đặt bằng mặt chữ hiển thị, không phải mặt chữ nội dung: ở cỡ này nó
+ * đọc như một huy hiệu chứ không như một mẩu chữ bị phóng to.
+ */
+.chu {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--gold);
+  /* Chữ hoa có dấu (Ế, Ộ) cao hơn chữ thường; nhích xuống nửa hạt cho cân. */
+  transform: translateY(0.03em);
+}
+
+.lon .chu {
+  font-size: clamp(2.4rem, 5vw, 3.2rem);
+}

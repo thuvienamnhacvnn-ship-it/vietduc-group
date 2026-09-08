@@ -15,6 +15,8 @@ import {
   media,
   pages,
   partners,
+  people,
+  appointments,
   programs,
   schools,
   settings,
@@ -27,6 +29,8 @@ import { hashPassword } from "../src/lib/password";
 import { formatDate } from "../src/lib/format";
 import { DEFAULT_SETTINGS, SETTINGS_KEYS } from "../src/lib/site-config";
 import { CATEGORIES, DOCUMENTS, SCHOOLS } from "../src/content/seed/schools";
+import { PEOPLE } from "../src/content/seed/people";
+import { fromHoSoNhanSu } from "../src/content/seed/types";
 import { LICENSED_PROGRAMS, TRAINING_INTENTS } from "../src/content/seed/programs";
 import { ACTIVITIES, FAQS, PARTNERS } from "../src/content/seed/network";
 import { PAGES } from "../src/content/seed/pages";
@@ -304,6 +308,74 @@ async function main() {
     }
   }
   console.log(`programs       ${approvedPrograms} approved, ${draftPrograms} draft`);
+
+  /* -------------------------------------------------------------- people */
+
+  /*
+   * Người trước, chức vụ sau.
+   *
+   * Chức vụ trỏ tới người bằng khoá ngoại, nên phải có id của người rồi mới
+   * ghi được. Và mỗi lượt seed thì xoá sạch chức vụ CŨ CỦA CHÍNH NGƯỜI ẤY rồi
+   * ghi lại: nếu chỉ thêm, chạy seed hai lần là mỗi người có hai bộ chức vụ
+   * y hệt nhau, mà bảng này không có khoá tự nhiên nào để nhận ra trùng.
+   */
+  const schoolIdForPerson = (slug: string | null | undefined) =>
+    slug ? (schoolIdBySlug.get(slug) ?? null) : null;
+
+  for (const person of PEOPLE) {
+    const values = {
+      slug: person.slug,
+      name: person.name,
+      honorific: person.honorific ?? null,
+      birthYear: person.birthYear ?? null,
+      headline: person.headline,
+      role: person.headline,
+      kind: "leadership",
+      bio: person.bio ?? null,
+      quote: person.quote ?? null,
+      overview: person.overview ?? null,
+      education: person.education ?? null,
+      competencies: person.competencies ?? null,
+      career: person.career ?? null,
+      highlights: person.highlights ?? null,
+      focus: person.focus ?? null,
+      direction: person.direction ?? null,
+      schoolId: schoolIdForPerson(person.schoolSlug),
+      order: person.order,
+      status: "approved" as Status,
+      provenance: fromHoSoNhanSu(),
+    };
+
+    const existing = await db.select().from(people).where(eq(people.slug, person.slug));
+    let personId: number;
+    if (existing[0]) {
+      await db.update(people).set(values).where(eq(people.id, existing[0].id));
+      personId = existing[0].id;
+    } else {
+      const [row] = await db.insert(people).values(values).returning({ id: people.id });
+      personId = row.id;
+    }
+
+    await db.delete(appointments).where(eq(appointments.personId, personId));
+    let thuTu = 0;
+    for (const a of person.appointments) {
+      await db.insert(appointments).values({
+        personId,
+        schoolId: schoolIdForPerson(a.school),
+        orgLabel: a.org ?? null,
+        body: a.body,
+        title: a.title,
+        rank: a.rank,
+        term: a.term ?? null,
+        decisionRef: a.decisionRef ?? null,
+        isCurrent: true,
+        order: thuTu++,
+      });
+    }
+  }
+  console.log(
+    `people         ${PEOPLE.length} (${PEOPLE.reduce((n, p) => n + p.appointments.length, 0)} chức vụ)`,
+  );
 
   /* ------------------------------------------------------------ partners */
   for (const partner of PARTNERS) {
