@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Be_Vietnam_Pro, Lora } from "next/font/google";
+import { Be_Vietnam_Pro, Spectral } from "next/font/google";
 import { DEFAULT_LOCALE, LOCALE_TAG, isLocale } from "@/lib/i18n/config";
 import "@/styles/globals.css";
 
@@ -18,10 +18,17 @@ import "@/styles/globals.css";
  * tiêu đề, hai tầng nét tóc ấy vỡ ra thành những mẩu rời — chữ trông thô và
  * gãy, đúng như nhìn bằng mắt thường thấy.
  *
- * Lora vẫn là serif có cá tính nhưng nét chuyển vừa phải, và bộ dấu tiếng Việt
- * được vẽ đủ dày để giữ hình ở mọi cỡ.
+ * Cũng KHÔNG dùng Lora, tuy dấu của nó thì lành. Lora chân rộng và thân tròn,
+ * ở cỡ tiêu đề trông ra dáng sách giáo khoa hơn là dáng một tập đoàn.
+ *
+ * Spectral: thân chữ hẹp nên cùng một dòng tiêu đề chiếm ít bề ngang hơn và
+ * đọc ra gọn, nét thanh nhưng dấu vẫn đủ dày để không vỡ như Playfair. Chọn
+ * sau khi đặt chín mặt chữ cạnh nhau trên cùng một dòng có đủ Ệ, Ữ, Ộ, Ẳ —
+ * `docs/thu-font.html` giữ lại trang so sánh ấy để lần sau khỏi dựng lại. Nó
+ * nằm trong docs chứ không trong public: đó là công cụ làm việc, không phải
+ * một trang của website.
  */
-const display = Lora({
+const display = Spectral({
   subsets: ["latin", "latin-ext", "vietnamese"],
   weight: ["500", "600", "700"],
   variable: "--font-serif",
