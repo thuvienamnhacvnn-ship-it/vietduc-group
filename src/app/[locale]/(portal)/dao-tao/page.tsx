@@ -258,7 +258,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className={`section ${styles.bandPaper} ${styles.afterHero}`}>
         <div className="shell">
           <div className={styles.aboutGrid}>
-            <div data-reveal>
+            <div data-reveal suppressHydrationWarning>
               <SectionHeading
                 eyebrow={dict.home.aboutTitle}
                 title={
@@ -290,7 +290,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               </p>
             </div>
 
-            <div className={styles.timelineWrap} data-reveal>
+            <div className={styles.timelineWrap} data-reveal suppressHydrationWarning>
               <h3 className={styles.timelineHead}>
                 {pick({ vi: "Chặng đường", en: "The road so far", de: "Der Weg bisher", ja: "これまでの道のり", ko: "지나온 길", "zh-TW": "一路走來" }, locale)}
               </h3>
@@ -313,7 +313,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           {/* Bốn số liệu thành một hàng riêng chạy hết chiều ngang, dưới cả
               hai cột. Nhét vào cột trái làm cột đó dài hơn hẳn cột phải, để
               lại một mảng trống lớn bên cạnh bảng chặng đường. */}
-          <div className={styles.aboutStats} data-reveal>
+          <div className={styles.aboutStats} data-reveal suppressHydrationWarning>
             <StatRow stats={stats} />
           </div>
         </div>
@@ -530,7 +530,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           />
           <ol className={styles.pathway}>
             {pathway.map((item, index) => (
-              <li key={item.step} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+              <li key={item.step} data-reveal suppressHydrationWarning style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
                 <span className={styles.pathwayStep}>{item.step}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
@@ -582,7 +582,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               }
               action={<ArrowLink href={path("/doi-tac")}>{dict.common.viewAll}</ArrowLink>}
             />
-            <ul className={styles.partnerStrip} data-reveal>
+            <ul className={styles.partnerStrip} data-reveal suppressHydrationWarning>
               {partners.slice(0, 16).map((partner) => (
                 <li key={partner.id}>
                   <span>{partner.name}</span>
@@ -605,7 +605,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             />
             <div className={styles.postGrid}>
               {posts.map((post) => (
-                <article key={post.id} className={styles.postCard} data-reveal>
+                <article key={post.id} className={styles.postCard} data-reveal suppressHydrationWarning>
                   <h3>
                     <Link href={path(`/tin-tuc/${post.slug}`)}>{t(post.title, locale)}</Link>
                   </h3>

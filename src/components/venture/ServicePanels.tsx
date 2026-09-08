@@ -29,7 +29,7 @@ export function ServicePanels({
         <li
           key={service.key}
           className={styles.panel}
-          data-reveal
+          data-reveal suppressHydrationWarning
           style={{ "--reveal-delay": `${index * 90}ms` } as React.CSSProperties}
         >
           {/* A group, not a link: these are explanations, not destinations. The

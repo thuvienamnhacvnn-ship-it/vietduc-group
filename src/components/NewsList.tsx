@@ -44,7 +44,7 @@ export function NewsList({
         const ngay = post.isEvent ? (post.eventAt ?? post.publishedAt) : post.publishedAt;
 
         return (
-          <article key={post.id} className={styles.card} data-reveal>
+          <article key={post.id} className={styles.card} data-reveal suppressHydrationWarning>
             {post.coverPath ? (
               <Link href={href} className={styles.media} tabIndex={-1} aria-hidden="true">
                 <Image

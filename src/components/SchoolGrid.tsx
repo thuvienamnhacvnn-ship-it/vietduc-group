@@ -36,7 +36,7 @@ export function SchoolGrid({
         return (
           <li
             key={school.id}
-            data-reveal
+            data-reveal suppressHydrationWarning
             style={{ "--reveal-delay": `${(index % 3) * 90}ms` } as React.CSSProperties}
           >
             <Link

@@ -155,7 +155,7 @@ export function TamNhin({ locale }: { locale: Locale }) {
 
           <ol className={styles.giaTri}>
             {GIA_TRI.muc.map((m) => (
-              <li key={m.so} className={styles.giaTriHang} data-reveal>
+              <li key={m.so} className={styles.giaTriHang} data-reveal suppressHydrationWarning>
                 <figure className={styles.giaTriAnh}>
                   <Image
                     src={m.anh.src}
@@ -271,7 +271,7 @@ export function TamNhin({ locale }: { locale: Locale }) {
 
           <ul className={styles.ngheMoi}>
             {NANG_LUC_MOI.nhom.map((n) => (
-              <li key={n.ten.vi} data-reveal>
+              <li key={n.ten.vi} data-reveal suppressHydrationWarning>
                 <span className={styles.ngheTen}>{pick(n.ten, locale)}</span>
                 <span className={styles.ngheY}>{pick(n.y, locale)}</span>
               </li>
@@ -379,7 +379,7 @@ export function TamNhin({ locale }: { locale: Locale }) {
               {TAM_NHIN_2045.nam}
             </span>
 
-            <div className={styles.n2045Chu} data-reveal>
+            <div className={styles.n2045Chu} data-reveal suppressHydrationWarning>
               <h3 className={styles.tieuDeKhoi}>
                 <span className="visually-hidden">{TAM_NHIN_2045.nam} — </span>
                 {pick(TAM_NHIN_2045.tieuDe, locale)}
@@ -390,7 +390,7 @@ export function TamNhin({ locale }: { locale: Locale }) {
 
           <ol className={styles.huong2045}>
             {TAM_NHIN_2045.huong.map((h, i) => (
-              <li key={h.vi} data-reveal style={{ "--reveal-delay": `${i * 110}ms` } as React.CSSProperties}>
+              <li key={h.vi} data-reveal suppressHydrationWarning style={{ "--reveal-delay": `${i * 110}ms` } as React.CSSProperties}>
                 <span className={styles.huongSo} aria-hidden="true" />
                 <span className={styles.huongChu}>{pick(h, locale)}</span>
               </li>

@@ -92,7 +92,7 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
         ) : (
           <div className={styles.grid}>
             {rows.map((person) => (
-              <article key={person.id} className={styles.card} data-reveal>
+              <article key={person.id} className={styles.card} data-reveal suppressHydrationWarning>
                 {person.photoPath ? (
                   <Image
                     src={person.photoPath}

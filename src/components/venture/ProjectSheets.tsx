@@ -28,7 +28,7 @@ export function ProjectSheets({
   return (
     <ol className={styles.sheets}>
       {projects.map((project, index) => (
-        <li key={project.slug} className={styles.sheet} data-reveal>
+        <li key={project.slug} className={styles.sheet} data-reveal suppressHydrationWarning>
           <Link
             href={localePath(locale, `/dau-tu/du-an/${project.slug}`)}
             className={styles.link}

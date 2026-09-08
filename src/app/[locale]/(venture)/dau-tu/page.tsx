@@ -161,7 +161,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         />
       </section>
 
-      <section id="linh-vuc" className={styles.section} data-reveal>
+      <section id="linh-vuc" className={styles.section} data-reveal suppressHydrationWarning>
         <div className={styles.sectionHead}>
           <p className={styles.kicker}>01</p>
           <h2>{dict.venture.services}</h2>
@@ -170,7 +170,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         <ServicePanels services={VENTURE_SERVICES} locale={locale} />
       </section>
 
-      <section id="du-an" className={styles.section} data-reveal>
+      <section id="du-an" className={styles.section} data-reveal suppressHydrationWarning>
         <div className={styles.sectionHead}>
           <p className={styles.kicker}>02</p>
           <h2>{dict.venture.projects}</h2>
@@ -189,7 +189,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         án mà không biết chắc thì tệ hơn là không đặt tên.
       */}
       {siteShots.length ? (
-        <section id="hien-truong" className={styles.section} data-reveal>
+        <section id="hien-truong" className={styles.section} data-reveal suppressHydrationWarning>
           <div className={styles.sectionHead}>
             <p className={styles.kicker}>03</p>
             <h2>
@@ -222,7 +222,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         </section>
       ) : null}
 
-      <section id="cach-lam" className={`${styles.section} ${styles.dark}`} data-reveal>
+      <section id="cach-lam" className={`${styles.section} ${styles.dark}`} data-reveal suppressHydrationWarning>
         <div className={styles.sectionHead}>
           {/* 04, không phải 03: mục ảnh hiện trường vừa chen vào trước nó, và
               hai mục cùng mang số 03 thì dãy số mất hết ý nghĩa. */}
@@ -262,7 +262,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      <section className={styles.cta} data-reveal>
+      <section className={styles.cta} data-reveal suppressHydrationWarning>
         <div>
           <h2>{dict.venture.contactCta}</h2>
           <p>{dict.venture.documentNote}</p>

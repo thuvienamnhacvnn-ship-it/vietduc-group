@@ -30,7 +30,7 @@ export function SchoolCard({
   const highlights = school.highlights?.[locale] ?? school.highlights?.vi ?? [];
 
   return (
-    <article className={styles.schoolCard} data-reveal>
+    <article className={styles.schoolCard} data-reveal suppressHydrationWarning>
       <Link
         href={localePath(locale, `/dao-tao/truong/${school.slug}`)}
         className={styles.schoolLink}
@@ -116,7 +116,7 @@ export function ProgramCard({
   return (
     <article
       className={`${styles.programCard} ${compact ? styles.programCompact : ""}`}
-      data-reveal
+      data-reveal suppressHydrationWarning
     >
       <div className={styles.programTop}>
         <Badge
@@ -192,7 +192,7 @@ export function ActivityCard({
   return (
     <figure
       className={`${styles.activityCard} ${styles[`activity_${size}`]}`}
-      data-reveal
+      data-reveal suppressHydrationWarning
     >
       {activity.coverPath ? (
         <Image

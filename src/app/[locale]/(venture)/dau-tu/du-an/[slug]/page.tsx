@@ -34,7 +34,7 @@ function Block({ block, locale }: { block: VentureBlock; locale: Locale }) {
 
   if (block.kind === "prose") {
     return (
-      <section className={styles.block} data-reveal>
+      <section className={styles.block} data-reveal suppressHydrationWarning>
         <h2>{title}</h2>
         <div className={styles.blockProse}>
           {tList(block.paragraphs, locale).map((paragraph) => (
@@ -47,7 +47,7 @@ function Block({ block, locale }: { block: VentureBlock; locale: Locale }) {
 
   if (block.kind === "list") {
     return (
-      <section className={styles.block} data-reveal>
+      <section className={styles.block} data-reveal suppressHydrationWarning>
         <h2>{title}</h2>
         <ul className={styles.bullets}>
           {tList(block.items, locale).map((item) => (
@@ -61,7 +61,7 @@ function Block({ block, locale }: { block: VentureBlock; locale: Locale }) {
 
   if (block.kind === "steps") {
     return (
-      <section className={styles.block} data-reveal>
+      <section className={styles.block} data-reveal suppressHydrationWarning>
         <h2>{title}</h2>
         <ol className={styles.steps}>
           {block.steps.map((step) => (
@@ -77,7 +77,7 @@ function Block({ block, locale }: { block: VentureBlock; locale: Locale }) {
 
   if (block.kind === "table") {
     return (
-      <section className={styles.block} data-reveal>
+      <section className={styles.block} data-reveal suppressHydrationWarning>
         <h2>{title}</h2>
         <div className={styles.tableScroll}>
           <table className={styles.table}>
@@ -97,7 +97,7 @@ function Block({ block, locale }: { block: VentureBlock; locale: Locale }) {
   }
 
   return (
-    <section className={styles.block} data-reveal>
+    <section className={styles.block} data-reveal suppressHydrationWarning>
       <h2>{title}</h2>
       <div className={styles.tableScroll}>
         <table className={styles.table}>
@@ -196,7 +196,7 @@ export default async function VentureProjectPage({ params }: { params: Params })
       </div>
 
       {project.gallery.length ? (
-        <section className={styles.gallery} data-reveal>
+        <section className={styles.gallery} data-reveal suppressHydrationWarning>
           <h2>{dict.venture.gallery}</h2>
           <div className={styles.grid}>
             {project.gallery.map((shot) => (
@@ -216,7 +216,7 @@ export default async function VentureProjectPage({ params }: { params: Params })
         </section>
       ) : null}
 
-      <section className={styles.sources} data-reveal>
+      <section className={styles.sources} data-reveal suppressHydrationWarning>
         <h2>{dict.venture.sources}</h2>
         <ul>
           {project.sources.map((source) => (

@@ -27,8 +27,24 @@ export function Reveal() {
     const root = document.documentElement;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    /*
+     * Dấu "đã hiện" là một thuộc tính RIÊNG, không phải giá trị mới của
+     * `data-reveal`.
+     *
+     * Tách đôi cho hai cái tên nói đúng việc của mình: máy chủ khai "phần tử
+     * này có hiệu ứng", trình duyệt ghi "đã hiện rồi".
+     *
+     * Còn chuyện React kêu lệch khi khớp trang thì KHÔNG gỡ bằng cách đổi tên
+     * thuộc tính, cũng không bằng cách chờ thêm vài nhịp — React so cả những
+     * thuộc tính nó chưa từng viết, và không có mốc nào đáng tin để biết một
+     * nhánh đã khớp xong. Chỗ khai báo đúng là ngay trên phần tử: mọi nơi đặt
+     * `data-reveal` đều đi kèm `suppressHydrationWarning`, tức là "thuộc tính
+     * của nút này do trình duyệt sửa, đừng đem so". Thẻ <html> trong
+     * `app/layout.tsx` đã phải khai đúng như thế cho đoạn mã đặt giao diện
+     * sáng/tối.
+     */
     const show = (element: HTMLElement) => {
-      element.dataset.reveal = "in";
+      element.setAttribute("data-reveal-in", "");
     };
 
     if (reduced) {
@@ -54,7 +70,7 @@ export function Reveal() {
     );
 
     const take = (element: HTMLElement) => {
-      if (element.dataset.reveal === "in") return;
+      if (element.hasAttribute("data-reveal-in")) return;
       // Thứ đã nằm trong tầm nhìn thì hiện ngay, không fade vào muộn.
       if (element.getBoundingClientRect().top < window.innerHeight * 0.9) show(element);
       else observer.observe(element);
@@ -64,6 +80,12 @@ export function Reveal() {
      * Bật cổng ẩn RỒI xử lý ngay trong cùng một nhịp, không để trình duyệt vẽ
      * xen vào giữa: nếu vẽ xen vào thì phần tử đang hiện sẽ chớp tắt một cái
      * trước khi hiện lại.
+     *
+     * Chạy thẳng, không hoãn. Đã có bản hoãn một khung hình rồi hoãn bằng hẹn
+     * giờ, cả hai đều nhằm né lời kêu lệch của React và cả hai đều là phỏng
+     * đoán; thứ chữa đúng chỗ là `suppressHydrationWarning` trên chính các
+     * phần tử, xem lời chú ở `show`. Hoãn ở đây chỉ đổi lấy một cái giá: nội
+     * dung trong tầm nhìn hiện muộn hơn đúng ngần ấy.
      */
     root.dataset.revealReady = "";
     for (const element of document.querySelectorAll<HTMLElement>("[data-reveal]")) take(element);

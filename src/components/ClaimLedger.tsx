@@ -27,7 +27,7 @@ export function ClaimLedger({ claims, evidenceLabel }: { claims: Claim[]; eviden
         <article
           key={entry.claim}
           className={styles.row}
-          data-reveal
+          data-reveal suppressHydrationWarning
           style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
         >
           <div className={styles.figure}>

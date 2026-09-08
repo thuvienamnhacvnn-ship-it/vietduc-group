@@ -34,7 +34,7 @@ export function FieldBoard({
       {fields.map((field, index) => (
         <li
           key={field.slug}
-          data-reveal
+          data-reveal suppressHydrationWarning
           data-reveal-as="slide"
           style={{ "--reveal-delay": `${index * 45}ms` } as React.CSSProperties}
         >

@@ -40,7 +40,7 @@ export function ProgramCards({
       {programs.map((program, index) => (
         <li
           key={program.slug}
-          data-reveal
+          data-reveal suppressHydrationWarning
           style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}
         >
           <Link href={localePath(locale, `/dao-tao/chuong-trinh/${program.slug}`)} className={styles.card}>

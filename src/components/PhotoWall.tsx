@@ -35,7 +35,7 @@ export function PhotoWall({
           <li
             key={shot.src}
             className={i === 0 ? styles.lead : undefined}
-            data-reveal
+            data-reveal suppressHydrationWarning
             style={{ "--reveal-delay": `${Math.min(i, 6) * 70}ms` } as React.CSSProperties}
           >
             <Image

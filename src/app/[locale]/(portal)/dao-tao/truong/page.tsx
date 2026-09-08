@@ -277,7 +277,7 @@ export default async function SchoolsPage({ params }: { params: Promise<{ locale
               const tel = telHref(school.phone ?? "");
 
               return (
-                <li key={school.id} className={styles.entry} data-reveal>
+                <li key={school.id} className={styles.entry} data-reveal suppressHydrationWarning>
                   <span className={styles.crest}>
                     {school.logoPath ? (
                       <Image src={school.logoPath} alt="" width={160} height={160} />
