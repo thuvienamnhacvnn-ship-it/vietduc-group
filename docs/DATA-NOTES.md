@@ -404,3 +404,43 @@ Sửa nội dung thì chạy thêm `npm run seed` / `npm run kb:build` ngay trê
 không đụng tới.
 
 **Vercel vẫn giữ nguyên**, chưa tắt, để còn đối chiếu cho tới khi tên miền về.
+
+## 22. Cơ cấu nhân sự (bộ hồ sơ 08/09/2026)
+
+Nguồn: `E:\Works\itw\VD\CƠ CẤU NHÂN SỰ VIỆT ĐỨC GROUP` — 47 tệp hồ sơ cá nhân
+`.docx` và 4 quyết định thành lập hội đồng trường (bản quét, phải OCR). 47 tệp
+chỉ là **18 người**: ai giữ chức ở nhiều đơn vị thì hồ sơ được chép sang từng
+thư mục, nội dung giống hệt nhau.
+
+**Dữ liệu cá nhân KHÔNG lên web và KHÔNG vào repo.** Bốn danh sách hội đồng
+trường có số căn cước, ngày cấp, nơi cấp và ngày sinh đầy đủ của từng người.
+Bản OCR nằm ở `docs/source/nhan-su/` và thư mục ấy đã vào `.gitignore`. Trong
+cơ sở dữ liệu chỉ có **năm sinh**, vì chính các hồ sơ giới thiệu đã tự công bố.
+
+**Chức vụ lấy theo quyết định, không theo bìa hồ sơ.** Hai chỗ này lệch nhau ở
+vài người — ví dụ hồ sơ Bùi Văn Phượng ghi "Thành viên Hội đồng trường Bách
+Khoa Vũng Tàu" còn quyết định 0805/2026/QĐ-TCBKVT ghi "Thư ký HĐT". Đã lấy
+theo quyết định.
+
+| Hội đồng trường | Quyết định | Nhiệm kỳ |
+|---|---|---|
+| CĐ Công nghệ Ngoại thương | Nghị quyết 0605/NQ-FT ngày 06/05/2026 | 2026–2031 |
+| TC Bách Khoa Vũng Tàu | QĐ 0805/2026/QĐ-TCBKVT ngày 08/05/2026 | 2026–2031 |
+| TC nghề Quốc tế (IVS) | QĐ 2904c/2026/QĐ-IVS ngày 29/04/2026 | 2026–2031 |
+| TC Công nghệ Việt Đức | QĐ 0607/2026/QĐ-HĐQT ngày 06/07/2026 | 2026–2031 |
+
+**CÒN CHỜ XÁC NHẬN — thành viên Hội đồng quản trị tập đoàn.** Thư mục "HĐQT
+Việt Đức" chứa 7 hồ sơ (Phan Phương Nguyên, Phạm Văn Tùng, Trần Minh Chất, Bùi
+Văn Phượng, Nguyễn Mạnh Tuân, Lê Văn Tấn, Trần Đình Hùng) nhưng **không có
+quyết định HĐQT kèm theo**, và chỉ hai người đầu có chức danh HĐQT ghi trong
+hồ sơ cá nhân. Ngày 08/09/2026 đã hỏi và tập đoàn chốt: **chỉ công bố hai người
+ấy**, năm người còn lại vẫn hiện đầy đủ trên trang qua chức vụ hội đồng trường
+hoặc ban giám hiệu của họ. Khi có quyết định HĐQT thì bổ sung vào
+`src/content/seed/people.ts`.
+
+**Trường Trung cấp Việt Hàn không có hồ sơ nhân sự nào** trong bộ tài liệu này,
+nên không có khối nhân sự trên trang.
+
+**Ảnh chân dung**: mọi hồ sơ đều ghi "ẢNH CHÂN DUNG (Bổ sung khi có ảnh)". Giao
+diện dựng đĩa tròn có chữ cái đầu; khi có ảnh thì đổ vào `photoPath`, bố cục
+không xê dịch.
