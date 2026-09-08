@@ -1,16 +1,27 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import { Be_Vietnam_Pro, Playfair_Display } from "next/font/google";
+import { Be_Vietnam_Pro, Lora } from "next/font/google";
 import { DEFAULT_LOCALE, LOCALE_TAG, isLocale } from "@/lib/i18n/config";
 import "@/styles/globals.css";
 
 /**
- * Two families, no more: a high-contrast serif for display type and a humanist
- * sans for everything a reader has to work with. Both ship a Vietnamese subset,
- * which rules out most "premium" display faces.
+ * Two families, no more: a serif for display type and a humanist sans for
+ * everything a reader has to work with. Both ship a Vietnamese subset, which
+ * rules out most "premium" display faces.
+ *
+ * KHÔNG dùng Playfair Display, dù nó có bộ chữ Việt.
+ *
+ * Playfair là mặt chữ tương phản rất cao: nét ngang mảnh gần bằng sợi tóc. Với
+ * tiếng Anh thì sang, nhưng dấu tiếng Việt cũng được vẽ bằng chính nét mảnh
+ * ấy, mà một chữ như "ễ" hay "ộ" phải xếp hai tầng dấu chồng lên nhau. Ở cỡ
+ * tiêu đề, hai tầng nét tóc ấy vỡ ra thành những mẩu rời — chữ trông thô và
+ * gãy, đúng như nhìn bằng mắt thường thấy.
+ *
+ * Lora vẫn là serif có cá tính nhưng nét chuyển vừa phải, và bộ dấu tiếng Việt
+ * được vẽ đủ dày để giữ hình ở mọi cỡ.
  */
-const display = Playfair_Display({
+const display = Lora({
   subsets: ["latin", "latin-ext", "vietnamese"],
   weight: ["500", "600", "700"],
   variable: "--font-serif",

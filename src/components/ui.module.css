@@ -224,20 +224,66 @@
   margin-top: 0;
 }
 
+/*
+ * Đoạn mở đầu to hơn phần còn lại.
+ *
+ * Trước đây cả khối chữ chỉ có một cỡ duy nhất, nên nó mở ra bằng một mảng
+ * chữ phẳng lì: không có chỗ nào cho mắt bám vào mà bắt đầu, và đoạn tóm tắt
+ * cả tập đoàn nằm ngang hàng với một dòng liệt kê. Một nấc chữ là đủ để nói
+ * "đọc câu này trước".
+ */
+.prose > p:first-child {
+  font-size: var(--step-1);
+  line-height: 1.6;
+  /* KHÔNG đặt màu ở đây. Khối chữ này chạy trên cả nền giấy lẫn nền tối, và
+     trên nền tối màu chữ do vùng bao quanh truyền xuống. Đặt `var(--ink)` —
+     màu mực dành cho nền giấy — là đoạn mở đầu thành chữ gần đen nằm trên nền
+     navy, tức là mất hẳn. Cỡ chữ đã đủ để nó đứng ra trước rồi. */
+}
+
 .prose p {
   margin: 0;
   max-width: none;
 }
 
+/*
+ * Danh sách dựng bằng lưới, không dùng dấu chấm mặc định.
+ *
+ * `::marker` không cho chỉnh khoảng cách giữa dấu và chữ, mà đó đúng là chỗ
+ * hỏng: dấu chấm nằm xa lắc bên trái trong khi các mục lại dính vào nhau, nên
+ * mắt đọc thành một khối chữ liền chứ không thành từng mục. Tự vẽ lấy dấu thì
+ * đặt được sát chữ vừa đủ, và dòng thứ hai của một mục dài vẫn thẳng hàng với
+ * dòng đầu thay vì thụt về dưới dấu chấm.
+ *
+ * Dấu neo bằng `position`, KHÔNG bằng lưới hai cột. Một mục là "`<strong>`
+ * nhãn`</strong>` rồi phần còn lại", tức là nhiều phần tử con; đặt lưới lên
+ * `<li>` thì mỗi đứa con thành một ô, nhãn "2008" bị tách khỏi câu của nó và
+ * rơi xuống hàng dưới.
+ */
 .prose ul {
   margin: 0;
-  padding-inline-start: 1.15rem;
+  padding: 0;
+  list-style: none;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.7rem;
 }
 
-.prose li::marker {
-  color: var(--gold-deep);
+.prose ul > li {
+  position: relative;
+  padding-inline-start: 1.1rem;
+}
+
+.prose ul > li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  /* Căn vào giữa chiều cao dòng ĐẦU, không phải giữa cả mục: mục hai dòng thì
+     căn giữa cả mục sẽ đẩy dấu xuống lửng lơ giữa hai dòng chữ. */
+  top: calc((1em * var(--leading-body) - 0.34rem) / 2);
+  width: 0.34rem;
+  height: 0.34rem;
+  border-radius: 50%;
+  background: var(--gold);
 }
 
 .prose blockquote {
@@ -382,7 +428,7 @@
 
   .headingTitle {
     font-size: clamp(1.5rem, 6.4vw, 2rem);
-    line-height: 1.16;
+    line-height: 1.26;
   }
 
   .headingLead {

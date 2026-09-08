@@ -53,7 +53,9 @@ h4 {
   font-family: var(--font-display);
   font-weight: 600;
   line-height: var(--leading-tight);
-  letter-spacing: -0.015em;
+  /* Ghì chữ lại gần nhau cũng là lối của tiêu đề tiếng Anh. Dấu tiếng Việt
+     rộng hơn thân chữ, nên -0.015em là dấu của chữ này chạm vai chữ bên cạnh. */
+  letter-spacing: -0.004em;
   margin: 0 0 var(--s-4);
   text-wrap: balance;
 }
@@ -209,7 +211,15 @@ hr {
   will-change: opacity, transform;
 }
 
-:root[data-reveal-ready] [data-reveal="in"] {
+/*
+ * `data-reveal` = "phần tử này có hiệu ứng", do máy chủ viết.
+ * `data-reveal-in` = "đã hiện rồi", do `Reveal.tsx` đặt trên trình duyệt.
+ *
+ * Hai thuộc tính tách đôi chứ không phải một thuộc tính đổi giá trị: React sở
+ * hữu cái thứ nhất, ghi đè lên nó thì `next dev` báo lệch hydrat. Xem lời giải
+ * thích dài trong `Reveal.tsx`.
+ */
+:root[data-reveal-ready] [data-reveal-in] {
   opacity: 1;
   transform: none;
 }
@@ -220,14 +230,14 @@ hr {
   clip-path: inset(0 100% 0 0);
 }
 
-:root[data-reveal-ready] [data-reveal-as="unveil"][data-reveal="in"] {
+:root[data-reveal-ready] [data-reveal-as="unveil"][data-reveal-in] {
   clip-path: inset(0 0 0 0);
 }
 
 /*
  * Slide: a row arriving from the margin it is aligned to.
  *
- * The landing rule is not optional. `[data-reveal="in"]` and
+ * The landing rule is not optional. `[data-reveal-in]` and
  * `[data-reveal-as="slide"]` weigh exactly the same - one attribute selector
  * each - so the later one wins, and the row stayed 26px to the left of where it
  * belonged for good. On a wide screen that reads as a slightly ragged margin;
@@ -238,7 +248,7 @@ hr {
   transform: translateX(-26px);
 }
 
-:root[data-reveal-ready] [data-reveal-as="slide"][data-reveal="in"] {
+:root[data-reveal-ready] [data-reveal-as="slide"][data-reveal-in] {
   transform: none;
 }
 
@@ -249,7 +259,7 @@ hr {
   clip-path: inset(0 100% 0 0);
 }
 
-:root[data-reveal-ready] [data-reveal-as="draw"][data-reveal="in"] {
+:root[data-reveal-ready] [data-reveal-as="draw"][data-reveal-in] {
   clip-path: inset(0 0 0 0);
 }
 

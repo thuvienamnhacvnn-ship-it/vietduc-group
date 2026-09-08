@@ -122,7 +122,7 @@
 .heroTitle {
   margin: 0;
   font-size: var(--step-5);
-  line-height: 1.02;
+  line-height: 1.18;
   letter-spacing: -0.025em;
   color: #fff;
 }
@@ -677,7 +677,7 @@
 
   .heroTitle {
     font-size: clamp(2rem, 9.6vw, 2.9rem);
-    line-height: 1.06;
+    line-height: 1.22;
   }
 
   /*

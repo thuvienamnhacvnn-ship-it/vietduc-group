@@ -110,7 +110,16 @@
   --step-4: clamp(2.1rem, 1.58rem + 2.3vw, 3.6rem);
   --step-5: clamp(2.5rem, 1.6rem + 3.9vw, 5rem);
 
-  --leading-tight: 1.08;
+  /*
+   * 1.24, không phải 1.08.
+   *
+   * Nhịp dòng chặt là lối quen của tiêu đề tiếng Anh, nơi chữ hoa cao kịch
+   * trần và không có gì nhô lên trên. Tiếng Việt thì "Ề", "Ộ", "Ỡ" xếp dấu
+   * thành tầng thứ hai bên trên chữ; ghì dòng lại thì tầng ấy hoặc bị hộp dòng
+   * cắt cụt, hoặc cụng vào chân chữ dòng trên. Ở màn hình nó hiện ra thành một
+   * tiêu đề trông bẩn mà không chỉ ra được là bẩn ở đâu.
+   */
+  --leading-tight: 1.24;
   --leading-snug: 1.28;
   --leading-body: 1.65;
 
