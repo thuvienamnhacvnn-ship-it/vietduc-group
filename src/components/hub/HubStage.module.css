@@ -43,19 +43,86 @@
   }
 }
 
-/* Drawn, not photographed, so they stay crisp at any size. */
+/*
+ * Drawn, not photographed, so they stay crisp at any size.
+ *
+ * Nét vàng mảnh trên một tấm ảnh phong cảnh chụp ngoài trời gần như biến mất:
+ * ảnh nền có đủ mọi sắc độ nên một đường mờ chỉ còn là vệt bẩn. Chỉ tăng độ
+ * đục của nét vàng thì không đủ — vòng vắt ngang cả mảng ruộng nắng lẫn mảng
+ * núi tối, chỗ nào cũng có sắc độ xấp xỉ nó.
+ *
+ * Nên mỗi vòng đi kèm một nét TỐI ngay sát bên ngoài. Nét tối ấy tự tạo lấy
+ * nền cho nét vàng, y như cách một dòng phụ đề trắng luôn có viền đen: vòng
+ * đọc được trên mọi thứ nó vắt qua, không phụ thuộc vào tấm ảnh bên dưới.
+ */
 .ring {
   position: absolute;
   inset: 14%;
   border-radius: 50%;
-  border: 1px solid rgba(196, 145, 69, 0.34);
-  box-shadow: inset 0 0 60px rgba(196, 145, 69, 0.09);
+  border: 1.5px solid rgba(230, 186, 116, 0.92);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.42),
+    0 0 26px rgba(210, 162, 89, 0.45),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.3),
+    inset 0 0 80px rgba(196, 145, 69, 0.2);
+}
+
+/*
+ * Vệt sáng quét quanh vòng.
+ *
+ * Một nan quạt sáng của `conic-gradient` quay tròn, rồi bị mặt nạ cắt chỉ còn
+ * đúng bề dày của vòng — nên thứ nhìn thấy là một vệt sáng chạy dọc theo nét
+ * vòng chứ không phải cả một quạt sáng. Cùng lối với vệt chạy trên đường nối ở
+ * sơ đồ hệ sinh thái.
+ *
+ * `inset: -1.5px` cho vệt trùm lên chính nét viền; thiếu nó thì vệt chạy song
+ * song bên trong và thành ra hai vòng.
+ */
+.ring::after {
+  content: "";
+  position: absolute;
+  inset: -1.5px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 58%,
+    rgba(255, 216, 150, 0.6) 72%,
+    rgba(255, 241, 205, 0.95) 80%,
+    rgba(255, 216, 150, 0.5) 86%,
+    transparent 94%
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  animation: quet 7s linear infinite;
+  pointer-events: none;
+}
+
+/* Vòng ngoài quét chậm hơn và ngược chiều: hai vệt không bao giờ chạy song đôi
+   thành một cặp đèn nháy. */
+.ringOuter::after {
+  animation-duration: 11s;
+  animation-direction: reverse;
+}
+
+@keyframes quet {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.orbitStill .ring::after {
+  animation-play-state: paused;
 }
 
 .ringOuter {
   inset: 0;
   border-style: dashed;
-  border-color: rgba(196, 145, 69, 0.2);
+  border-width: 2px;
+  border-color: rgba(230, 186, 116, 0.75);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.36),
+    0 0 26px rgba(210, 162, 89, 0.32),
+    inset 0 0 90px rgba(196, 145, 69, 0.1);
 }
 
 /* ---------- the mark ---------- */
@@ -97,15 +164,32 @@
   place-self: center;
   position: relative;
   z-index: 1;
-  /* Ôm theo logo dọc: gần vuông, bo góc lớn chứ không thành viên nang. */
-  width: 106%;
-  height: 106%;
-  border-radius: 30%;
-  background: rgba(10, 16, 28, 0.62);
-  border: 1px solid rgba(196, 145, 69, 0.34);
+  /*
+   * Khối TRÒN, không phải vuông bo góc.
+   *
+   * Hai vệ tinh quay quanh đều là đĩa tròn và mọi vòng quỹ đạo cũng tròn; một
+   * tấm nền vuông ở chính giữa là hình duy nhất có góc trong cả cụm, nên nó
+   * đọc ra như một tấm thẻ dán đè lên chứ không như tâm của vòng quay.
+   *
+   * Đường kính phải rộng hơn bề ngang logo: hình vuông nội tiếp một đường tròn
+   * chỉ bằng 71% đường kính, nên giữ 106% như hồi còn vuông thì bốn góc chữ
+   * "VIỆT ĐỨC GROUP" thò ra ngoài mép nền.
+   */
+  width: 128%;
+  height: 128%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 42%,
+    rgba(14, 22, 38, 0.72) 0%,
+    rgba(8, 13, 24, 0.66) 62%,
+    rgba(8, 13, 24, 0.52) 100%
+  );
+  border: 1px solid rgba(196, 145, 69, 0.55);
   box-shadow:
     0 18px 44px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+    0 0 34px rgba(210, 162, 89, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 0 46px rgba(196, 145, 69, 0.12);
   backdrop-filter: blur(10px) saturate(1.1);
   transform: rotateY(var(--lean-x)) rotateX(var(--lean-y)) translateZ(30px);
   transition: transform 400ms var(--ease);
@@ -118,9 +202,9 @@
   place-self: center;
   position: relative;
   z-index: 2;
-  /* Logo dọc (1349x1278), gần vuông: lấy 88% để còn chừa một viền tấm nền
-     quanh nó thay vì chạm sát mép. */
-  width: 88%;
+  /* Logo dọc (1349x1278), gần vuông. Nền nay là hình tròn nên bề ngang phải
+     lùi về khoảng vuông nội tiếp — 88% như cũ là bốn góc đâm ra khỏi mép. */
+  width: 74%;
   height: auto;
   transform: rotateY(var(--lean-x)) rotateX(var(--lean-y)) translateZ(40px);
   transition: transform 400ms var(--ease);
@@ -144,9 +228,9 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(210, 162, 89, 0.42) 0%,
-    rgba(142, 31, 45, 0.18) 44%,
-    transparent 70%
+    rgba(210, 162, 89, 0.55) 0%,
+    rgba(142, 31, 45, 0.26) 44%,
+    transparent 72%
   );
   filter: blur(8px);
   animation: pulse 6s ease-in-out infinite;
@@ -417,7 +501,8 @@
   .core::after,
   .satellite,
   .mark,
-  .glow {
+  .glow,
+  .ring::after {
     animation: none;
   }
 }
