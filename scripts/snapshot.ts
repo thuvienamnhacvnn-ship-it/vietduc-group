@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { sql } from "drizzle-orm";
-import { napEnv } from "./_env";
+import { napEnv } from "./env";
 
-// Trước mọi thứ chạm tới cơ sở dữ liệu. Xem lời chú trong `_env.ts`: thiếu bước
+// Trước mọi thứ chạm tới cơ sở dữ liệu. Xem lời chú trong `env.ts`: thiếu bước
 // này thì bản chụp lấy từ PGlite ở máy chứ không phải từ cơ sở dữ liệu thật, và
 // nó vẫn ghi ra tệp như thường.
 napEnv();
@@ -38,6 +38,7 @@ const PUBLIC_TABLES = [
   "programs",
   "program_media",
   "people",
+  "appointments",
   "partners",
   "activities",
   "posts",

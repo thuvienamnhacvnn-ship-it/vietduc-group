@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { sql } from "drizzle-orm";
-import { napEnv } from "./_env";
+import { napEnv } from "./env";
 
 napEnv();
 

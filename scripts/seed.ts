@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { eq } from "drizzle-orm";
-import { napEnv } from "./_env";
+import { napEnv } from "./env";
 
-// Trước mọi thứ chạm tới cơ sở dữ liệu. Xem lời chú trong `_env.ts`.
+// Trước mọi thứ chạm tới cơ sở dữ liệu. Xem lời chú trong `env.ts`.
 napEnv();
 
 const { getDb } = await import("../src/lib/db");
