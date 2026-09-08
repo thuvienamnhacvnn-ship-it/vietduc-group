@@ -1,7 +1,30 @@
 import fs from "node:fs";
 import path from "node:path";
 import { sql } from "drizzle-orm";
-import { getDb } from "../src/lib/db";
+
+/*
+ * NẠP `.env.local` TRƯỚC KHI ĐỤNG TỚI `../src/lib/db`.
+ *
+ * `next dev` tự đọc `.env.local`, còn `tsx` thì không. Mà `getDb()` chọn đích
+ * theo đúng một điều kiện: có `DATABASE_URL` thì nối tới Postgres thật, không
+ * có thì mở PGlite trong thư mục dữ liệu ở máy.
+ *
+ * Nghĩa là chạy lệnh này mà thiếu biến môi trường thì migration chạy vào cơ sở
+ * dữ liệu ở MÁY, trong khi trang web đang đọc cơ sở dữ liệu TRÊN MẠNG — và nó
+ * báo "Applied 1 migration(s)" y như thành công. Trang vẫn lỗi thiếu cột, còn
+ * người chạy thì vừa đọc xong một dòng báo thành công nên đi tìm nguyên nhân ở
+ * chỗ khác. Đã mất một lượt đúng như vậy.
+ *
+ * Phải nạp trước dòng `import` của `db`, vì thân module ấy đọc biến môi trường
+ * ngay khi được nạp.
+ */
+try {
+  process.loadEnvFile(path.resolve(process.cwd(), ".env.local"));
+} catch {
+  // Không có tệp thì thôi: khi ấy PGlite ở máy đúng là đích cần đến.
+}
+
+const { getDb } = await import("../src/lib/db");
 
 /**
  * Applies the generated SQL migrations.
@@ -13,6 +36,82 @@ import { getDb } from "../src/lib/db";
  */
 
 const MIGRATIONS_DIR = path.resolve(process.cwd(), "drizzle");
+
+/**
+ * Cắt một tệp SQL thành từng câu lệnh rời.
+ *
+ * Postgres thật KHÔNG nhận nhiều câu lệnh trong một lần gửi — nó trả về lỗi cú
+ * pháp 42601, mà thông báo thì chỉ nói "syntax error" chứ không nói là vì có
+ * hai câu lệnh, nên rất dễ đi tìm nhầm chỗ. PGlite thì nuốt cả tệp, nên tệp
+ * viết tay chạy ngon ở máy rồi gãy khi đẩy lên Neon.
+ *
+ * Tệp do drizzle-kit sinh ra đã có sẵn dấu `--> statement-breakpoint`; tệp
+ * viết tay thì không, nên phải tự tìm dấu `;` kết câu. Không thể chỉ
+ * `split(";")`: dấu chấm phẩy còn nằm trong chuỗi, trong lời chú, và trong
+ * thân hàm trích bằng `$`. Hàm này đọc qua một lượt và chỉ cắt ở dấu `;`
+ * thật sự đứng ngoài mọi thứ đó.
+ */
+function catCauLenh(body: string): string[] {
+  if (body.includes("--> statement-breakpoint")) {
+    return body.split("--> statement-breakpoint").map((s) => s.trim()).filter(Boolean);
+  }
+
+  const cau: string[] = [];
+  let dang = "";
+  let i = 0;
+  while (i < body.length) {
+    const c = body[i];
+    const doi2 = body.slice(i, i + 2);
+
+    if (doi2 === "--") {
+      const het = body.indexOf("\n", i);
+      const doan = het === -1 ? body.slice(i) : body.slice(i, het);
+      dang += doan;
+      i += doan.length;
+      continue;
+    }
+    if (doi2 === "/*") {
+      const het = body.indexOf("*/", i + 2);
+      const doan = het === -1 ? body.slice(i) : body.slice(i, het + 2);
+      dang += doan;
+      i += doan.length;
+      continue;
+    }
+    if (c === "'" || c === '"') {
+      let j = i + 1;
+      while (j < body.length) {
+        if (body[j] === "\\") j += 2;
+        else if (body[j] === c) { j += 1; break; }
+        else j += 1;
+      }
+      dang += body.slice(i, j);
+      i = j;
+      continue;
+    }
+    if (c === "$") {
+      const the = /^\$[A-Za-z_]*\$/.exec(body.slice(i));
+      if (the) {
+        const het = body.indexOf(the[0], i + the[0].length);
+        const doan = het === -1 ? body.slice(i) : body.slice(i, het + the[0].length);
+        dang += doan;
+        i += doan.length;
+        continue;
+      }
+    }
+    if (c === ";") {
+      cau.push(dang.trim());
+      dang = "";
+      i += 1;
+      continue;
+    }
+    dang += c;
+    i += 1;
+  }
+  if (dang.trim()) cau.push(dang.trim());
+
+  // Bỏ những mẩu chỉ còn lời chú, không có câu lệnh nào.
+  return cau.filter((c) => c.split("\n").some((d) => d.trim() && !d.trim().startsWith("--")));
+}
 
 async function main() {
   const db = await getDb();
@@ -44,10 +143,7 @@ async function main() {
       continue;
     }
     const body = fs.readFileSync(path.join(MIGRATIONS_DIR, file), "utf8");
-    const statements = body
-      .split("--> statement-breakpoint")
-      .map((s) => s.trim())
-      .filter(Boolean);
+    const statements = catCauLenh(body);
 
     for (const statement of statements) {
       try {
