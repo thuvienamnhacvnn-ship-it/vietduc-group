@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
@@ -24,19 +25,25 @@ export async function generateMetadata({
   };
 }
 
+type Ghe = { nguoi: NguoiDayDu; cv: ChucVuRow };
+
 /**
  * Cơ cấu nhân sự toàn hệ thống.
  *
- * Trang này KHÔNG phải một lưới ảnh chân dung. Cái người đọc cần trả lời được
- * là "ai chịu trách nhiệm gì, ở đâu" — nên trục chính là CƠ CẤU: hội đồng quản
- * trị và ban kiểm soát ở cấp tập đoàn, rồi mỗi trường một khối gồm hội đồng
- * trường và ban giám hiệu.
+ * Trục của trang là CƠ CẤU, không phải danh bạ: người đọc cần trả lời được "ai
+ * chịu trách nhiệm gì, ở đâu". Nhưng cơ cấu không có nghĩa là vẽ mấy cái hộp
+ * nối bằng đường kẻ — bản trước làm thế và nó đọc ra như một sơ đồ dán trên
+ * tường phòng hành chính.
  *
- * Một người xuất hiện ở nhiều khối, đúng như ngoài đời: chủ tịch hội đồng quản
- * trị tập đoàn cũng là chủ tịch hội đồng ba trường. Ở mỗi khối, chức danh hiện
- * ra là chức danh TẠI ĐƠN VỊ ẤY, không phải chức danh chính — nếu không thì
- * khối "Hội đồng trường Bách Khoa Vũng Tàu" sẽ hiện một loạt "Chủ tịch HĐQT
- * Việt Đức Group" và chẳng nói lên điều gì về hội đồng ấy cả.
+ * Nay thứ bậc thể hiện bằng CHỖ ĐỨNG và KÍCH THƯỚC: người đứng đầu được một
+ * khối trang trọng riêng có câu nói của chính ông; các ban còn lại là lưới thẻ
+ * đều nhau; mỗi trường mở đầu bằng logo của trường ấy. Không hộp, không mũi
+ * tên, không badge đếm số.
+ *
+ * Một người xuất hiện ở nhiều khối, đúng như ngoài đời. Ở mỗi khối, chức danh
+ * hiện ra là chức danh TẠI ĐƠN VỊ ẤY — nếu không thì khối "Hội đồng trường
+ * Bách Khoa Vũng Tàu" sẽ hiện một loạt "Chủ tịch HĐQT Việt Đức Group" và chẳng
+ * nói lên điều gì về hội đồng ấy cả.
  */
 export default async function PeoplePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;
@@ -46,8 +53,7 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
 
   const [nguoi, truong] = await Promise.all([getPeople(), getSchools()]);
 
-  /** Cặp (người, chức vụ) cho một ban, đã xếp theo thứ bậc rồi theo tên. */
-  const trongBan = (loc: (cv: ChucVuRow) => boolean) =>
+  const trongBan = (loc: (cv: ChucVuRow) => boolean): Ghe[] =>
     nguoi
       .flatMap((p) => p.chucVu.filter(loc).map((cv) => ({ nguoi: p, cv })))
       .sort((a, b) => a.cv.rank - b.cv.rank || a.nguoi.order - b.nguoi.order);
@@ -55,6 +61,10 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
   const hdqt = trongBan((cv) => cv.body === "hdqt" && !cv.schoolId);
   const dieuHanh = trongBan((cv) => cv.body === "dieuhanh");
   const bks = trongBan((cv) => cv.body === "bks");
+
+  // Người đứng đầu tách riêng khỏi danh sách để không bị lặp hai lần.
+  const dungDau = hdqt[0] ?? null;
+  const hdqtConLai = dungDau ? hdqt.slice(1) : hdqt;
 
   const khoiTruong = truong
     .map((tr) => ({
@@ -72,27 +82,49 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
     bgh: pick({ vi: "Ban Giám hiệu", en: "School Executive", de: "Schulleitung", ja: "学校執行部", ko: "학교 집행부", "zh-TW": "校領導班子" }, locale),
     tapDoan: pick({ vi: "Cấp tập đoàn", en: "Group level", de: "Konzernebene", ja: "グループ本部", ko: "그룹 본부", "zh-TW": "集團層級" }, locale),
     truong: pick({ vi: "Các trường thành viên", en: "Member schools", de: "Mitgliedsschulen", ja: "加盟校", ko: "회원 학교", "zh-TW": "成員學校" }, locale),
+    nguoi: pick({ vi: "nhân sự", en: "people", de: "Personen", ja: "名", ko: "명", "zh-TW": "人" }, locale),
+    chucVu: pick({ vi: "chức vụ", en: "appointments", de: "Ämter", ja: "の役職", ko: "개 직책", "zh-TW": "項職務" }, locale),
+    donVi: pick({ vi: "đơn vị", en: "institutions", de: "Einrichtungen", ja: "の機関", ko: "개 기관", "zh-TW": "個機構" }, locale),
   };
+
+  const soChucVu = nguoi.reduce((n, p) => n + p.chucVu.length, 0);
 
   return (
     <div className={shell.page}>
       <div className="shell">
         <Breadcrumbs locale={locale} trail={[{ label: dict.nav.people }]} />
-        <header className={shell.header}>
+        <header className={styles.dau}>
           <h1>{dict.nav.people}</h1>
-          <p className={shell.lead}>
+          <p className={styles.lead}>
             {pick(
               {
-                vi: "Hội đồng quản trị, ban kiểm soát và bộ máy lãnh đạo của từng trường thành viên. Nhiều người giữ chức vụ ở nhiều đơn vị, nên mỗi nơi ghi đúng chức danh tại đơn vị đó.",
-                en: "The board, the supervisory board and the leadership of each member school. Several people hold posts at more than one institution, so each block shows the title held there.",
-                de: "Verwaltungsrat, Aufsichtsrat und die Leitung jeder Mitgliedsschule. Mehrere Personen haben Ämter an mehreren Einrichtungen; jeder Block nennt daher das dort geführte Amt.",
-                ja: "取締役会、監査役会、そして加盟各校の経営体制です。複数の機関で役職を兼ねる方がいるため、各欄にはその機関での役職を記しています。",
-                ko: "이사회와 감사위원회, 그리고 각 회원 학교의 지도부입니다. 여러 기관에서 직책을 겸하는 분들이 있어, 각 항목에는 해당 기관에서의 직책을 적었습니다.",
-                "zh-TW": "董事會、監事會，以及各成員學校的領導層。多位成員身兼數個機構的職務，因此每一區塊標示的是在該機構的職稱。",
+                vi: "Hội đồng quản trị, ban điều hành, ban kiểm soát và bộ máy lãnh đạo của từng trường thành viên. Nhiều người giữ chức vụ ở nhiều đơn vị, nên mỗi nơi ghi đúng chức danh tại đơn vị đó.",
+                en: "The board, the executive, the supervisory board and the leadership of each member school. Several people hold posts at more than one institution, so each block shows the title held there.",
+                de: "Verwaltungsrat, Geschäftsführung, Aufsichtsrat und die Leitung jeder Mitgliedsschule. Mehrere Personen haben Ämter an mehreren Einrichtungen; jeder Block nennt daher das dort geführte Amt.",
+                ja: "取締役会、執行部、監査役会、そして加盟各校の経営体制です。複数の機関で役職を兼ねる方がいるため、各欄にはその機関での役職を記しています。",
+                ko: "이사회와 집행부, 감사위원회, 그리고 각 회원 학교의 지도부입니다. 여러 기관에서 직책을 겸하는 분들이 있어, 각 항목에는 해당 기관에서의 직책을 적었습니다.",
+                "zh-TW": "董事會、經營團隊、監事會，以及各成員學校的領導層。多位成員身兼數個機構的職務，因此每一區塊標示的是在該機構的職稱。",
               },
               locale,
             )}
           </p>
+
+          {nguoi.length ? (
+            <dl className={styles.soLieu}>
+              <div>
+                <dt>{nguoi.length}</dt>
+                <dd>{nhan.nguoi}</dd>
+              </div>
+              <div>
+                <dt>{soChucVu}</dt>
+                <dd>{nhan.chucVu}</dd>
+              </div>
+              <div>
+                <dt>{khoiTruong.length + 1}</dt>
+                <dd>{nhan.donVi}</dd>
+              </div>
+            </dl>
+          ) : null}
         </header>
 
         {!nguoi.length ? (
@@ -102,24 +134,39 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
           />
         ) : (
           <>
-            <SoDo locale={locale} nhan={nhan} khoiTruong={khoiTruong} soHdqt={hdqt.length} soBks={bks.length} />
+            {dungDau ? <DungDau locale={locale} ghe={dungDau} /> : null}
 
-            <section className={styles.cap} data-reveal suppressHydrationWarning>
-              <h2 className={styles.capTieuDe}>{nhan.tapDoan}</h2>
+            <section className={styles.cap}>
+              <h2 className={styles.capTieuDe}>
+                <span>{nhan.tapDoan}</span>
+              </h2>
               <div className={styles.capLuoi}>
-                <Ban locale={locale} ten={nhan.hdqt} ds={hdqt} noiBat />
+                <Ban locale={locale} ten={nhan.hdqt} ds={hdqtConLai} />
                 <Ban locale={locale} ten={nhan.dieuHanh} ds={dieuHanh} />
                 <Ban locale={locale} ten={nhan.bks} ds={bks} />
               </div>
             </section>
 
             <section className={styles.cap}>
-              <h2 className={styles.capTieuDe}>{nhan.truong}</h2>
+              <h2 className={styles.capTieuDe}>
+                <span>{nhan.truong}</span>
+              </h2>
               {khoiTruong.map(({ truong: tr, hdt, bgh }) => (
                 <article key={tr.id} className={styles.truong} data-reveal suppressHydrationWarning>
                   <header className={styles.truongDau}>
-                    <h3>{t(tr.shortName ?? tr.name, locale)}</h3>
-                    {tr.city ? <p className={styles.truongNoi}>{t(tr.city, locale)}</p> : null}
+                    {tr.logoPath ? (
+                      <Image
+                        src={tr.logoPath}
+                        alt=""
+                        width={104}
+                        height={104}
+                        className={styles.truongLogo}
+                      />
+                    ) : null}
+                    <div>
+                      <h3>{t(tr.shortName ?? tr.name, locale)}</h3>
+                      {tr.city ? <p>{t(tr.city, locale)}</p> : null}
+                    </div>
                   </header>
                   <div className={styles.capLuoi}>
                     <Ban locale={locale} ten={nhan.hdt} ds={hdt} />
@@ -135,33 +182,48 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
   );
 }
 
-/** Một ban: tiêu đề, số người, và các thẻ người trong ban. */
-function Ban({
-  locale,
-  ten,
-  ds,
-  noiBat = false,
-}: {
-  locale: Locale;
-  ten: string;
-  ds: { nguoi: NguoiDayDu; cv: ChucVuRow }[];
-  noiBat?: boolean;
-}) {
-  if (!ds.length) return null;
-  const nhiemKy = ds.find((x) => x.cv.term)?.cv;
+/**
+ * Khối người đứng đầu.
+ *
+ * Một tập đoàn giới thiệu bộ máy của mình thì bắt đầu bằng người chịu trách
+ * nhiệm cao nhất, và bắt đầu bằng lời của chính người ấy — không phải bằng một
+ * ô vuông có chữ "Hội đồng quản trị" ở giữa.
+ */
+function DungDau({ locale, ghe }: { locale: Locale; ghe: Ghe }) {
+  const { nguoi: p, cv } = ghe;
   return (
-    <section className={`${styles.ban} ${noiBat ? styles.banNoiBat : ""}`}>
+    <section className={styles.trum} data-reveal suppressHydrationWarning>
+      <Link href={`/${locale}/doi-ngu/${p.slug}`} className={styles.trumLink}>
+        <ChanDung ten={p.name} anh={p.photoPath} lon />
+        <div className={styles.trumChu}>
+          <p className={styles.trumChuc}>{t(cv.title, locale)}</p>
+          <h2 className={styles.trumTen}>
+            {p.honorific ? <span className={styles.hocVi}>{p.honorific} </span> : null}
+            {p.name}
+          </h2>
+          {p.quote ? <p className={styles.trumTrich}>{t(p.quote, locale)}</p> : null}
+        </div>
+      </Link>
+    </section>
+  );
+}
+
+/** Một ban: tên ban, nhiệm kỳ nếu có, và lưới thẻ người. */
+function Ban({ locale, ten, ds }: { locale: Locale; ten: string; ds: Ghe[] }) {
+  if (!ds.length) return null;
+  const moc = ds.find((x) => x.cv.term)?.cv;
+  return (
+    <section className={styles.ban}>
       <header className={styles.banDau}>
         <h4>{ten}</h4>
-        <span className={styles.banSo}>{ds.length}</span>
+        {moc?.term ? (
+          <p className={styles.nhiemKy}>
+            {pick({ vi: "Nhiệm kỳ", en: "Term", de: "Amtszeit", ja: "任期", ko: "임기", "zh-TW": "任期" }, locale)}{" "}
+            {moc.term}
+            {moc.decisionRef ? <span className={styles.quyetDinh}>{moc.decisionRef}</span> : null}
+          </p>
+        ) : null}
       </header>
-      {nhiemKy?.term ? (
-        <p className={styles.nhiemKy}>
-          {pick({ vi: "Nhiệm kỳ", en: "Term", de: "Amtszeit", ja: "任期", ko: "임기", "zh-TW": "任期" }, locale)}{" "}
-          {nhiemKy.term}
-          {nhiemKy.decisionRef ? <span className={styles.quyetDinh}> · {nhiemKy.decisionRef}</span> : null}
-        </p>
-      ) : null}
       <ul className={styles.dsNguoi}>
         {ds.map(({ nguoi: p, cv }) => (
           <li key={`${p.id}-${cv.id}`}>
@@ -179,61 +241,5 @@ function Ban({
         ))}
       </ul>
     </section>
-  );
-}
-
-/**
- * Sơ đồ cơ cấu, vẽ bằng chính bố cục chứ không phải một tấm ảnh.
- *
- * Ảnh sơ đồ thì không đọc được trên trình đọc màn hình, không dịch được sang
- * năm thứ tiếng còn lại, và cứ mỗi lần đổi nhân sự lại phải vẽ lại. Ở đây các
- * ô là chữ thật, đường nối là viền CSS.
- */
-function SoDo({
-  locale,
-  nhan,
-  khoiTruong,
-  soHdqt,
-  soBks,
-}: {
-  locale: Locale;
-  nhan: Record<string, string>;
-  khoiTruong: { truong: { id: number; shortName: unknown; name: unknown }; hdt: unknown[]; bgh: unknown[] }[];
-  soHdqt: number;
-  soBks: number;
-}) {
-  return (
-    <figure className={styles.soDo} data-reveal suppressHydrationWarning>
-      <figcaption className={styles.soDoNhan}>
-        {pick({ vi: "Sơ đồ tổ chức", en: "Organisation chart", de: "Organigramm", ja: "組織図", ko: "조직도", "zh-TW": "組織圖" }, locale)}
-      </figcaption>
-
-      <div className={styles.soDoDinh}>
-        <div className={`${styles.o} ${styles.oGoc}`}>
-          <strong>{nhan.hdqt}</strong>
-          <span>Việt Đức Group</span>
-          <em>{soHdqt}</em>
-        </div>
-        {soBks ? (
-          <div className={`${styles.o} ${styles.oPhu}`}>
-            <strong>{nhan.bks}</strong>
-            <em>{soBks}</em>
-          </div>
-        ) : null}
-      </div>
-
-      <div className={styles.soDoNhanh}>
-        {khoiTruong.map(({ truong: tr, hdt, bgh }) => (
-          <div key={tr.id} className={styles.nhanh}>
-            <div className={`${styles.o} ${styles.oTruong}`}>
-              <strong>{t(tr.shortName as never, locale)}</strong>
-              <span>
-                {nhan.hdt} {hdt.length} · {nhan.bgh} {bgh.length}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </figure>
   );
 }

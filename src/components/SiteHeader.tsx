@@ -39,11 +39,19 @@ export function SiteHeader({ locale, social, contact, fields, schools }: Props) 
       children: [
         { href: "/gioi-thieu", label: dict.nav.aboutGroup },
         { href: "/tam-nhin-su-menh", label: dict.nav.vision },
-        { href: "/doi-ngu", label: dict.nav.people },
         { href: "/doi-tac", label: dict.nav.partners },
         { href: "/hoat-dong", label: dict.nav.activities },
       ],
     },
+    /*
+     * Cơ cấu nhân sự đứng ở MENU CHÍNH, không nằm trong menu con.
+     *
+     * Nó từng nằm dưới "Giới thiệu" và kết quả là không ai tìm ra: muốn tới
+     * được phải đoán rằng cơ cấu tổ chức thì nằm trong mục giới thiệu, rồi
+     * phải rê chuột mở menu con. Với một tập đoàn có bốn trường và ba ban thì
+     * "ai giữ chức gì" là câu hỏi hay gặp ngang với "có những trường nào".
+     */
+    { href: "/doi-ngu", label: dict.nav.people },
     {
       href: "/dao-tao/truong",
       label: dict.nav.schools,
