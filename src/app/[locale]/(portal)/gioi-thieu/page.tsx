@@ -147,22 +147,28 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
       <section className={styles.mo}>
         <div className={styles.moKhung}>
+          {/*
+            `fill` chứ không phải ảnh có kích thước riêng: chiều cao banner nay
+            do nội dung bên trên nó quyết định — cột chữ và mạng lưới vệ tinh —
+            chứ không do tỉ lệ tệp ảnh.
+          */}
           <Image
-            src="/media/vision/banner-gioi-thieu.webp"
+            src="/media/vision/banner-mang-luoi.webp"
             alt={say({
-              vi: "Ban lãnh đạo Việt Đức Group trước khu đô thị lên đèn lúc chiều tối",
-              en: "The Viet Duc Group leadership before the lit city at dusk",
-              de: "Die Führung der Viet Duc Group vor der beleuchteten Stadt in der Dämmerung",
-              ja: "夕暮れ、灯りのともる街を背にした Viet Duc Group の経営陣",
-              ko: "해 질 녘 불 밝힌 도시를 배경으로 선 Viet Duc Group 경영진",
-              "zh-TW": "暮色中華燈初上的城市前，Viet Duc Group 的經營團隊",
+              vi: "Khu đô thị và xưởng thực hành lên đèn lúc chiều tối, một dải sáng nối bản đồ Việt Nam với bản đồ Đức",
+              en: "A campus and workshops lit at dusk, a line of light linking the map of Vietnam to the map of Germany",
+              de: "Campus und Werkstätten in der Dämmerung, eine Lichtlinie verbindet die Karte Vietnams mit der Deutschlands",
+              ja: "夕暮れに灯る街区と実習棟。光の筋がベトナムの地図とドイツの地図を結ぶ",
+              ko: "해 질 녘 불을 밝힌 단지와 실습동. 빛의 줄기가 베트남 지도와 독일 지도를 잇는다",
+              "zh-TW": "暮色中亮起燈火的園區與實作工坊，一道光線串起越南與德國的版圖",
             })}
-            width={1742}
-            height={724}
+            fill
             priority
             sizes="100vw"
             className={styles.moAnh}
           />
+          {/* Làm tối ảnh trước, rồi mới đến hai lớp gradient trên và dưới. */}
+          <span className={styles.moToi} aria-hidden="true" />
           <span className={styles.moPhu} aria-hidden="true" />
           <span className={styles.moPhuDuoi} aria-hidden="true" />
 
@@ -175,7 +181,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           */}
           <div className={styles.moLop}>
             <div className={`shell ${styles.moChu}`}>
-              <div className={styles.moTrong} data-reveal>
+              <div className={styles.moTrong} data-reveal suppressHydrationWarning>
+                {/* ------------------------------------------- cột trái */}
                 <Image
                   src="/brand/viet-duc-group-logo.svg"
                   alt={dict.brand.name}
@@ -215,34 +222,36 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   })}
                 </p>
               </div>
+
+              {/*
+                ------------------------------------------- cột phải
+
+                Mạng lưới vệ tinh nằm ngay trên banner, không còn là một dải
+                riêng bên dưới. Bản `gon` thu nhỏ mọi nút lại để cả sơ đồ vừa
+                trong nửa phải của khung mà vẫn đọc được từng logo.
+              */}
+              <div className={styles.moMang} data-reveal suppressHydrationWarning style={{ "--reveal-delay": "160ms" } as React.CSSProperties}>
+                <SoDoHeSinhThai
+                  locale={locale}
+                  gon
+                  tam={{
+                    /* Bản dọc: nút tâm là hình tròn, logo vuông mới lấp đầy được. */
+                    src: "/brand/viet-duc-group-doc.svg",
+                    ten: {
+                      vi: "Việt Đức Group",
+                      en: "Viet Duc Group",
+                      de: "Viet Duc Group",
+                      ja: "Viet Duc Group",
+                      ko: "Viet Duc Group",
+                      "zh-TW": "Viet Duc Group",
+                    },
+                  }}
+                  vongTrong={thuongHieu}
+                  vongNgoai={nhanhTruong}
+                />
+              </div>
             </div>
           </div>
-        </div>
-
-        {/*
-          Mạng lưới nhánh, đặt liền ngay dưới banner trong cùng một nền tối.
-          Trước đây nó là một mục riêng cách banner cả màn hình, và vì là vòng
-          tròn 760px nên chiếm chỗ như một trang con. Ở đây nó dẹt lại thành
-          một dải ngang, nối tiếp banner thành một khối mở đầu duy nhất.
-        */}
-        <div className="shell">
-          <SoDoHeSinhThai
-            locale={locale}
-            tam={{
-              /* Bản dọc: nút tâm là hình tròn, logo vuông mới lấp đầy được. */
-              src: "/brand/viet-duc-group-doc.svg",
-              ten: {
-                vi: "Việt Đức Group",
-                en: "Viet Duc Group",
-                de: "Viet Duc Group",
-                ja: "Viet Duc Group",
-                ko: "Viet Duc Group",
-                "zh-TW": "Viet Duc Group",
-              },
-            }}
-            vongTrong={thuongHieu}
-            vongNgoai={nhanhTruong}
-          />
         </div>
       </section>
 
@@ -264,7 +273,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <h2 className={styles.chuyenTieuDe}>{dict.home.aboutTitle}</h2>
 
               <div className={styles.anhBen}>
-                <figure className={styles.o} data-reveal>
+                <figure className={styles.o} data-reveal suppressHydrationWarning>
                   <Image
                     src="/media/vision/to-thuc-hanh-co-khi.webp"
                     alt={say({
@@ -293,7 +302,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
                 <figure
                   className={styles.o}
-                  data-reveal
+                  data-reveal suppressHydrationWarning
                   style={{ "--reveal-delay": "90ms" } as React.CSSProperties}
                 >
                   <Image
@@ -446,7 +455,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             {schools.map((school, i) => (
               <li
                 key={school.id}
-                data-reveal
+                data-reveal suppressHydrationWarning
                 style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
               >
                 <Link href={path(`/dao-tao/truong/${school.slug}`)} className={styles.the}>

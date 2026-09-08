@@ -227,7 +227,7 @@
  * tay và các đường nối chồng lên nhau thành một mớ rối. Xếp lưới thì mỗi logo
  * to gấp ba, tên hiện thẳng ra không cần rê chuột, mà viền và hiệu ứng vẫn giữ.
  */
-@media (max-width: 699px) {
+@media (max-width: 899px) {
   .khung {
     aspect-ratio: auto;
     display: grid;
@@ -324,5 +324,49 @@
   .nut:hover img,
   .nut:focus-visible img {
     scale: 1;
+  }
+}
+
+/* ======================================================= bản gọn trên banner */
+
+/*
+ * Bản đặt trong nửa phải của banner trang Giới thiệu.
+ *
+ * Cùng một hình học, chỉ khác cỡ: khung dẹt hơn, nút nhỏ lại, và không còn
+ * khoảng đệm dọc vì banner đã tự có khoảng thở của nó. Nhãn vẫn chỉ hiện khi
+ * rê chuột — ở cỡ này mười một cái tên hiện cùng lúc là không đọc nổi.
+ */
+.gon {
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+.gon .khung {
+  max-width: none;
+  aspect-ratio: 20 / 8.5;
+}
+
+.gon .tam {
+  width: 22%;
+}
+
+.gon .trong {
+  width: 13.5%;
+}
+
+.gon .ngoai {
+  width: 12.5%;
+}
+
+.gon .nhan {
+  font-size: 0.7rem;
+  max-width: 9rem;
+}
+
+/* Dưới 900px banner xếp dọc: chữ trước, mạng lưới sau. Ở đó bản gọn quay về
+   đúng lưới ba cột của bản thường, nên gỡ hết ràng buộc hình học. */
+@media (max-width: 899px) {
+  .gon .khung {
+    aspect-ratio: auto;
   }
 }

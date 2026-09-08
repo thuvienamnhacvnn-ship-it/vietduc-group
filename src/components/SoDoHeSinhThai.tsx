@@ -35,11 +35,14 @@ export function SoDoHeSinhThai({
   tam,
   vongTrong,
   vongNgoai,
+  gon = false,
 }: {
   locale: Locale;
   tam: { src: string; ten: L10nMap };
   vongTrong: Nhanh[];
   vongNgoai: Nhanh[];
+  /** Bản thu nhỏ để đặt vừa trong nửa phải của banner. */
+  gon?: boolean;
 }) {
   const [dangRe, setDangRe] = useState<string | null>(null);
 
@@ -76,7 +79,7 @@ export function SoDoHeSinhThai({
   ];
 
   return (
-    <div className={styles.boc}>
+    <div className={`${styles.boc} ${gon ? styles.gon : ""}`}>
       <div className={styles.khung}>
         {/* Đường nối, vẽ trước để nằm dưới các logo. */}
         <svg className={styles.day} viewBox="0 0 100 100" aria-hidden="true" preserveAspectRatio="none">

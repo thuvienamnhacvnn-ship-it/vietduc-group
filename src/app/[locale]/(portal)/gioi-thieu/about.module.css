@@ -34,26 +34,46 @@
   background: var(--band);
 }
 
-/* Khung riêng cho ảnh: hai lớp chuyển sắc phải bám mép ảnh, không bám mép cả
-   khối — khối còn chứa tấm bảng và khoảng đệm dưới nó. */
+/*
+ * Khung banner: ảnh phủ kín phía sau, chiều cao do nội dung quyết định.
+ *
+ * Trước đây ảnh là phần tử định chiều cao banner. Nay banner chứa cả cột chữ
+ * lẫn mạng lưới vệ tinh, nên chiều cao phải do nội dung định — ảnh lùi xuống
+ * làm nền và cắt theo khung. Các lớp chuyển sắc bám mép khung này.
+ */
 .moKhung {
   position: relative;
-  display: block;
-  line-height: 0;
+  isolation: isolate;
+  min-height: min(68vh, 620px);
 }
 
 .moAnh {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: min(62vh, 620px);
   object-fit: cover;
-  object-position: 78% 46%;
+  /* Neo về bên phải: khi khung hẹp lại, phần bị cắt là mảng navy trống bên
+     trái chứ không phải khu đô thị và hai bản đồ nối nhau. */
+  object-position: 74% 50%;
+  z-index: 0;
+}
+
+/*
+ * Làm tối ảnh.
+ *
+ * Một lớp đặc phủ đều toàn khung, đặt ngay trên ảnh và dưới mọi lớp gradient
+ * khác. Ảnh gốc sáng và nhiều chi tiết vàng; không hạ nền xuống thì cả chữ lẫn
+ * mười một logo viền vàng đều lẫn vào đèn thành phố.
+ */
+.moToi {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(6, 11, 19, 0.5);
+  pointer-events: none;
 }
 
 /* Chân ảnh chìm dần vào nền tối để tấm bảng không cắt ngang một đường sắc. */
 .moPhu {
   position: absolute;
+  z-index: 1;
   left: 0;
   right: 0;
   height: 42%;
@@ -64,6 +84,7 @@
 
 .moPhuDuoi {
   position: absolute;
+  z-index: 1;
   left: 0;
   right: 0;
   bottom: 0;
@@ -75,11 +96,12 @@
 /* ---- chữ trên mảng tối bên trái banner ---- */
 
 .moLop {
-  position: absolute;
-  inset: 0;
+  position: relative;
   z-index: 2;
   display: grid;
   align-items: center;
+  min-height: inherit;
+  padding-block: clamp(2rem, 5vw, 4rem);
   pointer-events: none;
 }
 
@@ -96,22 +118,47 @@
   inset: 0;
   background: linear-gradient(
     100deg,
-    rgba(8, 14, 22, 0.86) 0%,
-    rgba(8, 14, 22, 0.72) 26%,
-    rgba(8, 14, 22, 0.18) 48%,
-    rgba(8, 14, 22, 0) 62%
+    rgba(8, 14, 22, 0.92) 0%,
+    rgba(8, 14, 22, 0.82) 30%,
+    rgba(8, 14, 22, 0.5) 55%,
+    rgba(8, 14, 22, 0.34) 100%
   );
 }
 
+/*
+ * Hai cột: chữ bên trái, mạng lưới vệ tinh bên phải.
+ *
+ * Lưới đặt ở ĐÂY chứ không ở `.moTrong`: `.moTrong` là khối chữ, còn `.moMang`
+ * là anh em của nó. Đặt nhầm lưới xuống `.moTrong` thì logo, đề tựa, tiêu đề và
+ * khẩu hiệu biến thành các ô lưới xếp cạnh nhau, còn mạng lưới rơi xuống dưới
+ * chiếm hết bề ngang.
+ *
+ * Cột chữ giữ bề ngang cố định vừa một dòng tiêu đề; phần còn lại thuộc về sơ
+ * đồ. Dưới 900px hai cột xếp chồng.
+ */
 .moChu {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 21rem) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+}
+
+@media (max-width: 899px) {
+  .moChu {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+  }
 }
 
 .moTrong {
-  max-width: min(42%, 30rem);
   pointer-events: auto;
   color: #eef2f7;
+}
+
+.moMang {
+  min-width: 0;
 }
 
 .moLogo {
@@ -147,7 +194,7 @@
 .moTieuDe {
   margin: var(--s-4) 0 0;
   font-size: var(--step-4);
-  line-height: 1.06;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   color: #fff;
   background: linear-gradient(160deg, #ffffff 0%, #ffffff 44%, #f2e0bc 78%, #dcbc78 100%);
@@ -203,7 +250,7 @@
 .chuyenTieuDe {
   margin: var(--s-3) 0 0;
   font-size: var(--step-3);
-  line-height: 1.12;
+  line-height: 1.26;
 }
 
 .chuyenChu > :global(p) {
