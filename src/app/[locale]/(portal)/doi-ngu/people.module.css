@@ -160,11 +160,19 @@
   background: linear-gradient(90deg, color-mix(in srgb, var(--gold) 55%, transparent), transparent);
 }
 
+/*
+ * Mỗi ban một HÀNG trọn bề ngang, không phải một cột hẹp.
+ *
+ * Bản trước chia ba cột theo ban rồi lại xếp lưới thẻ bên trong từng cột. Hệ
+ * quả: ban một người thì cột trống hoác, ban ba người thì hai thẻ một hàng rồi
+ * một thẻ lẻ xuống dòng — các thẻ so le nhau, dồn về một phía, đọc ra lộn xộn.
+ *
+ * Xếp mỗi ban thành một hàng thì mọi thẻ cùng cỡ và dàn đều từ lề trái sang lề
+ * phải, bất kể ban có một người hay tám người.
+ */
 .capLuoi {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
-  gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: start;
+  gap: clamp(2rem, 5vw, 3.25rem);
 }
 
 /* ---------------------------------------------------------------- một ban */
@@ -264,13 +272,42 @@
  * chụp studio tại văn phòng, nên thẻ phải lấy ảnh làm chính — người ta nhớ mặt
  * trước khi nhớ chức danh.
  */
+/*
+ * Lưới thẻ dàn đều cả hàng.
+ *
+ * Cột có bề ngang CỐ ĐỊNH, và hàng thì căn giữa.
+ *
+ * Hai cách kia đều hỏng theo kiểu riêng. `1fr` co giãn: ban hai người sẽ hiện
+ * hai tấm ảnh to gấp ba ban bên cạnh, mỗi ban một cỡ. Còn cột cố định mà căn
+ * lề trái: ban ba người thì ba thẻ nằm dồn một góc, bỏ trống hai phần ba hàng.
+ *
+ * Cột cố định + `justify-content: center` cho cả hai thứ cùng lúc — mọi thẻ
+ * đúng một cỡ ở mọi ban, và hàng nào cũng cân giữa trang dù có một người hay
+ * tám người.
+ */
 .dsNguoi {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(9.5rem, 100%), 1fr));
-  gap: clamp(0.9rem, 2vw, 1.4rem);
+  /*
+   * FLEX, không phải grid.
+   *
+   * Với grid `auto-fill`, trình duyệt dựng sẵn đủ số cột lấp hết bề ngang rồi
+   * xếp thẻ vào những cột ĐẦU TIÊN — ba người thì ba thẻ nằm nửa trái, ba cột
+   * phải bỏ trống. `justify-content` không cứu được vì nó căn cả cái lưới, chứ
+   * không căn các thẻ bên trong lưới.
+   *
+   * Flex chỉ tạo đúng số ô bằng số thẻ, nên căn giữa là căn chính các thẻ ấy.
+   */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1rem, 2.2vw, 1.6rem);
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+.dsNguoi > li {
+  flex: 0 0 auto;
+  width: 11.5rem;
 }
 
 .the {

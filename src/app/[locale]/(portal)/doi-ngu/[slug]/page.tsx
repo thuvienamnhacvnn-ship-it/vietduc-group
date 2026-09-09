@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, tList, type Locale, pick } from "@/lib/i18n/config";
@@ -68,6 +69,14 @@ export default async function ProfilePage({
     quayLai: pick({ vi: "Tất cả nhân sự", en: "All people", de: "Alle Personen", ja: "一覧へ戻る", ko: "전체 보기", "zh-TW": "全部人員" }, locale),
   };
 
+  /*
+   * Bản dọc của ảnh, do `npm run media:nhan-su` xuất ra cạnh bản vuông.
+   *
+   * Suy từ tên tệp chứ không lưu thêm một cột trong bảng: hai bản luôn được
+   * sinh cùng lúc từ cùng một ảnh gốc, nên tên chúng đi liền nhau theo quy ước.
+   */
+  const anhDoc = nguoi.photoPath ? nguoi.photoPath.replace(/\.webp$/, "-doc.webp") : null;
+
   const congTac = nguoi.career ?? [];
   const hocVan = nguoi.education ?? [];
   const nangLuc = nguoi.competencies ?? [];
@@ -83,23 +92,51 @@ export default async function ProfilePage({
           trail={[{ label: dict.nav.people, href: `/${locale}/doi-ngu` }, { label: nguoi.name }]}
         />
 
+        {/*
+          Đầu trang hồ sơ: ảnh lớn, không phải một đĩa tròn nhỏ cạnh dòng tên.
+
+          Đây là hồ sơ lãnh đạo của một tập đoàn, nên trang phải mở ra bằng
+          chính con người ấy ở khổ lớn — tên, chức danh và câu nói đứng cạnh
+          ảnh trên một nền tối liền mạch, chứ không phải mấy dòng chữ xếp trên
+          một cái ảnh đại diện cỡ con tem.
+
+          Ảnh dùng bản DỌC (`-doc.webp`) do `media:nhan-su` xuất ra cùng lúc với
+          bản vuông: ở khổ này, cắt vuông sẽ mất mất phần thân và bối cảnh văn
+          phòng vốn là thứ làm tấm ảnh trông trang trọng.
+        */}
         <header className={styles.dau}>
-          <ChanDung ten={nguoi.name} anh={nguoi.photoPath} lon />
+          {anhDoc ? (
+            <div className={styles.dauAnh}>
+              <Image
+                src={anhDoc}
+                alt=""
+                width={900}
+                height={1125}
+                priority
+                sizes="(min-width: 900px) 34vw, 90vw"
+                className={styles.anhLon}
+              />
+            </div>
+          ) : (
+            <div className={styles.dauAnh}>
+              <ChanDung ten={nguoi.name} anh={null} lon />
+            </div>
+          )}
+
           <div className={styles.dauChu}>
+            {nguoi.headline ? <p className={styles.chucDanh}>{t(nguoi.headline, locale)}</p> : null}
             <h1 className={styles.ten}>
               {nguoi.honorific ? <span className={styles.hocVi}>{nguoi.honorific} </span> : null}
               {nguoi.name}
             </h1>
-            {nguoi.headline ? <p className={styles.chucDanh}>{t(nguoi.headline, locale)}</p> : null}
             {nguoi.birthYear ? (
               <p className={styles.phu}>
                 {nhan.namSinh}: {nguoi.birthYear}
               </p>
             ) : null}
+            {nguoi.quote ? <blockquote className={styles.trichDan}>{t(nguoi.quote, locale)}</blockquote> : null}
           </div>
         </header>
-
-        {nguoi.quote ? <blockquote className={styles.trichDan}>{t(nguoi.quote, locale)}</blockquote> : null}
 
         <div className={styles.bo}>
           <div className={styles.chinh}>
