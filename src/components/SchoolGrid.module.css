@@ -9,6 +9,8 @@
   display: grid;
   gap: clamp(1.1rem, 2vw, 1.8rem);
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  /* Mọi thẻ trong một hàng cao bằng nhau, kể cả thẻ có tên dài hai dòng. */
+  grid-auto-rows: 1fr;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -49,6 +51,33 @@
   box-shadow: var(--shadow-2);
 }
 
+/*
+ * Chỉ vàng mảnh chạy trong mép thẻ.
+ *
+ * Cùng lối kẻ khung với khối người đứng đầu ở trang Cơ cấu nhân sự: một đường
+ * lùi vào trong, không mang thông tin gì, chỉ để mắt nhận ra đây là thứ được
+ * dựng cẩn thận. Rất mờ lúc thường, đậm lên khi rê chuột.
+ */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  z-index: 2;
+  border: 1px solid color-mix(in srgb, var(--gold) 22%, transparent);
+  border-radius: calc(var(--r-4) - 5px);
+  opacity: 0.7;
+  transition:
+    opacity var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease);
+  pointer-events: none;
+}
+
+.card:hover::after,
+.card:focus-visible::after {
+  opacity: 1;
+  border-color: color-mix(in srgb, var(--gold) 52%, transparent);
+}
+
 .card:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: -4px;
@@ -59,15 +88,61 @@
 .figure {
   position: relative;
   display: block;
+  /* Giữ tỉ lệ ở chính khung, không phải ở tấm ảnh: thẻ chưa có ảnh vẫn cao
+     đúng bằng thẻ có ảnh, hàng không còn so le. */
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: var(--beige);
 }
 
-.figure img {
+/*
+ * Thẻ chưa có ảnh khuôn viên: khung huy hiệu.
+ *
+ * Nền navy sẫm có quầng vàng hắt từ trên trái, phủ thêm những nét kẻ chéo rất
+ * mờ — đủ để mảng này có bề mặt chứ không phẳng lì, và đủ nhạt để huy hiệu vẫn
+ * là thứ duy nhất mắt nhìn thấy.
+ */
+.figure[data-anh="khong"] {
+  display: grid;
+  place-items: center;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      rgba(240, 201, 122, 0.05) 0 1px,
+      transparent 1px 9px
+    ),
+    radial-gradient(
+      120% 130% at 18% 0%,
+      rgba(196, 145, 69, 0.22),
+      transparent 62%
+    ),
+    linear-gradient(160deg, #16263c, #0a1220 78%);
+}
+
+.huyHieuLon {
   display: block;
+  width: 46%;
+  max-width: 8.5rem;
+  filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.45));
+  transition: scale var(--dur-2) var(--ease);
+}
+
+.huyHieuLon img {
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.card:hover .huyHieuLon,
+.card:focus-visible .huyHieuLon {
+  scale: 1.06;
+}
+
+.figure > img {
+  display: block;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   /* Top, not centre: these are buildings with their name along the roofline. */
   object-position: 50% 32%;
@@ -85,7 +160,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(142, 31, 45, 0) 30%, rgba(109, 21, 35, 0.72) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(142, 31, 45, 0) 30%,
+    rgba(109, 21, 35, 0.72) 100%
+  );
   opacity: 0;
   transition: opacity var(--dur-2) var(--ease);
 }
@@ -99,7 +178,8 @@
   position: absolute;
   top: var(--s-3);
   left: var(--s-4);
-  z-index: 1;
+  z-index: 3;
+  padding-bottom: 0.32rem;
   font-family: var(--font-display);
   font-size: 1.5rem;
   line-height: 1;
@@ -108,13 +188,31 @@
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.65);
 }
 
+/* Nét vàng ngắn dưới chân con số, dài ra khi rê chuột. */
+.rank::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 1.1rem;
+  height: 2px;
+  background: var(--gold);
+  transition: width var(--dur-2) var(--ease);
+}
+
+.card:hover .rank::after,
+.card:focus-visible .rank::after {
+  width: 2.4rem;
+}
+
 /* The crest rides the seam between the picture and the words, on its own white
    ground: these are other institutions' marks and they are not tinted. */
 .crest {
   position: absolute;
   right: var(--s-4);
-  bottom: calc(var(--s-4) * -1);
-  z-index: 1;
+  /* Neo vào mép TRÊN của phần chữ, tức đúng đáy khung ảnh. */
+  top: -29px;
+  z-index: 3;
   display: grid;
   place-items: center;
   width: 58px;
@@ -134,11 +232,17 @@
 /* ---------- the words ---------- */
 
 .body {
-  display: grid;
-  align-content: start;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   gap: 0.3rem;
   padding: var(--s-5) var(--s-5) var(--s-4);
   min-width: 0;
+}
+
+/* Đẩy chân thẻ xuống đáy phần chữ. */
+.foot {
+  margin-top: auto;
 }
 
 .city {
@@ -159,7 +263,16 @@
   line-height: 1.24;
   color: var(--ink);
   padding-right: 3.2rem;
+  transition: color var(--dur-2) var(--ease);
 }
+
+.card:hover .name,
+.card:focus-visible .name {
+  color: var(--accent);
+}
+
+/* Chân thẻ tụt hẳn xuống đáy, để đường kẻ chân của mọi thẻ trong hàng nằm cùng
+   một mức dù tên một dòng hay hai dòng — xem .body bên dưới. */
 
 .foot {
   display: flex;
@@ -234,9 +347,22 @@
     align-items: stretch;
   }
 
-  .figure img {
-    height: 100%;
+  .figure {
     aspect-ratio: auto;
+  }
+
+  .figure > img {
+    height: 100%;
+  }
+
+  /* Dải dọc hẹp: huy hiệu lấy gần hết bề ngang mới đọc được. */
+  .huyHieuLon {
+    width: 70%;
+  }
+
+  /* Chỉ vàng bên trong quá sát mép ở cỡ này thì thành nhiễu. */
+  .card::after {
+    display: none;
   }
 
   .rank {
@@ -245,15 +371,10 @@
     font-size: 1rem;
   }
 
-  /* Huy hiệu thu nhỏ và nằm gọn trong ảnh: ở hàng ngang thì không còn "đường
-     nối" giữa ảnh và chữ để nó cưỡi lên. */
+  /* Hàng ngang thì không còn "đường nối" giữa ảnh và chữ để huy hiệu cưỡi
+     lên, mà ảnh bên trái đã mang sẵn dấu hiệu của trường rồi. */
   .crest {
-    right: 6px;
-    bottom: 6px;
-    width: 34px;
-    height: 34px;
-    padding: 3px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    display: none;
   }
 
   .body {

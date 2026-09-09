@@ -77,7 +77,7 @@ export const zhTW: Dictionary = {
     findProgram: "找到適合的課程",
     findProgramHint: "選擇領域與課程層級，即可看到目前招生的課程。",
     aboutTitle: "關於 Viet Duc Group",
-    schoolsTitle: "六所成員學校",
+    schoolsTitle: "{n} 所成員學校",
     programsTitle: "精選課程",
     whyTitle: "為什麼選擇 Viet Duc Group",
     roadmapTitle: "學習與發展路徑",

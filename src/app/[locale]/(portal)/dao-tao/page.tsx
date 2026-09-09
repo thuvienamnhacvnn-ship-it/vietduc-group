@@ -179,7 +179,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       },
     },
     {
-      claim: pick({ vi: "Sáu trường, một hệ thống", en: "Six schools, one system", de: "Sechs Schulen, ein Verbund", ja: "六つの学校、ひとつの体系", ko: "여섯 학교, 하나의 체계", "zh-TW": "六所學校，一個體系" }, locale),
+      claim: pick({ vi: `${schools.length} trường, một hệ thống`, en: `${schools.length} schools, one system`, de: `${schools.length} Schulen, ein Verbund`, ja: `${schools.length}つの学校、ひとつの体系`, ko: `${schools.length}개 학교, 하나의 체계`, "zh-TW": `${schools.length} 所學校，一個體系` }, locale),
       body: pick({ vi: "Từ Đà Nẵng, Ninh Bình, Vũng Tàu, Đồng Nai đến Quảng Trị và Berlin – người học chọn ngành trước, chọn nơi học sau.", en: "From Da Nang, Ninh Binh, Vung Tau and Dong Nai to Quang Tri and Berlin: choose the field first, the campus second.", de: "Von Da Nang, Ninh Binh, Vung Tau und Dong Nai bis Quang Tri und Berlin – erst das Fach, dann der Standort.", ja: "ダナン、ニンビン、ブンタウ、ドンナイから、クアンチ、そしてベルリンまで。まず分野を選び、学ぶ場所はその次に。", ko: "다낭, 닌빈, 붕따우, 동나이에서 꽝찌와 베를린까지. 먼저 분야를 고르고, 배울 곳은 그다음입니다.", "zh-TW": "從峴港、寧平、頭頓、同奈，到廣治與柏林——先選領域，再選校區。" }, locale),
       evidence: pick({ vi: `${schools.length} trường thành viên, hồ sơ từng trường công bố trên trang Hệ thống trường`, en: `${schools.length} member schools, each with its own record on the network page`, de: `${schools.length} Mitgliedsschulen, jede mit eigenem Profil auf der Verbundseite` }, locale),
       image: {
@@ -273,12 +273,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 }
                 lead={
                   pick({
-                    vi: "Việt Đức Group là hệ thống giáo dục đa cấp, đa ngành, hoạt động trong lĩnh vực đào tạo nghề, cao đẳng, trung cấp và liên kết quốc tế, với sáu trường thành viên tại Việt Nam và CHLB Đức.",
-                    en: "Viet Duc Group is a multi-level, multi-field education system working at college, intermediate and vocational levels, with six member schools in Vietnam and Germany.",
-                    de: "Die Viet Duc Group ist ein mehrstufiges, fächerübergreifendes Bildungssystem mit sechs Mitgliedsschulen in Vietnam und Deutschland.",
-                    ja: "Viet Duc Group は、職業訓練・短期大学・中級課程および国際連携を手がける多段階・多分野の教育体系であり、ベトナムとドイツ連邦共和国に六つの加盟校を擁します。",
-                    ko: "Viet Duc Group은 직업훈련·전문대·중급 과정과 국제 협력을 아우르는 다단계·다분야 교육 체계로, 베트남과 독일 연방공화국에 여섯 개 회원 학교를 두고 있습니다.",
-                    "zh-TW": "Viet Duc Group 是涵蓋職業訓練、專科、中級課程與國際合作的多層級、多領域教育體系，在越南與德意志聯邦共和國設有六所成員學校。",
+                    vi: "Việt Đức Group là hệ thống giáo dục đa cấp, đa ngành, hoạt động trong lĩnh vực đào tạo nghề, cao đẳng, trung cấp và liên kết quốc tế, với các trường thành viên tại Việt Nam và CHLB Đức.",
+                    en: "Viet Duc Group is a multi-level, multi-field education system working at college, intermediate and vocational levels, with member schools in Vietnam and Germany.",
+                    de: "Die Viet Duc Group ist ein mehrstufiges, fächerübergreifendes Bildungssystem mit Mitgliedsschulen in Vietnam und Deutschland.",
+                    ja: "Viet Duc Group は、職業訓練・短期大学・中級課程および国際連携を手がける多段階・多分野の教育体系であり、ベトナムとドイツ連邦共和国に加盟校を擁します。",
+                    ko: "Viet Duc Group은 직업훈련·전문대·중급 과정과 국제 협력을 아우르는 다단계·다분야 교육 체계로, 베트남과 독일 연방공화국에 회원 학교를 두고 있습니다.",
+                    "zh-TW": "Viet Duc Group 是涵蓋職業訓練、專科、中級課程與國際合作的多層級、多領域教育體系，在越南與德意志聯邦共和國設有成員學校。",
                   }, locale)
                 }
               />
@@ -328,7 +328,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         <div className="shell">
           <SectionHeading
             eyebrow={pick({ vi: "Hệ thống", en: "The network", de: "Der Verbund", ja: "ネットワーク", ko: "네트워크", "zh-TW": "體系" }, locale)}
-            title={dict.home.schoolsTitle}
+            title={dict.home.schoolsTitle.replace("{n}", String(schools.length))}
             lead={
               pick({
                 vi: "Mỗi trường có thế mạnh riêng về ngành nghề và địa bàn. Chọn nơi phù hợp với ngành bạn muốn học.",

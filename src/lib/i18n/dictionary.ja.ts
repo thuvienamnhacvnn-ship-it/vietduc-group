@@ -82,7 +82,7 @@ export const ja: Dictionary = {
     findProgram: "自分に合う課程をさがす",
     findProgramHint: "分野と課程レベルを選ぶと、募集中の課程が表示されます。",
     aboutTitle: "Viet Duc Group について",
-    schoolsTitle: "六つの加盟校",
+    schoolsTitle: "{n}校の加盟校",
     programsTitle: "注目の課程",
     whyTitle: "Viet Duc Group を選ぶ理由",
     roadmapTitle: "学びとキャリアの道すじ",

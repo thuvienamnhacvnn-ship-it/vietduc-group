@@ -468,7 +468,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 "zh-TW": "體系",
               })}
             </p>
-            <h2 className={styles.chuyenTieuDe}>{dict.home.schoolsTitle}</h2>
+            <h2 className={styles.chuyenTieuDe}>{dict.home.schoolsTitle.replace("{n}", String(schools.length))}</h2>
           </div>
 
           <ul className={styles.crests}>

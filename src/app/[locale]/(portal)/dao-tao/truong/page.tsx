@@ -23,10 +23,10 @@ export async function generateMetadata({
     title: dict.nav.schools,
     description: pick(
       {
-        vi: "Sáu trường thành viên của Việt Đức Group tại Đà Nẵng, Ninh Bình, Vũng Tàu, Đồng Nai, Quảng Trị và Berlin.",
-        en: "The six member schools of Viet Duc Group, in Da Nang, Ninh Binh, Vung Tau, Dong Nai, Quang Tri and Berlin.",
-        de: "Die sechs Mitgliedsschulen der Viet Duc Group in Da Nang, Ninh Binh, Vung Tau, Dong Nai, Quang Tri und Berlin.",
-        ja: "ダナン、ニンビン、ブンタウ、ドンナイ、クアンチ、ベルリンにある Viet Duc Group の六つの加盟校。",
+        vi: "Các trường thành viên của Việt Đức Group tại Việt Nam và CHLB Đức.",
+        en: "The member schools of Viet Duc Group, in Vietnam and Germany.",
+        de: "Die Mitgliedsschulen der Viet Duc Group in Vietnam und Deutschland.",
+        ja: "ベトナムとドイツ連邦共和国にある Viet Duc Group の加盟校。",
         ko: "다낭, 닌빈, 붕따우, 동나이, 꽝찌, 베를린에 있는 Viet Duc Group의 여섯 회원 학교.",
         "zh-TW": "Viet Duc Group 位於峴港、寧平、頭頓、同奈、廣治與柏林的六所成員學校。",
       },
@@ -168,7 +168,7 @@ export default async function SchoolsPage({ params }: { params: Promise<{ locale
               locale,
             )}
           </p>
-          <h1 className={styles.title}>{dict.home.schoolsTitle}</h1>
+          <h1 className={styles.title}>{dict.home.schoolsTitle.replace("{n}", String(schools.length))}</h1>
           <p className={styles.lead}>
             {pick(
               {

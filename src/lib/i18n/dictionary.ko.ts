@@ -76,7 +76,7 @@ export const ko: Dictionary = {
     findProgram: "나에게 맞는 과정 찾기",
     findProgramHint: "분야와 과정 단계를 고르면 모집 중인 과정이 나옵니다.",
     aboutTitle: "Viet Duc Group 소개",
-    schoolsTitle: "여섯 개 회원 학교",
+    schoolsTitle: "{n}개 회원 학교",
     programsTitle: "주요 과정",
     whyTitle: "Viet Duc Group을 선택하는 이유",
     roadmapTitle: "학습과 진로의 길",
