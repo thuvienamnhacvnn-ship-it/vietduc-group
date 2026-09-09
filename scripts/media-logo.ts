@@ -4,163 +4,153 @@ import mupdf from "mupdf";
 import sharp from "sharp";
 
 /**
- * Bóc bộ logo hệ thống từ tệp PDF tập đoàn gửi.
+ * Bóc bộ logo hệ thống từ tệp Illustrator tập đoàn gửi.
  *
- * CÁCH LÀM QUAN TRỌNG: logo trong PDF là ẢNH RASTER nhúng, không phải vector —
- * xuất SVG chỉ được một thẻ `<image>` bọc đúng tấm ảnh ấy. Nên đừng render
- * trang ra ảnh: render là chụp lại một tấm ảnh đã có, và bản chụp ở 1125px thì
- * kém hơn hẳn bản gốc 3125px nằm sẵn bên trong.
+ * NGUỒN: thư mục .ai, không phải tệp PDF tổng hợp.
  *
- * Đường vòng để lấy ảnh gốc: cho mupdf xuất trang sang SVG, rồi đọc chuỗi
- * base64 trong `<image>` — đó chính là byte gốc của ảnh, chưa qua lần vẽ lại
- * nào.
+ * Bản trước lấy từ "LOGO VIỆT ĐỨC GROUP_update 08.06.2026.pdf" và phải làm ba
+ * việc chữa cháy: bóc ảnh raster nhúng ra khỏi trang, cắt bỏ dòng nhãn in kèm
+ * mỗi logo, rồi lan từ mép vào để gỡ nền trắng. Ba việc ấy nay bỏ hết được —
+ * tệp .ai là bản gốc của người thiết kế: nền trong suốt sẵn, không có nhãn, và
+ * là vector nên tô ở cỡ nào cũng sắc.
+ *
+ * Illustrator lưu kèm phần PDF tương thích, nên mupdf mở thẳng được bằng
+ * "application/pdf" — không cần Illustrator trên máy.
  *
  * Chạy: npm run media:logo
  */
 
-const PDF = "E:/Works/itw/VD/LOGO VIỆT ĐỨC GROUP_update 08.06.2026.pdf.pdf";
+const DIR = "E:/Works/itw/VD/bo sung";
 
 /**
- * Trang (đánh số từ 1) -> nơi ghi ảnh.
+ * Mỗi tệp .ai ra những đâu.
  *
- * Tệp PDF có 14 trang: trang 1 là bảng tổng hợp, 13 trang sau mỗi trang một
- * logo kèm nhãn tên đơn vị. Nhãn là chữ ĐÃ CHUYỂN THÀNH ĐƯỜNG VẼ nên không đọc
- * tự động được — bảng dưới đây lập bằng mắt, đối chiếu từng trang.
+ * `theWebp`  — logo trên thẻ trường (nền sáng), đường dẫn phải khớp `logoPath`
+ *              trong cơ sở dữ liệu.
+ * `soDoPng`  — logo trên sơ đồ hệ sinh thái ở trang Giới thiệu (nền tối).
  *
- * Bộ logo có cả những đơn vị chưa có trên website (Trung cấp Kỹ nghệ Việt Đức,
- * Cao đẳng Công nghệ Việt Đức, các công ty du lịch – khách sạn). Chúng không
- * được bóc ở đây; khi nào website có trang cho chúng thì thêm dòng vào bảng.
+ * Trang Giới thiệu suy đường dẫn sơ đồ từ chính `logoPath`, đổi
+ * `/media/schools/logos/X.webp` thành `/media/so-do/truong-X.png`. Đặt sai tên
+ * là sơ đồ khuyết một nhánh, nên hai cột dưới đây phải đi cùng nhau.
  *
- * LOGO TẬP ĐOÀN cũng không bóc, dù trang 2 có. Bản đang dùng là SVG — vector
- * thì nét ở mọi cỡ và nhẹ hơn, nên thay nó bằng một tấm ảnh 720px là đi lùi.
- * Đã đối chiếu: thiết kế trong tệp cập nhật trùng với bản SVG hiện có.
- *
- * Trường Trung cấp Việt Hàn KHÔNG có logo trong bộ này nên giữ bản cũ (320px).
+ * Không bóc ở đây:
+ *  - "1. Việt Đức Group.ai": logo tập đoàn đang dùng bản SVG trong /brand,
+ *    vector thì nét ở mọi cỡ và nhẹ hơn một tấm ảnh.
+ *  - "8. Trường Trung cấp Kỹ nghệ Việt Đức.ai": website chưa có trường này.
+ *  - Trường Trung cấp Việt Hàn: bộ .ai không có logo của trường, giữ bản cũ.
  */
-const BANG: { trang: number; ra: string; ten: string }[] = [
-  { trang: 6, ra: "public/media/schools/logos/itw-berlin.webp", ten: "ITW Berlin" },
-  { trang: 8, ra: "public/media/schools/logos/cao-dang-cong-nghe-ngoai-thuong.webp", ten: "CĐ Công nghệ Ngoại thương" },
-  { trang: 9, ra: "public/media/schools/logos/trung-cap-bach-khoa-vung-tau.webp", ten: "TC Bách khoa Vũng Tàu" },
-  { trang: 11, ra: "public/media/schools/logos/trung-cap-cong-nghe-viet-duc.webp", ten: "TC Công nghệ Việt Đức" },
-  { trang: 12, ra: "public/media/schools/logos/cao-dang-cong-nghe-viet-duc.webp", ten: "CĐ Công nghệ Việt Đức" },
-  { trang: 13, ra: "public/media/schools/logos/trung-cap-nghe-quoc-te-ivs.webp", ten: "TC nghề Quốc tế IVS" },
+const BANG: {
+  tep: string;
+  ten: string;
+  theWebp?: string;
+  soDoPng?: string;
+  doSang?: true;
+}[] = [
+  {
+    tep: "2. Công ty CP tập đoàn đầu tư và giáo dục quốc tế Việt Đức.ai",
+    ten: "VGIE",
+    soDoPng: "public/media/so-do/vgie.png",
+  },
+  {
+    tep: "3. Công ty TNHH du lịch và đầu tư Việt Đức.ai",
+    ten: "Việt Đức Đầu tư & Du lịch",
+    soDoPng: "public/media/so-do/dau-tu-du-lich.png",
+  },
+  {
+    tep: "4. Công ty TNHH khách sạn và dịch vụ Du lịch Việt Đức.ai",
+    ten: "Việt Đức Khách sạn & Lữ hành",
+    soDoPng: "public/media/so-do/khach-san-lu-hanh.png",
+  },
+  {
+    tep: "5. Công ty Cổ phần khách sạn và dịch vụ du lịch Hoàng Long.ai",
+    ten: "Golden Dragon Hotel",
+    soDoPng: "public/media/so-do/golden-dragon.png",
+  },
+  {
+    tep: "LOGO SHDC.ai",
+    ten: "SHDC Du lịch sinh thái",
+    soDoPng: "public/media/so-do/shdc.png",
+  },
+  {
+    tep: "6. Trường Cao đẳng Công nghệ Ngoại thương.ai",
+    ten: "CĐ Công nghệ Ngoại thương",
+    theWebp: "public/media/schools/logos/cao-dang-cong-nghe-ngoai-thuong.webp",
+    soDoPng: "public/media/so-do/truong-cao-dang-cong-nghe-ngoai-thuong.png",
+  },
+  {
+    tep: "7. Trường Trung cấp Bách khoa Vũng Tàu.ai",
+    ten: "TC Bách khoa Vũng Tàu",
+    theWebp: "public/media/schools/logos/trung-cap-bach-khoa-vung-tau.webp",
+    soDoPng: "public/media/so-do/truong-trung-cap-bach-khoa-vung-tau.png",
+  },
+  {
+    tep: "9. Trường Trung cấp công nghệ Việt Đức.ai",
+    ten: "TC Công nghệ Việt Đức",
+    theWebp: "public/media/schools/logos/trung-cap-cong-nghe-viet-duc.webp",
+    soDoPng: "public/media/so-do/truong-trung-cap-cong-nghe-viet-duc.png",
+  },
+  {
+    tep: "10. Trường Cao đẳng công nghệ Việt Đức.ai",
+    ten: "CĐ Công nghệ Việt Đức",
+    theWebp: "public/media/schools/logos/cao-dang-cong-nghe-viet-duc.webp",
+    soDoPng: "public/media/so-do/truong-cao-dang-cong-nghe-viet-duc.png",
+  },
+  {
+    tep: "11. Trường Trung cấp nghề Quốc tế IVS.ai",
+    ten: "TC nghề Quốc tế IVS",
+    theWebp: "public/media/schools/logos/trung-cap-nghe-quoc-te-ivs.webp",
+    soDoPng: "public/media/so-do/truong-trung-cap-nghe-quoc-te-ivs.png",
+  },
+  {
+    // Chữ "itw" màu đen: trên nền tối của sơ đồ là mất hút, phải đảo sáng.
+    tep: "LOGO ITW.ai",
+    ten: "ITW Berlin",
+    theWebp: "public/media/schools/logos/itw-berlin.webp",
+    soDoPng: "public/media/so-do/truong-itw-berlin.png",
+    doSang: true,
+  },
 ];
+
+/** Cạnh dài của bản tô trung gian, trước khi thu về cỡ dùng thật. */
+const CANH_TO = 2400;
 
 /**
- * Bộ logo cho sơ đồ hệ sinh thái ở trang Giới thiệu.
+ * Tô một tệp .ai ra ảnh nền trong suốt.
  *
- * Sơ đồ nằm trên nền tối nên logo phải TÁCH NỀN — khác bộ webp ở trên, vốn
- * dùng trong thẻ nền sáng và giữ nguyên nền trắng của tệp gốc.
- *
- * Tên tệp không đặt tuỳ ý: trang Giới thiệu suy đường dẫn từ `logoPath` trong
- * cơ sở dữ liệu bằng cách đổi `/media/schools/logos/X.webp` thành
- * `/media/so-do/truong-X.png`. Đặt sai tên là sơ đồ khuyết một nhánh.
- *
- * Trường Trung cấp Việt Hàn không có logo trong tệp PDF này nên không có dòng
- * cho nó; bản PNG cũ trong thư mục vẫn giữ nguyên.
+ * Tô ở cỡ lớn rồi mới thu nhỏ, chứ không tô thẳng ra 720: phần thu nhỏ do
+ * sharp làm bao giờ cũng mượt hơn, và những logo có lưới chuyển màu (mupdf tô
+ * chúng thành ảnh) cũng đỡ vỡ hạt.
  */
-const BANG_SO_DO: { trang: number; ra: string; ten: string; doSang?: true }[] = [
-  { trang: 3, ra: "public/media/so-do/vgie.png", ten: "VGIE" },
-  { trang: 4, ra: "public/media/so-do/dau-tu-du-lich.png", ten: "Việt Đức Đầu tư & Du lịch" },
-  { trang: 5, ra: "public/media/so-do/khach-san-lu-hanh.png", ten: "Việt Đức Khách sạn & Lữ hành" },
-  { trang: 7, ra: "public/media/so-do/golden-dragon.png", ten: "Golden Dragon Hotel" },
-  { trang: 14, ra: "public/media/so-do/shdc.png", ten: "SHDC Du lịch sinh thái" },
-    // Chữ "itw" màu đen, đặt trên nền tối của sơ đồ là mất hút — phải đảo sáng.
-  { trang: 6, ra: "public/media/so-do/truong-itw-berlin.png", ten: "ITW Berlin", doSang: true },
-  { trang: 8, ra: "public/media/so-do/truong-cao-dang-cong-nghe-ngoai-thuong.png", ten: "CĐ Công nghệ Ngoại thương" },
-  { trang: 9, ra: "public/media/so-do/truong-trung-cap-bach-khoa-vung-tau.png", ten: "TC Bách khoa Vũng Tàu" },
-  { trang: 11, ra: "public/media/so-do/truong-trung-cap-cong-nghe-viet-duc.png", ten: "TC Công nghệ Việt Đức" },
-  { trang: 12, ra: "public/media/so-do/truong-cao-dang-cong-nghe-viet-duc.png", ten: "CĐ Công nghệ Việt Đức" },
-  { trang: 13, ra: "public/media/so-do/truong-trung-cap-nghe-quoc-te-ivs.png", ten: "TC nghề Quốc tế IVS" },
-];
-
-/** Lấy byte gốc của ảnh nhúng trong một trang. */
-function anhGoc(doc: ReturnType<typeof mupdf.Document.openDocument>, chiSoTrang: number): Buffer | null {
-  const p = doc.loadPage(chiSoTrang);
-  const buf = new mupdf.Buffer();
-  const w = new mupdf.DocumentWriter(buf, "svg", "");
-  const dev = w.beginPage(p.getBounds());
-  p.run(dev, mupdf.Matrix.identity);
-  w.endPage();
-  w.close();
-
-  const khop = [...buf.asString().matchAll(/xlink:href="data:image\/[a-z]+;base64,([^"]+)"/g)];
-  if (!khop.length) return null;
-  // Trang nào cũng chỉ có một ảnh; nếu có nhiều thì lấy tấm nặng nhất.
-  return khop
-    .map((m) => Buffer.from(m[1], "base64"))
-    .sort((a, b) => b.length - a.length)[0];
+function to(tep: string): Buffer {
+  const doc = mupdf.Document.openDocument(fs.readFileSync(tep), "application/pdf");
+  const trang = doc.loadPage(0);
+  const [x0, y0, x1, y1] = trang.getBounds();
+  const ti = CANH_TO / Math.max(x1 - x0, y1 - y0);
+  const px = trang.toPixmap(mupdf.Matrix.scale(ti, ti), mupdf.ColorSpace.DeviceRGB, true, true);
+  return Buffer.from(px.asPNG());
 }
 
 /**
- * Bỏ dòng nhãn ở đầu ảnh.
+ * Gỡ nền trắng đặc, giữ lại phần trắng NẰM TRONG logo.
  *
- * Đọc ảnh thành pixel thô, quét từng hàng từ trên xuống và đánh dấu hàng nào có
- * nội dung. Thứ tự luôn là: trống → nhãn → trống → logo. Nên chỗ cần cắt là
- * điểm bắt đầu của dải trống THỨ HAI.
+ * Phần lớn tệp .ai có nền trong suốt sẵn, nhưng hai tệp khổ A4 (ITW, SHDC)
+ * được đặt trên một hình chữ nhật trắng phủ kín trang. Để nguyên thì logo đội
+ * một mảng trắng giữa sơ đồ nền tối, mà riêng ITW còn hoá mảng ĐEN vì phép đảo
+ * sáng phía dưới biến nền trắng thành đen.
  *
- * Nếu không tìm thấy đúng hình ấy (ảnh nào đó không có nhãn) thì trả nguyên ảnh
- * — thà giữ cả tấm còn hơn cắt nhầm mất một phần logo.
+ * Không thể cứ thấy pixel trắng là xoá: trang sách của IVS và khoảng hở trong
+ * chữ "itw" đều trắng, xoá hết thì logo thủng lỗ chỗ. Nên ở đây LAN TỪ MÉP
+ * VÀO: bốn cạnh ảnh chắc chắn là nền, từ đó lan sang các pixel trắng kề nhau
+ * và chỉ xoá những gì lan tới được. Phần trắng bị nét logo bao quanh thì không
+ * nối ra tới mép nên còn nguyên.
+ *
+ * Pixel ở ranh giới là xám nhạt do khử răng cưa; chúng được cho độ mờ theo
+ * chính mức xám của mình, để mép logo mềm chứ không lởm chởm.
  */
-async function catNhan(raw: Buffer): Promise<Buffer> {
-  const { data, info } = await sharp(raw)
-    .ensureAlpha()
-    .raw()
-    .toBuffer({ resolveWithObject: true });
-  const { width, height, channels } = info;
-
-  const coNoiDung = (y: number) => {
-    for (let x = 0; x < width; x++) {
-      const i = (y * width + x) * channels;
-      const alpha = channels === 4 ? data[i + 3] : 255;
-      if (alpha < 24) continue; // trong suốt
-      // Gần trắng cũng coi là nền: ảnh gốc có nền trắng đặc.
-      if (data[i] > 236 && data[i + 1] > 236 && data[i + 2] > 236) continue;
-      return true;
-    }
-    return false;
-  };
-
-  const day = Array.from({ length: height }, (_, y) => coNoiDung(y));
-
-  // Dải nội dung đầu tiên = nhãn; tìm điểm kết thúc của nó.
-  let y = 0;
-  while (y < height && !day[y]) y++; // bỏ khoảng trống đầu
-  const nhanBatDau = y;
-  while (y < height && day[y]) y++; // hết dòng nhãn
-  const nhanKetThuc = y;
-  while (y < height && !day[y]) y++; // khoảng trống giữa nhãn và logo
-  const logoBatDau = y;
-
-  // Nhãn phải mỏng (dưới 15% chiều cao) và phải còn nội dung bên dưới nó.
-  const dayNhan = nhanKetThuc - nhanBatDau;
-  if (logoBatDau >= height || dayNhan === 0 || dayNhan > height * 0.15) return raw;
-
-  return sharp(raw)
-    .extract({ left: 0, top: logoBatDau, width, height: height - logoBatDau })
-    .png()
-    .toBuffer();
-}
-
-/**
- * Bỏ nền trắng, giữ lại phần trắng NẰM TRONG logo.
- *
- * Không thể cứ thấy pixel trắng là xoá: mái vòm Golden Dragon, trang sách của
- * IVS và khoảng hở trong chữ "itw" đều trắng, xoá hết thì logo thủng lỗ chỗ.
- *
- * Nên thay vì lọc theo màu, ở đây LAN TỪ MÉP VÀO: bốn cạnh ảnh chắc chắn là
- * nền, từ đó lan sang các pixel trắng kề nhau và chỉ xoá những gì lan tới
- * được. Phần trắng bị nét logo bao quanh thì không nối ra tới mép, nên còn
- * nguyên.
- *
- * Viền răng cưa: pixel ở ranh giới là xám nhạt do khử răng cưa của tệp gốc.
- * Những pixel ấy được cho độ mờ theo mức xám của chính nó, để mép logo mềm
- * chứ không lởm chởm.
- */
-async function tachNen(anh: Buffer): Promise<Buffer> {
+async function goNen(anh: Buffer): Promise<Buffer> {
   const { data, info } = await sharp(anh).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const { width, height, channels } = info;
-  const px = (x: number, y: number) => (y * width + x) * channels;
+  const vt = (x: number, y: number) => (y * width + x) * channels;
   const sang = (i: number) => Math.min(data[i], data[i + 1], data[i + 2]);
 
   const NEN = 238; // từ mức này trở lên coi là nền
@@ -174,7 +164,9 @@ async function tachNen(anh: Buffer): Promise<Buffer> {
     const o = y * width + x;
     if (daXet[o]) return;
     daXet[o] = 1;
-    if (sang(px(x, y)) < NEN) return;
+    const i = vt(x, y);
+    // Chỗ đã trong suốt cũng là nền: phép lan phải đi xuyên qua được.
+    if (data[i + 3] !== 0 && sang(i) < NEN) return;
     laNen[o] = 1;
     hangDoi.push(o);
   };
@@ -188,8 +180,8 @@ async function tachNen(anh: Buffer): Promise<Buffer> {
     nap(width - 1, y);
   }
 
-  for (let i = 0; i < hangDoi.length; i++) {
-    const o = hangDoi[i];
+  for (let k = 0; k < hangDoi.length; k++) {
+    const o = hangDoi[k];
     const x = o % width;
     const y = (o - x) / width;
     if (x > 0) nap(x - 1, y);
@@ -201,14 +193,13 @@ async function tachNen(anh: Buffer): Promise<Buffer> {
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const o = y * width + x;
-      const i = px(x, y);
+      const i = vt(x, y);
       if (laNen[o]) {
         data[i + 3] = 0;
         continue;
       }
-      // Pixel xám nhạt kề nền: cho mờ dần thay vì để nguyên đục.
       const m = sang(i);
-      if (m <= MEM) continue;
+      if (m <= MEM || data[i + 3] === 0) continue;
       const keNen =
         (x > 0 && laNen[o - 1]) ||
         (x < width - 1 && laNen[o + 1]) ||
@@ -224,17 +215,18 @@ async function tachNen(anh: Buffer): Promise<Buffer> {
 /**
  * Đảo phần chữ đen của logo thành sáng, giữ nguyên phần có màu.
  *
- * Chỉ dùng cho logo một màu đen như ITW: trên nền tối của sơ đồ nó gần như
- * biến mất. Phép đảo chỉ chạm vào pixel gần như không màu (ba kênh sát nhau) —
- * nên chấm tròn xanh lá của ITW giữ nguyên màu, chỉ có chữ đổi sang trắng ngà.
+ * Chỉ dùng cho logo một màu đen như ITW. Phép đảo chỉ chạm vào pixel gần như
+ * không màu (ba kênh sát nhau) — nên chấm tròn xanh lá của ITW giữ nguyên màu,
+ * chỉ có chữ đổi sang trắng ngà.
  *
- * Trắng ngà chứ không trắng tinh (`TRAN`): trắng tinh trên nền navy chói hơn
- * cả logo màu bên cạnh, làm ITW nổi hơn các trường khác một cách vô lý.
+ * Trắng ngà chứ không trắng tinh (`TRAN`): trắng tinh trên nền navy chói hơn cả
+ * logo màu bên cạnh, làm ITW nổi hơn các trường khác một cách vô lý.
  */
-function daoSang(data: Buffer, kenh: number): void {
+async function daoSang(anh: Buffer): Promise<Buffer> {
+  const { data, info } = await sharp(anh).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
   const TRAN = 232;
-  for (let i = 0; i < data.length; i += kenh) {
-    if (kenh === 4 && data[i + 3] === 0) continue;
+  for (let i = 0; i < data.length; i += info.channels) {
+    if (data[i + 3] === 0) continue;
     const max = Math.max(data[i], data[i + 1], data[i + 2]);
     const min = Math.min(data[i], data[i + 1], data[i + 2]);
     if (max - min > 40) continue; // pixel có màu: để yên
@@ -243,90 +235,61 @@ function daoSang(data: Buffer, kenh: number): void {
     data[i + 1] = dao;
     data[i + 2] = dao;
   }
+  return sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
+    .png()
+    .toBuffer();
+}
+
+/** Cắt sát mép nét vẽ rồi đặt vào khung vuông, nền trong suốt. */
+function vuong(anh: Buffer, canh: number) {
+  return sharp(anh)
+    .trim({ threshold: 2 })
+    .resize(canh, canh, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } });
+}
+
+async function ghi(duongDan: string, anh: ReturnType<typeof sharp>) {
+  const dich = path.resolve(process.cwd(), duongDan);
+  fs.mkdirSync(path.dirname(dich), { recursive: true });
+  await anh.toFile(dich);
+  const m = await sharp(dich).metadata();
+  console.log(`  ok     ${duongDan}  ${m.width}x${m.height}  ${Math.round(fs.statSync(dich).size / 1024)}KB`);
 }
 
 async function main() {
-  if (!fs.existsSync(PDF)) {
-    console.error(`Khong thay tep logo: ${PDF}`);
+  if (!fs.existsSync(DIR)) {
+    console.error(`Khong thay thu muc logo: ${DIR}`);
     process.exit(1);
   }
-  const doc = mupdf.Document.openDocument(fs.readFileSync(PDF), "application/pdf");
 
-  for (const { trang, ra, ten } of BANG) {
-    const raw = anhGoc(doc, trang - 1);
-    if (!raw) {
-      console.error(`  THIEU  trang ${trang} (${ten}): khong tim thay anh nhung`);
+  for (const { tep, ten, theWebp, soDoPng, doSang } of BANG) {
+    const nguon = path.join(DIR, tep);
+    if (!fs.existsSync(nguon)) {
+      console.error(`  THIEU  ${ten}: khong co tep ${tep}`);
       continue;
     }
-    const goc = await sharp(raw).metadata();
-
+    console.log(ten);
     /*
-     * Cắt bỏ dòng nhãn, rồi cắt sát mép logo.
+     * Chạy gỡ nền cho MỌI tệp, không dò trước.
      *
-     * Nhãn ("11. Trường Trung cấp nghề Quốc tế IVS") nằm NGAY TRONG ảnh raster
-     * chứ không phải chữ vẽ riêng của trang, nên bóc thẳng ra là logo đội một
-     * dòng chữ trên đầu.
-     *
-     * Không cắt theo tỉ lệ cố định: mỗi logo cao thấp khác nhau, cắt 12% thì
-     * chỗ thừa chỗ thiếu. Thay vào đó tìm DẢI TRỐNG ngang đầu tiên bên dưới
-     * nhãn — giữa dòng chữ và logo luôn có một khoảng trắng — rồi cắt từ đó.
+     * Đã thử dò bằng cách xem bốn góc ảnh có đục không, và hỏng: hình nền trắng
+     * của ITW và SHDC nằm gọn bên trong trang A4 chứ không chạm mép, nên bốn
+     * góc vẫn trong suốt và phép dò báo "không có nền". Tệp vốn đã trong suốt
+     * thì chạy qua hàm này cũng không mất gì, nên cứ chạy hết cho chắc.
      */
-    const duongDan = path.resolve(process.cwd(), ra);
-    fs.mkdirSync(path.dirname(duongDan), { recursive: true });
-    const daCatNhan = await catNhan(raw);
-    await sharp(daCatNhan)
-      .trim({ threshold: 12 })
-      .resize(720, 720, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .webp({ quality: 92, alphaQuality: 100 })
-      .toFile(duongDan);
+    const goc = await goNen(to(nguon));
 
-    const sau = await sharp(duongDan).metadata();
-    console.log(`  ok     ${ten}: goc ${goc.width}x${goc.height} -> ${sau.width}x${sau.height}  ${ra}`);
-  }
-
-  console.log();
-  console.log("So do he sinh thai (tach nen):");
-  for (const { trang, ra, ten, doSang } of BANG_SO_DO) {
-    const raw = anhGoc(doc, trang - 1);
-    if (!raw) {
-      console.error(`  THIEU  trang ${trang} (${ten}): khong tim thay anh nhung`);
-      continue;
-    }
-    const duongDan = path.resolve(process.cwd(), ra);
-    fs.mkdirSync(path.dirname(duongDan), { recursive: true });
-
-    /*
-     * Thu nhỏ TRƯỚC khi tách nền.
-     *
-     * Ảnh gốc 3125x3125 là hơn chín triệu pixel; lan từ mép trên cỡ ấy vừa chậm
-     * vừa chẳng để làm gì, vì đằng nào cũng xuất ra 720. Thu nhỏ trước rồi mới
-     * tách thì phép lan chạy trong tích tắc và mép logo lại mượt hơn, do lần
-     * thu nhỏ đã hoà sẵn các pixel biên.
-     */
-    const vua = await sharp(await catNhan(raw))
-      .trim({ threshold: 12 })
-      .resize(720, 720, { fit: "inside", withoutEnlargement: true })
-      .flatten({ background: "#ffffff" })
-      .png()
-      .toBuffer();
-
-    let daTach = await tachNen(vua);
-    if (doSang) {
-      const { data, info } = await sharp(daTach).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-      daoSang(data, info.channels);
-      daTach = await sharp(data, { raw: { width: info.width, height: info.height, channels: info.channels } })
-        .png()
-        .toBuffer();
+    if (theWebp) {
+      /*
+       * Thẻ trường nằm trên nền sáng nên dùng logo nguyên màu — kể cả ITW chữ
+       * đen, ở đó chữ đen mới là đúng.
+       */
+      await ghi(theWebp, vuong(goc, 720).webp({ quality: 92, alphaQuality: 100 }));
     }
 
-    await sharp(daTach)
-      .trim({ threshold: 2 })
-      .resize(720, 720, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
-      .png({ compressionLevel: 9 })
-      .toFile(duongDan);
-
-    const sau = await sharp(duongDan).metadata();
-    console.log(`  ok     ${ten}: ${sau.width}x${sau.height}  ${ra}`);
+    if (soDoPng) {
+      const dung = doSang ? await daoSang(goc) : goc;
+      await ghi(soDoPng, vuong(dung, 720).png({ compressionLevel: 9 }));
+    }
   }
 }
 
