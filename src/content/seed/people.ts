@@ -1407,12 +1407,6 @@ export const PEOPLE: SeedPerson[] = [
     },
     appointments: [
       {
-        school: "cao-dang-cong-nghe-viet-duc",
-        body: "bks",
-        title: { vi: "Trưởng Ban Kiểm soát" },
-        rank: 10,
-      },
-      {
         school: null,
         org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
         body: "bks",
@@ -1525,12 +1519,6 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Tăng cường tính minh bạch, chuẩn hóa quy trình và hỗ trợ hệ thống vận hành hiệu quả trên cơ sở dữ liệu chính xác.",
     },
     appointments: [
-      {
-        school: "cao-dang-cong-nghe-viet-duc",
-        body: "bks",
-        title: { vi: "Thành viên Ban Kiểm soát" },
-        rank: 40,
-      },
       {
         school: null,
         org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
@@ -1708,12 +1696,6 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Trần Thị Lan định hướng phát triển chuyên môn theo hướng kết hợp chặt chẽ giữa pháp lý, hành chính và quản trị hệ thống. Trọng tâm là nâng cao năng lực kiểm soát tuân thủ, chuẩn hóa quy trình, quản trị hồ sơ và hỗ trợ các đơn vị vận hành trên nền tảng pháp lý rõ ràng, nhất quán và hiệu quả.",
     },
     appointments: [
-      {
-        school: "cao-dang-cong-nghe-viet-duc",
-        body: "bks",
-        title: { vi: "Thành viên Ban Kiểm soát" },
-        rank: 40,
-      },
       {
         school: null,
         org: { vi: "Việt Đức Group" },

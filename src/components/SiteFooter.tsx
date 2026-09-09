@@ -147,7 +147,14 @@ export function SiteFooter({ locale, contact, social, schools, categories }: Pro
         <nav aria-label={dict.nav.schools}>
           <h2 className={styles.colTitle}>{dict.nav.schools}</h2>
           <ul>
-            {schools.slice(0, 6).map((school) => (
+            {/*
+              Liệt kê ĐỦ, không cắt bớt.
+
+              Trước đây cắt ở sáu trường, hồi hệ thống đúng sáu trường. Nay có
+              tám, và hai trường bị rơi ra ngoài lại chính là hai trường mới —
+              nhìn từ chân trang thì thành ra website chưa cập nhật.
+            */}
+            {schools.map((school) => (
               <li key={school.slug}>
                 <Link href={path(`/dao-tao/truong/${school.slug}`)}>
                   {t(school.shortName ?? school.name, locale)}
