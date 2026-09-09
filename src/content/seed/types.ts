@@ -102,7 +102,13 @@ export type SeedActivity = {
   slug: string;
   title: L10n;
   description?: L10n;
-  kind: "culture" | "sports" | "volunteer" | "soft_skills" | "career" | "international";
+  kind:
+    | "culture"
+    | "sports"
+    | "volunteer"
+    | "soft_skills"
+    | "career"
+    | "international";
   coverPath?: string;
   order: number;
   provenance: Provenance;
@@ -195,9 +201,30 @@ export function fromProfileEn(page: number): Provenance {
 export function fromHoSoNhanSu(): Provenance {
   return {
     source: "ho-so-nhan-su-2026",
-    sourceTitle: "CƠ CẤU NHÂN SỰ VIỆT ĐỨC GROUP (hồ sơ cá nhân + quyết định hội đồng trường)",
+    sourceTitle:
+      "CƠ CẤU NHÂN SỰ VIỆT ĐỨC GROUP (hồ sơ cá nhân + quyết định hội đồng trường)",
     documentDate: "2026-09-08",
     importedAt: "2026-09-08",
+    method: "manual",
+  };
+}
+
+/**
+ * Hồ sơ dự án đầu tư xây dựng Trường Cao đẳng Công nghệ Việt Đức.
+ *
+ * Tập đoàn gửi ngày 09/09/2026: văn bản số 06/CV-CTy ngày 03/09/2026 xin hiệu
+ * chỉnh, bổ sung thông tin dự án, kèm toàn bộ thuyết minh. Đây là hồ sơ DỰ ÁN
+ * đang thẩm định, không phải hồ sơ một trường đang hoạt động — mọi con số lấy
+ * từ đây đều là con số thiết kế.
+ */
+export function fromDuAnCaoDang(page?: number): Provenance {
+  return {
+    source: "du-an-cao-dang-cong-nghe-viet-duc",
+    sourceTitle:
+      "Dự án đầu tư xây dựng Trường Cao đẳng Công nghệ Việt Đức (06/CV-CTy)",
+    page,
+    documentDate: "2026-09-03",
+    importedAt: "2026-09-09",
     method: "manual",
   };
 }

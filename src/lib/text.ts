@@ -11,6 +11,41 @@ const HORIZONTAL_WS = /[^\S\n]+/g;
  * lanh". `đ`/`Đ` need an explicit pass: they are single code points, not a base
  * letter plus a combining mark, so NFD leaves them untouched.
  */
+/**
+ * Giữ tên riêng nằm trọn trên một dòng.
+ *
+ * Trình duyệt ngắt dòng ở bất kỳ dấu cách nào, nên "Việt Đức" rất dễ thành
+ * "Việt" ở dòng trên và "Đức" ở dòng dưới — với một cái tên thương hiệu thì đó
+ * là lỗi, không phải chuyện thẩm mỹ.
+ *
+ * Cách chữa là thay dấu cách BÊN TRONG tên bằng dấu cách không ngắt (U+00A0):
+ * chữ vẫn là chữ ấy, sao chép ra vẫn đúng, máy tìm kiếm vẫn đọc được, chỉ có
+ * chỗ ngắt dòng là biến mất. Làm ở đây chứ không đặt sẵn trong từ điển, vì dấu
+ * cách không ngắt nằm lẫn trong tệp nguồn thì không ai nhìn thấy để sửa.
+ */
+/** Dấu cách không ngắt. Viết bằng mã thoát để nhìn thấy được trong mã nguồn. */
+const KHONG_NGAT = '\u00a0';
+
+const TEN_RIENG = [
+  "Việt Đức Group",
+  "Viet Duc Group",
+  "Việt Đức",
+  "Viet Duc",
+  "ITW Berlin",
+  "Việt Hàn",
+  "Bách khoa Vũng Tàu",
+  "Ngoại thương",
+];
+
+export function giuTenLien(text: string): string {
+  let ra = text;
+  for (const ten of TEN_RIENG) {
+    if (!ten.includes(" ")) continue;
+    ra = ra.split(ten).join(ten.replace(/ /g, KHONG_NGAT));
+  }
+  return ra;
+}
+
 export function fold(input: string): string {
   return input
     /* Dấu cách không ngắt do `giuLien` chèn vào tên riêng: với người tìm

@@ -11,6 +11,7 @@ import {
 } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPage, getSchools } from "@/lib/queries";
+import { giuTenLien } from "@/lib/text";
 import { ArrowLink, Breadcrumbs, Prose } from "@/components/ui";
 import { PhotoWall } from "@/components/PhotoWall";
 import { SoDoHeSinhThai, type Nhanh } from "@/components/SoDoHeSinhThai";
@@ -244,14 +245,16 @@ export default async function AboutPage({
                 </p>
 
                 <h1 className={styles.moTieuDe}>
-                  {say({
-                    vi: "Hệ thống giáo dục nghề nghiệp Việt Đức",
-                    en: "The Viet Duc vocational education system",
-                    de: "Das Berufsbildungssystem der Viet Duc Group",
-                    ja: "Viet Duc の職業教育ネットワーク",
-                    ko: "Viet Duc 직업교육 체계",
-                    "zh-TW": "Viet Duc 技職教育體系",
-                  })}
+                  {giuTenLien(
+                    say({
+                      vi: "Hệ thống giáo dục nghề nghiệp Việt Đức",
+                      en: "The Viet Duc vocational education system",
+                      de: "Das Berufsbildungssystem der Viet Duc Group",
+                      ja: "Viet Duc の職業教育ネットワーク",
+                      ko: "Viet Duc 직업교육 체계",
+                      "zh-TW": "Viet Duc 技職教育體系",
+                    }),
+                  )}
                 </h1>
 
                 <span className={styles.vach} aria-hidden="true" />
@@ -340,7 +343,9 @@ export default async function AboutPage({
                 </span>
                 <h2 className={styles.tieuDeLon}>
                   {(() => {
-                    const [dau, conLai] = chiaTuDau(dict.home.aboutTitle);
+                    const [dau, conLai] = chiaTuDau(
+                      giuTenLien(dict.home.aboutTitle),
+                    );
                     return (
                       <>
                         {dau ? (
@@ -575,9 +580,11 @@ export default async function AboutPage({
               <h2 className={styles.tieuDeLon}>
                 {(() => {
                   const [dau, conLai] = chiaTuDau(
-                    dict.home.schoolsTitle.replace(
-                      "{n}",
-                      String(schools.length),
+                    giuTenLien(
+                      dict.home.schoolsTitle.replace(
+                        "{n}",
+                        String(schools.length),
+                      ),
                     ),
                   );
                   return (

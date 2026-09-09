@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { localePath, t, type Locale } from "@/lib/i18n/config";
+import { giuTenLien } from "@/lib/text";
 import type { SchoolRow } from "@/lib/queries";
 import styles from "./SchoolGrid.module.css";
 
@@ -32,7 +33,8 @@ export function SchoolGrid({
   return (
     <ol className={styles.grid}>
       {schools.map((school, index) => {
-        const name = t(school.shortName ?? school.name, locale);
+        // Tên riêng không bao giờ bị bẻ làm hai dòng — xem giuTenLien().
+        const name = giuTenLien(t(school.shortName ?? school.name, locale));
         const city = school.city ? t(school.city, locale) : "";
         const soTT = String(index + 1).padStart(2, "0");
 

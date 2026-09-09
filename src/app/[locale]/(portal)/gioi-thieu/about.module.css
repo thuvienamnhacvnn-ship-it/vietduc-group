@@ -624,9 +624,6 @@
   padding-left: clamp(2.2rem, 4vw, 3.4rem);
   padding-top: clamp(1.6rem, 4vw, 2.8rem);
   isolation: isolate;
-  /* Chữ bóng cố tình rộng hơn cột chữ; cắt ở mép cột để nó chạy hụt ra ngoài
-     như một mảng kết cấu, chứ không bò sang cột bên cạnh. */
-  overflow: hidden;
 }
 
 /*
@@ -689,6 +686,15 @@
   font-weight: 600;
   line-height: 1;
   white-space: nowrap;
+  /*
+   * Chữ bóng tự cắt phần thừa của CHÍNH NÓ.
+   *
+   * Trước đây cắt ở cả khối đầu mục, và thế là cắt luôn tiêu đề: tên riêng dài
+   * hơn cột một chút là mất chữ. Giới hạn bề ngang ngay trên chữ bóng thì phần
+   * chạy hụt vẫn còn nguyên ý đồ, mà tiêu đề không bị đụng tới.
+   */
+  max-width: calc(100% - clamp(1.5rem, 3vw, 2.6rem));
+  overflow: hidden;
   color: transparent;
   -webkit-text-stroke: 1px color-mix(in srgb, var(--gold) 26%, transparent);
   opacity: 0.5;
