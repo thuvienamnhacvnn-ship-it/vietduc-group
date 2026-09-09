@@ -410,6 +410,38 @@ function DungDau({ locale, ghe }: { locale: Locale; ghe: Ghe }) {
                 className={styles.anh}
               />
             </span>
+            {/*
+              Nét sáng chạy quanh khung.
+
+              Vẽ bằng SVG chứ không bằng viền CSS, vì chỉ nét vẽ mới cắt được
+              thành đoạn rồi trượt dọc theo đường bo góc. Khung ảnh luôn theo tỉ
+              lệ 4/5 nên viewBox 400x500 khớp đúng, không méo.
+            */}
+            <svg
+              className={styles.trumVien}
+              viewBox="0 0 400 500"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <rect
+                className={styles.trumVienDuoi}
+                x="1.6"
+                y="1.6"
+                width="396.8"
+                height="496.8"
+                rx="19"
+                pathLength="100"
+              />
+              <rect
+                className={styles.trumVienNet}
+                x="1.6"
+                y="1.6"
+                width="396.8"
+                height="496.8"
+                rx="19"
+                pathLength="100"
+              />
+            </svg>
           </span>
         ) : (
           <ChanDung ten={p.name} anh={null} lon />

@@ -506,7 +506,8 @@
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: calc(var(--r-4) - 2px);
+  /* Cùng bán kính với nét sáng chạy bên ngoài, để hai đường trùng khít. */
+  border-radius: var(--r-4);
   overflow: hidden;
   border: 1px solid rgba(196, 145, 69, 0.45);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
@@ -529,41 +530,52 @@
 /* ------------------------------- viền sáng chạy quanh ảnh người đứng đầu */
 
 /*
- * Một vệt sáng chạy vòng quanh khung ảnh, và hào quang khi rê chuột.
+ * Một NÉT SÁNG chạy dọc theo đường viền khung ảnh.
  *
- * Vệt chạy làm bằng `conic-gradient` quay tròn rồi bị mặt nạ cắt chỉ còn đúng
- * bề dày viền — nên thứ nhìn thấy là một vệt sáng trượt dọc theo mép ảnh chứ
- * không phải cả một quạt sáng. Cùng kỹ thuật với vệt quét trên vòng quỹ đạo ở
- * trang chủ, để hai chỗ nói cùng một thứ tiếng.
+ * Bản trước quay một `conic-gradient` sau khung: cái quay là cả một quạt sáng,
+ * nên nhìn ra quầng sáng xoay chứ không ra vệt sáng chạy. Ở đây nét sáng là một
+ * đoạn nét vẽ thật trên chính hình chữ nhật bo góc: `stroke-dasharray` cắt
+ * đường viền thành một đoạn sáng ngắn và một đoạn trống dài, rồi
+ * `stroke-dashoffset` kéo đoạn sáng ấy trượt đi. Nó bám đúng mép, vòng qua bốn
+ * góc bo, và chạy đều tốc độ.
  *
- * `padding: 2px` trên khung: vệt sáng nằm ở lớp nền, ảnh nằm trên, phần nhô ra
- * hai pixel chính là cái viền.
+ * `pathLength="100"` trong SVG quy ước chu vi bằng 100, nên các con số dưới đây
+ * đọc thẳng ra phần trăm chu vi — không phải tính lại mỗi khi khung đổi cỡ.
  */
-.trumAnh {
-  padding: 2px;
-  background: transparent;
-}
-
-.trumAnh::before {
-  content: "";
+.trumVien {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0 58%,
-    rgba(240, 200, 130, 0.55) 72%,
-    #ffe6ae 80%,
-    rgba(240, 200, 130, 0.45) 86%,
-    transparent 94%
-  );
-  animation: chayVienTrum 5.5s linear infinite;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  /* Quầng sáng của nét toả ra ngoài mép, đừng để bị xén. */
+  overflow: visible;
+  pointer-events: none;
+}
+
+.trumVienNet {
+  fill: none;
+  stroke: #ffe6ae;
+  stroke-width: 4.2;
+  stroke-linecap: round;
+  stroke-dasharray: 11 89;
+  filter: drop-shadow(0 0 6px rgba(255, 214, 140, 0.95)) drop-shadow(0 0 16px rgba(240, 190, 110, 0.6));
+  animation: chayVienTrum 4.6s linear infinite;
+}
+
+/* Nét mờ chạy sau, dài hơn: cái đuôi của vệt sáng. */
+.trumVienDuoi {
+  fill: none;
+  stroke: color-mix(in srgb, var(--gold) 55%, transparent);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-dasharray: 24 76;
+  animation: chayVienTrum 4.6s linear infinite;
 }
 
 @keyframes chayVienTrum {
   to {
-    rotate: 360deg;
+    stroke-dashoffset: -100;
   }
 }
 
@@ -603,7 +615,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .trumAnh::before {
+  .trumVienNet,
+  .trumVienDuoi {
     animation: none;
   }
 }
