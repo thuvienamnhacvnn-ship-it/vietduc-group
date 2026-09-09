@@ -79,7 +79,11 @@
   height: 42%;
   top: 0;
   pointer-events: none;
-  background: linear-gradient(180deg, rgba(9, 16, 24, 0.55) 0%, rgba(9, 16, 24, 0) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(9, 16, 24, 0.55) 0%,
+    rgba(9, 16, 24, 0) 100%
+  );
 }
 
 .moPhuDuoi {
@@ -197,7 +201,13 @@
   line-height: 1.2;
   letter-spacing: -0.02em;
   color: #fff;
-  background: linear-gradient(160deg, #ffffff 0%, #ffffff 44%, #f2e0bc 78%, #dcbc78 100%);
+  background: linear-gradient(
+    160deg,
+    #ffffff 0%,
+    #ffffff 44%,
+    #f2e0bc 78%,
+    #dcbc78 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -208,7 +218,11 @@
   width: min(220px, 60%);
   height: 2px;
   margin-top: var(--s-4);
-  background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--gold) 8%, transparent));
+  background: linear-gradient(
+    90deg,
+    var(--gold),
+    color-mix(in srgb, var(--gold) 8%, transparent)
+  );
 }
 
 .moDan {
@@ -586,4 +600,352 @@
 /* Lối sang trang cơ cấu nhân sự, đặt ngay dưới đoạn mở đầu khối đội ngũ. */
 .dan {
   margin-top: clamp(0.9rem, 2vw, 1.4rem);
+}
+
+/* ==================================================== hệ tiêu đề của trang
+ *
+ * Bốn mục của trang, bốn lối vào khác nhau.
+ *
+ * Bản trước mục nào cũng đúng một khuôn: một dòng chữ nhỏ màu vàng, rồi một
+ * dòng tiêu đề. Lặp bốn lần thì người đọc thôi nhìn phần đầu mục — nó không
+ * còn báo hiệu điều gì, chỉ còn là chỗ nghỉ giữa hai khối chữ.
+ *
+ * Nên mỗi mục mang một dáng riêng: mục Câu chuyện có nhãn dựng đứng bên lề và
+ * một chữ bóng khổng lồ phía sau; mục Đội ngũ căn giữa, hai bên là nét kẻ mảnh
+ * kẹp lấy một hình thoi; mục Hệ thống mở đầu bằng chính con số trường. Cả ba
+ * dùng chung một bộ chuyển động: nét vàng tự vẽ khi khối hiện ra, và quét sáng
+ * khi rê chuột.
+ */
+
+/* ---------- lối 1: nhãn dựng đứng bên lề, chữ bóng phía sau ---------- */
+
+.dauMucDoc {
+  position: relative;
+  padding-left: clamp(2.2rem, 4vw, 3.4rem);
+  padding-top: clamp(1.6rem, 4vw, 2.8rem);
+  isolation: isolate;
+  /* Chữ bóng cố tình rộng hơn cột chữ; cắt ở mép cột để nó chạy hụt ra ngoài
+     như một mảng kết cấu, chứ không bò sang cột bên cạnh. */
+  overflow: hidden;
+}
+
+/*
+ * Nhãn mục dựng đứng, chạy dọc lề trái.
+ *
+ * `writing-mode` xoay dòng chữ chứ không phải `rotate`: xoay bằng biến hình thì
+ * ô chữ vẫn nằm ngang nên nó chiếm chỗ sai và đè vào tiêu đề. Dấu tiếng Việt
+ * vẫn đứng đúng chiều đọc.
+ */
+.nhanDoc {
+  position: absolute;
+  top: clamp(0.5rem, 2vw, 1.4rem);
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  writing-mode: vertical-rl;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Nét vàng nối từ nhãn xuống, tự vẽ khi khối hiện ra. */
+.nhanDoc::after {
+  content: "";
+  display: block;
+  width: 1px;
+  height: clamp(2rem, 5vw, 3.6rem);
+  background: linear-gradient(180deg, var(--gold), transparent);
+  transform-origin: top;
+  scale: 1 0;
+  transition: scale 900ms var(--ease) 220ms;
+}
+
+:root[data-reveal-ready] [data-reveal-in] .nhanDoc::after {
+  scale: 1 1;
+}
+
+/* Không có JavaScript thì nét vẽ sẵn, đừng để trống lề. */
+:root:not([data-reveal-ready]) .nhanDoc::after {
+  scale: 1 1;
+}
+
+/*
+ * Chữ bóng: nhắc lại tên mục ở khổ rất lớn, chỉ còn đường viền.
+ *
+ * Nó nằm sau tiêu đề, mờ đến mức gần như chỉ là kết cấu của nền — việc của nó
+ * là cho phần đầu mục có chiều sâu, không phải để đọc. `aria-hidden` trong
+ * đánh dấu vì máy đọc màn hình đọc lại tên mục hai lần là thừa.
+ */
+.bongChu {
+  position: absolute;
+  z-index: -1;
+  top: -0.06em;
+  left: clamp(1.5rem, 3vw, 2.6rem);
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 11vw, 9rem);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in srgb, var(--gold) 26%, transparent);
+  opacity: 0.5;
+  translate: 0 0;
+  transition:
+    translate 1.2s var(--ease),
+    opacity 1.2s var(--ease);
+  pointer-events: none;
+}
+
+.dauMucDoc:hover .bongChu {
+  translate: 10px 0;
+  opacity: 0.75;
+}
+
+/* ---------- tiêu đề lớn, dùng chung cho lối 1 và lối 3 ---------- */
+
+.tieuDeLon {
+  position: relative;
+  margin: 0;
+  font-size: var(--step-3);
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+}
+
+/*
+ * Từ đầu tiên đổi mặt chữ: nghiêng, và tô bằng dải vàng chạy chậm.
+ *
+ * Cả câu tô vàng thì thành biển hiệu; chỉ một từ thì phần còn lại vẫn là chữ
+ * đọc được, mà mắt vẫn biết dòng này quan trọng.
+ */
+.tuDau {
+  font-style: italic;
+  /*
+   * Dải vàng viết cho NỀN SÁNG trước, nền tối ghi đè bên dưới.
+   *
+   * Cùng một dải vàng không dùng được cho cả hai: vàng nhạt trên giấy trắng chỉ
+   * còn khoảng 2,3:1, chữ to mấy cũng đọc mệt. Bản nền sáng vì thế đậm hơn hẳn,
+   * bản nền tối mới là bản ánh kim.
+   */
+  background: linear-gradient(
+    100deg,
+    #96671b 0%,
+    #c9922f 28%,
+    #96671b 56%,
+    #c9922f 84%,
+    #96671b 100%
+  );
+  background-size: 260% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: anhVang 9s linear infinite;
+}
+
+@keyframes anhVang {
+  to {
+    background-position: 260% 0;
+  }
+}
+
+/* Nét vàng dưới tiêu đề: tự vẽ khi hiện ra, quét sáng khi rê chuột. */
+.tieuDeLon::after {
+  content: "";
+  display: block;
+  width: min(9rem, 40%);
+  height: 2px;
+  margin-top: clamp(0.8rem, 1.8vw, 1.2rem);
+  background: linear-gradient(
+    90deg,
+    var(--gold),
+    color-mix(in srgb, var(--accent) 70%, transparent)
+  );
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 1s var(--ease) 320ms;
+}
+
+:root[data-reveal-ready] [data-reveal-in] .tieuDeLon::after {
+  scale: 1 1;
+}
+
+:root:not([data-reveal-ready]) .tieuDeLon::after {
+  scale: 1 1;
+}
+
+.dauMucDoc:hover .tieuDeLon::after,
+.dauMucSo:hover .tieuDeLon::after {
+  width: min(14rem, 62%);
+  transition: width 600ms var(--ease);
+}
+
+/* ---------- lối 2: căn giữa, nét kẻ hai bên kẹp một hình thoi ---------- */
+
+.dauMucGiua {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  margin-inline: auto;
+  max-width: 46rem;
+}
+
+.deTuaGiua {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin: 0 0 var(--s-3);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Hai nét kẻ mọc dài ra khi rê chuột vào cả khối. */
+.deTuaGiua::before,
+.deTuaGiua::after {
+  content: "";
+  display: block;
+  width: clamp(1.6rem, 4vw, 3rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  transition: width 600ms var(--ease);
+}
+
+.deTuaGiua::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.dauMucGiua:hover .deTuaGiua::before,
+.dauMucGiua:hover .deTuaGiua::after {
+  width: clamp(2.6rem, 7vw, 5rem);
+}
+
+/* Hình thoi nhỏ quay chậm giữa hai nét kẻ. */
+.thoi {
+  display: block;
+  width: 7px;
+  height: 7px;
+  flex: none;
+  background: var(--gold);
+  rotate: 45deg;
+  animation: xoayThoi 12s linear infinite;
+}
+
+@keyframes xoayThoi {
+  to {
+    rotate: 405deg;
+  }
+}
+
+.tieuDeGiua {
+  margin: 0;
+  font-size: var(--step-3);
+  line-height: 1.2;
+}
+
+/* ---------- lối 3: mở đầu bằng chính con số ---------- */
+
+.dauMucSo {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 2.2rem);
+}
+
+/*
+ * Con số khổ lớn, chỉ có đường viền.
+ *
+ * Nó không phải trang trí: đây đúng là số trường thành viên, lấy từ danh sách
+ * ngay bên dưới. Để rỗng ruột thì nó không tranh chỗ với tiêu đề mà vẫn là thứ
+ * mắt chạm vào trước.
+ */
+.soLon {
+  font-family: var(--font-display);
+  font-size: clamp(3.4rem, 9vw, 7rem);
+  font-weight: 600;
+  line-height: 0.82;
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--gold) 62%, transparent);
+  font-variant-numeric: tabular-nums;
+  transition: color 700ms var(--ease);
+}
+
+.dauMucSo:hover .soLon {
+  color: color-mix(in srgb, var(--gold) 16%, transparent);
+}
+
+.dauMucSo .deTua {
+  margin-bottom: var(--s-3);
+}
+
+/* ---------- khung hẹp ---------- */
+
+@media (max-width: 699px) {
+  .dauMucDoc {
+    padding-left: 0;
+  }
+
+  /* Nhãn dựng đứng ăn mất một dải bề ngang vốn đã hẹp; ở đây nó nằm ngang trở
+     lại như mọi nhãn mục khác. */
+  .nhanDoc {
+    position: static;
+    writing-mode: horizontal-tb;
+    margin-bottom: var(--s-3);
+  }
+
+  .nhanDoc::after {
+    width: clamp(1.6rem, 12vw, 3rem);
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    transform-origin: left;
+  }
+
+  .bongChu {
+    font-size: clamp(3rem, 20vw, 5rem);
+    left: 0;
+  }
+
+  .dauMucSo {
+    gap: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tuDau,
+  .thoi {
+    animation: none;
+  }
+
+  .nhanDoc::after,
+  .tieuDeLon::after {
+    transition: none;
+    scale: 1 1;
+  }
+}
+
+/* Nền tối: dải vàng sáng hơn, đúng chất ánh kim. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tuDau {
+    background-image: linear-gradient(
+      100deg,
+      #d8a13f 0%,
+      #f7e2a8 28%,
+      #d8a13f 56%,
+      #f7e2a8 84%,
+      #d8a13f 100%
+    );
+  }
+}
+
+:root[data-theme="dark"] .tuDau {
+  background-image: linear-gradient(
+    100deg,
+    #d8a13f 0%,
+    #f7e2a8 28%,
+    #d8a13f 56%,
+    #f7e2a8 84%,
+    #d8a13f 100%
+  );
 }

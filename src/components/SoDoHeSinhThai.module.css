@@ -20,9 +20,9 @@
   width: 100%;
   max-width: 1080px;
   margin-inline: auto;
-  /* Dải ngang: cao bằng khoảng 46% bề ngang, vừa đủ cho hai vòng elip mà không
-     đẩy phần nội dung phía dưới xuống quá sâu. */
-  aspect-ratio: 20 / 9;
+  /* Dải ngang: cao bằng khoảng 48% bề ngang. Đủ chỗ cho hai hàng nhánh đứng
+     tách hẳn khỏi logo ở tâm, mà chưa đẩy phần nội dung phía dưới xuống sâu. */
+  aspect-ratio: 20 / 9.6;
 }
 
 /* ---------------------------------------------------------- đường nối */
@@ -184,7 +184,7 @@
 /* ---- ba cỡ ---- */
 
 .tam {
-  width: 17%;
+  width: 15%;
   aspect-ratio: 1;
   height: auto;
   z-index: 2;
@@ -205,14 +205,14 @@
 }
 
 .trong {
-  width: 11.5%;
+  width: 10.5%;
   aspect-ratio: 1;
   height: auto;
   z-index: 2;
 }
 
 .ngoai {
-  width: 10.5%;
+  width: 9.5%;
   aspect-ratio: 1;
   height: auto;
   z-index: 2;
@@ -341,21 +341,29 @@
   padding-bottom: 0;
 }
 
+/*
+ * Bản gọn trên banner: nới cả khung lẫn cỡ nút.
+ *
+ * Bản trước khung dẹt hơn (20/8.5) mà nút lại to hơn, nên logo tập đoàn ở tâm
+ * và hàng logo phía trên ĐÈ LÊN NHAU — không phải sát nhau mà chồng thật. Cỡ
+ * nút tính theo bề ngang còn khoảng cách tính theo chiều cao, nên ở dải càng
+ * dẹt thì nút càng "cao" so với chỗ trống dành cho nó.
+ */
 .gon .khung {
   max-width: none;
-  aspect-ratio: 20 / 8.5;
+  aspect-ratio: 20 / 9.5;
 }
 
 .gon .tam {
-  width: 22%;
+  width: 18%;
 }
 
 .gon .trong {
-  width: 13.5%;
+  width: 11.5%;
 }
 
 .gon .ngoai {
-  width: 12.5%;
+  width: 11%;
 }
 
 .gon .nhan {

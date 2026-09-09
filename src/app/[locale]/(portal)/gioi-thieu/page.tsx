@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, type Locale, pick as pickLocale } from "@/lib/i18n/config";
+import {
+  isLocale,
+  localePath,
+  t,
+  type Locale,
+  pick as pickLocale,
+} from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { getPage, getSchools } from "@/lib/queries";
 import { ArrowLink, Breadcrumbs, Prose } from "@/components/ui";
@@ -26,7 +32,9 @@ export async function generateMetadata({
   if (!page) return {};
   return {
     title: page.seoTitle ? t(page.seoTitle, locale) : t(page.title, locale),
-    description: page.seoDescription ? t(page.seoDescription, locale) : undefined,
+    description: page.seoDescription
+      ? t(page.seoDescription, locale)
+      : undefined,
     alternates: { canonical: `/${locale}/${SLUG}` },
   };
 }
@@ -45,7 +53,26 @@ export async function generateMetadata({
  *  - Con số lấy thẳng từ cơ sở dữ liệu, không viết tay. Đếm được bao nhiêu
  *    trường, bao nhiêu ngành đã đăng ký thì hiện bấy nhiêu.
  */
-export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+/**
+ * Tách từ đầu tiên khỏi phần còn lại của tiêu đề.
+ *
+ * Từ đầu được tô vàng và in nghiêng; cả câu tô vàng thì thành biển hiệu, còn
+ * một từ thì phần còn lại vẫn là chữ để đọc.
+ *
+ * Tiếng Nhật, Hàn và Trung viết liền không có dấu cách — ở đó trả về từ đầu
+ * rỗng, tức là không tô gì cả. Chữ vuông in nghiêng vốn cũng không phải lối
+ * trình bày của các thứ tiếng ấy.
+ */
+function chiaTuDau(tieuDe: string): [string, string] {
+  const i = tieuDe.indexOf(" ");
+  return i === -1 ? ["", tieuDe] : [tieuDe.slice(0, i), tieuDe.slice(i)];
+}
+
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale: Locale = raw;
@@ -56,7 +83,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   if (!page) notFound();
 
   /* Gói chữ tại chỗ cho gọn; thiếu ngôn ngữ nào thì `pick` lùi về tiếng Việt. */
-  const say = (map: Parameters<typeof pickLocale<string>>[0]): string => pickLocale(map, locale);
+  const say = (map: Parameters<typeof pickLocale<string>>[0]): string =>
+    pickLocale(map, locale);
 
   /*
    * Hai vòng của sơ đồ hệ sinh thái.
@@ -69,7 +97,14 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const thuongHieu: Nhanh[] = [
     {
       src: "/media/so-do/vgie.png",
-      ten: { vi: "VGIE", en: "VGIE", de: "VGIE", ja: "VGIE", ko: "VGIE", "zh-TW": "VGIE" },
+      ten: {
+        vi: "VGIE",
+        en: "VGIE",
+        de: "VGIE",
+        ja: "VGIE",
+        ko: "VGIE",
+        "zh-TW": "VGIE",
+      },
     },
     {
       src: "/media/so-do/dau-tu-du-lich.png",
@@ -120,7 +155,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const nhanhTruong: Nhanh[] = schools
     .filter((s) => s.logoPath)
     .map((s) => ({
-      src: s.logoPath!.replace("/media/schools/logos/", "/media/so-do/truong-").replace(/.webp$/, ".png"),
+      src: s
+        .logoPath!.replace("/media/schools/logos/", "/media/so-do/truong-")
+        .replace(/.webp$/, ".png"),
       ten: (s.shortName ?? s.name) as Nhanh["ten"],
       href: path(`/dao-tao/truong/${s.slug}`),
     }));
@@ -142,7 +179,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
     <div className={`${shell.page} ${styles.trang}`}>
       {/* ------------------------------------------------------- mở đầu */}
       <div className="shell">
-        <Breadcrumbs locale={locale} trail={[{ label: t(page.title, locale) }]} />
+        <Breadcrumbs
+          locale={locale}
+          trail={[{ label: t(page.title, locale) }]}
+        />
       </div>
 
       <section className={styles.mo}>
@@ -160,7 +200,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               de: "Campus und Werkstätten in der Dämmerung, eine Lichtlinie verbindet die Karte Vietnams mit der Deutschlands",
               ja: "夕暮れに灯る街区と実習棟。光の筋がベトナムの地図とドイツの地図を結ぶ",
               ko: "해 질 녘 불을 밝힌 단지와 실습동. 빛의 줄기가 베트남 지도와 독일 지도를 잇는다",
-              "zh-TW": "暮色中亮起燈火的園區與實作工坊，一道光線串起越南與德國的版圖",
+              "zh-TW":
+                "暮色中亮起燈火的園區與實作工坊，一道光線串起越南與德國的版圖",
             })}
             fill
             priority
@@ -181,7 +222,11 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           */}
           <div className={styles.moLop}>
             <div className={`shell ${styles.moChu}`}>
-              <div className={styles.moTrong} data-reveal suppressHydrationWarning>
+              <div
+                className={styles.moTrong}
+                data-reveal
+                suppressHydrationWarning
+              >
                 {/* ------------------------------------------- cột trái */}
                 <Image
                   src="/brand/viet-duc-group-logo.svg"
@@ -230,7 +275,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 riêng bên dưới. Bản `gon` thu nhỏ mọi nút lại để cả sơ đồ vừa
                 trong nửa phải của khung mà vẫn đọc được từng logo.
               */}
-              <div className={styles.moMang} data-reveal suppressHydrationWarning style={{ "--reveal-delay": "160ms" } as React.CSSProperties}>
+              <div
+                className={styles.moMang}
+                data-reveal
+                suppressHydrationWarning
+                style={{ "--reveal-delay": "160ms" } as React.CSSProperties}
+              >
                 <SoDoHeSinhThai
                   locale={locale}
                   gon
@@ -260,20 +310,55 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
         <div className="shell">
           <div className={styles.chuyen}>
             <div className={styles.chuyenBen}>
-              <p className={styles.deTua}>
-                {say({
-                  vi: "Câu chuyện",
-                  en: "The story",
-                  de: "Die Geschichte",
-                  ja: "歩み",
-                  ko: "우리의 이야기",
-                  "zh-TW": "我們的故事",
-                })}
-              </p>
-              <h2 className={styles.chuyenTieuDe}>{dict.home.aboutTitle}</h2>
+              <div
+                className={styles.dauMucDoc}
+                data-reveal
+                suppressHydrationWarning
+              >
+                <span className={styles.nhanDoc}>
+                  {say({
+                    vi: "Câu chuyện",
+                    en: "The story",
+                    de: "Die Geschichte",
+                    ja: "歩み",
+                    ko: "우리의 이야기",
+                    "zh-TW": "我們的故事",
+                  })}
+                </span>
+                {/* Chữ bóng khổ lớn phía sau: nhắc lại tên mục, chỉ để lấy
+                    chiều sâu chứ không để đọc — nên giấu khỏi máy đọc màn
+                    hình, nếu không tên mục bị đọc hai lần. */}
+                <span className={styles.bongChu} aria-hidden="true">
+                  {say({
+                    vi: "Câu chuyện",
+                    en: "The story",
+                    de: "Die Geschichte",
+                    ja: "歩み",
+                    ko: "우리의 이야기",
+                    "zh-TW": "我們的故事",
+                  })}
+                </span>
+                <h2 className={styles.tieuDeLon}>
+                  {(() => {
+                    const [dau, conLai] = chiaTuDau(dict.home.aboutTitle);
+                    return (
+                      <>
+                        {dau ? (
+                          <span className={styles.tuDau}>{dau}</span>
+                        ) : null}
+                        {conLai}
+                      </>
+                    );
+                  })()}
+                </h2>
+              </div>
 
               <div className={styles.anhBen}>
-                <figure className={styles.o} data-reveal suppressHydrationWarning>
+                <figure
+                  className={styles.o}
+                  data-reveal
+                  suppressHydrationWarning
+                >
                   <Image
                     src="/media/vision/to-thuc-hanh-co-khi.webp"
                     alt={say({
@@ -302,7 +387,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
 
                 <figure
                   className={styles.o}
-                  data-reveal suppressHydrationWarning
+                  data-reveal
+                  suppressHydrationWarning
                   style={{ "--reveal-delay": "90ms" } as React.CSSProperties}
                 >
                   <Image
@@ -339,8 +425,12 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
               <p className={styles.trich}>{dict.brand.motto}</p>
 
               <div className={styles.chuyenLink}>
-                <ArrowLink href={path("/tam-nhin-su-menh")}>{dict.nav.vision}</ArrowLink>
-                <ArrowLink href={path("/dao-tao/truong")}>{dict.nav.schools}</ArrowLink>
+                <ArrowLink href={path("/tam-nhin-su-menh")}>
+                  {dict.nav.vision}
+                </ArrowLink>
+                <ArrowLink href={path("/dao-tao/truong")}>
+                  {dict.nav.schools}
+                </ArrowLink>
               </div>
             </div>
           </div>
@@ -382,8 +472,13 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {anhDoiNgu.length ? (
         <section className={styles.khoi}>
           <div className="shell">
-            <div className={styles.dauMuc}>
-              <p className={styles.deTua}>
+            <div
+              className={styles.dauMucGiua}
+              data-reveal
+              suppressHydrationWarning
+            >
+              <p className={styles.deTuaGiua}>
+                <span className={styles.thoi} aria-hidden="true" />
                 {say({
                   vi: "Đội ngũ",
                   en: "Leadership",
@@ -392,8 +487,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   ko: "경영진",
                   "zh-TW": "經營團隊",
                 })}
+                <span className={styles.thoi} aria-hidden="true" />
               </p>
-              <h2 className={styles.chuyenTieuDe}>
+              <h2 className={styles.tieuDeGiua}>
                 {say({
                   vi: "Đội ngũ lãnh đạo",
                   en: "The people who run it",
@@ -410,7 +506,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                   de: "Die Führung der Viet Duc Group bei Jubiläen, Vor-Ort-Besuchen und Arbeitstreffen mit Partnern.",
                   ja: "記念式典、視察、国内外の提携先との協議に臨む Viet Duc Group の経営陣。",
                   ko: "기념식과 현장 방문, 국내외 협력사와의 업무 협의에 임한 Viet Duc Group 경영진.",
-                  "zh-TW": "Viet Duc Group 經營團隊出席週年慶典、實地訪視，以及與國內外夥伴的工作會談。",
+                  "zh-TW":
+                    "Viet Duc Group 經營團隊出席週年慶典、實地訪視，以及與國內外夥伴的工作會談。",
                 })}
               </p>
               {/*
@@ -457,30 +554,64 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* -------------------------------------------------------- trường */}
       <section className={`${styles.khoi} ${styles.khoiNen}`}>
         <div className="shell">
-          <div className={styles.dauMuc}>
-            <p className={styles.deTua}>
-              {say({
-                vi: "Hệ thống",
-                en: "The network",
-                de: "Der Verbund",
-                ja: "ネットワーク",
-                ko: "네트워크",
-                "zh-TW": "體系",
-              })}
-            </p>
-            <h2 className={styles.chuyenTieuDe}>{dict.home.schoolsTitle.replace("{n}", String(schools.length))}</h2>
+          <div className={styles.dauMucSo} data-reveal suppressHydrationWarning>
+            {/* Con số này là số trường thật, lấy từ chính danh sách ngay bên
+                dưới — nên máy đọc màn hình bỏ qua nó là đúng, tiêu đề đã nói. */}
+            <span className={styles.soLon} aria-hidden="true">
+              {String(schools.length).padStart(2, "0")}
+            </span>
+            <div>
+              <p className={styles.deTua}>
+                <span className={styles.gach} aria-hidden="true" />
+                {say({
+                  vi: "Hệ thống",
+                  en: "The network",
+                  de: "Der Verbund",
+                  ja: "ネットワーク",
+                  ko: "네트워크",
+                  "zh-TW": "體系",
+                })}
+              </p>
+              <h2 className={styles.tieuDeLon}>
+                {(() => {
+                  const [dau, conLai] = chiaTuDau(
+                    dict.home.schoolsTitle.replace(
+                      "{n}",
+                      String(schools.length),
+                    ),
+                  );
+                  return (
+                    <>
+                      {dau ? <span className={styles.tuDau}>{dau}</span> : null}
+                      {conLai}
+                    </>
+                  );
+                })()}
+              </h2>
+            </div>
           </div>
 
           <ul className={styles.crests}>
             {schools.map((school, i) => (
               <li
                 key={school.id}
-                data-reveal suppressHydrationWarning
-                style={{ "--reveal-delay": `${i * 60}ms` } as React.CSSProperties}
+                data-reveal
+                suppressHydrationWarning
+                style={
+                  { "--reveal-delay": `${i * 60}ms` } as React.CSSProperties
+                }
               >
-                <Link href={path(`/dao-tao/truong/${school.slug}`)} className={styles.the}>
+                <Link
+                  href={path(`/dao-tao/truong/${school.slug}`)}
+                  className={styles.the}
+                >
                   {school.logoPath ? (
-                    <Image src={school.logoPath} alt="" width={160} height={160} />
+                    <Image
+                      src={school.logoPath}
+                      alt=""
+                      width={160}
+                      height={160}
+                    />
                   ) : null}
                   <span className={styles.theTen}>
                     {t(school.shortName ?? school.name, locale)}
@@ -491,7 +622,9 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           </ul>
 
           <div className={styles.crestMore}>
-            <ArrowLink href={path("/dao-tao/truong")}>{dict.common.viewAll}</ArrowLink>
+            <ArrowLink href={path("/dao-tao/truong")}>
+              {dict.common.viewAll}
+            </ArrowLink>
           </div>
         </div>
       </section>

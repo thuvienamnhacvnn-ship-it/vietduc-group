@@ -64,17 +64,25 @@ export function SoDoHeSinhThai({
   });
 
   const nut = [
-    /* Hàng dưới: năm thương hiệu. Hẹp hơn hàng trên vì ít nút hơn. */
+    /*
+     * Hàng dưới: năm thương hiệu. Hẹp hơn hàng trên vì ít nút hơn.
+     *
+     * Hai hàng đẩy sát mép trên và mép dưới (13 và 87) chứ không phải 16/84 như
+     * trước. Lý do là cỡ nút tính theo BỀ NGANG khung còn khoảng cách tính theo
+     * chiều cao, mà khung rộng gấp hơn hai lần chiều cao — nên một nút "10%"
+     * chiếm tới hơn 20% chiều cao. Ở bản gọn trên banner, logo tập đoàn ở tâm
+     * và các logo hàng trên đã chồng lên nhau thật sự.
+     */
     ...vongTrong.map((n, i) => ({
       ...n,
       vong: "trong" as const,
-      ...hang(vongTrong.length, i, 84, 16),
+      ...hang(vongTrong.length, i, 87, 16),
     })),
     /* Hàng trên: các trường thành viên. */
     ...vongNgoai.map((n, i) => ({
       ...n,
       vong: "ngoai" as const,
-      ...hang(vongNgoai.length, i, 16, 8),
+      ...hang(vongNgoai.length, i, 13, 8),
     })),
   ];
 
