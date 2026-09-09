@@ -312,6 +312,7 @@ export default async function PeoplePage({
                   ).toUpperCase(),
                   anh: p.photoPath,
                   chuc: p.headline ? t(p.headline, locale) : "",
+                  trum: p.slug === dungDau?.nguoi.slug,
                   // Một người nối tới mọi đơn vị mình giữ chức. Chức vụ ở pháp
                   // nhân ngoài hệ thống (NIBELC, ITW Berlin) không có nút riêng
                   // nên bỏ qua, nếu không mạng lưới mọc thêm những nhánh cụt.

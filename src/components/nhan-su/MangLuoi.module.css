@@ -33,9 +33,21 @@
   inset: -30%;
   z-index: 0;
   background:
-    radial-gradient(38% 42% at 22% 28%, rgba(142, 31, 45, 0.55), transparent 70%),
-    radial-gradient(32% 38% at 78% 22%, rgba(196, 145, 69, 0.28), transparent 72%),
-    radial-gradient(46% 50% at 62% 82%, rgba(142, 31, 45, 0.38), transparent 70%);
+    radial-gradient(
+      38% 42% at 22% 28%,
+      rgba(142, 31, 45, 0.55),
+      transparent 70%
+    ),
+    radial-gradient(
+      32% 38% at 78% 22%,
+      rgba(196, 145, 69, 0.28),
+      transparent 72%
+    ),
+    radial-gradient(
+      46% 50% at 62% 82%,
+      rgba(142, 31, 45, 0.38),
+      transparent 70%
+    );
   filter: blur(10px);
   animation: troi 26s ease-in-out infinite alternate;
 }
@@ -166,7 +178,11 @@
   width: clamp(6rem, 13%, 9rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 32%, rgba(184, 48, 63, 0.92), rgba(88, 18, 27, 0.96) 72%);
+  background: radial-gradient(
+    circle at 38% 32%,
+    rgba(184, 48, 63, 0.92),
+    rgba(88, 18, 27, 0.96) 72%
+  );
   border: 1px solid rgba(240, 201, 122, 0.55);
   box-shadow:
     0 0 0 6px rgba(142, 31, 45, 0.18),
@@ -250,6 +266,34 @@
   font-size: clamp(0.85rem, 1.5vw, 1.05rem);
   font-weight: 600;
   line-height: 1;
+}
+
+/*
+ * Người đứng đầu: nút to nhất mạng lưới.
+ *
+ * To hơn hẳn phần còn lại (khoảng gấp rưỡi) và to như thế ở mọi lúc, không đợi
+ * rê chuột — nhìn vào mạng lưới là biết ngay ai đứng đầu, chứ không phải dò
+ * từng nút. Nút được rê sáng lên cũng chỉ nở 12%, nên vẫn không vượt được nút
+ * này.
+ *
+ * Khi rê người khác thì nó mờ đi nhẹ hơn các nút thường: mờ bằng nhau thì lúc
+ * ấy nó biến mất khỏi mạch đọc, mà nó là thứ neo cả hình.
+ */
+.nutTrum {
+  width: clamp(4.4rem, 8.4%, 6.4rem);
+  border-color: #e8b45f;
+  box-shadow:
+    0 0 0 3px rgba(190, 60, 74, 0.3),
+    0 0 34px rgba(232, 180, 95, 0.45);
+  z-index: 3;
+}
+
+.nutTrum.nutMo {
+  opacity: 0.55;
+}
+
+.nutTrum .chuCai {
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
 }
 
 /*

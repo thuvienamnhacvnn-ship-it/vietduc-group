@@ -16,6 +16,8 @@ export type NutNguoi = {
   donVi: string[];
   /** Chức danh cao nhất, dùng làm nhãn khi rê chuột. */
   chuc: string;
+  /** Người đứng đầu: nút to nhất mạng lưới, không phụ thuộc chuột. */
+  trum?: boolean;
 };
 
 export type NutDonVi = {
@@ -59,7 +61,10 @@ export function MangLuoi({
     // Vòng đơn vị bắt đầu từ 12 giờ (-90°) để khối trên cùng nằm ngay ngắn.
     donVi.forEach((d, i) => {
       const goc = (i / donVi.length) * Math.PI * 2 - Math.PI / 2;
-      dv.set(d.khoa, { x: 50 + Math.cos(goc) * 25, y: 50 + Math.sin(goc) * 25 });
+      dv.set(d.khoa, {
+        x: 50 + Math.cos(goc) * 25,
+        y: 50 + Math.sin(goc) * 25,
+      });
     });
 
     const ng = new Map<string, { x: number; y: number }>();
@@ -67,7 +72,10 @@ export function MangLuoi({
       const goc = (i / nguoi.length) * Math.PI * 2 - Math.PI / 2;
       // Vòng người hơi dẹt theo chiều dọc: khung rộng hơn cao nên hình tròn
       // hoàn hảo sẽ chạm mép trên dưới trước khi lấp đầy hai bên.
-      ng.set(p.slug, { x: 50 + Math.cos(goc) * 44, y: 50 + Math.sin(goc) * 41 });
+      ng.set(p.slug, {
+        x: 50 + Math.cos(goc) * 44,
+        y: 50 + Math.sin(goc) * 41,
+      });
     });
     return { dv, ng };
   }, [nguoi, donVi]);
@@ -88,7 +96,10 @@ export function MangLuoi({
   );
 
   const sang = (slug: string, khoa?: string) =>
-    dangRe === null || dangRe === slug || (khoa !== undefined && nguoi.find((p) => p.slug === dangRe)?.donVi.includes(khoa));
+    dangRe === null ||
+    dangRe === slug ||
+    (khoa !== undefined &&
+      nguoi.find((p) => p.slug === dangRe)?.donVi.includes(khoa));
 
   return (
     <div className={styles.boc}>
@@ -97,7 +108,12 @@ export function MangLuoi({
       <div className={styles.luoiMo} aria-hidden="true" />
 
       <div className={styles.khung} onMouseLeave={() => setDangRe(null)}>
-        <svg className={styles.day} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        <svg
+          className={styles.day}
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
           {donVi.map((d) => {
             const b = viTri.dv.get(d.khoa)!;
             return (
@@ -150,7 +166,10 @@ export function MangLuoi({
           `unoptimized` vì đây là SVG: cho qua bộ tối ưu ảnh của Next chỉ tốn
           một vòng xử lý mà không nhỏ đi được byte nào.
         */}
-        <div className={`${styles.nut} ${styles.nutTam}`} style={{ left: "50%", top: "50%" }}>
+        <div
+          className={`${styles.nut} ${styles.nutTam}`}
+          style={{ left: "50%", top: "50%" }}
+        >
           <Image
             src="/brand/viet-duc-group-doc.svg"
             alt={nhanTam}
@@ -164,7 +183,9 @@ export function MangLuoi({
         {/* Vòng đơn vị */}
         {donVi.map((d) => {
           const p = viTri.dv.get(d.khoa)!;
-          const noiBat = dangRe !== null && nguoi.find((x) => x.slug === dangRe)?.donVi.includes(d.khoa);
+          const noiBat =
+            dangRe !== null &&
+            nguoi.find((x) => x.slug === dangRe)?.donVi.includes(d.khoa);
           return (
             <div
               key={d.khoa}
@@ -186,16 +207,22 @@ export function MangLuoi({
             <Link
               key={p.slug}
               href={`/${locale}/doi-ngu/${p.slug}`}
-              className={`${styles.nut} ${styles.nutNguoi} ${dangRe === p.slug ? styles.nutSang : ""} ${
-                dangRe !== null && !sang(p.slug) ? styles.nutMo : ""
-              }`}
+              className={`${styles.nut} ${styles.nutNguoi} ${p.trum ? styles.nutTrum : ""} ${
+                dangRe === p.slug ? styles.nutSang : ""
+              } ${dangRe !== null && !sang(p.slug) ? styles.nutMo : ""}`}
               style={{ left: `${v.x}%`, top: `${v.y}%` }}
               onMouseEnter={() => setDangRe(p.slug)}
               onFocus={() => setDangRe(p.slug)}
               onBlur={() => setDangRe(null)}
             >
               {p.anh ? (
-                <Image src={p.anh} alt="" width={160} height={160} className={styles.anhNut} />
+                <Image
+                  src={p.anh}
+                  alt=""
+                  width={160}
+                  height={160}
+                  className={styles.anhNut}
+                />
               ) : (
                 <span className={styles.chuCai}>{p.chuCai}</span>
               )}
