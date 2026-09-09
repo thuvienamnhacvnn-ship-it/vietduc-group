@@ -1,8 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 import { eq } from "drizzle-orm";
-import { getDb } from "../src/lib/db";
+import { napEnv } from "./env";
 import { contentBlocks, documentPages, documents } from "../src/lib/db/schema";
+
+napEnv();
+
+// Nạp sau napEnv(): thân module này đọc DATABASE_URL ngay lúc được nạp, nên
+// `import` tĩnh sẽ chốt sai đích trước khi biến môi trường kịp có mặt.
+const { getDb } = await import("../src/lib/db");
 import { closeOcr, readDocument, sha256 } from "../src/lib/pdf/extract";
 import { buildBlocks } from "../src/lib/pdf/classify";
 import { slugify } from "../src/lib/text";

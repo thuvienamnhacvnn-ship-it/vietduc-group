@@ -1,4 +1,9 @@
-import { rebuildKnowledgeBase } from "../src/lib/rag/build";
+import { napEnv } from "./env";
+
+napEnv();
+
+// Nạp sau napEnv(), cùng lý do như trong ingest.ts.
+const { rebuildKnowledgeBase } = await import("../src/lib/rag/build");
 
 /** Rebuilds the advisor's knowledge base from approved content. */
 async function main() {
