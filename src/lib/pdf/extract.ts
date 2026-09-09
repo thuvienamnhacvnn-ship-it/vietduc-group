@@ -65,11 +65,30 @@ export async function extractTextLayer(bytes: Buffer): Promise<PageText[]> {
     out.push({
       pageNumber: i + 1,
       text,
-      source: text.length > 20 ? "text-layer" : "empty",
+      source: coChuThat(text) ? "text-layer" : "empty",
     });
     page.destroy();
   }
   return out;
+}
+
+/**
+ * Does this page carry real text, or only a scanner's watermark?
+ *
+ * A page scanned by CamScanner (and the like) has an empty text layer apart
+ * from the app's own stamp — "Scanned by CamScanner" and nothing else. Judging
+ * by length alone, that stamp reads as a page with text, so OCR is skipped and
+ * the page is ingested with no content at all. The Hoang Long legal dossier
+ * arrived that way: six scanned pages, twenty-one characters each, zero blocks.
+ *
+ * So strip the known stamps first, then judge what is left.
+ */
+function coChuThat(text: string): boolean {
+  const conLai = text
+    .replace(/scanneds+(by|with)s+[w .-]+/gi, "")
+    .replace(/camscanner|adobes+scan|tapscanner|geniuss+scan/gi, "")
+    .trim();
+  return conLai.length > 20;
 }
 
 /** Renders one page to PNG bytes. `scale` 1 gives roughly 72 dpi. */

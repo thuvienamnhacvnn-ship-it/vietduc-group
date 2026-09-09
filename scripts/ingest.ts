@@ -14,7 +14,7 @@ import { slugify } from "../src/lib/text";
  * text layer where it exists, OCR where it does not, repeated headers removed,
  * blocks classified and flagged. Everything lands as `draft` for review.
  *
- * Usage: npm run ingest [-- --no-ocr] [-- --only=<slug fragment>]
+ * Usage: npm run ingest [-- --no-ocr] [-- --only=<slug fragment>] [-- --lam-lai]
  *
  * Stop the dev server first: PGlite allows one process per data directory.
  */
@@ -25,6 +25,14 @@ async function main() {
   const args = process.argv.slice(2);
   const useOcr = !args.includes("--no-ocr");
   const only = args.find((a) => a.startsWith("--only="))?.slice("--only=".length);
+  /*
+   * Bóc lại cả những tệp đã bóc rồi.
+   *
+   * Bình thường tệp không đổi byte thì bỏ qua — đúng, vì bóc lại một tệp y hệt
+   * chỉ tốn thời gian. Nhưng khi CÁCH bóc thay đổi (sửa luật nhận trang trống,
+   * đổi ngưỡng OCR) thì tệp cũ cần chạy lại dù byte không đổi.
+   */
+  const lamLai = args.includes("--lam-lai");
 
   if (!fs.existsSync(CONTENT_DIR)) {
     console.error(`No ./content directory. Put the source PDFs there first.`);
@@ -61,7 +69,7 @@ async function main() {
     const slug = slugify(file.replace(/\.pdf$/i, "")) || `tai-lieu-${digest.slice(0, 8)}`;
     const existing = await db.select().from(documents).where(eq(documents.slug, slug)).limit(1);
 
-    if (existing[0]?.sha256 === digest && existing[0].processingState === "ready") {
+    if (!lamLai && existing[0]?.sha256 === digest && existing[0].processingState === "ready") {
       console.log(`skip  ${file}  (already ingested, unchanged)`);
       continue;
     }
