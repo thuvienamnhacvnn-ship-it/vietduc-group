@@ -204,6 +204,25 @@ async function main() {
       schoolIdBySlug.set(school.slug, row.id);
     }
   }
+  /*
+   * Trường bị gỡ khỏi nguồn thì phải biến mất khỏi cơ sở dữ liệu.
+   *
+   * Vòng lặp trên chỉ thêm và sửa, nên trường đã xoá trong tệp nguồn vẫn nằm
+   * lại trong bảng và vẫn hiện trên web — lần đầu gặp là khi tập đoàn rút
+   * Trường Trung cấp Kỹ nghệ Việt Đức. Bảng schools chỉ được ghi từ chính tệp
+   * này (trang quản trị sửa được chứ không tạo mới), nên lấy tệp làm chuẩn là
+   * đúng.
+   *
+   * Khoá ngoại trỏ tới trường đều là "set null" hoặc "cascade", nên chức vụ của
+   * người và chương trình đào tạo không kéo theo lỗi.
+   */
+  const conLai = await db.select({ id: schools.id, slug: schools.slug }).from(schools);
+  const thua = conLai.filter((r) => !schoolBySlug.has(r.slug));
+  for (const r of thua) {
+    await db.delete(schools).where(eq(schools.id, r.id));
+    console.log(`  xoá trường không còn trong nguồn: ${r.slug}`);
+  }
+
   console.log(`schools        ${SCHOOLS.length}`);
 
   /* ------------------------------------------------------------ programs */

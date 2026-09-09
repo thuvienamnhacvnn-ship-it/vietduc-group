@@ -43,7 +43,7 @@ export const PAGES: SeedPage[] = [
 
 ## Ba trụ cột hoạt động
 
-Việt Đức Group là tập đoàn hoạt động đa ngành, lấy **giáo dục, đầu tư và du lịch** làm ba trụ cột phát triển chiến lược. Trong lĩnh vực giáo dục, tập đoàn sở hữu và vận hành hệ thống bảy trường trung cấp, cao đẳng tại Việt Nam và một viện đào tạo tại CHLB Đức.`,
+Việt Đức Group là tập đoàn hoạt động đa ngành, lấy **giáo dục, đầu tư và du lịch** làm ba trụ cột phát triển chiến lược. Trong lĩnh vực giáo dục, tập đoàn sở hữu và vận hành hệ thống sáu trường trung cấp, cao đẳng tại Việt Nam và một viện đào tạo tại CHLB Đức.`,
       en: `VIET DUC GROUP is a multi-level, multi-field education system operating at college, vocational college and intermediate levels, and maintaining international partnerships. With the mission "Creating knowledge – shaping the future", we are committed to building a modern, practical and effective learning environment that contributes to the all-round development of individuals and their integration into the labour market.
 
 ## Formation and development journey
@@ -63,7 +63,7 @@ Việt Đức Group là tập đoàn hoạt động đa ngành, lấy **giáo d�
 
 ## Three strategic pillars
 
-Viet Duc Group is a multi-sector corporation built on three strategic pillars: **education, investment and tourism**. In education it owns and operates seven intermediate and college-level schools in Vietnam plus a training institute in Germany.`,
+Viet Duc Group is a multi-sector corporation built on three strategic pillars: **education, investment and tourism**. In education it owns and operates six intermediate and college-level schools in Vietnam plus a training institute in Germany.`,
       de: `Die VIET DUC GROUP ist ein mehrstufiges, fächerübergreifendes Bildungssystem auf College-, Berufsfachschul- und Fachschulniveau mit internationalen Partnerschaften. Unter dem Leitsatz „Wissen schaffen – die Zukunft weisen" schaffen wir eine moderne, praxisnahe Lernumgebung, die zur umfassenden Entwicklung der Lernenden und zu ihrer Integration in den Arbeitsmarkt beiträgt.
 
 ## Entstehung und Entwicklung
@@ -83,10 +83,10 @@ Viet Duc Group is a multi-sector corporation built on three strategic pillars: *
 
 ## Drei strategische Säulen
 
-Die Viet Duc Group ist ein branchenübergreifender Verbund mit drei strategischen Säulen: **Bildung, Investition und Tourismus**. Im Bildungsbereich betreibt sie sieben Schulen in Vietnam sowie ein Ausbildungsinstitut in Deutschland.`,
-      ja: "VIET DUC GROUP は、職業訓練・短期大学・中級課程および国際連携を手がける多段階・多分野の教育体系です。「知を創り、未来を拓く」という使命のもと、現代的で実務に根ざした学びの場をつくり、学ぶ人が全人的に育ち、世界の労働市場に踏み出せるよう努めています。\n\n## 歩んできた道\n\n- **2008年** — 質の高い職業訓練機関の設立から始まりました。\n- **2013年** — 体系を広げ、教育分野を多様にしました。\n- **2018年** — 国際連携を進め、教育の質を高めました。\n- **現在** — 職業教育の分野で着実に歩み、名を築いています。\n\n## 大切にしていること\n\n- **質** — 中身のある教育。実習と職業技能を重んじます。\n- **創造** — 実務に即した課程と教え方を、絶えず新しくします。\n- **協働** — 企業と結び、学ぶ人と歩みをともにします。\n- **人間性** — 人を丸ごと育て、責任をもって生きられるように。\n- **国際性** — 国際水準を目指し、学ぶ人に世界への道を広げます。\n\n## 三つの柱\n\nViet Duc Group は多分野にわたる企業グループで、**教育・投資・観光**を三つの戦略的な柱としています。教育の分野では、ベトナム国内の七つの中級・短期大学課程の学校と、ドイツ連邦共和国に置く教育研究所を自ら所有し運営しています。",
-      ko: "VIET DUC GROUP은 직업훈련과 전문대, 중급 과정 및 국제 협력을 아우르는 다단계·다분야 교육 체계입니다. \"지식을 세우고 미래를 연다\"는 사명 아래, 현대적이고 실무에 밀착한 배움의 자리를 마련하여 배우는 이가 온전히 성장하고 세계 노동시장으로 나아갈 수 있도록 힘쓰고 있습니다.\n\n## 지나온 길\n\n- **2008년** — 수준 높은 직업훈련 기관의 설립으로 출발했습니다.\n- **2013년** — 체계를 넓히고 교육 분야를 다양하게 했습니다.\n- **2018년** — 국제 협력을 넓히고 교육의 질을 높였습니다.\n- **현재** — 직업교육 분야에서 꾸준히 성장하며 이름을 쌓고 있습니다.\n\n## 우리가 지키는 가치\n\n- **품질** — 내실 있는 교육. 실습과 직업 기능을 중히 여깁니다.\n- **창의** — 실무에 맞는 과정과 가르치는 방법을 끊임없이 새롭게 합니다.\n- **협력** — 기업과 손잡고, 배우는 이와 함께 걷습니다.\n- **인간다움** — 사람을 온전히 길러 내고, 책임 있게 살아가도록 합니다.\n- **국제성** — 국제 수준을 지향하며 배우는 이에게 세계로 가는 길을 넓힙니다.\n\n## 세 개의 기둥\n\nViet Duc Group은 여러 분야에 걸친 기업 그룹으로 **교육, 투자, 관광**을 세 가지 전략적 기둥으로 삼습니다. 교육 분야에서는 베트남 내 일곱 개의 중급·전문대 학교와 독일 연방공화국에 둔 교육 연구원을 직접 소유하고 운영합니다.",
-      "zh-TW": "VIET DUC GROUP 是涵蓋職業訓練、專科、中級課程與國際合作的多層級、多領域教育體系。秉持「創造知識，引領未來」的使命，我們致力打造貼近實務的現代化學習環境，協助學習者全面成長，走向全球勞動市場。\n\n## 一路走來\n\n- **2008 年** — 從設立優質的職業訓練機構起步。\n- **2013 年** — 擴展體系，豐富培訓領域。\n- **2018 年** — 拓展國際合作，提升培訓品質。\n- **現在** — 在技職教育領域穩健成長，樹立品牌。\n\n## 核心價值\n\n- **品質** — 扎實的教學，重視實作與職業技能。\n- **創新** — 不斷更新貼近實務的課程與教學方法。\n- **合作** — 與企業連結，與學習者同行。\n- **人文** — 培育完整的人，並使其負責任地生活。\n- **接軌國際** — 以國際標準為目標，為學習者開拓全球機會。\n\n## 三大支柱\n\nViet Duc Group 為多角化經營的企業集團，以**教育、投資與觀光**為三大策略支柱。在教育方面，集團自有並經營越南境內七所中級與專科學校，以及一所設於德意志聯邦共和國的教育學院。",
+Die Viet Duc Group ist ein branchenübergreifender Verbund mit drei strategischen Säulen: **Bildung, Investition und Tourismus**. Im Bildungsbereich betreibt sie sechs Schulen in Vietnam sowie ein Ausbildungsinstitut in Deutschland.`,
+      ja: "VIET DUC GROUP は、職業訓練・短期大学・中級課程および国際連携を手がける多段階・多分野の教育体系です。「知を創り、未来を拓く」という使命のもと、現代的で実務に根ざした学びの場をつくり、学ぶ人が全人的に育ち、世界の労働市場に踏み出せるよう努めています。\n\n## 歩んできた道\n\n- **2008年** — 質の高い職業訓練機関の設立から始まりました。\n- **2013年** — 体系を広げ、教育分野を多様にしました。\n- **2018年** — 国際連携を進め、教育の質を高めました。\n- **現在** — 職業教育の分野で着実に歩み、名を築いています。\n\n## 大切にしていること\n\n- **質** — 中身のある教育。実習と職業技能を重んじます。\n- **創造** — 実務に即した課程と教え方を、絶えず新しくします。\n- **協働** — 企業と結び、学ぶ人と歩みをともにします。\n- **人間性** — 人を丸ごと育て、責任をもって生きられるように。\n- **国際性** — 国際水準を目指し、学ぶ人に世界への道を広げます。\n\n## 三つの柱\n\nViet Duc Group は多分野にわたる企業グループで、**教育・投資・観光**を三つの戦略的な柱としています。教育の分野では、ベトナム国内の六つの中級・短期大学課程の学校と、ドイツ連邦共和国に置く教育研究所を自ら所有し運営しています。",
+      ko: "VIET DUC GROUP은 직업훈련과 전문대, 중급 과정 및 국제 협력을 아우르는 다단계·다분야 교육 체계입니다. \"지식을 세우고 미래를 연다\"는 사명 아래, 현대적이고 실무에 밀착한 배움의 자리를 마련하여 배우는 이가 온전히 성장하고 세계 노동시장으로 나아갈 수 있도록 힘쓰고 있습니다.\n\n## 지나온 길\n\n- **2008년** — 수준 높은 직업훈련 기관의 설립으로 출발했습니다.\n- **2013년** — 체계를 넓히고 교육 분야를 다양하게 했습니다.\n- **2018년** — 국제 협력을 넓히고 교육의 질을 높였습니다.\n- **현재** — 직업교육 분야에서 꾸준히 성장하며 이름을 쌓고 있습니다.\n\n## 우리가 지키는 가치\n\n- **품질** — 내실 있는 교육. 실습과 직업 기능을 중히 여깁니다.\n- **창의** — 실무에 맞는 과정과 가르치는 방법을 끊임없이 새롭게 합니다.\n- **협력** — 기업과 손잡고, 배우는 이와 함께 걷습니다.\n- **인간다움** — 사람을 온전히 길러 내고, 책임 있게 살아가도록 합니다.\n- **국제성** — 국제 수준을 지향하며 배우는 이에게 세계로 가는 길을 넓힙니다.\n\n## 세 개의 기둥\n\nViet Duc Group은 여러 분야에 걸친 기업 그룹으로 **교육, 투자, 관광**을 세 가지 전략적 기둥으로 삼습니다. 교육 분야에서는 베트남 내 여섯 개의 중급·전문대 학교와 독일 연방공화국에 둔 교육 연구원을 직접 소유하고 운영합니다.",
+      "zh-TW": "VIET DUC GROUP 是涵蓋職業訓練、專科、中級課程與國際合作的多層級、多領域教育體系。秉持「創造知識，引領未來」的使命，我們致力打造貼近實務的現代化學習環境，協助學習者全面成長，走向全球勞動市場。\n\n## 一路走來\n\n- **2008 年** — 從設立優質的職業訓練機構起步。\n- **2013 年** — 擴展體系，豐富培訓領域。\n- **2018 年** — 拓展國際合作，提升培訓品質。\n- **現在** — 在技職教育領域穩健成長，樹立品牌。\n\n## 核心價值\n\n- **品質** — 扎實的教學，重視實作與職業技能。\n- **創新** — 不斷更新貼近實務的課程與教學方法。\n- **合作** — 與企業連結，與學習者同行。\n- **人文** — 培育完整的人，並使其負責任地生活。\n- **接軌國際** — 以國際標準為目標，為學習者開拓全球機會。\n\n## 三大支柱\n\nViet Duc Group 為多角化經營的企業集團，以**教育、投資與觀光**為三大策略支柱。在教育方面，集團自有並經營越南境內六所中級與專科學校，以及一所設於德意志聯邦共和國的教育學院。",
     },
   },
   {
