@@ -560,3 +560,98 @@
 .arrowLink:hover::after {
   scale: 1 1;
 }
+
+/* ============================================ đầu mục lối đậm (landing)
+ *
+ * Chỉ áp khi có `.headingNoiBat`; các trang trong giữ nguyên lối trầm.
+ */
+.headingChinh {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(0.9rem, 2.2vw, 1.8rem);
+  min-width: 0;
+}
+
+.headingChu {
+  min-width: 0;
+}
+
+/* Con số mốc: rỗng ruột, ửng vàng khi rê vào đầu mục. */
+.headingSo {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 600;
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in srgb, var(--gold) 58%, transparent);
+  font-variant-numeric: tabular-nums;
+  transition: color 700ms var(--ease);
+}
+
+.heading:hover .headingSo {
+  color: color-mix(in srgb, var(--gold) 15%, transparent);
+}
+
+/* Nhãn mục có nét vàng dẫn ở đầu dòng. */
+.headingNoiBat .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.headingNoiBat .eyebrow::before {
+  content: "";
+  width: 1.6rem;
+  height: 1px;
+  background: var(--gold);
+  transition: width var(--dur-2) var(--ease);
+}
+
+.headingNoiBat:hover .eyebrow::before {
+  width: 3rem;
+}
+
+.headingCenter.headingNoiBat .eyebrow {
+  justify-content: center;
+}
+
+/* Tiêu đề: gạch vàng tự vẽ khi khối trôi vào màn hình. */
+.headingNoiBat .headingTitle::after {
+  content: "";
+  display: block;
+  width: min(8rem, 44%);
+  height: 2px;
+  margin-top: clamp(0.6rem, 1.4vw, 0.9rem);
+  background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--accent) 65%, transparent));
+  transform-origin: left;
+  scale: 0 1;
+  transition: scale 900ms var(--ease) 260ms;
+}
+
+:root[data-reveal-ready] [data-reveal-in].headingNoiBat .headingTitle::after {
+  scale: 1 1;
+}
+
+:root:not([data-reveal-ready]) .headingNoiBat .headingTitle::after {
+  scale: 1 1;
+}
+
+.headingNoiBat:hover .headingTitle::after {
+  width: min(12rem, 62%);
+  transition: width 600ms var(--ease);
+}
+
+.headingCenter.headingNoiBat .headingTitle::after {
+  margin-inline: auto;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .headingNoiBat .headingTitle::after,
+  .headingNoiBat .eyebrow::before,
+  .headingSo {
+    transition: none;
+    scale: 1 1;
+  }
+}

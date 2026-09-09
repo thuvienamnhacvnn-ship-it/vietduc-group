@@ -297,10 +297,18 @@
   padding-block: clamp(2.5rem, 6vw, 4.5rem);
 }
 
+/*
+ * Đầu mục: con số khổ lớn đứng trước, tiêu đề chữ display đứng sau.
+ *
+ * Bản trước là một con số nhỏ cạnh một dòng chữ hoa nhỏ, gạch chân ngang hết bề
+ * ngang — đọc ra là mục lục của một tệp tài liệu, không phải đầu mục của một
+ * trang giới thiệu dự án. Con số ở đây rỗng ruột và cao gần bằng ba dòng chữ,
+ * đủ để làm cái mốc cho mắt mà không tranh chữ với tiêu đề.
+ */
 .sectionHead {
   display: flex;
-  align-items: baseline;
-  gap: var(--s-4);
+  align-items: center;
+  gap: clamp(0.9rem, 2.4vw, 1.8rem);
   margin-bottom: var(--s-6);
   padding-bottom: var(--s-4);
   border-bottom: 1px solid var(--v-line);
@@ -309,18 +317,44 @@
 .kicker {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--v-clay);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 600;
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in srgb, var(--gold) 60%, transparent);
+  font-variant-numeric: tabular-nums;
+  transition: color 700ms var(--ease);
+}
+
+.sectionHead:hover .kicker {
+  color: color-mix(in srgb, var(--gold) 16%, transparent);
 }
 
 .sectionHead h2 {
+  position: relative;
   margin: 0;
-  font-family: var(--font-body);
-  font-size: clamp(0.86rem, 1.4vw, 1rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
   font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.2;
   color: var(--v-ink);
+}
+
+/* Nét vàng ngắn dưới tiêu đề, dài ra khi rê vào đầu mục. */
+.sectionHead h2::after {
+  content: "";
+  display: block;
+  width: 3.2rem;
+  height: 2px;
+  margin-top: 0.5rem;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transition: width var(--dur-2) var(--ease);
+}
+
+.sectionHead:hover h2::after {
+  width: 6rem;
 }
 
 /* ---------- process ---------- */
@@ -627,4 +661,157 @@
 
 .processIntro p:last-child {
   margin-bottom: 0;
+}
+
+/* ==================================================== khung trang trọng
+ *
+ * Dùng cho mục nói về nguồn số liệu: số mục, tiêu đề và hai đoạn dẫn đứng
+ * chung trong một khung có viền, thay vì rải ra giữa nền tối.
+ *
+ * Hai lớp viền, như khung một tấm bằng: viền ngoài dựng khối, chỉ vàng bên
+ * trong lùi vào tám pixel làm cái nét trang trọng. Thêm bốn dấu góc — mỗi góc
+ * hai vạch ngắn — vì một hình chữ nhật trơn thì đọc ra là cái hộp, còn có dấu
+ * góc thì đọc ra là cái khung.
+ */
+.khungTrangTrong {
+  position: relative;
+  max-width: 68rem;
+  margin: 0 auto clamp(2.4rem, 5vw, 4rem);
+  padding: clamp(1.6rem, 3.6vw, 3rem);
+  border: 1px solid color-mix(in srgb, var(--gold) 34%, transparent);
+  border-radius: var(--r-4);
+  background:
+    radial-gradient(120% 140% at 12% 0%, color-mix(in srgb, var(--gold) 12%, transparent), transparent 58%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.18));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* Chỉ vàng bên trong. */
+.khungTrangTrong::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid color-mix(in srgb, var(--gold) 18%, transparent);
+  border-radius: calc(var(--r-4) - 4px);
+  pointer-events: none;
+}
+
+/*
+ * Bốn dấu góc, vẽ bằng bốn lớp nền trên cùng một phần tử.
+ *
+ * Mỗi lớp là một vạch ngắn neo vào một góc; gộp vào một phần tử thì không phải
+ * thêm bốn thẻ trống chỉ để trang trí.
+ */
+.khungTrangTrong::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--gold), var(--gold)),
+    linear-gradient(to bottom, var(--gold), var(--gold)),
+    linear-gradient(to right, var(--gold), var(--gold)),
+    linear-gradient(to bottom, var(--gold), var(--gold));
+  background-repeat: no-repeat;
+  background-size:
+    22px 1px,
+    1px 22px,
+    22px 1px,
+    1px 22px;
+  background-position:
+    left top,
+    left top,
+    right bottom,
+    right bottom;
+  opacity: 0.75;
+}
+
+.khungTrangTrong .sectionHead {
+  margin-bottom: var(--s-5);
+  padding-bottom: var(--s-4);
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 22%, transparent);
+}
+
+/*
+ * Chữ nhỏ lại một nấc so với phần thân trang.
+ *
+ * Đây là phần ghi chú về nguồn số liệu chứ không phải nội dung chính; để cùng
+ * cỡ với các mục khác thì nó đòi nhiều chú ý hơn phần nó đang giới thiệu.
+ */
+.khungTrangTrong .processIntro {
+  max-width: 74ch;
+  margin-bottom: 0;
+}
+
+/*
+ * Khung rộng thì chia hai cột chữ.
+ *
+ * Một cột chữ hẹp nằm trong một cái khung rộng để trống hẳn nửa bên phải —
+ * nhìn ra là quên chưa điền, không phải là khoảng thở. Hai cột lấp kín khung mà
+ * dòng chữ vẫn ngắn vừa tầm mắt.
+ */
+@media (min-width: 900px) {
+  .khungTrangTrong .processIntro {
+    max-width: none;
+    columns: 2;
+    column-gap: clamp(1.8rem, 3.5vw, 3.2rem);
+  }
+
+  .khungTrangTrong .processIntro p {
+    break-inside: avoid;
+  }
+
+  .khungTrangTrong .processIntro p:first-child {
+    margin-top: 0;
+  }
+}
+
+.khungTrangTrong .processIntro p {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+@media (max-width: 699px) {
+  .khungTrangTrong::after {
+    background-size:
+      14px 1px,
+      1px 14px,
+      14px 1px,
+      1px 14px;
+  }
+}
+
+/* ================================================== nền của các mục
+ *
+ * Trước đây mọi mục dùng chung một nền, cả trang là một mảng tối liền mạch nên
+ * không nhận ra ranh giới giữa các phần. Ba lớp nền dưới đây thay nhau: một
+ * quầng sáng ở góc, một dải chuyển màu rất nhạt, và một nền tối đặc — đủ để mắt
+ * biết đã sang mục khác mà không thành ra loang lổ.
+ */
+.nenQuang {
+  position: relative;
+  background:
+    radial-gradient(90% 120% at 88% 0%, color-mix(in srgb, var(--gold) 10%, transparent), transparent 60%),
+    radial-gradient(80% 110% at 0% 100%, color-mix(in srgb, var(--v-clay) 14%, transparent), transparent 62%);
+}
+
+.nenDai {
+  position: relative;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.03) 45%, transparent);
+}
+
+/* Đường kẻ mảnh ngăn giữa hai mục, mờ dần về hai đầu. */
+.vien {
+  position: relative;
+}
+
+.vien::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 30%, transparent), transparent);
 }

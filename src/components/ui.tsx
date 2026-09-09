@@ -14,8 +14,23 @@ type SectionHeadingProps = {
   as?: "h2" | "h3";
   action?: ReactNode;
   tone?: "light" | "dark";
+  /** Lối trình bày đậm cho trang landing. Mặc định tắt. */
+  noiBat?: boolean;
+  /** Số thứ tự mục, in khổ lớn rỗng ruột trước tiêu đề. */
+  so?: string;
 };
 
+/**
+ * Đầu mục.
+ *
+ * `noiBat` bật lối trình bày đậm hơn cho các trang landing: nhãn mục có nét
+ * vàng dẫn, tiêu đề mang gạch chân tự vẽ khi khối trôi vào màn hình và dài ra
+ * khi rê chuột. Mặc định TẮT, vì đầu mục này dùng khắp các trang trong và ở đó
+ * lối trình bày trầm mới đúng.
+ *
+ * `so` in một con số khổ lớn rỗng ruột đứng trước tiêu đề — cái mốc cho mắt
+ * khi một trang có nhiều mục nối nhau.
+ */
 export function SectionHeading({
   eyebrow,
   title,
@@ -24,6 +39,8 @@ export function SectionHeading({
   as: Tag = "h2",
   action,
   tone = "light",
+  noiBat = false,
+  so,
 }: SectionHeadingProps) {
   return (
     <div
@@ -31,14 +48,24 @@ export function SectionHeading({
         styles.heading,
         align === "center" ? styles.headingCenter : "",
         tone === "dark" ? styles.headingDark : "",
+        noiBat ? styles.headingNoiBat : "",
       ]
         .filter(Boolean)
         .join(" ")}
+      data-reveal={noiBat ? "" : undefined}
+      suppressHydrationWarning={noiBat ? true : undefined}
     >
-      <div>
-        {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
-        <Tag className={styles.headingTitle}>{title}</Tag>
-        {lead ? <p className={styles.headingLead}>{lead}</p> : null}
+      <div className={styles.headingChinh}>
+        {so ? (
+          <span className={styles.headingSo} aria-hidden="true">
+            {so}
+          </span>
+        ) : null}
+        <div className={styles.headingChu}>
+          {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+          <Tag className={styles.headingTitle}>{title}</Tag>
+          {lead ? <p className={styles.headingLead}>{lead}</p> : null}
+        </div>
       </div>
       {action ? <div className={styles.headingAction}>{action}</div> : null}
     </div>

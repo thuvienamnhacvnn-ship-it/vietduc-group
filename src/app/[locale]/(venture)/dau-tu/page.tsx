@@ -161,7 +161,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         />
       </section>
 
-      <section id="linh-vuc" className={styles.section} data-reveal suppressHydrationWarning>
+      <section id="linh-vuc" className={`${styles.section} ${styles.nenQuang}`} data-reveal suppressHydrationWarning>
         <div className={styles.sectionHead}>
           <p className={styles.kicker}>01</p>
           <h2>{dict.venture.services}</h2>
@@ -170,7 +170,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         <ServicePanels services={VENTURE_SERVICES} locale={locale} />
       </section>
 
-      <section id="du-an" className={styles.section} data-reveal suppressHydrationWarning>
+      <section id="du-an" className={`${styles.section} ${styles.vien}`} data-reveal suppressHydrationWarning>
         <div className={styles.sectionHead}>
           <p className={styles.kicker}>02</p>
           <h2>{dict.venture.projects}</h2>
@@ -189,7 +189,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         án mà không biết chắc thì tệ hơn là không đặt tên.
       */}
       {siteShots.length ? (
-        <section id="hien-truong" className={styles.section} data-reveal suppressHydrationWarning>
+        <section id="hien-truong" className={`${styles.section} ${styles.nenDai}`} data-reveal suppressHydrationWarning>
           <div className={styles.sectionHead}>
             <p className={styles.kicker}>03</p>
             <h2>
@@ -218,24 +218,45 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
               }, locale),
             }))}
             limit={siteShots.length}
+            chuLap={pick(
+              {
+                vi: "Ảnh do đội dự án chụp tại hiện trường",
+                en: "Photographs taken on site by the project team",
+                de: "Aufnahmen des Projektteams vor Ort",
+                ja: "事業チームが現場で撮影",
+                ko: "프로젝트 팀이 현장에서 촬영",
+                "zh-TW": "由專案團隊於現場拍攝",
+              },
+              locale,
+            )}
           />
         </section>
       ) : null}
 
       <section id="cach-lam" className={`${styles.section} ${styles.dark}`} data-reveal suppressHydrationWarning>
-        <div className={styles.sectionHead}>
-          {/* 04, không phải 03: mục ảnh hiện trường vừa chen vào trước nó, và
-              hai mục cùng mang số 03 thì dãy số mất hết ý nghĩa. */}
-          <p className={styles.kicker}>{siteShots.length ? "04" : "03"}</p>
-          <h2>{t(VENTURE_PROCESS.title, locale)}</h2>
-        </div>
+        {/*
+          Số mục, tiêu đề và hai đoạn dẫn nằm chung một khung có viền.
 
-        {/* Đoạn chữ chuyển từ dưới banner xuống đây: nó nói về cách trích số
-            liệu từ hồ sơ, tức đúng chủ đề của mục này. */}
-        <div className={styles.processIntro}>
-          {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
+          Ba thứ này nói cùng một điều — dự án đi từ hồ sơ ra thực địa, và mọi
+          số liệu trên trang đều trích từ hồ sơ ấy. Để rời nhau giữa nền tối thì
+          chúng trôi nổi như ba mẩu chữ bỏ quên; đóng khung lại thì đọc ra ngay
+          là một lời cam kết về nguồn số liệu.
+        */}
+        <div className={styles.khungTrangTrong}>
+          <div className={styles.sectionHead}>
+            {/* 04, không phải 03: mục ảnh hiện trường vừa chen vào trước nó, và
+                hai mục cùng mang số 03 thì dãy số mất hết ý nghĩa. */}
+            <p className={styles.kicker}>{siteShots.length ? "04" : "03"}</p>
+            <h2>{t(VENTURE_PROCESS.title, locale)}</h2>
+          </div>
+
+          {/* Đoạn chữ chuyển từ dưới banner xuống đây: nó nói về cách trích số
+              liệu từ hồ sơ, tức đúng chủ đề của mục này. */}
+          <div className={styles.processIntro}>
+            {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
         </div>
 
         <ol className={styles.steps}>

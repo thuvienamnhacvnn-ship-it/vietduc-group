@@ -778,10 +778,41 @@
  * Hai lớp này chỉ làm đúng một việc, và mục nào cũng phải mang một trong hai
  * (hoặc một nền riêng như dải tối, dải đỏ).
  */
+/*
+ * Các dải nền.
+ *
+ * Chỉ đổi màu giấy thì ở chế độ tối hai dải gần như một: --paper và --beige khi
+ * ấy đều là hai sắc navy sát nhau, mắt không nhận ra đã sang mục khác. Nên mỗi
+ * dải mang thêm một dấu hiệu riêng SỐNG ĐƯỢC Ở CẢ HAI CHẾ ĐỘ: một quầng vàng
+ * hắt từ góc, hoặc một lớp kẻ chéo rất mờ.
+ */
 .bandPaper {
-  background: var(--paper);
+  position: relative;
+  background:
+    radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--gold) 9%, transparent), transparent 58%),
+    var(--paper);
 }
 
 .bandBeige {
-  background: var(--beige);
+  position: relative;
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--gold) 5%, transparent) 0 1px,
+      transparent 1px 12px
+    ),
+    radial-gradient(70% 110% at 0% 100%, color-mix(in srgb, var(--accent) 7%, transparent), transparent 60%),
+    var(--beige);
+}
+
+/* Nét vàng mảnh ngăn giữa hai dải, mờ dần về hai đầu. */
+.bandPaper::before,
+.bandBeige::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 34%, transparent), transparent);
 }

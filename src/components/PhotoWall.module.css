@@ -1,8 +1,12 @@
 /*
- * Bức tường ảnh: tấm đầu chiếm bốn ô, những tấm sau mỗi tấm một ô.
+ * Bức tường ảnh: mỗi hàng bốn cột, ô rộng một hoặc hai cột theo nhịp.
  *
- * Trên điện thoại thì bỏ luật đó — một cột thì "chiếm bốn ô" không còn nghĩa gì,
- * và ảnh nào cũng rộng bằng màn hình.
+ * Bề rộng ô do PhotoWall.tsx tính, ở đây chỉ có hai cỡ: thường và rộng gấp đôi.
+ * Chiều cao mọi ô bằng nhau (ô rộng có tỉ lệ gấp đôi bề ngang) nên các hàng
+ * thẳng lối, dù ô to nhỏ xen kẽ.
+ *
+ * Trên điện thoại thì bỏ hết luật ấy — một cột thì "rộng hai cột" không còn
+ * nghĩa gì, và ảnh nào cũng rộng bằng màn hình.
  */
 .wrap {
   min-width: 0;
@@ -59,9 +63,12 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .lead {
+  .rong {
     grid-column: span 2;
-    grid-row: span 2;
+  }
+
+  .rongBa {
+    grid-column: span 3;
   }
 }
 
@@ -74,23 +81,33 @@
   background: var(--beige);
 }
 
+/* Ô thường 4/3; ô rộng gấp đôi bề ngang nên tỉ lệ 8/3 để cao bằng ô thường. */
+.wall li {
+  aspect-ratio: 4 / 3;
+}
+
+/* Chọn theo `.wall li.rong`, không phải `.rong` trơn: luật cỡ thường ở trên là
+   `.wall li` — một lớp cộng một thẻ — nên nặng hơn một lớp trơn và luôn thắng,
+   dù luật kia nằm trong media query. */
+@media (min-width: 700px) {
+  .wall li.rong {
+    aspect-ratio: 8 / 3;
+  }
+
+  .wall li.rongBa {
+    aspect-ratio: 4 / 1;
+  }
+}
+
 .wall img {
   display: block;
   width: 100%;
   height: 100%;
-  aspect-ratio: 4 / 3;
   object-fit: cover;
   /* Cao hơn giữa một chút: ảnh sự kiện gần như luôn có mặt người ở nửa trên,
      cắt đúng giữa là cắt ngang trán. */
   object-position: 50% 38%;
   transition: scale 900ms var(--ease);
-}
-
-/* Tấm to giữ đúng hình vuông của bốn ô nó chiếm. */
-@media (min-width: 700px) {
-  .lead img {
-    aspect-ratio: 1 / 1;
-  }
 }
 
 .wall li:hover img {
@@ -122,5 +139,60 @@
   .wall img,
   .wall li::after {
     transition: none;
+  }
+}
+
+/*
+ * Ô lấp chỗ thừa ở cuối hàng.
+ *
+ * Cùng chất liệu với khung huy hiệu ở thẻ trường: nền navy sẫm, quầng vàng hắt
+ * từ một góc, nét kẻ chéo rất mờ. Nó phải ĐỦ NHẠT để không tranh chỗ với ảnh
+ * thật bên cạnh — việc của nó chỉ là đóng kín hàng cuối.
+ */
+.lap {
+  display: grid;
+  place-items: center;
+  padding: clamp(0.8rem, 2vw, 1.6rem);
+  border-color: color-mix(in srgb, var(--gold) 22%, var(--line));
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--gold) 7%, transparent) 0 1px,
+      transparent 1px 10px
+    ),
+    radial-gradient(120% 130% at 15% 0%, color-mix(in srgb, var(--gold) 16%, transparent), transparent 62%),
+    linear-gradient(160deg, #16263c, #0a1220 78%);
+}
+
+/* Dấu hiệu tập đoàn thu nhỏ: một hình thoi vàng, không phải logo — logo đặt vào
+   ô lấp thì thành quảng cáo chen giữa mảng ảnh tư liệu. */
+.lap::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  background: color-mix(in srgb, var(--gold) 70%, transparent);
+  rotate: 45deg;
+}
+
+.chuLap {
+  margin-top: 0.7rem;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: clamp(0.82rem, 1.4vw, 1rem);
+  font-style: italic;
+  line-height: 1.4;
+  text-align: center;
+  color: color-mix(in srgb, #f2eee7 72%, transparent);
+}
+
+/* Ô lấp không có ảnh nên không cần lớp phủ đỏ khi rê chuột. */
+.lap::after {
+  display: none;
+}
+
+/* Điện thoại: dải vuốt ngang, ô lấp chỉ tổ chiếm chỗ. */
+@media (max-width: 699px) {
+  .lap {
+    display: none;
   }
 }

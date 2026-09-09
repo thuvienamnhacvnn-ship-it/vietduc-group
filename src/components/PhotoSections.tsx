@@ -46,6 +46,7 @@ export function PhotoSections({
             <PhotoWall
               shots={section.shots.map((src) => ({ src, alt: alt(title) }))}
               limit={section.shots.length}
+              chuLap={title}
             />
           </section>
         );
