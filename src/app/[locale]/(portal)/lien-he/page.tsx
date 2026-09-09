@@ -58,10 +58,26 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             <h2>{dict.contact.headquarters}</h2>
             <p className={styles.legal}>{contact.organisationLegalName}</p>
             <dl className={styles.details}>
-              <div>
-                <dt>{dict.contact.headquarters}</dt>
-                <dd>{contact.headquarters}</dd>
-              </div>
+              {/*
+                Hai văn phòng, mỗi nơi một dòng có tên thành phố đứng trước.
+
+                Gộp cả hai vào một dòng "trụ sở" thì người đọc không biết cái
+                nào là cái nào; mà bỏ bớt một cái thì nửa hệ thống ở Quảng Trị
+                biến mất khỏi trang liên hệ.
+              */}
+              {contact.offices?.length ? (
+                contact.offices.map((vp, i) => (
+                  <div key={i}>
+                    <dt>{pick(vp.city, locale)}</dt>
+                    <dd>{pick(vp.address, locale)}</dd>
+                  </div>
+                ))
+              ) : (
+                <div>
+                  <dt>{dict.contact.headquarters}</dt>
+                  <dd>{contact.headquarters}</dd>
+                </div>
+              )}
               {contact.phone ? (
                 <div>
                   <dt>{dict.contact.phone}</dt>

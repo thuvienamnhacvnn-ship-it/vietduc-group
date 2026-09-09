@@ -360,6 +360,8 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Phát huy kinh nghiệm quản lý, nền tảng pháp luật và tư duy kỷ cương để xây dựng môi trường giáo dục chất lượng, trách nhiệm và bền vững.",
     },
     appointments: [
+      { school: null, org: { vi: "Việt Đức Group" }, body: "hdqt", title: { vi: "Phó Chủ tịch Hội đồng quản trị" }, rank: 20 },
+      { school: null, org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" }, body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
       {
         school: "trung-cap-nghe-quoc-te-ivs",
         body: "hdt",
@@ -1384,44 +1386,17 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Quản trị con người và nguồn lực phải đi cùng kỷ luật tài chính, phân công rõ ràng và nâng cao năng lực chuyên môn của đội ngũ.",
     },
     appointments: [
-      {
-        school: null,
-        org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
-        body: "bks",
-        title: { vi: "Trưởng Ban Kiểm soát" },
-        rank: 10,
-      },
-      {
-        school: "trung-cap-bach-khoa-vung-tau",
-        body: "hdt",
-        title: { vi: "Thư ký Hội đồng trường" },
-        rank: 30,
-        term: "2026–2031",
-        decisionRef: "Quyết định 0805/2026/QĐ-TCBKVT ngày 08/05/2026",
-      },
-      {
-        school: "trung-cap-cong-nghe-viet-duc",
-        body: "hdt",
-        title: { vi: "Thư ký Hội đồng trường" },
-        rank: 30,
-        term: "2026–2031",
-        decisionRef: "Quyết định 0607/2026/QĐ-HĐQT ngày 06/07/2026",
-      },
-      {
-        school: "trung-cap-nghe-quoc-te-ivs",
-        body: "hdt",
-        title: { vi: "Thành viên Hội đồng trường" },
-        rank: 40,
-        term: "2026–2031",
-        decisionRef: "Quyết định 2904c/2026/QĐ-IVS ngày 29/04/2026",
-      },
-      {
-        school: null,
-        org: { vi: "Công ty Cổ phần Nền móng Hạ tầng và Cơ khí Xây dựng" },
-        body: "khac",
-        title: { vi: "Giám đốc" },
-        rank: 60,
-      },
+      { school: null, org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" }, body: "bks", title: { vi: "Phó Thường trực Ban Kiểm soát" }, rank: 20 },
+      { school: "cao-dang-cong-nghe-ngoai-thuong", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
+      { school: "trung-cap-nghe-quoc-te-ivs", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
+      { school: "trung-cap-bach-khoa-vung-tau", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
+      { school: "trung-cap-viet-han", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
+      { school: "trung-cap-cong-nghe-viet-duc", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
+      { school: "itw-berlin", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
+      { school: "trung-cap-bach-khoa-vung-tau", body: "hdt", title: { vi: "Thư ký Hội đồng trường" }, rank: 30 },
+      { school: "trung-cap-cong-nghe-viet-duc", body: "hdt", title: { vi: "Thư ký Hội đồng trường" }, rank: 30 },
+      { school: "trung-cap-nghe-quoc-te-ivs", body: "hdt", title: { vi: "Thành viên Hội đồng trường" }, rank: 40 },
+      { school: null, org: { vi: "Công ty Cổ phần Nền móng Hạ tầng và Cơ khí Xây dựng" }, body: "khac", title: { vi: "Giám đốc" }, rank: 60 },
     ],
   },
   {
@@ -1473,13 +1448,13 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Tăng cường tính minh bạch, chuẩn hóa quy trình và hỗ trợ hệ thống vận hành hiệu quả trên cơ sở dữ liệu chính xác.",
     },
     appointments: [
-      {
-        school: null,
-        org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
-        body: "bks",
-        title: { vi: "Thành viên Ban Kiểm soát" },
-        rank: 20,
-      },
+      { school: null, org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" }, body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "cao-dang-cong-nghe-ngoai-thuong", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "trung-cap-nghe-quoc-te-ivs", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "trung-cap-bach-khoa-vung-tau", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "trung-cap-viet-han", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "trung-cap-cong-nghe-viet-duc", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "itw-berlin", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
     ],
   },
   {
@@ -1543,20 +1518,41 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Kiểm soát hiệu quả không chỉ là phát hiện sai lệch, mà còn là tạo nền tảng để hệ thống vận hành minh bạch, thống nhất và bền vững.",
     },
     appointments: [
-      {
-        school: null,
-        org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
-        body: "bks",
-        title: { vi: "Thành viên Ban Kiểm soát" },
-        rank: 20,
-      },
-      {
-        school: null,
-        org: { vi: "Việt Đức Group" },
-        body: "dieuhanh",
-        title: { vi: "Trưởng phòng Hành chính Tổng hợp" },
-        rank: 40,
-      },
+      { school: "trung-cap-nghe-quoc-te-ivs", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+    ],
+  },
+  /*
+   * Trần Thị Lan — người duy nhất trong cơ cấu KHÔNG có hồ sơ trong bộ tài liệu
+   * tháng 9/2026, nên chỉ có tên và chức vụ. Không bịa thêm tiểu sử, học vấn
+   * hay câu trích dẫn: thà một thẻ ngắn mà đúng còn hơn một hồ sơ đầy đủ mà
+   * bịa. Khi tập đoàn gửi hồ sơ và ảnh thì bổ sung vào đây rồi chạy lại
+   * `npm run media:nhan-su` — ảnh tự nhận theo slug, không phải khai thêm dòng
+   * nào.
+   */
+  {
+    slug: "tran-thi-lan",
+    name: "Trần Thị Lan",
+    honorific: null,
+    birthYear: null,
+    headline: { vi: "Phụ trách hành chính – pháp lý Việt Đức Group" },
+    schoolSlug: null,
+    order: 19,
+    bio: null,
+    quote: null,
+    overview: { vi: [] },
+    education: [],
+    competencies: [],
+    career: [],
+    highlights: { vi: [] },
+    focus: { vi: [] },
+    direction: null,
+    appointments: [
+      { school: null, org: { vi: "Việt Đức Group" }, body: "dieuhanh", title: { vi: "Phụ trách hành chính – pháp lý" }, rank: 40 },
+      { school: "cao-dang-cong-nghe-ngoai-thuong", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "trung-cap-bach-khoa-vung-tau", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "trung-cap-viet-han", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "trung-cap-cong-nghe-viet-duc", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      { school: "itw-berlin", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
     ],
   },
 ];

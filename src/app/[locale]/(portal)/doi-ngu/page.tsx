@@ -61,7 +61,10 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
 
   const hdqt = trongBan((cv) => cv.body === "hdqt" && !cv.schoolId);
   const dieuHanh = trongBan((cv) => cv.body === "dieuhanh");
-  const bks = trongBan((cv) => cv.body === "bks");
+  // Chỉ ghế cấp tập đoàn. Thiếu điều kiện này thì khối "Ban Kiểm soát" của
+  // tập đoàn nuốt luôn ban kiểm soát của cả sáu trường — 21 người trong một ban
+  // ba người.
+  const bks = trongBan((cv) => cv.body === "bks" && !cv.schoolId);
 
   // Người đứng đầu tách riêng khỏi danh sách để không bị lặp hai lần.
   const dungDau = hdqt[0] ?? null;
@@ -72,8 +75,9 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
       truong: tr,
       hdt: trongBan((cv) => cv.body === "hdt" && cv.schoolId === tr.id),
       bgh: trongBan((cv) => cv.body === "bgh" && cv.schoolId === tr.id),
+      bksTruong: trongBan((cv) => cv.body === "bks" && cv.schoolId === tr.id),
     }))
-    .filter((k) => k.hdt.length || k.bgh.length);
+    .filter((k) => k.hdt.length || k.bgh.length || k.bksTruong.length);
 
   const nhan = {
     hdqt: pick({ vi: "Hội đồng quản trị", en: "Board of Directors", de: "Verwaltungsrat", ja: "取締役会", ko: "이사회", "zh-TW": "董事會" }, locale),
@@ -203,7 +207,7 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
               <h2 className={styles.capTieuDe}>
                 <span>{nhan.truong}</span>
               </h2>
-              {khoiTruong.map(({ truong: tr, hdt, bgh }) => (
+              {khoiTruong.map(({ truong: tr, hdt, bgh, bksTruong }) => (
                 <article key={tr.id} className={styles.truong} data-reveal suppressHydrationWarning>
                   <header className={styles.truongDau}>
                     {tr.logoPath ? (
@@ -223,6 +227,7 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
                   <div className={styles.capLuoi}>
                     <Ban locale={locale} ten={nhan.hdt} ds={hdt} />
                     <Ban locale={locale} ten={nhan.bgh} ds={bgh} />
+                    <Ban locale={locale} ten={nhan.bks} ds={bksTruong} />
                   </div>
                 </article>
               ))}

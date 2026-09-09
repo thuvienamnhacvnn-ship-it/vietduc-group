@@ -41,9 +41,26 @@ export const SOCIAL_LABEL: Record<SocialKey, string> = {
 /** Channels shown in the slim top bar. The rest appear in the footer only. */
 export const PRIMARY_SOCIAL: SocialKey[] = ["facebook", "youtube", "zalo"];
 
+/**
+ * Một văn phòng của tập đoàn.
+ *
+ * Tập đoàn có hai nơi đặt văn phòng, nên `headquarters` một dòng không đủ. Địa
+ * chỉ để song ngữ vì đây là thứ người đọc nước ngoài cần đọc được — nhưng chỉ
+ * hai thứ tiếng: bản Việt để gửi thư trong nước, bản Anh cho mọi ngôn ngữ còn
+ * lại. Dịch một địa chỉ sang tiếng Nhật hay tiếng Hàn không giúp ai gửi được
+ * thư tới đó.
+ */
+export type VanPhong = {
+  city: L10nMap;
+  address: L10nMap;
+};
+
 export type ContactSettings = {
   organisationLegalName: string;
+  /** Trụ sở chính, một dòng — dùng cho JSON-LD và ô nhập trong trang quản trị. */
   headquarters: string;
+  /** Danh sách văn phòng đầy đủ; rỗng thì trang chỉ hiện `headquarters`. */
+  offices?: VanPhong[];
   phone: string;
   /** E.164 for tel:/wa.me links, e.g. "+842431236868". Derived if empty. */
   phoneE164: string;
@@ -84,18 +101,31 @@ export const SETTINGS_KEYS = {
  * published. Social URLs start EMPTY: neither the PDFs nor the old site listed
  * a single social profile, and inventing one would be worse than showing none.
  *
- * ĐỊA CHỈ TRỤ SỞ DƯỚI ĐÂY CHƯA ĐƯỢC XÁC NHẬN. Ngày 08/09/2026 Việt Đức Group
- * cho biết "129 Trần Phú, Hà Nội" chưa đúng, nhưng chưa đưa địa chỉ thay thế.
- * Nó vốn chỉ có trên web cũ — một bản dựng chưa hoàn thiện của Tất Thành, menu
- * toàn `javascript:void(0)` và tin tức là nội dung mẫu — chứ không có trong bất
- * kỳ tệp PDF hồ sơ nào. Khi có địa chỉ chính thức thì sửa ở ĐÂY và ở hai chỗ
- * trong `src/content/seed/pages.ts` (trang liên hệ và Impressum), rồi chạy lại
- * `npm run seed`.
+ * Địa chỉ hai văn phòng do Việt Đức Group cung cấp ngày 09/09/2026, thay cho
+ * "129 Trần Phú, Hà Nội" — địa chỉ ấy vốn chỉ có trên web cũ của Tất Thành và
+ * đã được chính tập đoàn xác nhận là không đúng.
  */
 export const DEFAULT_SETTINGS: SiteSettings = {
   contact: {
     organisationLegalName: "Công ty Cổ phần Tập đoàn Đầu tư và Giáo dục Quốc tế Việt Đức",
-    headquarters: "Tòa nhà Việt Đức Group, 129 Trần Phú, Hà Nội",
+    headquarters:
+      "Tầng 4, Toà nhà Rainbow, số 79 Đường 19/5, KĐTM Văn Quán, Phường Hà Đông, Thành phố Hà Nội, Việt Nam",
+    offices: [
+      {
+        city: { vi: "Hà Nội", en: "Hanoi" },
+        address: {
+          vi: "Tầng 4, Toà nhà Rainbow, số 79 Đường 19/5, KĐTM Văn Quán, Phường Hà Đông, Thành phố Hà Nội, Việt Nam",
+          en: "4th Floor, Rainbow Building, No. 79, 19/5 Street, Van Quan New Urban Area, Ha Dong Ward, Hanoi, Vietnam",
+        },
+      },
+      {
+        city: { vi: "Quảng Trị", en: "Quang Tri" },
+        address: {
+          vi: "Phường Đồng Thuận, Tỉnh Quảng Trị, Việt Nam",
+          en: "Dong Thuan Ward, Quang Tri Province, Vietnam",
+        },
+      },
+    ],
     phone: "024 3 123 6868",
     phoneE164: "+842431236868",
     email: "info@vietducgroup.com.vn",

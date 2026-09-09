@@ -444,3 +444,45 @@ nên không có khối nhân sự trên trang.
 **Ảnh chân dung**: mọi hồ sơ đều ghi "ẢNH CHÂN DUNG (Bổ sung khi có ảnh)". Giao
 diện dựng đĩa tròn có chữ cái đầu; khi có ảnh thì đổ vào `photoPath`, bố cục
 không xê dịch.
+
+## 23. Cơ cấu nhân sự và địa chỉ — bản chính thức 09/09/2026
+
+Việt Đức Group gửi trực tiếp, **thay cho** những gì suy ra từ hồ sơ cá nhân và
+bốn quyết định hội đồng trường ở mục 22. Chỗ nào hai bên khác nhau thì bản này
+đúng.
+
+**Địa chỉ.** Tập đoàn có HAI văn phòng, không phải một:
+
+| | Tiếng Việt | English |
+|---|---|---|
+| Hà Nội | Tầng 4, Toà nhà Rainbow, số 79 Đường 19/5, KĐTM Văn Quán, Phường Hà Đông, Thành phố Hà Nội | 4th Floor, Rainbow Building, No. 79, 19/5 Street, Van Quan New Urban Area, Ha Dong Ward, Hanoi |
+| Quảng Trị | Phường Đồng Thuận, Tỉnh Quảng Trị | Dong Thuan Ward, Quang Tri Province |
+
+Địa chỉ cũ "129 Trần Phú, Hà Nội" (lấy từ web cũ của Tất Thành) đã bỏ hẳn.
+
+**Cơ cấu cấp tập đoàn** — ba ban, mỗi ban ba người:
+
+- **Hội đồng quản trị**: Phan Phương Nguyên (Chủ tịch) · Trần Minh Chất (Phó
+  Chủ tịch) · Phạm Văn Tùng (Thành viên)
+- **Ban Điều hành**: Phạm Văn Tùng (Phó Tổng giám đốc) · Hồ Văn Phong (Phó Giám
+  đốc) · Trần Thị Lan (Phụ trách hành chính – pháp lý)
+- **Ban Kiểm soát**: Trần Minh Chất (Trưởng ban) · Bùi Văn Phượng (Phó Thường
+  trực) · Hà Thị Mến (Thành viên)
+
+**Ban Kiểm soát ở từng trường** — cơ cấu mới, cả sáu trường đều có:
+
+- **IVS**: Bùi Văn Phượng (Trưởng) · Hà Thị Mến · Nguyễn Thị Phương Lan
+- **Năm trường còn lại**: Bùi Văn Phượng (Trưởng) · Hà Thị Mến · Trần Thị Lan
+
+Nhờ vậy Trung cấp Việt Hàn và ITW Berlin lần đầu có nhân sự trên trang.
+
+**Hai điểm đã ghi nhận nguyên văn dù có vướng:**
+
+1. Tập đoàn ghi Bùi Văn Phượng là "Thành viên HĐQT – Phó Thường trực Ban Kiểm
+   soát", nhưng danh sách Hội đồng quản trị lại chỉ liệt kê ba người và không
+   có ông. Website hiện ông ở Ban Kiểm soát, **không** xếp vào Hội đồng quản
+   trị — cần tập đoàn xác nhận lại điểm này.
+2. **Trần Thị Lan chưa có hồ sơ và chưa có ảnh** trong bộ tài liệu, nên thẻ của
+   bà chỉ có tên và chức vụ. Không bịa tiểu sử. Khi có hồ sơ thì bổ sung vào
+   `src/content/seed/people.ts` và chạy `npm run media:nhan-su` — ảnh tự nhận
+   theo slug.
