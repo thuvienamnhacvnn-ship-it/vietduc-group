@@ -322,6 +322,19 @@ async function main() {
   const schoolIdForPerson = (slug: string | null | undefined) =>
     slug ? (schoolIdBySlug.get(slug) ?? null) : null;
 
+  /*
+   * Ảnh chân dung tự dò theo slug, không khai tay trong tệp seed.
+   *
+   * `npm run media:nhan-su` bóc ảnh ra `public/media/people/<slug>.webp`. Để
+   * seed tự tìm thì thêm một người có ảnh chỉ là chạy lại hai lệnh, không phải
+   * sửa thêm một dòng nào — và người nào chưa có ảnh thì tự khắc để trống chứ
+   * không trỏ vào một tệp không tồn tại.
+   */
+  const anhChanDung = (slug: string) => {
+    const tep = path.join(ROOT, "public", "media", "people", `${slug}.webp`);
+    return fs.existsSync(tep) ? `/media/people/${slug}.webp` : null;
+  };
+
   for (const person of PEOPLE) {
     const values = {
       slug: person.slug,
@@ -340,6 +353,7 @@ async function main() {
       highlights: person.highlights ?? null,
       focus: person.focus ?? null,
       direction: person.direction ?? null,
+      photoPath: anhChanDung(person.slug),
       schoolId: schoolIdForPerson(person.schoolSlug),
       order: person.order,
       status: "approved" as Status,

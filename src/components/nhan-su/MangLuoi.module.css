@@ -76,7 +76,7 @@
   z-index: 1;
   width: 100%;
   aspect-ratio: 16 / 10;
-  min-height: 26rem;
+  min-height: 30rem;
 }
 
 /* ------------------------------------------------------------------ đường */
@@ -227,7 +227,7 @@
 
 /* Người: đĩa tròn có chữ cái đầu. */
 .nutNguoi {
-  width: clamp(2.3rem, 4.4%, 3.1rem);
+  width: clamp(3rem, 5.6%, 4.2rem);
   aspect-ratio: 1;
   border-radius: 50%;
   background: linear-gradient(150deg, #1b2c40, #0e1826);
@@ -333,4 +333,18 @@
   .vet {
     animation: none;
   }
+}
+
+/*
+ * Ảnh chân dung trong nút mạng lưới.
+ *
+ * Nút chỉ rộng khoảng 2,5rem nên ảnh phải cắt vuông và neo lên phía trên, y
+ * như thẻ ở danh sách: ảnh gốc là chân dung ngồi bàn, căn giữa là mất mặt.
+ */
+.anhNut {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 16%;
 }

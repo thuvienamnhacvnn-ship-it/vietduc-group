@@ -166,6 +166,7 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
                   ten: p.name,
                   hocVi: p.honorific,
                   chuCai: (tu[tu.length - 1]?.[0] ?? p.name[0] ?? "?").toUpperCase(),
+                  anh: p.photoPath,
                   chuc: p.headline ? t(p.headline, locale) : "",
                   // Một người nối tới mọi đơn vị mình giữ chức. Chức vụ ở pháp
                   // nhân ngoài hệ thống (NIBELC, ITW Berlin) không có nút riêng
@@ -245,7 +246,13 @@ function DungDau({ locale, ghe }: { locale: Locale; ghe: Ghe }) {
   return (
     <section className={styles.trum} data-reveal suppressHydrationWarning>
       <Link href={`/${locale}/doi-ngu/${p.slug}`} className={styles.trumLink}>
-        <ChanDung ten={p.name} anh={p.photoPath} lon />
+        {p.photoPath ? (
+          <span className={styles.trumAnh}>
+            <Image src={p.photoPath} alt="" width={640} height={640} priority className={styles.anh} />
+          </span>
+        ) : (
+          <ChanDung ten={p.name} anh={null} lon />
+        )}
         <div className={styles.trumChu}>
           <p className={styles.trumChuc}>{t(cv.title, locale)}</p>
           <h2 className={styles.trumTen}>
@@ -279,13 +286,29 @@ function Ban({ locale, ten, ds }: { locale: Locale; ten: string; ds: Ghe[] }) {
         {ds.map(({ nguoi: p, cv }) => (
           <li key={`${p.id}-${cv.id}`}>
             <Link href={`/${locale}/doi-ngu/${p.slug}`} className={styles.the}>
-              <ChanDung ten={p.name} anh={p.photoPath} />
+              <span className={styles.theAnh}>
+                {p.photoPath ? (
+                  <Image
+                    src={p.photoPath}
+                    alt=""
+                    width={640}
+                    height={640}
+                    sizes="(min-width: 1100px) 20vw, (min-width: 700px) 33vw, 90vw"
+                    className={styles.anh}
+                  />
+                ) : (
+                  <ChanDung ten={p.name} anh={null} lon />
+                )}
+                {/* Chức danh nằm TRÊN ảnh, ở dải tối dưới chân — đọc được ngay
+                    mà không cần thêm một hàng chữ dưới thẻ. */}
+                <span className={styles.theChuc}>{t(cv.title, locale)}</span>
+              </span>
               <span className={styles.theChu}>
                 <span className={styles.theTen}>
                   {p.honorific ? <span className={styles.hocVi}>{p.honorific} </span> : null}
                   {p.name}
                 </span>
-                <span className={styles.theChuc}>{t(cv.title, locale)}</span>
+                {p.birthYear ? <span className={styles.theNam}>{p.birthYear}</span> : null}
               </span>
             </Link>
           </li>

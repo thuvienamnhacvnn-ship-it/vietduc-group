@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import styles from "./MangLuoi.module.css";
 
@@ -9,6 +10,8 @@ export type NutNguoi = {
   ten: string;
   hocVi: string | null;
   chuCai: string;
+  /** Ảnh chân dung; rỗng thì nút hiện chữ cái đầu. */
+  anh?: string | null;
   /** Khoá của các đơn vị người này giữ chức. */
   donVi: string[];
   /** Chức danh cao nhất, dùng làm nhãn khi rê chuột. */
@@ -174,7 +177,11 @@ export function MangLuoi({
               onFocus={() => setDangRe(p.slug)}
               onBlur={() => setDangRe(null)}
             >
-              <span className={styles.chuCai}>{p.chuCai}</span>
+              {p.anh ? (
+                <Image src={p.anh} alt="" width={160} height={160} className={styles.anhNut} />
+              ) : (
+                <span className={styles.chuCai}>{p.chuCai}</span>
+              )}
               <span className={`${styles.nhan} ${ben ? styles.nhanTrai : ""}`}>
                 <strong>
                   {p.hocVi ? <em>{p.hocVi} </em> : null}
