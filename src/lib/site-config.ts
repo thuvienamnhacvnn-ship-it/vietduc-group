@@ -85,13 +85,23 @@ export type SeoSettings = {
 
 export type SiteSettings = {
   contact: ContactSettings;
+  /** Kênh của mảng giáo dục — trang chính và toàn bộ khu Đào tạo. */
   social: SocialSettings;
+  /**
+   * Kênh của mảng khách sạn – du lịch – đầu tư.
+   *
+   * Hai mảng kinh doanh chạy hai bộ tài khoản riêng, nên chúng là hai ô cài đặt
+   * riêng chứ không phải một. Dùng chung một bộ thì trang khách sạn dẫn khách
+   * sang trang tuyển sinh, và ngược lại.
+   */
+  socialVenture: SocialSettings;
   seo: SeoSettings;
 };
 
 export const SETTINGS_KEYS = {
   contact: "contact",
   social: "social",
+  socialVenture: "social-venture",
   seo: "seo",
 } as const;
 
@@ -107,7 +117,8 @@ export const SETTINGS_KEYS = {
  */
 export const DEFAULT_SETTINGS: SiteSettings = {
   contact: {
-    organisationLegalName: "Công ty Cổ phần Tập đoàn Đầu tư và Giáo dục Quốc tế Việt Đức",
+    organisationLegalName:
+      "Công ty Cổ phần Tập đoàn Đầu tư và Giáo dục Quốc tế Việt Đức",
     headquarters:
       "Tầng 4, Toà nhà Rainbow, số 79 Đường 19/5, KĐTM Văn Quán, Phường Hà Đông, Thành phố Hà Nội, Việt Nam",
     offices: [
@@ -143,6 +154,15 @@ export const DEFAULT_SETTINGS: SiteSettings = {
     zalo: "",
     whatsapp: "",
   },
+  socialVenture: {
+    facebook: "",
+    instagram: "",
+    tiktok: "",
+    youtube: "",
+    linkedin: "",
+    zalo: "",
+    whatsapp: "",
+  },
   seo: {
     siteName: "Việt Đức Group",
     defaultTitle: {
@@ -159,7 +179,8 @@ export const DEFAULT_SETTINGS: SiteSettings = {
       en: "A Vietnamese–German vocational education system of six member schools: practical training, employer partnerships and international cooperation.",
       ja: "六つの加盟校からなる越独技能教育の体系。実習中心の教育、企業との連携、そして国際協力。",
       ko: "여섯 개 회원 학교로 이루어진 베트남·독일 직업교육 체계. 실습 중심 교육, 기업 연계, 그리고 국제 협력.",
-      "zh-TW": "由六所成員學校組成的越德技職教育體系：實作導向的訓練、與企業連結，以及國際合作。",
+      "zh-TW":
+        "由六所成員學校組成的越德技職教育體系：實作導向的訓練、與企業連結，以及國際合作。",
     },
     /* Tên miền chính thức, trỏ về VPS OVH từ 07/09/2026. */
     siteUrl: "https://vietducgroup.com.vn",

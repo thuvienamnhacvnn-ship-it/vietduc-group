@@ -51,3 +51,64 @@
   flex-direction: column;
   gap: var(--s-2);
 }
+
+/*
+ * Chất liệu của cột: cùng lối vàng với phần còn lại của trang.
+ *
+ * Cột này nổi trên nội dung nên không được nặng — một viền vàng rất mờ khi
+ * đứng yên, sáng lên khi rê chuột vào, và mỗi biểu tượng tự nó cũng đáp lại.
+ */
+.rail {
+  border-color: color-mix(in srgb, var(--gold) 26%, var(--line));
+  transition:
+    border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease);
+}
+
+.rail:hover {
+  border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+  box-shadow:
+    var(--shadow-1),
+    0 0 28px color-mix(in srgb, var(--gold) 18%, transparent);
+}
+
+.rail:hover .label {
+  color: var(--gold);
+}
+
+.label {
+  transition: color var(--dur-2) var(--ease);
+}
+
+/* Nét vàng giữa chữ và các biểu tượng dài ra khi rê vào cột. */
+.line {
+  transition: height var(--dur-2) var(--ease);
+}
+
+.rail:hover .line {
+  height: 40px;
+}
+
+.rail :global(a) {
+  transition:
+    color var(--dur-2) var(--ease),
+    border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease),
+    translate var(--dur-2) var(--ease);
+}
+
+.rail :global(a:hover),
+.rail :global(a:focus-visible) {
+  color: var(--gold);
+  border-color: color-mix(in srgb, var(--gold) 70%, transparent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--gold) 30%, transparent);
+  translate: -2px 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rail,
+  .line,
+  .rail :global(a) {
+    transition: none;
+  }
+}

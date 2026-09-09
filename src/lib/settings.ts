@@ -24,10 +24,10 @@ import {
  * There the environment is the only thing that persists, so a value set there
  * wins over the stored one. A channel left unset stays empty and is not drawn.
  */
-function socialFromEnv(): Partial<SocialSettings> {
+function socialFromEnv(tienTo = "SOCIAL"): Partial<SocialSettings> {
   const out: Partial<SocialSettings> = {};
   for (const key of SOCIAL_KEYS) {
-    const value = process.env[`SOCIAL_${key.toUpperCase()}`]?.trim();
+    const value = process.env[`${tienTo}_${key.toUpperCase()}`]?.trim();
     if (value) out[key] = value;
   }
   return out;
@@ -45,12 +45,20 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
     return {
       contact: {
         ...DEFAULT_SETTINGS.contact,
-        ...((byKey.get(SETTINGS_KEYS.contact) as Partial<ContactSettings>) ?? {}),
+        ...((byKey.get(SETTINGS_KEYS.contact) as Partial<ContactSettings>) ??
+          {}),
       },
       social: {
         ...DEFAULT_SETTINGS.social,
         ...((byKey.get(SETTINGS_KEYS.social) as Partial<SocialSettings>) ?? {}),
         ...socialFromEnv(),
+      },
+      socialVenture: {
+        ...DEFAULT_SETTINGS.socialVenture,
+        ...((byKey.get(
+          SETTINGS_KEYS.socialVenture,
+        ) as Partial<SocialSettings>) ?? {}),
+        ...socialFromEnv("SOCIAL_VENTURE"),
       },
       seo: {
         ...DEFAULT_SETTINGS.seo,
@@ -60,17 +68,31 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
   } catch (error) {
     // The database is unavailable during `next build` on a clean checkout.
     // Rendering with seed settings is correct; failing the build is not.
-    console.warn("[settings] falling back to defaults:", (error as Error).message);
+    console.warn(
+      "[settings] falling back to defaults:",
+      (error as Error).message,
+    );
     return {
       ...DEFAULT_SETTINGS,
       social: { ...DEFAULT_SETTINGS.social, ...socialFromEnv() },
+      socialVenture: {
+        ...DEFAULT_SETTINGS.socialVenture,
+        ...socialFromEnv("SOCIAL_VENTURE"),
+      },
     };
   }
 });
 
-export async function writeSetting(key: string, value: unknown, userId?: number): Promise<void> {
+export async function writeSetting(
+  key: string,
+  value: unknown,
+  userId?: number,
+): Promise<void> {
   const db = await getDb();
-  const existing = await db.select({ key: settings.key }).from(settings).where(eq(settings.key, key));
+  const existing = await db
+    .select({ key: settings.key })
+    .from(settings)
+    .where(eq(settings.key, key));
   if (existing.length) {
     await db
       .update(settings)

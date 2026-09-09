@@ -46,14 +46,20 @@ import { check, RULES } from "@/lib/rate-limit";
 
 /* ----------------------------------------------------------------- auth */
 
-export async function signIn(_prev: { error?: string } | undefined, formData: FormData) {
-  const email = String(formData.get("email") ?? "").trim().toLowerCase();
+export async function signIn(
+  _prev: { error?: string } | undefined,
+  formData: FormData,
+) {
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
   const password = String(formData.get("password") ?? "");
 
   // Rate limit by address as well as by client, so a single account cannot be
   // ground down from many IPs.
   const requestHeaders = await headers();
-  const ip = requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const ip =
+    requestHeaders.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   const limit = check(`login:${ip}:${email}`, RULES.login);
   if (!limit.ok) {
     return { error: "Bạn đã thử quá nhiều lần. Vui lòng đợi vài phút." };
@@ -62,7 +68,11 @@ export async function signIn(_prev: { error?: string } | undefined, formData: Fo
   if (!email || !password) return { error: "Vui lòng nhập email và mật khẩu." };
 
   const db = await getDb();
-  const rows = await db.select().from(users).where(eq(users.email, email)).limit(1);
+  const rows = await db
+    .select()
+    .from(users)
+    .where(eq(users.email, email))
+    .limit(1);
   const user = rows[0];
 
   // One message for every failure mode: a different message for "no such user"
@@ -135,7 +145,14 @@ const TextInput = z.object({
 
 /** Fields an editor may change through the generic editor, per entity. */
 const EDITABLE: Record<EntityKey, string[]> = {
-  program: ["title", "overview", "tuition", "intakeSchedule", "certificate", "durationLabel"],
+  program: [
+    "title",
+    "overview",
+    "tuition",
+    "intakeSchedule",
+    "certificate",
+    "durationLabel",
+  ],
   school: ["name", "shortName", "tagline", "summary"],
   page: ["title", "body", "seoTitle", "seoDescription"],
   faq: ["question", "answer"],
@@ -159,7 +176,9 @@ export async function setLocalisedField(formData: FormData) {
   // Whitelist, not blacklist: an unexpected field name is rejected rather than
   // written into an arbitrary column.
   if (!EDITABLE[input.entity].includes(input.field)) {
-    throw new Error(`Field "${input.field}" is not editable on ${input.entity}`);
+    throw new Error(
+      `Field "${input.field}" is not editable on ${input.entity}`,
+    );
   }
 
   const value: Record<string, string> = { vi: input.vi };
@@ -173,7 +192,9 @@ export async function setLocalisedField(formData: FormData) {
     .set({ [input.field]: value })
     .where(eq(table.id, input.id));
 
-  await recordAudit(user.id, "edit_field", input.entity, String(input.id), { field: input.field });
+  await recordAudit(user.id, "edit_field", input.entity, String(input.id), {
+    field: input.field,
+  });
   revalidatePath("/admin/noi-dung");
   revalidatePath("/", "layout");
 }
@@ -183,12 +204,16 @@ export async function setEditorNote(formData: FormData) {
   const entity = String(formData.get("entity"));
   const id = Number(formData.get("id"));
   const note = String(formData.get("note") ?? "").slice(0, 2000);
-  if (entity !== "program" && entity !== "school") throw new Error("Unsupported entity");
+  if (entity !== "program" && entity !== "school")
+    throw new Error("Unsupported entity");
   if (!Number.isInteger(id) || id <= 0) throw new Error("Invalid id");
 
   const db = await getDb();
   const table = entity === "program" ? programs : schools;
-  await db.update(table).set({ editorNote: note || null }).where(eq(table.id, id));
+  await db
+    .update(table)
+    .set({ editorNote: note || null })
+    .where(eq(table.id, id));
   await recordAudit(user.id, "edit_note", entity, String(id));
   revalidatePath("/admin/noi-dung");
 }
@@ -223,9 +248,15 @@ export async function reviewBlock(formData: FormData) {
     })
     .where(eq(contentBlocks.id, input.id));
 
-  await recordAudit(user.id, "review_block", "content_block", String(input.id), {
-    status: input.status,
-  });
+  await recordAudit(
+    user.id,
+    "review_block",
+    "content_block",
+    String(input.id),
+    {
+      status: input.status,
+    },
+  );
   revalidatePath("/admin/tai-lieu");
 }
 
@@ -240,10 +271,25 @@ export async function reviewAllBlocks(formData: FormData) {
   const db = await getDb();
   await db
     .update(contentBlocks)
-    .set({ status: status as Status, reviewedBy: user.id, reviewedAt: new Date() })
-    .where(and(eq(contentBlocks.documentId, documentId), eq(contentBlocks.status, "draft")));
+    .set({
+      status: status as Status,
+      reviewedBy: user.id,
+      reviewedAt: new Date(),
+    })
+    .where(
+      and(
+        eq(contentBlocks.documentId, documentId),
+        eq(contentBlocks.status, "draft"),
+      ),
+    );
 
-  await recordAudit(user.id, "review_blocks_bulk", "document", String(documentId), { status });
+  await recordAudit(
+    user.id,
+    "review_blocks_bulk",
+    "document",
+    String(documentId),
+    { status },
+  );
   revalidatePath("/admin/tai-lieu");
 }
 
@@ -262,7 +308,10 @@ export async function setDocumentFlags(formData: FormData) {
     .set({ status: status as Status, downloadable })
     .where(eq(documents.id, id));
 
-  await recordAudit(user.id, "update_document", "document", String(id), { status, downloadable });
+  await recordAudit(user.id, "update_document", "document", String(id), {
+    status,
+    downloadable,
+  });
   revalidatePath("/admin/tai-lieu");
   revalidatePath("/", "layout");
 }
@@ -300,7 +349,10 @@ export async function updateLead(formData: FormData) {
   const id = Number(formData.get("id"));
   const state = String(formData.get("state"));
   const note = String(formData.get("note") ?? "").slice(0, 2000);
-  if (!Number.isInteger(id) || !LEAD_STATES.includes(state as (typeof LEAD_STATES)[number])) {
+  if (
+    !Number.isInteger(id) ||
+    !LEAD_STATES.includes(state as (typeof LEAD_STATES)[number])
+  ) {
     throw new Error("Invalid request");
   }
 
@@ -340,28 +392,51 @@ export async function resolveQuestion(formData: FormData) {
   if (!ids.length) return;
 
   const db = await getDb();
-  await db.update(unanswered).set({ resolved: true }).where(inArray(unanswered.id, ids));
+  await db
+    .update(unanswered)
+    .set({ resolved: true })
+    .where(inArray(unanswered.id, ids));
   await recordAudit(user.id, "resolve_questions", "unanswered", ids.join(","));
   revalidatePath("/admin/tro-ly");
 }
 
 /* -------------------------------------------------------------- settings */
 
-export async function saveSocial(formData: FormData) {
+async function luuKenh(formData: FormData, khoa: string) {
   const user = await requireCapability("settings.write");
   const value: Record<string, string> = {};
   for (const key of SOCIAL_KEYS) {
-    value[key] = String(formData.get(key) ?? "").trim().slice(0, 300);
+    value[key] = String(formData.get(key) ?? "")
+      .trim()
+      .slice(0, 300);
   }
-  await writeSetting(SETTINGS_KEYS.social, value, user.id);
-  await recordAudit(user.id, "save_settings", "settings", SETTINGS_KEYS.social);
+  await writeSetting(khoa, value, user.id);
+  await recordAudit(user.id, "save_settings", "settings", khoa);
   revalidatePath("/", "layout");
   revalidatePath("/admin/cai-dat");
 }
 
+/** Kênh mạng xã hội của mảng giáo dục. */
+export async function saveSocial(formData: FormData) {
+  await luuKenh(formData, SETTINGS_KEYS.social);
+}
+
+/**
+ * Kênh của mảng khách sạn – du lịch.
+ *
+ * Hai mảng kinh doanh chạy hai bộ tài khoản riêng nên có hai ô cài đặt riêng;
+ * cùng một biểu mẫu, chỉ khác chỗ ghi.
+ */
+export async function saveSocialVenture(formData: FormData) {
+  await luuKenh(formData, SETTINGS_KEYS.socialVenture);
+}
+
 export async function saveContact(formData: FormData) {
   const user = await requireCapability("settings.write");
-  const read = (key: string, max = 300) => String(formData.get(key) ?? "").trim().slice(0, max);
+  const read = (key: string, max = 300) =>
+    String(formData.get(key) ?? "")
+      .trim()
+      .slice(0, max);
   const officeHoursVi = read("officeHoursVi");
 
   await writeSetting(
@@ -379,14 +454,22 @@ export async function saveContact(formData: FormData) {
     },
     user.id,
   );
-  await recordAudit(user.id, "save_settings", "settings", SETTINGS_KEYS.contact);
+  await recordAudit(
+    user.id,
+    "save_settings",
+    "settings",
+    SETTINGS_KEYS.contact,
+  );
   revalidatePath("/", "layout");
   revalidatePath("/admin/cai-dat");
 }
 
 export async function saveSeo(formData: FormData) {
   const user = await requireCapability("settings.write");
-  const read = (key: string, max = 300) => String(formData.get(key) ?? "").trim().slice(0, max);
+  const read = (key: string, max = 300) =>
+    String(formData.get(key) ?? "")
+      .trim()
+      .slice(0, max);
 
   await writeSetting(
     SETTINGS_KEYS.seo,
@@ -415,6 +498,10 @@ export async function saveSeo(formData: FormData) {
 export async function readSettingsRow(key: string) {
   await requireCapability("settings.write");
   const db = await getDb();
-  const rows = await db.select().from(settingsTable).where(eq(settingsTable.key, key)).limit(1);
+  const rows = await db
+    .select()
+    .from(settingsTable)
+    .where(eq(settingsTable.key, key))
+    .limit(1);
   return rows[0]?.value ?? null;
 }

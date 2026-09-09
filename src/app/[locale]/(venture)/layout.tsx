@@ -35,7 +35,12 @@ export default async function VentureLayout({
   const settings = await getSiteSettings();
 
   const railItems: RailItem[] = [
-    { href: "/dau-tu", label: dict.venture.section, short: dict.nav.ventureShort, icon: "venture" },
+    {
+      href: "/dau-tu",
+      label: dict.venture.section,
+      short: dict.nav.ventureShort,
+      icon: "venture",
+    },
     {
       href: "/dau-tu/du-an/khach-san-nghi-duong-toki",
       label: dict.venture.projects,
@@ -44,7 +49,12 @@ export default async function VentureLayout({
     },
     { href: "/dau-tu/tin-tuc", label: dict.nav.news, icon: "news" },
     { href: "/lien-he", label: dict.nav.contact, icon: "contact" },
-    { href: "/dao-tao", label: dict.hub.education.name, icon: "education", cross: true },
+    {
+      href: "/dao-tao",
+      label: dict.hub.education.name,
+      icon: "education",
+      cross: true,
+    },
   ];
 
   return (
@@ -58,7 +68,11 @@ export default async function VentureLayout({
         items={railItems}
         langBase="/dau-tu"
         tone="venture"
-        cta={{ href: "/lien-he", label: dict.venture.contactCta, short: dict.nav.contact }}
+        cta={{
+          href: "/lien-he",
+          label: dict.venture.contactCta,
+          short: dict.nav.contact,
+        }}
         tel={telHref(settings.contact.phoneE164 || settings.contact.phone)}
         callLabel={dict.contact.callNow}
       />
@@ -68,11 +82,20 @@ export default async function VentureLayout({
       </main>
 
       <div data-rail>
-        <VentureFooter locale={locale} contact={settings.contact} social={settings.social} />
+        <VentureFooter
+          locale={locale}
+          contact={settings.contact}
+          social={settings.socialVenture}
+        />
       </div>
 
-      <SocialRail locale={locale} social={settings.social} />
-      <Advisor locale={locale} contact={settings.contact} suggestions={suggestedQuestions(locale)} />
+      {/* Bộ kênh riêng của mảng khách sạn – du lịch, xem SiteSettings. */}
+      <SocialRail locale={locale} social={settings.socialVenture} />
+      <Advisor
+        locale={locale}
+        contact={settings.contact}
+        suggestions={suggestedQuestions(locale)}
+      />
       <CookieNotice locale={locale} />
       <Reveal />
     </div>

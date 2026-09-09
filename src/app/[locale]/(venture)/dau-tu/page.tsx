@@ -136,7 +136,7 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
           </h1>
 
           <p className={styles.heroLead}>{t(VENTURE_INTRO.lead, locale)}</p>
-          <HeroSocial locale={locale} social={settings.social} />
+          <HeroSocial locale={locale} social={settings.socialVenture} />
         </div>
         <p className={styles.heroCaption}>{t(VENTURE_HERO.caption, locale)}</p>
       </section>

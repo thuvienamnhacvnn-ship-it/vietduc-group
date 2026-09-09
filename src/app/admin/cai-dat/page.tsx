@@ -2,7 +2,12 @@ import { redirect } from "next/navigation";
 import { can, getSessionUser } from "@/lib/auth";
 import { getSiteSettings } from "@/lib/settings";
 import { SOCIAL_KEYS, SOCIAL_LABEL, socialHref } from "@/lib/site-config";
-import { saveContact, saveSeo, saveSocial } from "../actions";
+import {
+  saveContact,
+  saveSeo,
+  saveSocial,
+  saveSocialVenture,
+} from "../actions";
 import styles from "../admin.module.css";
 
 export const dynamic = "force-dynamic";
@@ -17,67 +22,112 @@ const SOCIAL_HINT: Record<string, string> = {
   whatsapp: "số WhatsApp dạng quốc tế, ví dụ +84912345678",
 };
 
+/**
+ * Một khối "kênh mạng xã hội".
+ *
+ * Hai mảng kinh doanh chạy hai bộ tài khoản riêng nên trang này có hai khối y
+ * hệt nhau, chỉ khác chỗ ghi. Viết một lần rồi dùng lại, để sau này thêm kênh
+ * mới thì không phải sửa hai nơi và không có nguy cơ hai nơi lệch nhau.
+ *
+ * `tienTo` chỉ để phân biệt id của ô nhập giữa hai khối; tên trường gửi lên
+ * vẫn là tên kênh, vì hai biểu mẫu gửi tới hai hành động khác nhau.
+ */
+function KhoiKenh({
+  tieuDe,
+  moTa,
+  giaTri,
+  action,
+  tienTo,
+}: {
+  tieuDe: string;
+  moTa: string;
+  giaTri: Record<string, string>;
+  action: (formData: FormData) => Promise<void>;
+  tienTo: string;
+}) {
+  return (
+    <section className={styles.panel}>
+      <h2>{tieuDe}</h2>
+      <p style={{ fontSize: "0.85rem", color: "var(--muted)" }}>{moTa}</p>
+      <form action={action}>
+        <div className={styles.fieldGrid}>
+          {SOCIAL_KEYS.map((key) => {
+            const value = giaTri[key] ?? "";
+            const resolved = socialHref(key, value);
+            return (
+              <div key={key} className={styles.field}>
+                <label htmlFor={`${tienTo}-${key}`}>{SOCIAL_LABEL[key]}</label>
+                <input
+                  id={`${tienTo}-${key}`}
+                  name={key}
+                  type="text"
+                  defaultValue={value}
+                  placeholder={SOCIAL_HINT[key]}
+                  className={styles.input}
+                />
+                <small>
+                  {resolved ? (
+                    <>
+                      đang hiển thị:{" "}
+                      <a
+                        href={resolved}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {resolved}
+                      </a>
+                    </>
+                  ) : (
+                    "chưa cấu hình – icon bị ẩn"
+                  )}
+                </small>
+              </div>
+            );
+          })}
+        </div>
+        <div className={styles.formActions}>
+          <button type="submit" className={styles.button}>
+            Lưu {tieuDe.toLowerCase()}
+          </button>
+        </div>
+      </form>
+    </section>
+  );
+}
+
 export default async function SettingsPage() {
   const user = await getSessionUser();
   if (!user) redirect("/admin/dang-nhap");
   if (!can(user.role, "settings.write")) redirect("/admin");
 
-  const { contact, social, seo } = await getSiteSettings();
+  const { contact, social, socialVenture, seo } = await getSiteSettings();
 
   return (
     <>
       <header className={styles.pageHead}>
         <h1>Cấu hình website</h1>
         <p>
-          Thông tin liên hệ, mạng xã hội và SEO dùng chung cho cả ba ngôn ngữ. Ô để trống nghĩa là
-          không hiển thị – website không bao giờ tự sinh liên kết thay bạn.
+          Thông tin liên hệ, mạng xã hội và SEO dùng chung cho cả ba ngôn ngữ. Ô
+          để trống nghĩa là không hiển thị – website không bao giờ tự sinh liên
+          kết thay bạn.
         </p>
       </header>
 
-      <section className={styles.panel}>
-        <h2>Mạng xã hội</h2>
-        <p style={{ fontSize: "0.85rem", color: "var(--muted)" }}>
-          Kênh nào để trống thì icon tương ứng biến mất khỏi header, footer và trang liên hệ.
-        </p>
-        <form action={saveSocial}>
-          <div className={styles.fieldGrid}>
-            {SOCIAL_KEYS.map((key) => {
-              const value = social[key] ?? "";
-              const resolved = socialHref(key, value);
-              return (
-                <div key={key} className={styles.field}>
-                  <label htmlFor={`social-${key}`}>{SOCIAL_LABEL[key]}</label>
-                  <input
-                    id={`social-${key}`}
-                    name={key}
-                    type="text"
-                    defaultValue={value}
-                    placeholder={SOCIAL_HINT[key]}
-                    className={styles.input}
-                  />
-                  <small>
-                    {resolved ? (
-                      <>
-                        đang hiển thị:{" "}
-                        <a href={resolved} target="_blank" rel="noopener noreferrer">
-                          {resolved}
-                        </a>
-                      </>
-                    ) : (
-                      "chưa cấu hình – icon bị ẩn"
-                    )}
-                  </small>
-                </div>
-              );
-            })}
-          </div>
-          <div className={styles.formActions}>
-            <button type="submit" className={styles.button}>
-              Lưu mạng xã hội
-            </button>
-          </div>
-        </form>
-      </section>
+      <KhoiKenh
+        tieuDe="Kênh mảng giáo dục"
+        moTa="Dùng cho trang chính và toàn bộ khu Đào tạo: cột icon dọc bên phải màn hình, chân trang và trang liên hệ. Kênh nào để trống thì icon tương ứng biến mất."
+        giaTri={social}
+        action={saveSocial}
+        tienTo="social"
+      />
+
+      <KhoiKenh
+        tieuDe="Kênh mảng khách sạn – du lịch"
+        moTa="Bộ tài khoản riêng của khu Đầu tư – Khách sạn & Lữ hành. Để trống thì cột icon bên phải của khu ấy không hiện, chứ không mượn kênh của mảng giáo dục."
+        giaTri={socialVenture}
+        action={saveSocialVenture}
+        tienTo="social-venture"
+      />
 
       <section className={styles.panel}>
         <h2>Thông tin liên hệ</h2>
@@ -103,7 +153,12 @@ export default async function SettingsPage() {
             </div>
             <div className={styles.field}>
               <label htmlFor="phone">Điện thoại (hiển thị)</label>
-              <input id="phone" name="phone" defaultValue={contact.phone} className={styles.input} />
+              <input
+                id="phone"
+                name="phone"
+                defaultValue={contact.phone}
+                className={styles.input}
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor="phoneE164">Điện thoại dạng quốc tế</label>
@@ -127,7 +182,12 @@ export default async function SettingsPage() {
             </div>
             <div className={styles.field}>
               <label htmlFor="email">Email</label>
-              <input id="email" name="email" defaultValue={contact.email} className={styles.input} />
+              <input
+                id="email"
+                name="email"
+                defaultValue={contact.email}
+                className={styles.input}
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor="website">Website</label>
@@ -205,30 +265,63 @@ export default async function SettingsPage() {
           <div className={styles.fieldGrid} style={{ marginTop: "var(--s-4)" }}>
             <div className={styles.field}>
               <label htmlFor="titleVi">Tiêu đề mặc định — VI</label>
-              <input id="titleVi" name="titleVi" defaultValue={seo.defaultTitle.vi} className={styles.input} />
+              <input
+                id="titleVi"
+                name="titleVi"
+                defaultValue={seo.defaultTitle.vi}
+                className={styles.input}
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor="titleEn">EN</label>
-              <input id="titleEn" name="titleEn" defaultValue={seo.defaultTitle.en ?? ""} className={styles.input} />
+              <input
+                id="titleEn"
+                name="titleEn"
+                defaultValue={seo.defaultTitle.en ?? ""}
+                className={styles.input}
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor="titleDe">DE</label>
-              <input id="titleDe" name="titleDe" defaultValue={seo.defaultTitle.de ?? ""} className={styles.input} />
+              <input
+                id="titleDe"
+                name="titleDe"
+                defaultValue={seo.defaultTitle.de ?? ""}
+                className={styles.input}
+              />
             </div>
           </div>
 
           <div className={styles.fieldGrid} style={{ marginTop: "var(--s-4)" }}>
             <div className={styles.field}>
               <label htmlFor="descVi">Mô tả mặc định — VI</label>
-              <textarea id="descVi" name="descVi" rows={3} defaultValue={seo.defaultDescription.vi} className={styles.textarea} />
+              <textarea
+                id="descVi"
+                name="descVi"
+                rows={3}
+                defaultValue={seo.defaultDescription.vi}
+                className={styles.textarea}
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor="descEn">EN</label>
-              <textarea id="descEn" name="descEn" rows={3} defaultValue={seo.defaultDescription.en ?? ""} className={styles.textarea} />
+              <textarea
+                id="descEn"
+                name="descEn"
+                rows={3}
+                defaultValue={seo.defaultDescription.en ?? ""}
+                className={styles.textarea}
+              />
             </div>
             <div className={styles.field}>
               <label htmlFor="descDe">DE</label>
-              <textarea id="descDe" name="descDe" rows={3} defaultValue={seo.defaultDescription.de ?? ""} className={styles.textarea} />
+              <textarea
+                id="descDe"
+                name="descDe"
+                rows={3}
+                defaultValue={seo.defaultDescription.de ?? ""}
+                className={styles.textarea}
+              />
             </div>
           </div>
 
