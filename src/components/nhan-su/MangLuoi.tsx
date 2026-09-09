@@ -139,9 +139,26 @@ export function MangLuoi({
           ))}
         </svg>
 
-        {/* Tâm: tập đoàn */}
+        {/*
+          Tâm: logo tập đoàn.
+
+          Dùng bản DỌC của logo (`-doc.svg`) chứ không phải bản ngang: nút tâm
+          là hình tròn, mà logo ngang đặt vào đó chỉ lấp được một dải giữa vòng,
+          hai đầu trên dưới trống hoác. Cùng lý do như nút tâm của sơ đồ hệ sinh
+          thái ở trang Giới thiệu.
+
+          `unoptimized` vì đây là SVG: cho qua bộ tối ưu ảnh của Next chỉ tốn
+          một vòng xử lý mà không nhỏ đi được byte nào.
+        */}
         <div className={`${styles.nut} ${styles.nutTam}`} style={{ left: "50%", top: "50%" }}>
-          <span className={styles.tamChu}>{nhanTam}</span>
+          <Image
+            src="/brand/viet-duc-group-doc.svg"
+            alt={nhanTam}
+            width={220}
+            height={220}
+            unoptimized
+            className={styles.tamLogo}
+          />
         </div>
 
         {/* Vòng đơn vị */}

@@ -151,9 +151,9 @@ export const PEOPLE: SeedPerson[] = [
     name: "Phạm Văn Tùng",
     honorific: null,
     birthYear: 1981,
-    headline: { vi: "Hiệu trưởng Trường Trung cấp Công nghệ Việt Đức" },
+    headline: { vi: "Thành viên HĐQT – Phó Tổng Giám đốc Tập đoàn Việt Đức" },
     schoolSlug: "trung-cap-cong-nghe-viet-duc",
-    order: 2,
+    order: 3,
     bio: {
       vi: "Nhà giáo và cán bộ quản lý giáo dục có hơn hai thập kỷ kinh nghiệm, trưởng thành từ thực tiễn giảng dạy và quản trị ở nhiều mô hình đào tạo. Nền tảng Sư phạm Sinh học, kinh nghiệm giáo dục thường xuyên và giáo dục nghề nghiệp giúp ông xây dựng phong cách quản lý kỷ cương, thực chất, gần người học và chú trọng hiệu quả vận hành.",
     },
@@ -236,10 +236,10 @@ export const PEOPLE: SeedPerson[] = [
     honorific: "PGS.TS.",
     birthYear: 1959,
     headline: {
-      vi: "Phó Chủ tịch Hội đồng trường Trường Trung cấp Nghề Quốc tế",
+      vi: "Trưởng Ban Kiểm soát Tập đoàn Việt Đức – Phó Chủ tịch Tập đoàn Việt Đức",
     },
-    schoolSlug: "trung-cap-nghe-quoc-te-ivs",
-    order: 3,
+    schoolSlug: null,
+    order: 2,
     bio: {
       vi: "Nhà quản lý giáo dục có nền tảng pháp luật chuyên sâu, kinh nghiệm lãnh đạo tại Học viện Cảnh sát nhân dân và quản trị cơ sở giáo dục nghề nghiệp; chú trọng kỷ cương, chất lượng và hiệu quả phát triển bền vững.",
     },
@@ -360,8 +360,20 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Phát huy kinh nghiệm quản lý, nền tảng pháp luật và tư duy kỷ cương để xây dựng môi trường giáo dục chất lượng, trách nhiệm và bền vững.",
     },
     appointments: [
-      { school: null, org: { vi: "Việt Đức Group" }, body: "hdqt", title: { vi: "Phó Chủ tịch Hội đồng quản trị" }, rank: 20 },
-      { school: null, org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" }, body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
+      {
+        school: null,
+        org: { vi: "Việt Đức Group" },
+        body: "hdqt",
+        title: { vi: "Phó Chủ tịch Hội đồng quản trị" },
+        rank: 20,
+      },
+      {
+        school: null,
+        org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
       {
         school: "trung-cap-nghe-quoc-te-ivs",
         body: "hdt",
@@ -1166,7 +1178,9 @@ export const PEOPLE: SeedPerson[] = [
     name: "Nguyễn Thị Như Ngọc",
     honorific: null,
     birthYear: 1999,
-    headline: { vi: "Regional Director for Europe, NIBELC Group" },
+    headline: {
+      vi: "Giám đốc NIBELC Manpower Kft (Hungary) – Regional Director for Europe, NIBELC Group",
+    },
     schoolSlug: "cao-dang-cong-nghe-ngoai-thuong",
     order: 14,
     bio: {
@@ -1181,6 +1195,11 @@ export const PEOPLE: SeedPerson[] = [
       ],
     },
     education: [
+      {
+        text: {
+          vi: "Thạc sĩ Kinh tế – Buckingham University (Vương quốc Anh)",
+        },
+      },
       { text: { vi: "Cử nhân Luật học – Học viện Tòa án." } },
       {
         text: {
@@ -1241,7 +1260,9 @@ export const PEOPLE: SeedPerson[] = [
         school: null,
         org: { vi: "NIBELC Group" },
         body: "khac",
-        title: { vi: "Regional Director for Europe" },
+        title: {
+          vi: "Giám đốc NIBELC Manpower Kft (Hungary) – Regional Director for Europe",
+        },
         rank: 60,
       },
     ],
@@ -1334,7 +1355,7 @@ export const PEOPLE: SeedPerson[] = [
     honorific: null,
     birthYear: 1980,
     headline: {
-      vi: "Trưởng Ban Kiểm soát hệ thống các trường GDNN thuộc Việt Đức Group",
+      vi: "Phó Thường trực Ban Kiểm soát Tập đoàn Việt Đức – Thành viên HĐQT Tập đoàn",
     },
     schoolSlug: null,
     order: 16,
@@ -1386,17 +1407,74 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Quản trị con người và nguồn lực phải đi cùng kỷ luật tài chính, phân công rõ ràng và nâng cao năng lực chuyên môn của đội ngũ.",
     },
     appointments: [
-      { school: null, org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" }, body: "bks", title: { vi: "Phó Thường trực Ban Kiểm soát" }, rank: 20 },
-      { school: "cao-dang-cong-nghe-ngoai-thuong", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
-      { school: "trung-cap-nghe-quoc-te-ivs", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
-      { school: "trung-cap-bach-khoa-vung-tau", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
-      { school: "trung-cap-viet-han", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
-      { school: "trung-cap-cong-nghe-viet-duc", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
-      { school: "itw-berlin", body: "bks", title: { vi: "Trưởng Ban Kiểm soát" }, rank: 10 },
-      { school: "trung-cap-bach-khoa-vung-tau", body: "hdt", title: { vi: "Thư ký Hội đồng trường" }, rank: 30 },
-      { school: "trung-cap-cong-nghe-viet-duc", body: "hdt", title: { vi: "Thư ký Hội đồng trường" }, rank: 30 },
-      { school: "trung-cap-nghe-quoc-te-ivs", body: "hdt", title: { vi: "Thành viên Hội đồng trường" }, rank: 40 },
-      { school: null, org: { vi: "Công ty Cổ phần Nền móng Hạ tầng và Cơ khí Xây dựng" }, body: "khac", title: { vi: "Giám đốc" }, rank: 60 },
+      {
+        school: null,
+        org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
+        body: "bks",
+        title: { vi: "Phó Thường trực Ban Kiểm soát" },
+        rank: 20,
+      },
+      {
+        school: "cao-dang-cong-nghe-ngoai-thuong",
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
+      {
+        school: "trung-cap-nghe-quoc-te-ivs",
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
+      {
+        school: "trung-cap-bach-khoa-vung-tau",
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
+      {
+        school: "trung-cap-viet-han",
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
+      {
+        school: "trung-cap-cong-nghe-viet-duc",
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
+      {
+        school: "itw-berlin",
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
+      {
+        school: "trung-cap-bach-khoa-vung-tau",
+        body: "hdt",
+        title: { vi: "Thư ký Hội đồng trường" },
+        rank: 30,
+      },
+      {
+        school: "trung-cap-cong-nghe-viet-duc",
+        body: "hdt",
+        title: { vi: "Thư ký Hội đồng trường" },
+        rank: 30,
+      },
+      {
+        school: "trung-cap-nghe-quoc-te-ivs",
+        body: "hdt",
+        title: { vi: "Thành viên Hội đồng trường" },
+        rank: 40,
+      },
+      {
+        school: null,
+        org: { vi: "Công ty Cổ phần Nền móng Hạ tầng và Cơ khí Xây dựng" },
+        body: "khac",
+        title: { vi: "Giám đốc" },
+        rank: 60,
+      },
     ],
   },
   {
@@ -1448,13 +1526,49 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Tăng cường tính minh bạch, chuẩn hóa quy trình và hỗ trợ hệ thống vận hành hiệu quả trên cơ sở dữ liệu chính xác.",
     },
     appointments: [
-      { school: null, org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" }, body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "cao-dang-cong-nghe-ngoai-thuong", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "trung-cap-nghe-quoc-te-ivs", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "trung-cap-bach-khoa-vung-tau", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "trung-cap-viet-han", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "trung-cap-cong-nghe-viet-duc", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "itw-berlin", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      {
+        school: null,
+        org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "cao-dang-cong-nghe-ngoai-thuong",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "trung-cap-nghe-quoc-te-ivs",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "trung-cap-bach-khoa-vung-tau",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "trung-cap-viet-han",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "trung-cap-cong-nghe-viet-duc",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "itw-berlin",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
     ],
   },
   {
@@ -1518,41 +1632,216 @@ export const PEOPLE: SeedPerson[] = [
       vi: "Kiểm soát hiệu quả không chỉ là phát hiện sai lệch, mà còn là tạo nền tảng để hệ thống vận hành minh bạch, thống nhất và bền vững.",
     },
     appointments: [
-      { school: "trung-cap-nghe-quoc-te-ivs", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      {
+        school: "trung-cap-nghe-quoc-te-ivs",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
     ],
   },
-  /*
-   * Trần Thị Lan — người duy nhất trong cơ cấu KHÔNG có hồ sơ trong bộ tài liệu
-   * tháng 9/2026, nên chỉ có tên và chức vụ. Không bịa thêm tiểu sử, học vấn
-   * hay câu trích dẫn: thà một thẻ ngắn mà đúng còn hơn một hồ sơ đầy đủ mà
-   * bịa. Khi tập đoàn gửi hồ sơ và ảnh thì bổ sung vào đây rồi chạy lại
-   * `npm run media:nhan-su` — ảnh tự nhận theo slug, không phải khai thêm dòng
-   * nào.
-   */
   {
     slug: "tran-thi-lan",
     name: "Trần Thị Lan",
     honorific: null,
-    birthYear: null,
-    headline: { vi: "Phụ trách hành chính – pháp lý Việt Đức Group" },
+    birthYear: 1995,
+    headline: { vi: "Phụ trách Hành chính – Pháp lý Tập đoàn Việt Đức" },
     schoolSlug: null,
     order: 19,
-    bio: null,
-    quote: null,
-    overview: { vi: [] },
-    education: [],
-    competencies: [],
+    bio: {
+      vi: "Trần Thị Lan là cán bộ phụ trách hành chính pháp lý có nền tảng đào tạo Luật và kinh nghiệm thực tiễn trong công tác hành chính, pháp lý doanh nghiệp và hỗ trợ hoạt động của các cơ sở thuộc hệ thống giáo dục nghề nghiệp.",
+    },
+    quote: {
+      vi: "Chuẩn hóa quy trình – kiểm soát pháp lý – đồng hành cùng vận hành hiệu quả.",
+    },
+    overview: {
+      vi: [
+        "Trần Thị Lan là cán bộ phụ trách hành chính pháp lý có nền tảng đào tạo Luật và kinh nghiệm thực tiễn trong công tác hành chính, pháp lý doanh nghiệp và hỗ trợ hoạt động của các cơ sở thuộc hệ thống giáo dục nghề nghiệp. Công việc tập trung vào tính tuân thủ, tính hệ thống và khả năng phối hợp giữa pháp lý với vận hành.",
+        "Ở vai trò hiện nay, Trần Thị Lan tập trung hỗ trợ hệ thống về hành chính, hồ sơ pháp lý, chuẩn hóa văn bản và phối hợp xử lý các yêu cầu tuân thủ phát sinh trong hoạt động của doanh nghiệp và các đơn vị giáo dục nghề nghiệp.",
+      ],
+    },
+    education: [
+      { text: { vi: "Cử nhân Luật – Hệ dân sự, Học viện An ninh Nhân dân" } },
+      { text: { vi: "Kinh nghiệm hành chính – pháp lý doanh nghiệp" } },
+      {
+        text: {
+          vi: "Kinh nghiệm hỗ trợ pháp lý trong hệ thống các cơ sở giáo dục nghề nghiệp",
+        },
+      },
+    ],
+    competencies: [
+      {
+        title: { vi: "HÀNH CHÍNH – PHÁP LÝ DOANH NGHIỆP" },
+        text: {
+          vi: "Phối hợp hồ sơ, văn bản, thủ tục và công việc pháp lý phục vụ vận hành doanh nghiệp.",
+        },
+      },
+      {
+        title: { vi: "TUÂN THỦ & KIỂM SOÁT HỒ SƠ" },
+        text: {
+          vi: "Chú trọng tính đầy đủ, nhất quán, đúng thẩm quyền và khả năng truy xuất của tài liệu.",
+        },
+      },
+      {
+        title: { vi: "PHÁP LÝ TRONG GIÁO DỤC NGHỀ NGHIỆP" },
+        text: {
+          vi: "Có kinh nghiệm làm việc với các nội dung hành chính – pháp lý liên quan đến các trường thuộc hệ thống GDNN.",
+        },
+      },
+      {
+        title: { vi: "QUẢN TRỊ VĂN BẢN & QUY TRÌNH" },
+        text: {
+          vi: "Hướng tới chuẩn hóa biểu mẫu, hồ sơ, luồng phê duyệt và lưu trữ thông tin.",
+        },
+      },
+    ],
     career: [],
     highlights: { vi: [] },
-    focus: { vi: [] },
-    direction: null,
+    focus: {
+      vi: [
+        "Chuẩn hóa hồ sơ hành chính – pháp lý, bảo đảm sự thống nhất giữa các đơn vị trong hệ thống.",
+        "Theo dõi, rà soát và hỗ trợ hoàn thiện văn bản, hồ sơ, thủ tục phục vụ hoạt động quản trị và vận hành.",
+        "Hỗ trợ các cơ sở GDNN trong các công việc hành chính – pháp lý theo phạm vi được phân công.",
+        "Tăng cường phối hợp giữa pháp lý, hành chính và các bộ phận nghiệp vụ nhằm giảm rủi ro và rút ngắn thời gian xử lý.",
+      ],
+    },
+    direction: {
+      vi: "Trần Thị Lan định hướng phát triển chuyên môn theo hướng kết hợp chặt chẽ giữa pháp lý, hành chính và quản trị hệ thống. Trọng tâm là nâng cao năng lực kiểm soát tuân thủ, chuẩn hóa quy trình, quản trị hồ sơ và hỗ trợ các đơn vị vận hành trên nền tảng pháp lý rõ ràng, nhất quán và hiệu quả.",
+    },
     appointments: [
-      { school: null, org: { vi: "Việt Đức Group" }, body: "dieuhanh", title: { vi: "Phụ trách hành chính – pháp lý" }, rank: 40 },
-      { school: "cao-dang-cong-nghe-ngoai-thuong", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "trung-cap-bach-khoa-vung-tau", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "trung-cap-viet-han", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "trung-cap-cong-nghe-viet-duc", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
-      { school: "itw-berlin", body: "bks", title: { vi: "Thành viên Ban Kiểm soát" }, rank: 40 },
+      {
+        school: null,
+        org: { vi: "Việt Đức Group" },
+        body: "dieuhanh",
+        title: { vi: "Phụ trách Hành chính – Pháp lý" },
+        rank: 40,
+      },
+      {
+        school: "cao-dang-cong-nghe-ngoai-thuong",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "trung-cap-bach-khoa-vung-tau",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "trung-cap-viet-han",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "trung-cap-cong-nghe-viet-duc",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
+        school: "itw-berlin",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+    ],
+  },
+  {
+    slug: "nguyen-duc-tinh",
+    name: "Nguyễn Đức Tịnh",
+    honorific: "ThS.",
+    birthYear: 1959,
+    headline: {
+      vi: "Thành viên Hội đồng trường Trường Cao đẳng Công nghệ Ngoại thương",
+    },
+    schoolSlug: "cao-dang-cong-nghe-ngoai-thuong",
+    order: 20,
+    bio: {
+      vi: "Nhà giáo có nền tảng chuyên môn Toán học, hơn bốn thập niên gắn với môi trường giáo dục, quản trị và đào tạo; kinh nghiệm kết hợp giữa giảng dạy đại học, quản trị doanh nghiệp và quản trị cơ sở giáo dục.",
+    },
+    quote: {
+      vi: "Giáo dục bền vững bắt đầu từ nền tảng chuyên môn, kinh nghiệm thực tiễn và trách nhiệm với người học.",
+    },
+    overview: {
+      vi: [
+        "Nền tảng chuyên môn Toán học kết hợp kinh nghiệm quản lý và giảng dạy lâu năm tạo nên góc nhìn hệ thống, kỷ luật và thực tiễn trong giáo dục.",
+        "Với nền tảng chuyên môn sư phạm, kinh nghiệm quản trị và quá trình công tác lâu năm trong giáo dục, ThS. Nguyễn Đức Tịnh có điều kiện đóng góp góc nhìn thực tiễn vào hoạt động của Hội đồng trường, đặc biệt ở các nội dung liên quan đến chất lượng đào tạo, quản trị và phát triển đội ngũ.",
+      ],
+    },
+    education: [
+      { text: { vi: "Thạc sĩ – Đại học Trà Vinh" } },
+      {
+        text: {
+          vi: "Đại học Sư phạm, chuyên ngành Toán – Đại học Sư phạm Huế",
+        },
+      },
+      {
+        text: {
+          vi: "Chứng chỉ phương pháp giảng dạy đại học – Viện Giáo dục cấp",
+        },
+      },
+      { text: { vi: "Chứng chỉ quản lý – Tổng cục Giáo dục nghề nghiệp cấp" } },
+    ],
+    competencies: [
+      {
+        title: { vi: "NỀN TẢNG TOÁN HỌC" },
+        text: {
+          vi: "Tư duy logic, hệ thống; giảng dạy Giải tích, Xác suất thống kê và Quy hoạch tuyến tính.",
+        },
+      },
+      {
+        title: { vi: "GIẢNG DẠY" },
+        text: { vi: "Kinh nghiệm giảng dạy đại học và giáo dục nghề nghiệp." },
+      },
+      {
+        title: { vi: "QUẢN TRỊ" },
+        text: {
+          vi: "Kinh nghiệm quản trị doanh nghiệp và quản trị cơ sở giáo dục.",
+        },
+      },
+      {
+        title: { vi: "KẾT NỐI CHUYÊN MÔN" },
+        text: {
+          vi: "Khả năng kết nối chuyên môn, quản lý và thực tiễn đào tạo.",
+        },
+      },
+    ],
+    career: [
+      {
+        time: "Hiện nay",
+        role: { vi: "Thành viên Hội đồng trường" },
+        org: { vi: "Trường Cao đẳng Công nghệ Ngoại thương" },
+      },
+    ],
+    highlights: {
+      vi: [
+        "Hơn bốn thập niên gắn với môi trường giáo dục, quản trị và đào tạo.",
+        "Kinh nghiệm kết hợp giữa giảng dạy đại học, quản trị doanh nghiệp và quản trị cơ sở giáo dục.",
+        "2016: Bằng khen của Ủy ban nhân dân Thành phố Đà Nẵng.",
+        "2020: Giấy khen của Ủy ban nhân dân Thành phố Đà Nẵng.",
+      ],
+    },
+    focus: {
+      vi: [
+        "Đồng hành nâng cao chất lượng đào tạo gắn với chuẩn đầu ra và nhu cầu thực tiễn.",
+        "Góp phần hoàn thiện quản trị nhà trường theo hướng kỷ cương, hiệu quả và bền vững.",
+        "Chia sẻ kinh nghiệm chuyên môn, quản lý và giảng dạy cho đội ngũ giáo viên, giảng viên.",
+        "Thúc đẩy môi trường học tập coi trọng tư duy, năng lực nghề nghiệp và trách nhiệm xã hội.",
+      ],
+    },
+    direction: {
+      vi: "Tri thức tạo nền tảng – Kinh nghiệm tạo chiều sâu – Trách nhiệm tạo giá trị.",
+    },
+    appointments: [
+      {
+        school: "cao-dang-cong-nghe-ngoai-thuong",
+        body: "hdt",
+        title: { vi: "Thành viên Hội đồng trường" },
+        rank: 40,
+        term: "2026–2031",
+      },
     ],
   },
 ];

@@ -18,7 +18,14 @@ import sharp from "sharp";
  * Chạy: npm run media:nhan-su
  */
 
-const GOC = "E:/Works/itw/VD/CƠ CẤU NHÂN SỰ VIỆT ĐỨC GROUP";
+/*
+ * Hai thư mục nguồn: bộ hồ sơ gốc, và thư mục bổ sung cho những người tập
+ * đoàn gửi thêm sau. Quét cả hai để không phải nhớ chép tệp qua lại.
+ */
+const GOC = [
+  "E:/Works/itw/VD/CƠ CẤU NHÂN SỰ VIỆT ĐỨC GROUP",
+  "E:/Works/itw/VD/bo sung",
+];
 const RA = path.resolve(process.cwd(), "public/media/people");
 
 /**
@@ -46,6 +53,8 @@ const THEO_HASH: Record<string, string> = {
   "7b79f0da0822": "nguyen-thi-nhu-ngoc",
   f0e34c8c33f2: "nguyen-van-linh",
   b7eaf21574e3: "le-cong-hoa",
+  "7c1f1af0a09d": "nguyen-duc-tinh",
+  d65200bf777d: "tran-thi-lan",
 };
 
 function duyet(thuMuc: string): string[] {
@@ -59,8 +68,9 @@ function duyet(thuMuc: string): string[] {
 }
 
 async function main() {
-  if (!fs.existsSync(GOC)) {
-    console.error(`Khong thay thu muc nguon: ${GOC}`);
+  const coMat = GOC.filter((g) => fs.existsSync(g));
+  if (!coMat.length) {
+    console.error(`Khong thay thu muc nguon nao: ${GOC.join(", ")}`);
     process.exit(1);
   }
   fs.mkdirSync(RA, { recursive: true });
@@ -69,7 +79,7 @@ async function main() {
   let ghi = 0;
   const chuaBiet: string[] = [];
 
-  for (const tep of duyet(GOC)) {
+  for (const tep of coMat.flatMap((g) => duyet(g))) {
     let media: { co: number; ten: string }[] = [];
     try {
       media = execFileSync("unzip", ["-l", tep], { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 })

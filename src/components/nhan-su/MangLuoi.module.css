@@ -166,13 +166,13 @@
   width: clamp(6rem, 13%, 9rem);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle at 38% 32%, #b8303f, #7c1a26 70%);
+  background: radial-gradient(circle at 38% 32%, rgba(184, 48, 63, 0.92), rgba(88, 18, 27, 0.96) 72%);
   border: 1px solid rgba(240, 201, 122, 0.55);
   box-shadow:
     0 0 0 6px rgba(142, 31, 45, 0.18),
     0 0 46px rgba(190, 60, 74, 0.45);
   animation: tho 7s ease-in-out infinite;
-  padding: 0.5rem;
+  padding: 0.4rem;
   text-align: center;
 }
 
@@ -347,4 +347,17 @@
   border-radius: 50%;
   object-fit: cover;
   object-position: 50% 16%;
+}
+
+/*
+ * Logo ở tâm mạng lưới.
+ *
+ * Lấy 78% đường kính đĩa: logo dọc gần vuông nên ở cỡ này nó lấp đầy vòng mà
+ * vẫn chừa một viền thở, không chạm sát mép. Có bóng đổ nhẹ để logo không chìm
+ * vào nền đỏ của đĩa.
+ */
+.tamLogo {
+  width: 78%;
+  height: auto;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.45));
 }

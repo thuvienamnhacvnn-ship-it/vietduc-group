@@ -1,4 +1,9 @@
-import { fromProfileVi, type SeedCategory, type SeedDocument, type SeedSchool } from "./types";
+import {
+  fromProfileVi,
+  type SeedCategory,
+  type SeedDocument,
+  type SeedSchool,
+} from "./types";
 
 /** The four distinct source PDFs. Two of the six files on disk are byte-identical duplicates. */
 export const DOCUMENTS: SeedDocument[] = [
@@ -97,7 +102,14 @@ export const CATEGORIES: SeedCategory[] = [
   {
     slug: "cong-nghe-thong-tin",
     order: 2,
-    name: { vi: "Công nghệ thông tin", en: "Information technology", de: "Informationstechnik", ja: "情報技術", ko: "정보기술", "zh-TW": "資訊科技" },
+    name: {
+      vi: "Công nghệ thông tin",
+      en: "Information technology",
+      de: "Informationstechnik",
+      ja: "情報技術",
+      ko: "정보기술",
+      "zh-TW": "資訊科技",
+    },
     description: {
       vi: "Phát triển phần mềm, quản trị mạng, thiết kế đồ họa và hệ thống thông tin.",
       en: "Software, network administration, graphic design and information systems.",
@@ -110,7 +122,14 @@ export const CATEGORIES: SeedCategory[] = [
   {
     slug: "kinh-te-quan-tri",
     order: 3,
-    name: { vi: "Kinh tế – Quản trị", en: "Business & management", de: "Wirtschaft & Management", ja: "経営・ビジネス", ko: "경영·비즈니스", "zh-TW": "商業與管理" },
+    name: {
+      vi: "Kinh tế – Quản trị",
+      en: "Business & management",
+      de: "Wirtschaft & Management",
+      ja: "経営・ビジネス",
+      ko: "경영·비즈니스",
+      "zh-TW": "商業與管理",
+    },
     description: {
       vi: "Kinh doanh, kế toán, tài chính, logistics, marketing và quản trị doanh nghiệp.",
       en: "Business, accounting, finance, logistics, marketing and enterprise management.",
@@ -123,7 +142,14 @@ export const CATEGORIES: SeedCategory[] = [
   {
     slug: "du-lich-dich-vu",
     order: 4,
-    name: { vi: "Du lịch – Dịch vụ", en: "Tourism & hospitality", de: "Tourismus & Gastgewerbe", ja: "観光・ホスピタリティ", ko: "관광·서비스", "zh-TW": "觀光與服務" },
+    name: {
+      vi: "Du lịch – Dịch vụ",
+      en: "Tourism & hospitality",
+      de: "Tourismus & Gastgewerbe",
+      ja: "観光・ホスピタリティ",
+      ko: "관광·서비스",
+      "zh-TW": "觀光與服務",
+    },
     description: {
       vi: "Lữ hành, khách sạn, nhà hàng, chế biến món ăn và nghiệp vụ dịch vụ.",
       en: "Travel, hotels, restaurants, culinary arts and service operations.",
@@ -136,7 +162,14 @@ export const CATEGORIES: SeedCategory[] = [
   {
     slug: "ngon-ngu",
     order: 5,
-    name: { vi: "Ngôn ngữ", en: "Languages", de: "Sprachen", ja: "語学", ko: "어학", "zh-TW": "語言" },
+    name: {
+      vi: "Ngôn ngữ",
+      en: "Languages",
+      de: "Sprachen",
+      ja: "語学",
+      ko: "어학",
+      "zh-TW": "語言",
+    },
     description: {
       vi: "Tiếng Anh, Đức, Hàn, Nhật, Trung và biên – phiên dịch chuyên ngành.",
       en: "English, German, Korean, Japanese, Chinese and specialised interpreting.",
@@ -149,7 +182,14 @@ export const CATEGORIES: SeedCategory[] = [
   {
     slug: "cham-soc-suc-khoe",
     order: 6,
-    name: { vi: "Chăm sóc sức khỏe & sắc đẹp", en: "Health & beauty care", de: "Gesundheit & Schönheitspflege", ja: "健康・美容", ko: "건강·미용", "zh-TW": "健康與美容" },
+    name: {
+      vi: "Chăm sóc sức khỏe & sắc đẹp",
+      en: "Health & beauty care",
+      de: "Gesundheit & Schönheitspflege",
+      ja: "健康・美容",
+      ko: "건강·미용",
+      "zh-TW": "健康與美容",
+    },
     description: {
       vi: "Chăm sóc sắc đẹp và các nghề chăm sóc con người.",
       en: "Beauty care and personal-care occupations.",
@@ -162,7 +202,14 @@ export const CATEGORIES: SeedCategory[] = [
   {
     slug: "su-pham",
     order: 7,
-    name: { vi: "Sư phạm", en: "Teacher training", de: "Pädagogik", ja: "教員養成", ko: "교원 양성", "zh-TW": "師資培育" },
+    name: {
+      vi: "Sư phạm",
+      en: "Teacher training",
+      de: "Pädagogik",
+      ja: "教員養成",
+      ko: "교원 양성",
+      "zh-TW": "師資培育",
+    },
     description: {
       vi: "Giáo dục mầm non và giáo dục tiểu học trình độ trung cấp.",
       en: "Pre-school and primary teaching at intermediate level.",
@@ -175,12 +222,26 @@ export const CATEGORIES: SeedCategory[] = [
   {
     slug: "truyen-thong",
     order: 8,
-    name: { vi: "Báo chí – Truyền thông", en: "Journalism & media", de: "Journalismus & Medien", ja: "ジャーナリズム・メディア", ko: "언론·미디어", "zh-TW": "新聞與傳播" },
+    name: {
+      vi: "Báo chí – Truyền thông",
+      en: "Journalism & media",
+      de: "Journalismus & Medien",
+      ja: "ジャーナリズム・メディア",
+      ko: "언론·미디어",
+      "zh-TW": "新聞與傳播",
+    },
   },
   {
     slug: "luat-hanh-chinh",
     order: 9,
-    name: { vi: "Luật – Hành chính", en: "Law & administration", de: "Recht & Verwaltung", ja: "法律・行政", ko: "법률·행정", "zh-TW": "法律與行政" },
+    name: {
+      vi: "Luật – Hành chính",
+      en: "Law & administration",
+      de: "Recht & Verwaltung",
+      ja: "法律・行政",
+      ko: "법률·행정",
+      "zh-TW": "法律與行政",
+    },
   },
 ];
 
@@ -196,7 +257,13 @@ export const SCHOOLS: SeedSchool[] = [
       ko: "무역기술전문대학",
       "zh-TW": "外貿科技專科學校",
     },
-    shortName: { vi: "Cao đẳng Công nghệ Ngoại thương", en: "Foreign Trade Technology College", ja: "貿易技術短期大学", ko: "무역기술전문대학", "zh-TW": "外貿科技專科學校" },
+    shortName: {
+      vi: "Cao đẳng Công nghệ Ngoại thương",
+      en: "Foreign Trade Technology College",
+      ja: "貿易技術短期大学",
+      ko: "무역기술전문대학",
+      "zh-TW": "外貿科技專科學校",
+    },
     tagline: {
       vi: "Hội nhập – Sáng tạo – Thành công",
       en: "Integration – Creativity – Success",
@@ -211,14 +278,22 @@ export const SCHOOLS: SeedSchool[] = [
       de: "Das Foreign Trade Technology College gehört zum Verbund der Viet Duc Group. Sein Auftrag ist die Ausbildung hoch qualifizierter Fachkräfte mit innovativem Denken und praktischer Anwendungsfähigkeit – für die persönliche Entwicklung der Lernenden und für Fachkräfte, die die internationale Integration des Landes tragen.",
       ja: "貿易技術短期大学は Viet Duc Group に属する教育機関です。高い技能をもち、創造的で発想の枠を越え、研究を実務に生かせる人材を育てること、学びの機会と全人的な成長を届けて成功へ導くこと、そして国際化を支える人材の育成に寄与することを使命としています。",
       ko: "무역기술전문대학은 Viet Duc Group에 속한 교육 기관입니다. 높은 기능을 갖추고 창의적으로 사고하며 연구를 실무에 적용할 수 있는 인재를 길러 내고, 배움의 기회와 전인적 성장을 제공하여 성공으로 이끌며, 국제화를 뒷받침할 인재 양성에 이바지하는 것을 사명으로 삼습니다.",
-      "zh-TW": "外貿科技專科學校為 Viet Duc Group 體系內的教育機構，以培育技術精湛、思維創新且能將研究應用於實務的人才為使命，提供學習機會與全人發展，引領學子邁向成功，並為國際化所需的人力培育貢獻力量。",
+      "zh-TW":
+        "外貿科技專科學校為 Viet Duc Group 體系內的教育機構，以培育技術精湛、思維創新且能將研究應用於實務的人才為使命，提供學習機會與全人發展，引領學子邁向成功，並為國際化所需的人力培育貢獻力量。",
     },
     legalNameEn: "Foreign Trade & Technology College",
-    city: { vi: "Đà Nẵng", en: "Da Nang", de: "Da Nang", ja: "ダナン", ko: "다낭", "zh-TW": "峴港" },
-    address: "Số 42–46 Phan Châu Trinh, phường Hải Châu, thành phố Đà Nẵng",
-    phone: "0818 42 44 46",
-    email: "ngoaithuongeducation@gmail.com",
-    website: "http://www.ntg.edu.vn",
+    city: {
+      vi: "Đà Nẵng",
+      en: "Da Nang",
+      de: "Da Nang",
+      ja: "ダナン",
+      ko: "다낭",
+      "zh-TW": "峴港",
+    },
+    address: "Số 42-44-46 Phan Châu Trinh, phường Hải Châu, thành phố Đà Nẵng",
+    phone: "0799 090 988 – 0899 944 101",
+    email: "tuyensinh@ngoaithuongcollege.edu.vn",
+    website: "https://ngoaithuongcollege.edu.vn",
     coverPath: "/media/schools/cao-dang-cong-nghe-ngoai-thuong.webp",
     logoPath: "/media/schools/logos/cao-dang-cong-nghe-ngoai-thuong.webp",
     highlights: {
@@ -240,10 +315,22 @@ export const SCHOOLS: SeedSchool[] = [
     },
     legalRefs: [
       {
-        label: { vi: "Quyết định thành lập Trường Cao đẳng Lạc Việt", en: "Decision establishing Lac Viet College", ja: "ラクヴィエット短期大学の設立決定", ko: "락비엣 전문대학 설립 결정", "zh-TW": "設立雒越專科學校之決定" },
+        label: {
+          vi: "Quyết định thành lập Trường Cao đẳng Lạc Việt",
+          en: "Decision establishing Lac Viet College",
+          ja: "ラクヴィエット短期大学の設立決定",
+          ko: "락비엣 전문대학 설립 결정",
+          "zh-TW": "設立雒越專科學校之決定",
+        },
         number: "5996/QĐ-BGDĐT",
         date: "2008-09-10",
-        issuer: { vi: "Bộ Giáo dục và Đào tạo", en: "Ministry of Education and Training", ja: "教育訓練省", ko: "교육훈련부", "zh-TW": "教育與培訓部" },
+        issuer: {
+          vi: "Bộ Giáo dục và Đào tạo",
+          en: "Ministry of Education and Training",
+          ja: "教育訓練省",
+          ko: "교육훈련부",
+          "zh-TW": "教育與培訓部",
+        },
       },
       {
         label: {
@@ -273,14 +360,60 @@ export const SCHOOLS: SeedSchool[] = [
         },
         number: "69/2023/GCNĐKHĐ-TCGDNN",
         date: "2023-09-14",
-        issuer: { vi: "Tổng cục Giáo dục nghề nghiệp", en: "Directorate of Vocational Education and Training", ja: "職業教育訓練総局", ko: "직업교육훈련총국", "zh-TW": "技職教育總局" },
+        issuer: {
+          vi: "Tổng cục Giáo dục nghề nghiệp",
+          en: "Directorate of Vocational Education and Training",
+          ja: "職業教育訓練総局",
+          ko: "직업교육훈련총국",
+          "zh-TW": "技職教育總局",
+        },
       },
     ],
     stats: [
-      { value: "15+", label: { vi: "năm hình thành và phát triển", en: "years of formation and development", de: "Jahre Aufbau und Entwicklung", ja: "年の歩み", ko: "년의 발자취", "zh-TW": "年的發展歷程" } },
-      { value: "5.000+", label: { vi: "học sinh, sinh viên đang theo học", en: "students enrolled", de: "eingeschriebene Lernende", ja: "人の在学生", ko: "명의 재학생", "zh-TW": "位在學學生" } },
-      { value: "200+", label: { vi: "doanh nghiệp đối tác", en: "partner enterprises", de: "Partnerunternehmen", ja: "の提携企業", ko: "개 협력 기업", "zh-TW": "家合作企業" } },
-      { value: "98%", label: { vi: "sinh viên có việc làm sau tốt nghiệp", en: "graduates employed after graduation", de: "Absolventen in Beschäftigung", ja: "の卒業生が就職", ko: "의 졸업생이 취업", "zh-TW": "的畢業生順利就業" } },
+      {
+        value: "15+",
+        label: {
+          vi: "năm hình thành và phát triển",
+          en: "years of formation and development",
+          de: "Jahre Aufbau und Entwicklung",
+          ja: "年の歩み",
+          ko: "년의 발자취",
+          "zh-TW": "年的發展歷程",
+        },
+      },
+      {
+        value: "5.000+",
+        label: {
+          vi: "học sinh, sinh viên đang theo học",
+          en: "students enrolled",
+          de: "eingeschriebene Lernende",
+          ja: "人の在学生",
+          ko: "명의 재학생",
+          "zh-TW": "位在學學生",
+        },
+      },
+      {
+        value: "200+",
+        label: {
+          vi: "doanh nghiệp đối tác",
+          en: "partner enterprises",
+          de: "Partnerunternehmen",
+          ja: "の提携企業",
+          ko: "개 협력 기업",
+          "zh-TW": "家合作企業",
+        },
+      },
+      {
+        value: "98%",
+        label: {
+          vi: "sinh viên có việc làm sau tốt nghiệp",
+          en: "graduates employed after graduation",
+          de: "Absolventen in Beschäftigung",
+          ja: "の卒業生が就職",
+          ko: "의 졸업생이 취업",
+          "zh-TW": "的畢業生順利就業",
+        },
+      },
     ],
     provenance: fromProfileVi(4),
     editorNote:
@@ -297,7 +430,13 @@ export const SCHOOLS: SeedSchool[] = [
       ko: "국제직업학교(IVS)",
       "zh-TW": "國際職業學校（IVS）",
     },
-    shortName: { vi: "Trung cấp nghề Quốc tế (IVS)", en: "IVS", ja: "IVS 国際職業校", ko: "IVS 국제직업학교", "zh-TW": "IVS 國際職業學校" },
+    shortName: {
+      vi: "Trung cấp nghề Quốc tế (IVS)",
+      en: "IVS",
+      ja: "IVS 国際職業校",
+      ko: "IVS 국제직업학교",
+      "zh-TW": "IVS 國際職業學校",
+    },
     tagline: {
       vi: "Đào tạo chuẩn quốc tế – Cơ hội toàn cầu",
       en: "International standard education – a solid foundation for a global future",
@@ -312,14 +451,22 @@ export const SCHOOLS: SeedSchool[] = [
       de: "Die IVS gehört zur Viet Duc Group und bietet Programme nach internationalem Standard in Zusammenarbeit mit renommierten Partnern im In- und Ausland. Ziel ist die Ausbildung qualifizierter Fachkräfte mit beruflichen Fertigkeiten, Fremdsprachenkenntnissen und industrietauglicher Arbeitshaltung – für den Einsatz in Vietnam und weltweit.",
       ja: "国際職業訓練学校(IVS)は Viet Duc Group の加盟校で、国内外の信頼できる提携先と結んだ国際水準の教育課程を提供しています。職業技能・外国語・産業現場の作法を身につけた質の高い人材を育て、ベトナム国内でも海外でも働ける力を養うことを目指しています。",
       ko: "국제직업학교(IVS)는 Viet Duc Group의 회원 학교로, 국내외 신뢰할 만한 협력 기관과 함께 국제 수준의 교육 과정을 제공합니다. 직업 기능과 외국어, 산업 현장의 태도를 두루 갖춘 수준 높은 인재를 길러 베트남과 해외 어디서든 일할 수 있도록 준비시킵니다.",
-      "zh-TW": "國際職業學校（IVS）為 Viet Duc Group 的成員學校，提供符合國際標準的課程，並與國內外具公信力的夥伴合作。IVS 致力培育兼具職業技能、外語能力與產業工作態度的優質人才，使其能在越南及世界各地就業。",
+      "zh-TW":
+        "國際職業學校（IVS）為 Viet Duc Group 的成員學校，提供符合國際標準的課程，並與國內外具公信力的夥伴合作。IVS 致力培育兼具職業技能、外語能力與產業工作態度的優質人才，使其能在越南及世界各地就業。",
     },
     legalNameEn: "International Vocational School (IVS)",
-    city: { vi: "Ninh Bình", en: "Ninh Binh", de: "Ninh Binh", ja: "ニンビン", ko: "닌빈", "zh-TW": "寧平" },
-    address: "Km10 Quốc lộ 1A, Ninh Bình – Hà Nội, xã Gia Trấn, tỉnh Ninh Bình",
-    phone: "030 3868231",
-    email: "nguyenphan@vietmc.vn",
-    website: "http://ivs.edu.vn",
+    city: {
+      vi: "Ninh Bình",
+      en: "Ninh Binh",
+      de: "Ninh Binh",
+      ja: "ニンビン",
+      ko: "닌빈",
+      "zh-TW": "寧平",
+    },
+    address: "Km 10, Quốc lộ 1A, xã Gia Trấn, tỉnh Ninh Bình",
+    phone: "0229 3868 231",
+    email: "tcqtivs@gmail.com",
+    website: "https://ivs.edu.vn",
     coverPath: "/media/schools/trung-cap-nghe-quoc-te-ivs.webp",
     logoPath: "/media/schools/logos/trung-cap-nghe-quoc-te-ivs.webp",
     highlights: {
@@ -344,10 +491,22 @@ export const SCHOOLS: SeedSchool[] = [
     },
     legalRefs: [
       {
-        label: { vi: "Quyết định cho phép thành lập Trường Trung cấp nghề Quốc tế", en: "Decision permitting establishment of IVS", ja: "国際職業訓練学校の設立認可決定", ko: "국제직업학교 설립 허가 결정", "zh-TW": "核准設立國際職業學校之決定" },
+        label: {
+          vi: "Quyết định cho phép thành lập Trường Trung cấp nghề Quốc tế",
+          en: "Decision permitting establishment of IVS",
+          ja: "国際職業訓練学校の設立認可決定",
+          ko: "국제직업학교 설립 허가 결정",
+          "zh-TW": "核准設立國際職業學校之決定",
+        },
         number: "470/QĐ-UBND",
         date: "2016-09-15",
-        issuer: { vi: "UBND tỉnh Ninh Bình", en: "Ninh Binh Provincial People's Committee", ja: "ニンビン省人民委員会", ko: "닌빈성 인민위원회", "zh-TW": "寧平省人民委員會" },
+        issuer: {
+          vi: "UBND tỉnh Ninh Bình",
+          en: "Ninh Binh Provincial People's Committee",
+          ja: "ニンビン省人民委員会",
+          ko: "닌빈성 인민위원회",
+          "zh-TW": "寧平省人民委員會",
+        },
       },
       {
         label: {
@@ -368,7 +527,13 @@ export const SCHOOLS: SeedSchool[] = [
         },
       },
       {
-        label: { vi: "Giấy chứng nhận đăng ký bổ sung hoạt động giáo dục nghề nghiệp", en: "Supplementary registration certificate", ja: "技能教育活動の追加立案証明書", ko: "직업교육 활동 추가 인가증", "zh-TW": "技職教育活動增列立案證明書" },
+        label: {
+          vi: "Giấy chứng nhận đăng ký bổ sung hoạt động giáo dục nghề nghiệp",
+          en: "Supplementary registration certificate",
+          ja: "技能教育活動の追加立案証明書",
+          ko: "직업교육 활동 추가 인가증",
+          "zh-TW": "技職教育活動增列立案證明書",
+        },
         number: "01/GCNĐKBS-LĐTBXH",
         date: "2017-04-14",
         issuer: {
@@ -380,7 +545,13 @@ export const SCHOOLS: SeedSchool[] = [
         },
       },
       {
-        label: { vi: "Giấy chứng nhận đăng ký bổ sung hoạt động giáo dục nghề nghiệp", en: "Supplementary registration certificate", ja: "技能教育活動の追加立案証明書", ko: "직업교육 활동 추가 인가증", "zh-TW": "技職教育活動增列立案證明書" },
+        label: {
+          vi: "Giấy chứng nhận đăng ký bổ sung hoạt động giáo dục nghề nghiệp",
+          en: "Supplementary registration certificate",
+          ja: "技能教育活動の追加立案証明書",
+          ko: "직업교육 활동 추가 인가증",
+          "zh-TW": "技職教育活動增列立案證明書",
+        },
         number: "04/GCNĐKBSHĐ-LĐTBXH",
         date: "2018-01-19",
         issuer: {
@@ -392,7 +563,13 @@ export const SCHOOLS: SeedSchool[] = [
         },
       },
       {
-        label: { vi: "Giấy chứng nhận đăng ký bổ sung hoạt động giáo dục nghề nghiệp", en: "Supplementary registration certificate", ja: "技能教育活動の追加立案証明書", ko: "직업교육 활동 추가 인가증", "zh-TW": "技職教育活動增列立案證明書" },
+        label: {
+          vi: "Giấy chứng nhận đăng ký bổ sung hoạt động giáo dục nghề nghiệp",
+          en: "Supplementary registration certificate",
+          ja: "技能教育活動の追加立案証明書",
+          ko: "직업교육 활동 추가 인가증",
+          "zh-TW": "技職教育活動增列立案證明書",
+        },
         number: "05/GCNĐKBSHĐ-LĐTBXH",
         date: "2018-05-30",
         issuer: {
@@ -405,10 +582,50 @@ export const SCHOOLS: SeedSchool[] = [
       },
     ],
     stats: [
-      { value: "10+", label: { vi: "năm hình thành và phát triển", en: "years of experience and development", de: "Jahre Erfahrung und Entwicklung", ja: "年の歩み", ko: "년의 발자취", "zh-TW": "年的發展歷程" } },
-      { value: "12+", label: { vi: "ngành nghề đào tạo", en: "training majors", de: "Ausbildungsrichtungen", ja: "の教育課程", ko: "개 교육 과정", "zh-TW": "個培訓課程" } },
-      { value: "95%", label: { vi: "sinh viên có việc làm sau tốt nghiệp", en: "students employed after graduation", de: "Absolventen in Beschäftigung", ja: "の卒業生が就職", ko: "의 졸업생이 취업", "zh-TW": "的畢業生順利就業" } },
-      { value: "50+", label: { vi: "đối tác quốc tế uy tín", en: "international partners", de: "internationale Partner", ja: "の信頼できる海外提携先", ko: "곳의 믿을 만한 해외 협력사", "zh-TW": "個具公信力的國際夥伴" } },
+      {
+        value: "10+",
+        label: {
+          vi: "năm hình thành và phát triển",
+          en: "years of experience and development",
+          de: "Jahre Erfahrung und Entwicklung",
+          ja: "年の歩み",
+          ko: "년의 발자취",
+          "zh-TW": "年的發展歷程",
+        },
+      },
+      {
+        value: "12+",
+        label: {
+          vi: "ngành nghề đào tạo",
+          en: "training majors",
+          de: "Ausbildungsrichtungen",
+          ja: "の教育課程",
+          ko: "개 교육 과정",
+          "zh-TW": "個培訓課程",
+        },
+      },
+      {
+        value: "95%",
+        label: {
+          vi: "sinh viên có việc làm sau tốt nghiệp",
+          en: "students employed after graduation",
+          de: "Absolventen in Beschäftigung",
+          ja: "の卒業生が就職",
+          ko: "의 졸업생이 취업",
+          "zh-TW": "的畢業生順利就業",
+        },
+      },
+      {
+        value: "50+",
+        label: {
+          vi: "đối tác quốc tế uy tín",
+          en: "international partners",
+          de: "internationale Partner",
+          ja: "の信頼できる海外提携先",
+          ko: "곳의 믿을 만한 해외 협력사",
+          "zh-TW": "個具公信力的國際夥伴",
+        },
+      },
     ],
     provenance: fromProfileVi(6),
     editorNote:
@@ -425,7 +642,13 @@ export const SCHOOLS: SeedSchool[] = [
       ko: "붕따우 공과중급학교",
       "zh-TW": "頭頓百科中級學校",
     },
-    shortName: { vi: "Trung cấp Bách khoa Vũng Tàu", en: "Bach Khoa Vung Tau", ja: "ブンタウ工科校", ko: "붕따우 공과학교", "zh-TW": "頭頓百科" },
+    shortName: {
+      vi: "Trung cấp Bách khoa Vũng Tàu",
+      en: "Bach Khoa Vung Tau",
+      ja: "ブンタウ工科校",
+      ko: "붕따우 공과학교",
+      "zh-TW": "頭頓百科",
+    },
     tagline: {
       vi: "Kỹ thuật vững vàng – Nghề nghiệp tương lai",
       en: "Solid technical skills – shaping the future",
@@ -440,12 +663,22 @@ export const SCHOOLS: SeedSchool[] = [
       de: "Die Bach Khoa Vung Tau gehört zur Viet Duc Group und ist auf technische und technologische Fachrichtungen spezialisiert. Im Mittelpunkt stehen praktische Ausbildung, moderne Werkstätten und fachliche Tiefe entsprechend dem Bedarf der Unternehmen.",
       ja: "ブンタウ工科中級学校は Viet Duc Group の加盟校で、工学・技術系の分野を専門としています。実習を重んじ、確かな専門知識と技能を身につけさせて、企業と労働市場の求めに応えます。",
       ko: "붕따우 공과중급학교는 Viet Duc Group의 회원 학교로 공학·기술 분야를 전문으로 합니다. 실습을 중시하여 탄탄한 전문 지식과 기능을 갖추게 하고, 기업과 노동시장의 요구에 부응합니다.",
-      "zh-TW": "頭頓百科中級學校為 Viet Duc Group 的成員學校，專攻工程與技術領域。學校重視實作，培養紮實的專業知識與技能，以因應企業與勞動市場的需求。",
+      "zh-TW":
+        "頭頓百科中級學校為 Viet Duc Group 的成員學校，專攻工程與技術領域。學校重視實作，培養紮實的專業知識與技能，以因應企業與勞動市場的需求。",
     },
     legalNameEn: "Vung Tau College of Technology",
-    city: { vi: "TP. Hồ Chí Minh", en: "Ho Chi Minh City", de: "Ho-Chi-Minh-Stadt", ja: "ホーチミン市", ko: "호찌민시", "zh-TW": "胡志明市" },
+    city: {
+      vi: "TP. Hồ Chí Minh",
+      en: "Ho Chi Minh City",
+      de: "Ho-Chi-Minh-Stadt",
+      ja: "ホーチミン市",
+      ko: "호찌민시",
+      "zh-TW": "胡志明市",
+    },
     address: "Số 565 Trương Công Định, phường Tam Thắng, Thành phố Hồ Chí Minh",
-    phone: "0254 3572 505",
+    website: "https://bachkhoavungtau.edu.vn",
+    email: "trungcapbachkhoavt2023@gmail.com",
+    phone: "0911 762 666",
     coverPath: "/media/schools/trung-cap-bach-khoa-vung-tau.webp",
     logoPath: "/media/schools/logos/trung-cap-bach-khoa-vung-tau.webp",
     highlights: {
@@ -479,13 +712,31 @@ export const SCHOOLS: SeedSchool[] = [
         },
         number: "3181/QĐ-UBND",
         date: "2006-10-09",
-        issuer: { vi: "UBND tỉnh Bà Rịa – Vũng Tàu", en: "Ba Ria – Vung Tau Provincial People's Committee", ja: "バリア・ブンタウ省人民委員会", ko: "바리아붕따우성 인민위원회", "zh-TW": "巴地頭頓省人民委員會" },
+        issuer: {
+          vi: "UBND tỉnh Bà Rịa – Vũng Tàu",
+          en: "Ba Ria – Vung Tau Provincial People's Committee",
+          ja: "バリア・ブンタウ省人民委員会",
+          ko: "바리아붕따우성 인민위원회",
+          "zh-TW": "巴地頭頓省人民委員會",
+        },
       },
       {
-        label: { vi: "Quyết định đổi tên trường", en: "Decision renaming the school", ja: "校名変更の決定", ko: "교명 변경 결정", "zh-TW": "校名變更之決定" },
+        label: {
+          vi: "Quyết định đổi tên trường",
+          en: "Decision renaming the school",
+          ja: "校名変更の決定",
+          ko: "교명 변경 결정",
+          "zh-TW": "校名變更之決定",
+        },
         number: "1461/QĐ-UBND",
         date: "2013-07-25",
-        issuer: { vi: "UBND tỉnh Bà Rịa – Vũng Tàu", en: "Ba Ria – Vung Tau Provincial People's Committee", ja: "バリア・ブンタウ省人民委員会", ko: "바리아붕따우성 인민위원회", "zh-TW": "巴地頭頓省人民委員會" },
+        issuer: {
+          vi: "UBND tỉnh Bà Rịa – Vũng Tàu",
+          en: "Ba Ria – Vung Tau Provincial People's Committee",
+          ja: "バリア・ブンタウ省人民委員会",
+          ko: "바리아붕따우성 인민위원회",
+          "zh-TW": "巴地頭頓省人民委員會",
+        },
       },
       {
         label: {
@@ -497,7 +748,13 @@ export const SCHOOLS: SeedSchool[] = [
         },
         number: "3802/QĐ-UBND",
         date: "2017-12-29",
-        issuer: { vi: "UBND tỉnh Bà Rịa – Vũng Tàu", en: "Ba Ria – Vung Tau Provincial People's Committee", ja: "バリア・ブンタウ省人民委員会", ko: "바리아붕따우성 인민위원회", "zh-TW": "巴地頭頓省人民委員會" },
+        issuer: {
+          vi: "UBND tỉnh Bà Rịa – Vũng Tàu",
+          en: "Ba Ria – Vung Tau Provincial People's Committee",
+          ja: "バリア・ブンタウ省人民委員会",
+          ko: "바리아붕따우성 인민위원회",
+          "zh-TW": "巴地頭頓省人民委員會",
+        },
       },
       {
         label: {
@@ -519,10 +776,50 @@ export const SCHOOLS: SeedSchool[] = [
       },
     ],
     stats: [
-      { value: "15+", label: { vi: "năm hình thành và phát triển", en: "years of formation and development", de: "Jahre Aufbau und Entwicklung", ja: "年の歩み", ko: "년의 발자취", "zh-TW": "年的發展歷程" } },
-      { value: "10+", label: { vi: "ngành nghề đào tạo", en: "training majors", de: "Ausbildungsrichtungen", ja: "の教育課程", ko: "개 교육 과정", "zh-TW": "個培訓課程" } },
-      { value: "98%", label: { vi: "sinh viên có việc làm sau tốt nghiệp", en: "students employed after graduation", de: "Absolventen in Beschäftigung", ja: "の卒業生が就職", ko: "의 졸업생이 취업", "zh-TW": "的畢業生順利就業" } },
-      { value: "200+", label: { vi: "doanh nghiệp đối tác", en: "partner enterprises", de: "Partnerunternehmen", ja: "の提携企業", ko: "개 협력 기업", "zh-TW": "家合作企業" } },
+      {
+        value: "15+",
+        label: {
+          vi: "năm hình thành và phát triển",
+          en: "years of formation and development",
+          de: "Jahre Aufbau und Entwicklung",
+          ja: "年の歩み",
+          ko: "년의 발자취",
+          "zh-TW": "年的發展歷程",
+        },
+      },
+      {
+        value: "10+",
+        label: {
+          vi: "ngành nghề đào tạo",
+          en: "training majors",
+          de: "Ausbildungsrichtungen",
+          ja: "の教育課程",
+          ko: "개 교육 과정",
+          "zh-TW": "個培訓課程",
+        },
+      },
+      {
+        value: "98%",
+        label: {
+          vi: "sinh viên có việc làm sau tốt nghiệp",
+          en: "students employed after graduation",
+          de: "Absolventen in Beschäftigung",
+          ja: "の卒業生が就職",
+          ko: "의 졸업생이 취업",
+          "zh-TW": "的畢業生順利就業",
+        },
+      },
+      {
+        value: "200+",
+        label: {
+          vi: "doanh nghiệp đối tác",
+          en: "partner enterprises",
+          de: "Partnerunternehmen",
+          ja: "の提携企業",
+          ko: "개 협력 기업",
+          "zh-TW": "家合作企業",
+        },
+      },
     ],
     provenance: fromProfileVi(7),
     editorNote:
@@ -539,7 +836,13 @@ export const SCHOOLS: SeedSchool[] = [
       ko: "베트남·한국 중급학교",
       "zh-TW": "越韓中級學校",
     },
-    shortName: { vi: "Trung cấp Việt Hàn", en: "Viet Han", ja: "越韓校", ko: "베트남·한국 학교", "zh-TW": "越韓" },
+    shortName: {
+      vi: "Trung cấp Việt Hàn",
+      en: "Viet Han",
+      ja: "越韓校",
+      ko: "베트남·한국 학교",
+      "zh-TW": "越韓",
+    },
     tagline: {
       vi: "Công nghệ hiện đại – Hội nhập quốc tế",
       en: "Modern technology – international integration",
@@ -554,10 +857,20 @@ export const SCHOOLS: SeedSchool[] = [
       de: "Die Viet Han Berufsfachschule gehört zur Viet Duc Group und bildet Fachkräfte nach dem vietnamesisch-koreanischen Kooperationsmodell aus. Schwerpunkte sind berufliche Fertigkeiten, Fremdsprachen, industrielle Arbeitshaltung und internationale Anschlussfähigkeit.",
       ja: "越韓中級学校は Viet Duc Group の加盟校で、ベトナム・韓国の協力モデルにもとづき質の高い人材を育てています。職業技能、外国語、産業現場の作法、そして国際的に働く力の育成を重んじています。",
       ko: "베트남·한국 중급학교는 Viet Duc Group의 회원 학교로, 베트남·한국 협력 모형에 따라 수준 높은 인재를 길러 냅니다. 직업 기능과 외국어, 산업 현장의 태도, 그리고 국제 사회에서 일할 역량을 중시합니다.",
-      "zh-TW": "越韓中級學校為 Viet Duc Group 的成員學校，依越南與韓國的合作模式培育優質人才。學校著重職業技能、外語、產業工作態度，以及與國際接軌的能力。",
+      "zh-TW":
+        "越韓中級學校為 Viet Duc Group 的成員學校，依越南與韓國的合作模式培育優質人才。學校著重職業技能、外語、產業工作態度，以及與國際接軌的能力。",
     },
-    city: { vi: "Đồng Nai", en: "Dong Nai", de: "Dong Nai", ja: "ドンナイ省", ko: "동나이성", "zh-TW": "同奈省" },
-    address: "Khu phố Thanh Bình, phường Bình Phước, tỉnh Đồng Nai",
+    city: {
+      vi: "Đồng Nai",
+      en: "Dong Nai",
+      de: "Dong Nai",
+      ja: "ドンナイ省",
+      ko: "동나이성",
+      "zh-TW": "同奈省",
+    },
+    address: "Khu phố Thanh Bình, phường Bình Phước, tỉnh Đồng Nai, Việt Nam",
+    email: "trungcapviethan.vki@gmail.com",
+    phone: "0911 762 666",
     coverPath: "/media/schools/trung-cap-viet-han.webp",
     logoPath: "/media/schools/logos/trung-cap-viet-han.webp",
     highlights: {
@@ -591,7 +904,13 @@ export const SCHOOLS: SeedSchool[] = [
         },
         number: "09/2004/QĐ-UB",
         date: "2004-02-03",
-        issuer: { vi: "UBND tỉnh Bình Phước", en: "Binh Phuoc Provincial People's Committee", ja: "ビンフオック省人民委員会", ko: "빈프억성 인민위원회", "zh-TW": "平福省人民委員會" },
+        issuer: {
+          vi: "UBND tỉnh Bình Phước",
+          en: "Binh Phuoc Provincial People's Committee",
+          ja: "ビンフオック省人民委員会",
+          ko: "빈프억성 인민위원회",
+          "zh-TW": "平福省人民委員會",
+        },
       },
       {
         label: {
@@ -603,7 +922,13 @@ export const SCHOOLS: SeedSchool[] = [
         },
         number: "561/QĐ-SGDĐT",
         date: "2019-03-07",
-        issuer: { vi: "Sở Giáo dục và Đào tạo tỉnh Bình Phước", en: "Binh Phuoc Department of Education and Training", ja: "ビンフオック省教育訓練局", ko: "빈프억성 교육훈련국", "zh-TW": "平福省教育與培訓廳" },
+        issuer: {
+          vi: "Sở Giáo dục và Đào tạo tỉnh Bình Phước",
+          en: "Binh Phuoc Department of Education and Training",
+          ja: "ビンフオック省教育訓練局",
+          ko: "빈프억성 교육훈련국",
+          "zh-TW": "平福省教育與培訓廳",
+        },
       },
       {
         label: {
@@ -615,13 +940,49 @@ export const SCHOOLS: SeedSchool[] = [
         },
         number: "1219/QĐ-UBND",
         date: "2020-06-04",
-        issuer: { vi: "UBND tỉnh Bình Phước", en: "Binh Phuoc Provincial People's Committee", ja: "ビンフオック省人民委員会", ko: "빈프억성 인민위원회", "zh-TW": "平福省人民委員會" },
+        issuer: {
+          vi: "UBND tỉnh Bình Phước",
+          en: "Binh Phuoc Provincial People's Committee",
+          ja: "ビンフオック省人民委員会",
+          ko: "빈프억성 인민위원회",
+          "zh-TW": "平福省人民委員會",
+        },
       },
     ],
     stats: [
-      { value: "12+", label: { vi: "ngành nghề đào tạo", en: "training majors", de: "Ausbildungsrichtungen", ja: "の教育課程", ko: "개 교육 과정", "zh-TW": "個培訓課程" } },
-      { value: "95%", label: { vi: "sinh viên có việc làm sau tốt nghiệp", en: "students employed after graduation", de: "Absolventen in Beschäftigung", ja: "の卒業生が就職", ko: "의 졸업생이 취업", "zh-TW": "的畢業生順利就業" } },
-      { value: "100+", label: { vi: "doanh nghiệp đối tác", en: "partner enterprises", de: "Partnerunternehmen", ja: "の提携企業", ko: "개 협력 기업", "zh-TW": "家合作企業" } },
+      {
+        value: "12+",
+        label: {
+          vi: "ngành nghề đào tạo",
+          en: "training majors",
+          de: "Ausbildungsrichtungen",
+          ja: "の教育課程",
+          ko: "개 교육 과정",
+          "zh-TW": "個培訓課程",
+        },
+      },
+      {
+        value: "95%",
+        label: {
+          vi: "sinh viên có việc làm sau tốt nghiệp",
+          en: "students employed after graduation",
+          de: "Absolventen in Beschäftigung",
+          ja: "の卒業生が就職",
+          ko: "의 졸업생이 취업",
+          "zh-TW": "的畢業生順利就業",
+        },
+      },
+      {
+        value: "100+",
+        label: {
+          vi: "doanh nghiệp đối tác",
+          en: "partner enterprises",
+          de: "Partnerunternehmen",
+          ja: "の提携企業",
+          ko: "개 협력 기업",
+          "zh-TW": "家合作企業",
+        },
+      },
     ],
     provenance: fromProfileVi(18),
     editorNote:
@@ -638,7 +999,13 @@ export const SCHOOLS: SeedSchool[] = [
       ko: "베트남·독일 기술중급학교",
       "zh-TW": "越德科技中級學校",
     },
-    shortName: { vi: "Trung cấp Công nghệ Việt Đức", en: "Viet Duc College of Technology", ja: "越独技術校", ko: "베트남·독일 기술학교", "zh-TW": "越德科技" },
+    shortName: {
+      vi: "Trung cấp Công nghệ Việt Đức",
+      en: "Viet Duc College of Technology",
+      ja: "越独技術校",
+      ko: "베트남·독일 기술학교",
+      "zh-TW": "越德科技",
+    },
     tagline: {
       vi: "Đào tạo thực chất – Kỹ năng vững chắc – Việc làm bền vững – Tương lai rộng mở",
       en: "Practical training – solid skills – bright futures",
@@ -653,10 +1020,19 @@ export const SCHOOLS: SeedSchool[] = [
       de: "Die Viet Duc Berufsfachschule für Technik gehört zur Viet Duc Group und bildet fächerübergreifend auf Fachschulniveau aus. Der Schwerpunkt liegt auf praktischer Ausbildung und soliden beruflichen Fertigkeiten entsprechend dem Bedarf der Unternehmen.",
       ja: "越独技術中級学校は Viet Duc Group の加盟校で、中級課程において幅広い分野・職種の教育を行っています。実習を重んじ、確かな職業技能を身につけさせて、企業と労働市場の求めに応えます。",
       ko: "베트남·독일 기술중급학교는 Viet Duc Group의 회원 학교로, 중급 과정에서 여러 분야와 직종을 아우르는 교육을 합니다. 실습을 중시하여 탄탄한 직업 기능을 갖추게 하고, 기업과 노동시장의 요구에 부응합니다.",
-      "zh-TW": "越德科技中級學校為 Viet Duc Group 的成員學校，於中級學制開設多元領域與職類的課程。學校重視實作，培養紮實的職業技能，以因應企業與勞動市場的需求。",
+      "zh-TW":
+        "越德科技中級學校為 Viet Duc Group 的成員學校，於中級學制開設多元領域與職類的課程。學校重視實作，培養紮實的職業技能，以因應企業與勞動市場的需求。",
     },
-    city: { vi: "Quảng Trị", en: "Quang Tri", de: "Quang Tri", ja: "クアンチ", ko: "꽝찌", "zh-TW": "廣治" },
+    city: {
+      vi: "Quảng Trị",
+      en: "Quang Tri",
+      de: "Quang Tri",
+      ja: "クアンチ",
+      ko: "꽝찌",
+      "zh-TW": "廣治",
+    },
     address: "Tổ dân phố 15, phường Đồng Thuận, tỉnh Quảng Trị",
+    phone: "0911 762 666",
     coverPath: "/media/schools/trung-cap-cong-nghe-viet-duc.webp",
     logoPath: "/media/schools/logos/trung-cap-cong-nghe-viet-duc.webp",
     highlights: {
@@ -687,12 +1063,38 @@ export const SCHOOLS: SeedSchool[] = [
         },
         number: "2567/QĐ-UBND",
         date: "2026-06-26",
-        issuer: { vi: "UBND tỉnh Quảng Trị", en: "Quang Tri Provincial People's Committee", ja: "クアンチ省人民委員会", ko: "꽝찌성 인민위원회", "zh-TW": "廣治省人民委員會" },
+        issuer: {
+          vi: "UBND tỉnh Quảng Trị",
+          en: "Quang Tri Provincial People's Committee",
+          ja: "クアンチ省人民委員会",
+          ko: "꽝찌성 인민위원회",
+          "zh-TW": "廣治省人民委員會",
+        },
       },
     ],
     stats: [
-      { value: "10+", label: { vi: "ngành nghề đào tạo", en: "training majors", de: "Ausbildungsrichtungen", ja: "の教育課程", ko: "개 교육 과정", "zh-TW": "個培訓課程" } },
-      { value: "200+", label: { vi: "doanh nghiệp đối tác", en: "partner enterprises", de: "Partnerunternehmen", ja: "の提携企業", ko: "개 협력 기업", "zh-TW": "家合作企業" } },
+      {
+        value: "10+",
+        label: {
+          vi: "ngành nghề đào tạo",
+          en: "training majors",
+          de: "Ausbildungsrichtungen",
+          ja: "の教育課程",
+          ko: "개 교육 과정",
+          "zh-TW": "個培訓課程",
+        },
+      },
+      {
+        value: "200+",
+        label: {
+          vi: "doanh nghiệp đối tác",
+          en: "partner enterprises",
+          de: "Partnerunternehmen",
+          ja: "の提携企業",
+          ko: "개 협력 기업",
+          "zh-TW": "家合作企業",
+        },
+      },
     ],
     provenance: fromProfileVi(8),
     editorNote:
@@ -709,7 +1111,14 @@ export const SCHOOLS: SeedSchool[] = [
       ko: "ITW 베를린 교육훈련원",
       "zh-TW": "ITW 柏林教育訓練學院",
     },
-    shortName: { vi: "ITW Berlin", en: "ITW Berlin", de: "itw Berlin", ja: "ITW ベルリン", ko: "ITW 베를린", "zh-TW": "ITW 柏林" },
+    shortName: {
+      vi: "ITW Berlin",
+      en: "ITW Berlin",
+      de: "itw Berlin",
+      ja: "ITW ベルリン",
+      ko: "ITW 베를린",
+      "zh-TW": "ITW 柏林",
+    },
     tagline: {
       vi: "Chuẩn Đức – Bằng cấp có giá trị tại Đức và EU",
       en: "German standards – qualifications valued in Germany and the EU",
@@ -724,11 +1133,23 @@ export const SCHOOLS: SeedSchool[] = [
       de: "Das itw Berlin ist eine deutsche Bildungseinrichtung, die Ausbildungsprogramme und Berufsprofile überträgt und ein Bildungssystem nach internationalem Standard in Vietnam aufbaut. Neben der Arbeit in Deutschland überträgt das itw moderne Ausbildungsmodelle direkt und richtet sie an vietnamesischen Standards aus, damit Lernende Wissen, Fertigkeiten und Sprachkenntnisse für den deutschen und globalen Arbeitsmarkt erwerben.",
       ja: "ITW ベルリンはドイツの教育機関で、教育課程と職種コードを移転し、国際水準の教育体系をベトナムで展開しています。ドイツ国内での事業にとどまらず、教育モデルをそのまま移し、ベトナムで得た資格を国際基準に沿って標準化することで、学生がドイツおよび世界の労働市場に必要な知識・技能・語学を備えられるようにしています。",
       ko: "ITW 베를린은 독일의 교육 기관으로, 교육 과정과 직종 코드를 이전하고 국제 수준의 교육 체계를 베트남에서 운영합니다. 독일 안에서만 머물지 않고 교육 모형을 그대로 옮기며, 베트남에서 취득한 자격을 국제 기준에 맞추어 표준화함으로써 학생들이 독일과 세계 노동시장에 필요한 지식·기능·어학을 갖추도록 돕습니다.",
-      "zh-TW": "ITW 柏林是德國的教育機構，負責移轉課程與職類代碼，並在越南推行符合國際標準的培訓體系。ITW 柏林不僅在德國發展，更直接移轉教學模式，使在越南取得的資格依國際標準加以認證，協助學生具備進入德國與全球勞動市場所需的知識、技能與語言能力。",
+      "zh-TW":
+        "ITW 柏林是德國的教育機構，負責移轉課程與職類代碼，並在越南推行符合國際標準的培訓體系。ITW 柏林不僅在德國發展，更直接移轉教學模式，使在越南取得的資格依國際標準加以認證，協助學生具備進入德國與全球勞動市場所需的知識、技能與語言能力。",
     },
     legalNameEn: "itw – Institut für Aus- und Weiterbildung gGmbH",
-    city: { vi: "Berlin, CHLB Đức", en: "Berlin, Germany", de: "Berlin, Deutschland", ja: "ドイツ連邦共和国ベルリン", ko: "독일 연방공화국 베를린", "zh-TW": "德意志聯邦共和國柏林" },
+    city: {
+      vi: "Berlin, CHLB Đức",
+      en: "Berlin, Germany",
+      de: "Berlin, Deutschland",
+      ja: "ドイツ連邦共和国ベルリン",
+      ko: "독일 연방공화국 베를린",
+      "zh-TW": "德意志聯邦共和國柏林",
+    },
     country: "DE",
+    address: "Herzbergstraße 56–59, 10365 Berlin · Seestraße 64, 13347 Berlin",
+    website: "https://itw-berlin.de/vi",
+    email: "nguyenphan@itw-berlin.de",
+    phone: "(030) 456 01 320",
     coverPath: "/media/schools/itw-berlin.webp",
     logoPath: "/media/schools/logos/itw-berlin.webp",
     highlights: {
@@ -752,9 +1173,39 @@ export const SCHOOLS: SeedSchool[] = [
       ],
     },
     stats: [
-      { value: "1967", label: { vi: "năm thành lập tại Berlin", en: "founded in Berlin", de: "gegründet in Berlin", ja: "年にベルリンで設立", ko: "년 베를린에서 설립", "zh-TW": "年於柏林創立" } },
-      { value: "50+", label: { vi: "năm hoạt động trong lĩnh vực giáo dục", en: "years in vocational education and training", de: "Jahre in der beruflichen Bildung", ja: "年にわたる教育分野での歩み", ko: "년간 교육 분야에서 활동", "zh-TW": "年深耕教育領域" } },
-      { value: "2006", label: { vi: "chuyển đổi thành công ty phi lợi nhuận (gGmbH)", en: "converted to a non-profit gGmbH", de: "Umwandlung in eine gGmbH", ja: "非営利法人(gGmbH)へ移行", ko: "비영리 법인(gGmbH)으로 전환", "zh-TW": "轉型為非營利公司（gGmbH）" } },
+      {
+        value: "1967",
+        label: {
+          vi: "năm thành lập tại Berlin",
+          en: "founded in Berlin",
+          de: "gegründet in Berlin",
+          ja: "年にベルリンで設立",
+          ko: "년 베를린에서 설립",
+          "zh-TW": "年於柏林創立",
+        },
+      },
+      {
+        value: "50+",
+        label: {
+          vi: "năm hoạt động trong lĩnh vực giáo dục",
+          en: "years in vocational education and training",
+          de: "Jahre in der beruflichen Bildung",
+          ja: "年にわたる教育分野での歩み",
+          ko: "년간 교육 분야에서 활동",
+          "zh-TW": "年深耕教育領域",
+        },
+      },
+      {
+        value: "2006",
+        label: {
+          vi: "chuyển đổi thành công ty phi lợi nhuận (gGmbH)",
+          en: "converted to a non-profit gGmbH",
+          de: "Umwandlung in eine gGmbH",
+          ja: "非営利法人(gGmbH)へ移行",
+          ko: "비영리 법인(gGmbH)으로 전환",
+          "zh-TW": "轉型為非營利公司（gGmbH）",
+        },
+      },
     ],
     provenance: fromProfileVi(21),
     editorNote:
