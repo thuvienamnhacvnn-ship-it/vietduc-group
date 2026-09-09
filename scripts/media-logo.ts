@@ -36,8 +36,7 @@ const DIR = "E:/Works/itw/VD/bo sung";
  * Không bóc ở đây:
  *  - "1. Việt Đức Group.ai": logo tập đoàn đang dùng bản SVG trong /brand,
  *    vector thì nét ở mọi cỡ và nhẹ hơn một tấm ảnh.
- *  - "8. Trường Trung cấp Kỹ nghệ Việt Đức.ai": tập đoàn đã bỏ trường này khỏi
- *    website ngày 09/09/2026, dù logo vẫn có trong bộ nhận diện.
+
  *  - Trường Trung cấp Việt Hàn: bộ .ai không có logo của trường, giữ bản cũ.
  */
 const BANG: {
@@ -83,6 +82,12 @@ const BANG: {
     ten: "TC Bách khoa Vũng Tàu",
     theWebp: "public/media/schools/logos/trung-cap-bach-khoa-vung-tau.webp",
     soDoPng: "public/media/so-do/truong-trung-cap-bach-khoa-vung-tau.png",
+  },
+  {
+    tep: "8. Trường Trung cấp Kỹ nghệ Việt Đức.ai",
+    ten: "TC Kỹ nghệ Việt Đức",
+    theWebp: "public/media/schools/logos/trung-cap-ky-nghe-viet-duc.webp",
+    soDoPng: "public/media/so-do/truong-trung-cap-ky-nghe-viet-duc.png",
   },
   {
     tep: "9. Trường Trung cấp công nghệ Việt Đức.ai",

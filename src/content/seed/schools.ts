@@ -828,7 +828,7 @@ export const SCHOOLS: SeedSchool[] = [
   },
   {
     slug: "trung-cap-viet-han",
-    order: 6,
+    order: 7,
     name: {
       vi: "Trường Trung cấp Việt Hàn",
       en: "Viet Han Vocational School",
@@ -1103,7 +1103,7 @@ export const SCHOOLS: SeedSchool[] = [
   },
   {
     slug: "itw-berlin",
-    order: 7,
+    order: 8,
     name: {
       vi: "Viện Đào tạo và Giáo dục ITW Berlin",
       en: "ITW Berlin Institute of Training and Education",
@@ -1250,5 +1250,30 @@ export const SCHOOLS: SeedSchool[] = [
     provenance: fromHoSoNhanSu(),
     editorNote:
       "Trường được tập đoàn nêu ngày 09/09/2026 và có logo trong bộ nhận diện cập nhật 08/06/2026, nhưng CHƯA có hồ sơ: thiếu địa chỉ, điện thoại, email, website, ngành nghề đào tạo và giấy chứng nhận đăng ký hoạt động. Trang của trường vì thế hiện rất ít nội dung cho tới khi có hồ sơ.",
+  },
+  {
+    slug: "trung-cap-ky-nghe-viet-duc",
+    order: 6,
+    name: {
+      vi: "Trường Trung cấp Kỹ nghệ Việt Đức",
+      en: "Viet Duc Engineering Vocational School",
+      de: "Viet Duc Fachschule für Technik",
+      ja: "ベトドゥック技能中等専門学校",
+      ko: "비엣득 기능중등전문학교",
+      "zh-TW": "越德技藝中等專業學校",
+    },
+    shortName: {
+      vi: "Trung cấp Kỹ nghệ Việt Đức",
+      en: "Viet Duc Engineering School",
+      de: "Viet Duc Fachschule Technik",
+      ja: "ベトドゥック技能中専",
+      ko: "비엣득 기능중전",
+      "zh-TW": "越德技藝中專",
+    },
+    country: "VN",
+    logoPath: "/media/schools/logos/trung-cap-ky-nghe-viet-duc.webp",
+    provenance: fromHoSoNhanSu(),
+    editorNote:
+      "Trường có trong bộ nhận diện tập đoàn (tệp Illustrator gửi 09/09/2026, đứng thứ ba trong hàng các trường) nhưng CHƯA có hồ sơ: thiếu địa chỉ, điện thoại, email, website, ngành nghề đào tạo và giấy chứng nhận đăng ký hoạt động. Trang của trường vì thế hiện rất ít nội dung cho tới khi có hồ sơ.",
   },
 ];
