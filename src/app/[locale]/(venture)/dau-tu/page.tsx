@@ -2,7 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isLocale, localePath, t, tList, type Locale, pick } from "@/lib/i18n/config";
+import {
+  isLocale,
+  localePath,
+  t,
+  tList,
+  type Locale,
+  pick,
+} from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import {
   VENTURE_HERO,
@@ -38,7 +45,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function VenturePage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function VenturePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale: Locale = raw;
@@ -144,24 +155,33 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
       {/* Ngay dưới banner là hình ảnh, không phải một khối chữ. Đoạn chữ vốn
           nằm đây nói về cách trích số liệu từ hồ sơ — nó thuộc về mục "Cách
           làm" ở dưới, và đã được chuyển xuống đó. */}
-      <section className={styles.marqueeSection} aria-label={dict.venture.projects}>
+      <section
+        className={styles.marqueeSection}
+        aria-label={dict.venture.projects}
+      >
         <PhotoMarquee
           shots={marquee}
-          alt={
-            pick({
+          alt={pick(
+            {
               vi: "Dự án khách sạn, khu nghỉ dưỡng và công trường của Việt Đức Group",
               en: "Viet Duc Group hotel, resort and construction projects",
               de: "Hotel-, Resort- und Bauprojekte der Viet Duc Group",
               ja: "Viet Duc Group のホテル・リゾート・建設現場のプロジェクト",
               ko: "Viet Duc Group의 호텔·리조트·건설 현장 프로젝트",
               "zh-TW": "Viet Duc Group 的飯店、度假村與工地專案",
-            }, locale)
-          }
+            },
+            locale,
+          )}
           seconds={marquee.length > 12 ? 80 : 55}
         />
       </section>
 
-      <section id="linh-vuc" className={`${styles.section} ${styles.nenQuang}`} data-reveal suppressHydrationWarning>
+      <section
+        id="linh-vuc"
+        className={`${styles.section} ${styles.nenQuang}`}
+        data-reveal
+        suppressHydrationWarning
+      >
         <div className={styles.sectionHead}>
           <p className={styles.kicker}>01</p>
           <h2>{dict.venture.services}</h2>
@@ -170,7 +190,12 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         <ServicePanels services={VENTURE_SERVICES} locale={locale} />
       </section>
 
-      <section id="du-an" className={`${styles.section} ${styles.vien}`} data-reveal suppressHydrationWarning>
+      <section
+        id="du-an"
+        className={`${styles.section} ${styles.vien}`}
+        data-reveal
+        suppressHydrationWarning
+      >
         <div className={styles.sectionHead}>
           <p className={styles.kicker}>02</p>
           <h2>{dict.venture.projects}</h2>
@@ -189,33 +214,42 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         án mà không biết chắc thì tệ hơn là không đặt tên.
       */}
       {siteShots.length ? (
-        <section id="hien-truong" className={`${styles.section} ${styles.nenDai}`} data-reveal suppressHydrationWarning>
+        <section
+          id="hien-truong"
+          className={`${styles.section} ${styles.nenDai}`}
+          data-reveal
+          suppressHydrationWarning
+        >
           <div className={styles.sectionHead}>
             <p className={styles.kicker}>03</p>
             <h2>
-              {
-                pick({
+              {pick(
+                {
                   vi: "Ngoài hiện trường",
                   en: "On site",
                   de: "Vor Ort",
                   ja: "現場から",
                   ko: "현장에서",
                   "zh-TW": "在工地現場",
-                }, locale)
-              }
+                },
+                locale,
+              )}
             </h2>
           </div>
           <PhotoWall
             shots={siteShots.map((src) => ({
               src,
-              alt: pick({
-                vi: "Hiện trường hoạt động đầu tư của Việt Đức Group",
-                en: "A Viet Duc Group investment site",
-                de: "Ein Investitionsstandort der Viet Duc Group",
-                ja: "Viet Duc Group の投資事業の現場",
-                ko: "Viet Duc Group 투자 사업 현장",
-                "zh-TW": "Viet Duc Group 投資事業的現場",
-              }, locale),
+              alt: pick(
+                {
+                  vi: "Hiện trường hoạt động đầu tư của Việt Đức Group",
+                  en: "A Viet Duc Group investment site",
+                  de: "Ein Investitionsstandort der Viet Duc Group",
+                  ja: "Viet Duc Group の投資事業の現場",
+                  ko: "Viet Duc Group 투자 사업 현장",
+                  "zh-TW": "Viet Duc Group 投資事業的現場",
+                },
+                locale,
+              ),
             }))}
             limit={siteShots.length}
             chuLap={pick(
@@ -233,7 +267,12 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         </section>
       ) : null}
 
-      <section id="cach-lam" className={`${styles.section} ${styles.dark}`} data-reveal suppressHydrationWarning>
+      <section
+        id="cach-lam"
+        className={`${styles.section} ${styles.dark}`}
+        data-reveal
+        suppressHydrationWarning
+      >
         {/*
           Số mục, tiêu đề và hai đoạn dẫn nằm chung một khung có viền.
 
@@ -250,19 +289,31 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
             <h2>{t(VENTURE_PROCESS.title, locale)}</h2>
           </div>
 
-          {/* Đoạn chữ chuyển từ dưới banner xuống đây: nó nói về cách trích số
-              liệu từ hồ sơ, tức đúng chủ đề của mục này. */}
-          <div className={styles.processIntro}>
-            {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+          {/*
+            Đoạn chữ nằm gọn lại, rê chuột (hoặc tab tới) mới mở ra.
+
+            Nó nói về cách trích số liệu từ hồ sơ — cần có, nhưng không phải thứ
+            người xem cần đọc ngay khi lướt qua. Thu lại thì cái khung còn đúng
+            số mục và tiêu đề, gọn như một tấm biển; ai muốn biết kỹ thì mở.
+
+            Trên màn hình cảm ứng không có "rê chuột" nên phần này mở sẵn — xem
+            luật @media (hover: none) trong tệp kiểu.
+          */}
+          <div className={styles.processIntro} tabIndex={0}>
+            <div className={styles.processIntroTrong}>
+              {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
           </div>
         </div>
 
         <ol className={styles.steps}>
           {VENTURE_PROCESS.steps.map((step, i) => (
             <li key={t(step.name, locale)}>
-              <span className={styles.stepNo}>{String(i + 1).padStart(2, "0")}</span>
+              <span className={styles.stepNo}>
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <h3>{t(step.name, locale)}</h3>
               <p>{t(step.detail, locale)}</p>
             </li>
@@ -283,29 +334,46 @@ export default async function VenturePage({ params }: { params: Promise<{ locale
         </div>
       </section>
 
-      <section className={styles.cta} data-reveal suppressHydrationWarning>
-        <div>
-          <h2>{dict.venture.contactCta}</h2>
-          <p>{dict.venture.documentNote}</p>
-        </div>
-        <Link href={path("/lien-he")} className={styles.ctaButton}>
-          {dict.nav.contact}
-        </Link>
-      </section>
+      {/*
+        Lời mời liên hệ và danh mục nguồn đứng cạnh nhau, không phải nối đuôi.
 
-      <section className={styles.sourceLine} aria-labelledby="venture-sources">
-        <h2 id="venture-sources">{dict.venture.sources}</h2>
-        <ul>
-          {projects.flatMap((project) =>
-            project.sources.map((source) => (
-              <li key={`${project.slug}-${source.date}-${t(source.document, locale)}`}>
-                <span>{t(source.document, locale)}</span>
-                <time dateTime={source.date}>{documentDate(source.date, locale)}</time>
-              </li>
-            )),
-          )}
-        </ul>
-      </section>
+        Xếp dọc thì lời mời chiếm một dải rộng mà chỉ có ba dòng chữ với một cái
+        nút dạt hẳn sang phải, còn danh mục nguồn nằm dưới thành một cột chữ nhỏ
+        kéo dài — cả vùng cuối trang loang lổ chỗ trống. Đứng cạnh nhau thì hai
+        khối tự lấp đầy nhau và cùng thẳng hai lề.
+      */}
+      <div className={styles.dayCuoi} data-reveal suppressHydrationWarning>
+        <section className={styles.cta}>
+          <div>
+            <h2>{dict.venture.contactCta}</h2>
+            <p>{dict.venture.documentNote}</p>
+          </div>
+          <Link href={path("/lien-he")} className={styles.ctaButton}>
+            {dict.nav.contact}
+          </Link>
+        </section>
+
+        <section
+          className={styles.sourceLine}
+          aria-labelledby="venture-sources"
+        >
+          <h2 id="venture-sources">{dict.venture.sources}</h2>
+          <ul>
+            {projects.flatMap((project) =>
+              project.sources.map((source) => (
+                <li
+                  key={`${project.slug}-${source.date}-${t(source.document, locale)}`}
+                >
+                  <span>{t(source.document, locale)}</span>
+                  <time dateTime={source.date}>
+                    {documentDate(source.date, locale)}
+                  </time>
+                </li>
+              )),
+            )}
+          </ul>
+        </section>
+      </div>
     </>
   );
 }

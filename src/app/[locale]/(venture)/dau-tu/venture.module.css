@@ -8,10 +8,20 @@
 .shell,
 .section,
 .intro,
-.cta {
+.dayCuoi {
   width: min(1400px, 100%);
   margin-inline: auto;
-  padding-inline: var(--s-5);
+  padding: clamp(2rem, 5vw, 3.5rem) var(--s-5) var(--s-7);
+  border-top: 1px solid var(--v-line);
+  display: grid;
+  gap: clamp(1.6rem, 4vw, 3.5rem);
+}
+
+@media (min-width: 900px) {
+  .dayCuoi {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    align-items: start;
+  }
 }
 
 /* ---------- hero ---------- */
@@ -478,14 +488,16 @@
 
 /* ---------- call to action ---------- */
 
+/*
+ * Lời mời: xếp dọc, nút nằm ngay dưới đoạn chữ.
+ *
+ * Bản trước dùng space-between nên cái nút dạt hẳn sang mép phải, cách đoạn chữ
+ * cả một khoảng trống — hai thứ thuộc về nhau mà nhìn như hai khối rời.
+ */
 .cta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--s-5);
-  padding-block: clamp(2rem, 5vw, 3.5rem);
-  border-top: 1px solid var(--v-line);
+  display: grid;
+  justify-items: start;
+  gap: var(--s-4);
 }
 
 .cta h2 {
@@ -522,10 +534,12 @@
 }
 
 /* Where every figure on this page came from, with its date. */
+/* Danh mục nguồn: một khối có viền, đứng cạnh lời mời. */
 .sourceLine {
-  width: min(1400px, 100%);
-  margin: 0 auto;
-  padding: 0 var(--s-5) var(--s-7);
+  padding: clamp(1rem, 2.4vw, 1.6rem) clamp(1rem, 2.4vw, 1.6rem) 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--gold) 26%, var(--v-line));
+  border-radius: var(--r-4);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.12));
 }
 
 .sourceLine h2 {
@@ -675,8 +689,9 @@
  */
 .khungTrangTrong {
   position: relative;
-  max-width: 68rem;
-  margin: 0 auto clamp(2.4rem, 5vw, 4rem);
+  /* Ăn hết bề ngang của mục, thẳng hai lề với mọi khối khác trên trang. Bó lại
+     68rem rồi căn giữa thì nó lệch khỏi lề của phần bên dưới. */
+  margin: 0 0 clamp(2.4rem, 5vw, 4rem);
   padding: clamp(1.6rem, 3.6vw, 3rem);
   border: 1px solid color-mix(in srgb, var(--gold) 34%, transparent);
   border-radius: var(--r-4);
@@ -738,9 +753,56 @@
  * Đây là phần ghi chú về nguồn số liệu chứ không phải nội dung chính; để cùng
  * cỡ với các mục khác thì nó đòi nhiều chú ý hơn phần nó đang giới thiệu.
  */
+/*
+ * Phần chữ đóng lại bằng cách cho hàng lưới cao 0fr, mở ra thành 1fr.
+ *
+ * Đóng bằng `height: 0` thì lúc mở phải chạy tới một chiều cao "auto" mà trình
+ * duyệt không nội suy được, nên nó nhảy phát một. Lưới 0fr → 1fr thì mượt.
+ *
+ * Bên trong đúng MỘT thẻ con: hai thẻ thì thẻ thứ hai rơi vào hàng ngầm cao
+ * auto và phần đã đóng vẫn chiếm chỗ.
+ */
 .khungTrangTrong .processIntro {
-  max-width: 74ch;
+  display: grid;
+  grid-template-rows: 0fr;
+  max-width: none;
   margin-bottom: 0;
+  opacity: 0;
+  outline: none;
+  transition:
+    grid-template-rows var(--dur-3) var(--ease),
+    opacity var(--dur-2) var(--ease),
+    margin-top var(--dur-3) var(--ease);
+}
+
+.processIntroTrong {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.khungTrangTrong:hover .processIntro,
+.khungTrangTrong:focus-within .processIntro {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: var(--s-4);
+}
+
+/* Đầu mục trong khung: khi đóng thì không cần vạch ngăn, mở ra mới cần. */
+.khungTrangTrong .sectionHead {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom-color: transparent;
+  transition:
+    margin-bottom var(--dur-3) var(--ease),
+    padding-bottom var(--dur-3) var(--ease),
+    border-color var(--dur-3) var(--ease);
+}
+
+.khungTrangTrong:hover .sectionHead,
+.khungTrangTrong:focus-within .sectionHead {
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-4);
+  border-bottom-color: color-mix(in srgb, var(--gold) 22%, transparent);
 }
 
 /*
@@ -814,4 +876,31 @@
   right: 8%;
   height: 1px;
   background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--gold) 30%, transparent), transparent);
+}
+
+/*
+ * Màn hình cảm ứng không có "rê chuột": ở đó phần chữ mở sẵn.
+ *
+ * Giấu nội dung sau một thao tác mà thiết bị không làm được thì nội dung ấy coi
+ * như không tồn tại.
+ */
+@media (hover: none) {
+  .khungTrangTrong .processIntro {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: var(--s-4);
+  }
+
+  .khungTrangTrong .sectionHead {
+    margin-bottom: var(--s-4);
+    padding-bottom: var(--s-4);
+    border-bottom-color: color-mix(in srgb, var(--gold) 22%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .khungTrangTrong .processIntro,
+  .khungTrangTrong .sectionHead {
+    transition: none;
+  }
 }

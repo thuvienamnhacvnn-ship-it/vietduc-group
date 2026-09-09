@@ -43,19 +43,28 @@ export function ServicePanels({
               sizes="(min-width: 900px) 42vw, 100vw"
               className={styles.image}
             />
-            <span className={styles.wash} aria-hidden="true" />
-
             <div className={styles.body}>
               <span className={styles.no}>{String(index + 1).padStart(2, "0")}</span>
               <h3>{t(service.name, locale)}</h3>
 
+              {/*
+                Phần chi tiết gói trong MỘT ô lưới, không phải hai.
+
+                Ô lưới đóng lại bằng cách cho hàng cao 0fr. Nhưng lưới chỉ khai
+                báo một hàng, mà bên trong có hai thẻ con — thẻ thứ hai rơi vào
+                một hàng ngầm cao "auto", nên nó vẫn chiếm chỗ dù mắt không thấy.
+                Ba tấm có số gạch đầu dòng khác nhau nên chiếm khác nhau, và đó
+                đúng là lý do ba cái tên nằm ở ba độ cao khác nhau.
+              */}
               <div className={styles.detail}>
-                <p>{t(service.lead, locale)}</p>
-                <ul className={service.pending ? styles.pending : undefined}>
-                  {tList(service.points, locale).map((point) => (
-                    <li key={point}>{point}</li>
-                  ))}
-                </ul>
+                <div className={styles.detailTrong}>
+                  <p>{t(service.lead, locale)}</p>
+                  <ul className={service.pending ? styles.pending : undefined}>
+                    {tList(service.points, locale).map((point) => (
+                      <li key={point}>{point}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
           </article>

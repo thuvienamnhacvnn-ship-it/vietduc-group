@@ -77,19 +77,13 @@
   scale: 1.05;
 }
 
-/* Only the lower part is washed, and only as far as the words reach. */
-.wash {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    transparent 34%,
-    rgba(14, 10, 7, 0.55) 62%,
-    rgba(12, 9, 6, 0.9) 100%
-  );
-}
+/*
+ * Không còn lớp nền tối phủ dưới ảnh.
+ *
+ * Lớp ấy làm ba tấm ảnh thành ba khối tối giống hệt nhau ở nửa dưới, mất hết
+ * phần đẹp của ảnh. Chữ vẫn đọc được nhờ đổ bóng riêng của từng dòng — bóng đi
+ * theo nét chữ chứ không phủ lên cả tấm ảnh.
+ */
 
 .body {
   display: grid;
@@ -101,6 +95,7 @@
   font-family: var(--font-display);
   font-size: 0.94rem;
   color: var(--gold);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
 }
 
 .card h3 {
@@ -119,7 +114,6 @@
  */
 .detail {
   display: grid;
-  gap: var(--s-3);
   grid-template-rows: 0fr;
   opacity: 0;
   transition:
@@ -127,7 +121,11 @@
     opacity var(--dur-2) var(--ease);
 }
 
-.detail > * {
+/* Đúng MỘT thẻ con, nếu không thẻ thứ hai rơi vào hàng ngầm cao auto và phần
+   "đã đóng" vẫn chiếm chỗ. */
+.detailTrong {
+  display: grid;
+  gap: var(--s-3);
   overflow: hidden;
   min-height: 0;
 }
@@ -142,7 +140,8 @@
   margin: var(--s-2) 0 0;
   font-size: 0.94rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
   max-width: 42ch;
 }
 
@@ -154,7 +153,8 @@
   list-style: none;
   font-size: 0.88rem;
   line-height: 1.55;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.88);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
   max-width: 46ch;
 }
 
