@@ -1,4 +1,5 @@
 import {
+  fromHoSoNhanSu,
   fromProfileVi,
   type SeedCategory,
   type SeedDocument,
@@ -1210,5 +1211,44 @@ export const SCHOOLS: SeedSchool[] = [
     provenance: fromProfileVi(21),
     editorNote:
       "Bản tiếng Việt (tr.21) ghi ITW được thành lập năm 1967 với tên Viện Giáo dục Kỹ thuật Liên tục Berlin, theo sáng kiến của cộng đồng doanh nghiệp Berlin và các hiệp hội. Bản tiếng Anh cùng hồ sơ lại ghi do 'Vietnam Education & Technology Association in Berlin' thành lập. Hai bản mâu thuẫn – đã dùng bản tiếng Việt, cần ITW Berlin xác nhận trước khi dịch sang tiếng Đức cho thị trường Đức.",
+  },
+  /*
+   * Trường Cao đẳng Công nghệ Việt Đức.
+   *
+   * Trường thứ bảy, tập đoàn nêu ngày 09/09/2026. Nó KHÔNG nằm trong bộ hồ sơ
+   * PROFILE gốc và cũng chưa có giấy chứng nhận nào trong tay, nên bản ghi này
+   * mới chỉ có tên và logo — lấy từ bộ logo hệ thống bản cập nhật 08/06/2026.
+   *
+   * Không bịa ngành nghề, quy mô tuyển sinh hay giấy phép: những thứ đó phải
+   * đến từ giấy chứng nhận đăng ký hoạt động, không phải từ suy đoán dựa trên
+   * tên trường. Khi tập đoàn gửi hồ sơ thì điền tiếp vào đây.
+   *
+   * CHÚ Ý phân biệt với `trung-cap-cong-nghe-viet-duc` — hai trường khác nhau,
+   * một cao đẳng một trung cấp, tên gần giống nhau và logo cũng cùng hệ.
+   */
+  {
+    slug: "cao-dang-cong-nghe-viet-duc",
+    order: 7,
+    name: {
+      vi: "Trường Cao đẳng Công nghệ Việt Đức",
+      en: "Viet Duc Technology College",
+      de: "Viet Duc Technologie-College",
+      ja: "ベトドゥック工科短期大学",
+      ko: "비엣득 공과전문대학",
+      "zh-TW": "越德科技專科學校",
+    },
+    shortName: {
+      vi: "Cao đẳng Công nghệ Việt Đức",
+      en: "Viet Duc Technology College",
+      de: "Viet Duc Technologie-College",
+      ja: "ベトドゥック工科短大",
+      ko: "비엣득 공과전문대",
+      "zh-TW": "越德科技專科",
+    },
+    country: "VN",
+    logoPath: "/media/schools/logos/cao-dang-cong-nghe-viet-duc.webp",
+    provenance: fromHoSoNhanSu(),
+    editorNote:
+      "Trường được tập đoàn nêu ngày 09/09/2026 và có logo trong bộ nhận diện cập nhật 08/06/2026, nhưng CHƯA có hồ sơ: thiếu địa chỉ, điện thoại, email, website, ngành nghề đào tạo và giấy chứng nhận đăng ký hoạt động. Trang của trường vì thế hiện rất ít nội dung cho tới khi có hồ sơ.",
   },
 ];

@@ -69,29 +69,81 @@
 /* ---------------------------------------------------------- người đứng đầu */
 
 .trum {
+  position: relative;
   margin-bottom: clamp(3rem, 7vw, 5rem);
-  padding: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.75rem, 4.4vw, 3.4rem);
   border-radius: var(--r-4);
-  /* Navy đặc với một vệt sáng chéo rất nhẹ: đủ để khối này tách khỏi nền mà
-     không cần viền, và không thành một mảng phẳng chết. */
+  /*
+   * Nền sâu, không phải một mảng navy phẳng.
+   *
+   * Bốn lớp chồng lên nhau: quầng vàng ở góc trên trái (nguồn sáng), quầng đỏ
+   * rất nhạt ở góc dưới phải (màu thương hiệu, đủ để góc ấy không chết), một
+   * lớp tối phủ từ ngoài vào tạo chiều sâu, và sau cùng là nền navy đậm hơn
+   * hẳn bản cũ. Bản cũ lấy --navy-soft làm nền nên ở chế độ sáng khối này gần
+   * như trôi vào trang; giá trị đặc ở đây giữ nó nặng và tách bạch ở cả hai
+   * chế độ.
+   */
   background:
-    radial-gradient(120% 140% at 12% 0%, rgba(196, 145, 69, 0.14), transparent 60%),
-    linear-gradient(160deg, var(--navy-soft), var(--navy) 65%);
+    radial-gradient(
+      115% 130% at 10% 0%,
+      rgba(196, 145, 69, 0.2),
+      transparent 58%
+    ),
+    radial-gradient(
+      85% 115% at 100% 100%,
+      rgba(190, 60, 74, 0.18),
+      transparent 62%
+    ),
+    radial-gradient(
+      140% 120% at 50% 50%,
+      transparent 30%,
+      rgba(0, 0, 0, 0.45) 100%
+    ),
+    linear-gradient(160deg, #14243a, #070d18 72%);
+  border: 1px solid rgba(196, 145, 69, 0.3);
+  box-shadow:
+    0 34px 80px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   color: #f2eee7;
+  overflow: hidden;
 }
 
+/*
+ * Lớp chỉ vàng chạy bên trong mép khối.
+ *
+ * Một đường mảnh lùi vào so với mép khối — lối kẻ khung của thiệp mời và bằng
+ * khen. Nó không mang thông tin gì; việc của nó là báo cho mắt biết đây là khối
+ * trang trọng nhất trang.
+ */
+.trum::before {
+  content: "";
+  position: absolute;
+  inset: clamp(0.55rem, 1.3vw, 0.95rem);
+  border: 1px solid color-mix(in srgb, var(--gold) 32%, transparent);
+  border-radius: calc(var(--r-4) - 4px);
+  pointer-events: none;
+}
+
+/*
+ * Ảnh bên trái, phần chữ bên phải.
+ *
+ * Đã thử căn giữa theo lối trang bìa và bỏ: ảnh nằm giữa thì tên và câu trích
+ * bị đẩy xuống thành ba khối rời, mất cái dáng bảng tên. Xếp ngang thì ảnh và
+ * tên đứng cạnh nhau như trên một tấm biển đồng — đọc một nhịp là xong.
+ */
 .trumLink {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  gap: clamp(1.25rem, 4vw, 3rem);
+  gap: clamp(1.5rem, 4vw, 3rem);
   text-decoration: none;
   color: inherit;
 }
 
 .trumChu {
-  flex: 1;
-  min-width: min(20rem, 100%);
+  flex: 1 1 22rem;
+  min-width: 0;
+  max-width: 46rem;
 }
 
 .trumChuc {
@@ -109,11 +161,26 @@
   line-height: 1.22;
 }
 
+/* Gạch vàng ngắn dưới tên — nét kết của một bảng tên, không phải đường kẻ ô. */
+.trumTen::after {
+  content: "";
+  display: block;
+  width: 4.5rem;
+  height: 2px;
+  margin-top: clamp(0.7rem, 1.6vw, 1rem);
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transition: width var(--dur-2) var(--ease);
+}
+
+.trumLink:hover .trumTen::after {
+  width: 7.5rem;
+}
+
 /* Câu trích: mặt chữ hiển thị, nghiêng, có nét vàng dẫn ở lề trái. */
 .trumTrich {
   margin: clamp(0.9rem, 2vw, 1.4rem) 0 0;
-  padding-inline-start: 1rem;
-  border-inline-start: 2px solid var(--gold);
+  padding-left: clamp(0.9rem, 2vw, 1.2rem);
+  border-left: 2px solid color-mix(in srgb, var(--gold) 55%, transparent);
   max-width: 58ch;
   font-family: var(--font-display);
   font-size: clamp(1rem, 1.6vw, 1.2rem);
@@ -157,7 +224,11 @@
   content: "";
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, color-mix(in srgb, var(--gold) 55%, transparent), transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--gold) 55%, transparent),
+    transparent
+  );
 }
 
 /*
@@ -307,7 +378,7 @@
 
 .dsNguoi > li {
   flex: 0 0 auto;
-  width: 11.5rem;
+  width: 13rem;
 }
 
 .the {
@@ -382,11 +453,22 @@
   min-width: 0;
 }
 
+/*
+ * Tên đứng gọn MỘT DÒNG.
+ *
+ * Thẻ cũ rộng 11,5rem nên "Nguyễn Thị Phương Lan" bị bẻ làm hai dòng, và hàng
+ * thẻ có cái cao cái thấp. Thẻ rộng 13rem cộng cỡ chữ nhỏ hơn một nấc là đủ
+ * cho cái tên dài nhất trong danh sách;  giữ lời hứa ấy kể cả khi sau
+ * này có tên dài hơn — khi đó chữ thu lại chứ không xuống dòng.
+ */
 .theTen {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.96rem;
   font-weight: 600;
-  line-height: 1.3;
+  line-height: 1.35;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .the:hover .theTen {
@@ -408,21 +490,128 @@
 
 .trumAnh {
   position: relative;
+  /* Đóng khung thứ tự chồng lớp lại trong khung ảnh, để vệt sáng và hào quang
+     nằm dưới ảnh mà vẫn nằm trên nền khối. */
+  isolation: isolate;
   flex: none;
   display: block;
-  width: clamp(9rem, 20vw, 14rem);
+  width: clamp(11rem, 24vw, 17rem);
   aspect-ratio: 4 / 5;
   border-radius: var(--r-4);
+}
+
+.trumAnhTrong {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--r-4) - 2px);
   overflow: hidden;
   border: 1px solid rgba(196, 145, 69, 0.45);
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.42);
-  transition: transform var(--dur-2) var(--ease);
+  transition: box-shadow var(--dur-2) var(--ease);
 }
 
-.trumLink:hover .trumAnh {
-  transform: translateY(-4px);
+/*
+ * Rê chuột: KHUNG ĐỨNG YÊN, ảnh bên trong phóng vào.
+ *
+ * Bản cũ nhấc cả khung lên bốn pixel rồi phóng ảnh 5%, thành ra cả khối nhúc
+ * nhích mà ảnh thì gần như không đổi. Bỏ hẳn phần nhấc khung — mép khung là cái
+ * neo, giữ nguyên nó thì mắt mới thấy được ảnh đang tiến lại gần. Mức phóng để
+ * 1,25 (gấp năm lần mức 5% cũ); đổi đúng một con số này là đổi được độ mạnh.
+ */
+.trumLink:hover .trumAnh .anh,
+.trumLink:focus-visible .trumAnh .anh {
+  transform: scale(1.25);
 }
 
-.trumLink:hover .trumAnh .anh {
-  transform: scale(1.05);
+/* ------------------------------- viền sáng chạy quanh ảnh người đứng đầu */
+
+/*
+ * Một vệt sáng chạy vòng quanh khung ảnh, và hào quang khi rê chuột.
+ *
+ * Vệt chạy làm bằng `conic-gradient` quay tròn rồi bị mặt nạ cắt chỉ còn đúng
+ * bề dày viền — nên thứ nhìn thấy là một vệt sáng trượt dọc theo mép ảnh chứ
+ * không phải cả một quạt sáng. Cùng kỹ thuật với vệt quét trên vòng quỹ đạo ở
+ * trang chủ, để hai chỗ nói cùng một thứ tiếng.
+ *
+ * `padding: 2px` trên khung: vệt sáng nằm ở lớp nền, ảnh nằm trên, phần nhô ra
+ * hai pixel chính là cái viền.
+ */
+.trumAnh {
+  padding: 2px;
+  background: transparent;
+}
+
+.trumAnh::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0 58%,
+    rgba(240, 200, 130, 0.55) 72%,
+    #ffe6ae 80%,
+    rgba(240, 200, 130, 0.45) 86%,
+    transparent 94%
+  );
+  animation: chayVienTrum 5.5s linear infinite;
+}
+
+@keyframes chayVienTrum {
+  to {
+    rotate: 360deg;
+  }
+}
+
+/* Hào quang: quầng sáng nở ra quanh ảnh khi rê chuột. */
+.trumAnh::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(240, 200, 130, 0.42) 0%,
+    rgba(190, 60, 74, 0.28) 45%,
+    transparent 72%
+  );
+  opacity: 0;
+  scale: 0.86;
+  transition:
+    opacity 420ms var(--ease),
+    scale 420ms var(--ease);
+  pointer-events: none;
+}
+
+.trumLink:hover .trumAnh::after,
+.trumLink:focus-visible .trumAnh::after {
+  opacity: 1;
+  scale: 1;
+}
+
+.trumLink:hover .trumAnhTrong,
+.trumLink:focus-visible .trumAnhTrong {
+  box-shadow:
+    0 0 0 1px rgba(240, 200, 130, 0.5),
+    0 24px 60px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(240, 200, 130, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trumAnh::before {
+    animation: none;
+  }
+}
+
+/* Khung hẹp: ảnh và chữ không còn chỗ đứng cạnh nhau thì xếp dọc. */
+@media (max-width: 640px) {
+  .trumLink {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

@@ -24,7 +24,9 @@
     "i18n": "tsx scripts/i18n.ts",
     "cau-hinh": "tsx scripts/lam-moi-cau-hinh.ts",
     "i18n:soi": "tsx scripts/i18n-soi.ts",
-    "media:nhan-su": "tsx scripts/media-nhan-su.ts"
+    "media:nhan-su": "tsx scripts/media-nhan-su.ts",
+    "media:logo": "tsx scripts/media-logo.ts",
+    "lien-he": "tsx scripts/cap-nhat-lien-he.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",

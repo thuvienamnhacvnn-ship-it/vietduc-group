@@ -4,7 +4,12 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { isLocale, t, type Locale, pick } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
-import { getPeople, getSchools, type NguoiDayDu, type ChucVuRow } from "@/lib/queries";
+import {
+  getPeople,
+  getSchools,
+  type NguoiDayDu,
+  type ChucVuRow,
+} from "@/lib/queries";
 import { Breadcrumbs, EmptyState } from "@/components/ui";
 import { ChanDung } from "@/components/nhan-su/ChanDung";
 import { MangLuoi } from "@/components/nhan-su/MangLuoi";
@@ -46,7 +51,11 @@ type Ghe = { nguoi: NguoiDayDu; cv: ChucVuRow };
  * Bách Khoa Vũng Tàu" sẽ hiện một loạt "Chủ tịch HĐQT Việt Đức Group" và chẳng
  * nói lên điều gì về hội đồng ấy cả.
  */
-export default async function PeoplePage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function PeoplePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale: raw } = await params;
   if (!isLocale(raw)) notFound();
   const locale: Locale = raw;
@@ -66,9 +75,15 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
   // ba người.
   const bks = trongBan((cv) => cv.body === "bks" && !cv.schoolId);
 
-  // Người đứng đầu tách riêng khỏi danh sách để không bị lặp hai lần.
+  /*
+   * Người đứng đầu có khối trang trọng riêng ở đầu trang, NHƯNG vẫn nằm trong
+   * danh sách Hội đồng quản trị bên dưới.
+   *
+   * Bản trước cắt ông khỏi danh sách để tránh lặp, và hệ quả là khối "Hội đồng
+   * quản trị" hiện ra hai người trong khi hội đồng có ba. Một danh sách cơ cấu
+   * thiếu người đứng đầu thì không còn là cơ cấu.
+   */
   const dungDau = hdqt[0] ?? null;
-  const hdqtConLai = dungDau ? hdqt.slice(1) : hdqt;
 
   const khoiTruong = truong
     .map((tr) => ({
@@ -80,16 +95,116 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
     .filter((k) => k.hdt.length || k.bgh.length || k.bksTruong.length);
 
   const nhan = {
-    hdqt: pick({ vi: "Hội đồng quản trị", en: "Board of Directors", de: "Verwaltungsrat", ja: "取締役会", ko: "이사회", "zh-TW": "董事會" }, locale),
-    dieuHanh: pick({ vi: "Ban Điều hành", en: "Executive Board", de: "Geschäftsführung", ja: "執行部", ko: "집행부", "zh-TW": "經營團隊" }, locale),
-    bks: pick({ vi: "Ban Kiểm soát", en: "Supervisory Board", de: "Aufsichtsrat", ja: "監査役会", ko: "감사위원회", "zh-TW": "監事會" }, locale),
-    hdt: pick({ vi: "Hội đồng trường", en: "School Council", de: "Schulrat", ja: "学校評議会", ko: "학교 이사회", "zh-TW": "校務委員會" }, locale),
-    bgh: pick({ vi: "Ban Giám hiệu", en: "School Executive", de: "Schulleitung", ja: "学校執行部", ko: "학교 집행부", "zh-TW": "校領導班子" }, locale),
-    tapDoan: pick({ vi: "Cấp tập đoàn", en: "Group level", de: "Konzernebene", ja: "グループ本部", ko: "그룹 본부", "zh-TW": "集團層級" }, locale),
-    truong: pick({ vi: "Các trường thành viên", en: "Member schools", de: "Mitgliedsschulen", ja: "加盟校", ko: "회원 학교", "zh-TW": "成員學校" }, locale),
-    nguoi: pick({ vi: "nhân sự", en: "people", de: "Personen", ja: "名", ko: "명", "zh-TW": "人" }, locale),
-    chucVu: pick({ vi: "chức vụ", en: "appointments", de: "Ämter", ja: "の役職", ko: "개 직책", "zh-TW": "項職務" }, locale),
-    donVi: pick({ vi: "đơn vị", en: "institutions", de: "Einrichtungen", ja: "の機関", ko: "개 기관", "zh-TW": "個機構" }, locale),
+    hdqt: pick(
+      {
+        vi: "Hội đồng quản trị",
+        en: "Board of Directors",
+        de: "Verwaltungsrat",
+        ja: "取締役会",
+        ko: "이사회",
+        "zh-TW": "董事會",
+      },
+      locale,
+    ),
+    dieuHanh: pick(
+      {
+        vi: "Ban Điều hành",
+        en: "Executive Board",
+        de: "Geschäftsführung",
+        ja: "執行部",
+        ko: "집행부",
+        "zh-TW": "經營團隊",
+      },
+      locale,
+    ),
+    bks: pick(
+      {
+        vi: "Ban Kiểm soát",
+        en: "Supervisory Board",
+        de: "Aufsichtsrat",
+        ja: "監査役会",
+        ko: "감사위원회",
+        "zh-TW": "監事會",
+      },
+      locale,
+    ),
+    hdt: pick(
+      {
+        vi: "Hội đồng trường",
+        en: "School Council",
+        de: "Schulrat",
+        ja: "学校評議会",
+        ko: "학교 이사회",
+        "zh-TW": "校務委員會",
+      },
+      locale,
+    ),
+    bgh: pick(
+      {
+        vi: "Ban Giám hiệu",
+        en: "School Executive",
+        de: "Schulleitung",
+        ja: "学校執行部",
+        ko: "학교 집행부",
+        "zh-TW": "校領導班子",
+      },
+      locale,
+    ),
+    tapDoan: pick(
+      {
+        vi: "Cấp tập đoàn",
+        en: "Group level",
+        de: "Konzernebene",
+        ja: "グループ本部",
+        ko: "그룹 본부",
+        "zh-TW": "集團層級",
+      },
+      locale,
+    ),
+    truong: pick(
+      {
+        vi: "Các trường thành viên",
+        en: "Member schools",
+        de: "Mitgliedsschulen",
+        ja: "加盟校",
+        ko: "회원 학교",
+        "zh-TW": "成員學校",
+      },
+      locale,
+    ),
+    nguoi: pick(
+      {
+        vi: "nhân sự",
+        en: "people",
+        de: "Personen",
+        ja: "名",
+        ko: "명",
+        "zh-TW": "人",
+      },
+      locale,
+    ),
+    chucVu: pick(
+      {
+        vi: "chức vụ",
+        en: "appointments",
+        de: "Ämter",
+        ja: "の役職",
+        ko: "개 직책",
+        "zh-TW": "項職務",
+      },
+      locale,
+    ),
+    donVi: pick(
+      {
+        vi: "đơn vị",
+        en: "institutions",
+        de: "Einrichtungen",
+        ja: "の機関",
+        ko: "개 기관",
+        "zh-TW": "個機構",
+      },
+      locale,
+    ),
   };
 
   const soChucVu = nguoi.reduce((n, p) => n + p.chucVu.length, 0);
@@ -108,7 +223,8 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
                 de: "Verwaltungsrat, Geschäftsführung, Aufsichtsrat und die Leitung jeder Mitgliedsschule. Mehrere Personen haben Ämter an mehreren Einrichtungen; jeder Block nennt daher das dort geführte Amt.",
                 ja: "取締役会、執行部、監査役会、そして加盟各校の経営体制です。複数の機関で役職を兼ねる方がいるため、各欄にはその機関での役職を記しています。",
                 ko: "이사회와 집행부, 감사위원회, 그리고 각 회원 학교의 지도부입니다. 여러 기관에서 직책을 겸하는 분들이 있어, 각 항목에는 해당 기관에서의 직책을 적었습니다.",
-                "zh-TW": "董事會、經營團隊、監事會，以及各成員學校的領導層。多位成員身兼數個機構的職務，因此每一區塊標示的是在該機構的職稱。",
+                "zh-TW":
+                  "董事會、經營團隊、監事會，以及各成員學校的領導層。多位成員身兼數個機構的職務，因此每一區塊標示的是在該機構的職稱。",
               },
               locale,
             )}
@@ -134,8 +250,28 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
 
         {!nguoi.length ? (
           <EmptyState
-            title={pick({ vi: "Chưa công bố thông tin nhân sự", en: "Staff information not published yet", de: "Angaben zum Team noch nicht veröffentlicht", ja: "人事情報はまだ公開されていません", ko: "인사 정보는 아직 공개되지 않았습니다", "zh-TW": "尚未公布人事資訊" }, locale)}
-            hint={pick({ vi: "Trang này hiển thị ngay khi biên tập viên duyệt hồ sơ trong trang quản trị.", en: "The page fills in as soon as an editor approves the profiles in the admin area.", de: "Die Seite füllt sich, sobald die Redaktion die Profile freigibt.", ja: "編集者が管理画面で承認しだい、このページに表示されます。", ko: "편집자가 관리 화면에서 승인하는 대로 이 페이지에 표시됩니다.", "zh-TW": "待編輯者於管理後台審核後，本頁即會顯示。" }, locale)}
+            title={pick(
+              {
+                vi: "Chưa công bố thông tin nhân sự",
+                en: "Staff information not published yet",
+                de: "Angaben zum Team noch nicht veröffentlicht",
+                ja: "人事情報はまだ公開されていません",
+                ko: "인사 정보는 아직 공개되지 않았습니다",
+                "zh-TW": "尚未公布人事資訊",
+              },
+              locale,
+            )}
+            hint={pick(
+              {
+                vi: "Trang này hiển thị ngay khi biên tập viên duyệt hồ sơ trong trang quản trị.",
+                en: "The page fills in as soon as an editor approves the profiles in the admin area.",
+                de: "Die Seite füllt sich, sobald die Redaktion die Profile freigibt.",
+                ja: "編集者が管理画面で承認しだい、このページに表示されます。",
+                ko: "편집자가 관리 화면에서 승인하는 대로 이 페이지에 표시됩니다.",
+                "zh-TW": "待編輯者於管理後台審核後，本頁即會顯示。",
+              },
+              locale,
+            )}
           />
         ) : (
           <>
@@ -169,7 +305,11 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
                   slug: p.slug,
                   ten: p.name,
                   hocVi: p.honorific,
-                  chuCai: (tu[tu.length - 1]?.[0] ?? p.name[0] ?? "?").toUpperCase(),
+                  chuCai: (
+                    tu[tu.length - 1]?.[0] ??
+                    p.name[0] ??
+                    "?"
+                  ).toUpperCase(),
                   anh: p.photoPath,
                   chuc: p.headline ? t(p.headline, locale) : "",
                   // Một người nối tới mọi đơn vị mình giữ chức. Chức vụ ở pháp
@@ -181,7 +321,9 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
                         .map((cv) =>
                           cv.schoolId
                             ? `truong-${cv.schoolId}`
-                            : cv.body === "hdqt" || cv.body === "dieuhanh" || cv.body === "bks"
+                            : cv.body === "hdqt" ||
+                                cv.body === "dieuhanh" ||
+                                cv.body === "bks"
                               ? cv.body
                               : null,
                         )
@@ -197,7 +339,7 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
                 <span>{nhan.tapDoan}</span>
               </h2>
               <div className={styles.capLuoi}>
-                <Ban locale={locale} ten={nhan.hdqt} ds={hdqtConLai} />
+                <Ban locale={locale} ten={nhan.hdqt} ds={hdqt} />
                 <Ban locale={locale} ten={nhan.dieuHanh} ds={dieuHanh} />
                 <Ban locale={locale} ten={nhan.bks} ds={bks} />
               </div>
@@ -208,7 +350,12 @@ export default async function PeoplePage({ params }: { params: Promise<{ locale:
                 <span>{nhan.truong}</span>
               </h2>
               {khoiTruong.map(({ truong: tr, hdt, bgh, bksTruong }) => (
-                <article key={tr.id} className={styles.truong} data-reveal suppressHydrationWarning>
+                <article
+                  key={tr.id}
+                  className={styles.truong}
+                  data-reveal
+                  suppressHydrationWarning
+                >
                   <header className={styles.truongDau}>
                     {tr.logoPath ? (
                       <Image
@@ -253,7 +400,16 @@ function DungDau({ locale, ghe }: { locale: Locale; ghe: Ghe }) {
       <Link href={`/${locale}/doi-ngu/${p.slug}`} className={styles.trumLink}>
         {p.photoPath ? (
           <span className={styles.trumAnh}>
-            <Image src={p.photoPath} alt="" width={640} height={640} priority className={styles.anh} />
+            <span className={styles.trumAnhTrong}>
+              <Image
+                src={p.photoPath}
+                alt=""
+                width={640}
+                height={640}
+                priority
+                className={styles.anh}
+              />
+            </span>
           </span>
         ) : (
           <ChanDung ten={p.name} anh={null} lon />
@@ -261,10 +417,14 @@ function DungDau({ locale, ghe }: { locale: Locale; ghe: Ghe }) {
         <div className={styles.trumChu}>
           <p className={styles.trumChuc}>{t(cv.title, locale)}</p>
           <h2 className={styles.trumTen}>
-            {p.honorific ? <span className={styles.hocVi}>{p.honorific} </span> : null}
+            {p.honorific ? (
+              <span className={styles.hocVi}>{p.honorific} </span>
+            ) : null}
             {p.name}
           </h2>
-          {p.quote ? <p className={styles.trumTrich}>{t(p.quote, locale)}</p> : null}
+          {p.quote ? (
+            <p className={styles.trumTrich}>{t(p.quote, locale)}</p>
+          ) : null}
         </div>
       </Link>
     </section>
@@ -281,9 +441,21 @@ function Ban({ locale, ten, ds }: { locale: Locale; ten: string; ds: Ghe[] }) {
         <h4>{ten}</h4>
         {moc?.term ? (
           <p className={styles.nhiemKy}>
-            {pick({ vi: "Nhiệm kỳ", en: "Term", de: "Amtszeit", ja: "任期", ko: "임기", "zh-TW": "任期" }, locale)}{" "}
+            {pick(
+              {
+                vi: "Nhiệm kỳ",
+                en: "Term",
+                de: "Amtszeit",
+                ja: "任期",
+                ko: "임기",
+                "zh-TW": "任期",
+              },
+              locale,
+            )}{" "}
             {moc.term}
-            {moc.decisionRef ? <span className={styles.quyetDinh}>{moc.decisionRef}</span> : null}
+            {moc.decisionRef ? (
+              <span className={styles.quyetDinh}>{moc.decisionRef}</span>
+            ) : null}
           </p>
         ) : null}
       </header>
@@ -310,10 +482,14 @@ function Ban({ locale, ten, ds }: { locale: Locale; ten: string; ds: Ghe[] }) {
               </span>
               <span className={styles.theChu}>
                 <span className={styles.theTen}>
-                  {p.honorific ? <span className={styles.hocVi}>{p.honorific} </span> : null}
+                  {p.honorific ? (
+                    <span className={styles.hocVi}>{p.honorific} </span>
+                  ) : null}
                   {p.name}
                 </span>
-                {p.birthYear ? <span className={styles.theNam}>{p.birthYear}</span> : null}
+                {p.birthYear ? (
+                  <span className={styles.theNam}>{p.birthYear}</span>
+                ) : null}
               </span>
             </Link>
           </li>

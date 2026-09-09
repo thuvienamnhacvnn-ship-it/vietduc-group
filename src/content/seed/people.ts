@@ -131,11 +131,10 @@ export const PEOPLE: SeedPerson[] = [
         rank: 60,
       },
       {
-        school: null,
-        org: { vi: "ITW Berlin – Institut für Aus- und Weiterbildung gGmbH" },
-        body: "khac",
+        school: "itw-berlin",
+        body: "bgh",
         title: { vi: "Giám đốc Học viện đào tạo" },
-        rank: 60,
+        rank: 10,
       },
       {
         school: null,
@@ -1408,6 +1407,12 @@ export const PEOPLE: SeedPerson[] = [
     },
     appointments: [
       {
+        school: "cao-dang-cong-nghe-viet-duc",
+        body: "bks",
+        title: { vi: "Trưởng Ban Kiểm soát" },
+        rank: 10,
+      },
+      {
         school: null,
         org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
         body: "bks",
@@ -1440,12 +1445,6 @@ export const PEOPLE: SeedPerson[] = [
       },
       {
         school: "trung-cap-cong-nghe-viet-duc",
-        body: "bks",
-        title: { vi: "Trưởng Ban Kiểm soát" },
-        rank: 10,
-      },
-      {
-        school: "itw-berlin",
         body: "bks",
         title: { vi: "Trưởng Ban Kiểm soát" },
         rank: 10,
@@ -1527,6 +1526,12 @@ export const PEOPLE: SeedPerson[] = [
     },
     appointments: [
       {
+        school: "cao-dang-cong-nghe-viet-duc",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
         school: null,
         org: { vi: "Hệ thống các trường GDNN thuộc Việt Đức Group" },
         body: "bks",
@@ -1559,12 +1564,6 @@ export const PEOPLE: SeedPerson[] = [
       },
       {
         school: "trung-cap-cong-nghe-viet-duc",
-        body: "bks",
-        title: { vi: "Thành viên Ban Kiểm soát" },
-        rank: 40,
-      },
-      {
-        school: "itw-berlin",
         body: "bks",
         title: { vi: "Thành viên Ban Kiểm soát" },
         rank: 40,
@@ -1710,6 +1709,12 @@ export const PEOPLE: SeedPerson[] = [
     },
     appointments: [
       {
+        school: "cao-dang-cong-nghe-viet-duc",
+        body: "bks",
+        title: { vi: "Thành viên Ban Kiểm soát" },
+        rank: 40,
+      },
+      {
         school: null,
         org: { vi: "Việt Đức Group" },
         body: "dieuhanh",
@@ -1736,12 +1741,6 @@ export const PEOPLE: SeedPerson[] = [
       },
       {
         school: "trung-cap-cong-nghe-viet-duc",
-        body: "bks",
-        title: { vi: "Thành viên Ban Kiểm soát" },
-        rank: 40,
-      },
-      {
-        school: "itw-berlin",
         body: "bks",
         title: { vi: "Thành viên Ban Kiểm soát" },
         rank: 40,
