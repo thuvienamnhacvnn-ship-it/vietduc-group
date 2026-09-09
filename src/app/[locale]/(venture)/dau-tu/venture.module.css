@@ -689,6 +689,12 @@
  */
 .khungTrangTrong {
   position: relative;
+  /* Cột một là con số, cột hai là tiêu đề và phần chữ — nhờ vậy hai thứ ấy
+     chung một lề dù bề rộng con số co giãn theo cỡ màn hình. */
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: clamp(0.9rem, 2.4vw, 1.8rem);
+  align-items: start;
   /* Ăn hết bề ngang của mục, thẳng hai lề với mọi khối khác trên trang. Bó lại
      68rem rồi căn giữa thì nó lệch khỏi lề của phần bên dưới. */
   margin: 0 0 clamp(2.4rem, 5vw, 4rem);
@@ -788,19 +794,28 @@
 }
 
 /* Đầu mục trong khung: khi đóng thì không cần vạch ngăn, mở ra mới cần. */
-.khungTrangTrong .sectionHead {
-  margin-bottom: 0;
+.khungChu {
+  min-width: 0;
+}
+
+/* Tiêu đề trong khung: cùng lối với tiêu đề các mục khác. */
+.khungTieuDe {
+  margin: 0;
   padding-bottom: 0;
-  border-bottom-color: transparent;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 2.6vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--v-ink);
+  border-bottom: 1px solid transparent;
   transition:
-    margin-bottom var(--dur-3) var(--ease),
     padding-bottom var(--dur-3) var(--ease),
     border-color var(--dur-3) var(--ease);
 }
 
-.khungTrangTrong:hover .sectionHead,
-.khungTrangTrong:focus-within .sectionHead {
-  margin-bottom: var(--s-4);
+/* Mở ra thì mới cần vạch ngăn giữa tiêu đề và phần chữ. */
+.khungTrangTrong:hover .khungTieuDe,
+.khungTrangTrong:focus-within .khungTieuDe {
   padding-bottom: var(--s-4);
   border-bottom-color: color-mix(in srgb, var(--gold) 22%, transparent);
 }
@@ -891,8 +906,7 @@
     margin-top: var(--s-4);
   }
 
-  .khungTrangTrong .sectionHead {
-    margin-bottom: var(--s-4);
+  .khungTieuDe {
     padding-bottom: var(--s-4);
     border-bottom-color: color-mix(in srgb, var(--gold) 22%, transparent);
   }
@@ -900,7 +914,15 @@
 
 @media (prefers-reduced-motion: reduce) {
   .khungTrangTrong .processIntro,
-  .khungTrangTrong .sectionHead {
+  .khungTieuDe {
     transition: none;
+  }
+}
+
+/* Khung hẹp: hai cột không còn chỗ, số mục lùi lên thành một dòng riêng. */
+@media (max-width: 599px) {
+  .khungTrangTrong {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.4rem;
   }
 }

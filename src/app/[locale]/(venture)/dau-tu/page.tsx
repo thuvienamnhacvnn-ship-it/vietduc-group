@@ -282,14 +282,25 @@ export default async function VenturePage({
           là một lời cam kết về nguồn số liệu.
         */}
         <div className={styles.khungTrangTrong}>
-          <div className={styles.sectionHead}>
-            {/* 04, không phải 03: mục ảnh hiện trường vừa chen vào trước nó, và
-                hai mục cùng mang số 03 thì dãy số mất hết ý nghĩa. */}
-            <p className={styles.kicker}>{siteShots.length ? "04" : "03"}</p>
-            <h2>{t(VENTURE_PROCESS.title, locale)}</h2>
-          </div>
-
           {/*
+            Số mục đứng riêng một cột, tiêu đề và phần chữ chung cột còn lại.
+
+            Trước đây số và tiêu đề là một hàng, còn phần chữ là một khối khác
+            bên dưới — nên chữ bắt đầu từ mép khung, thụt ra ngoài lề của tiêu
+            đề. Tách cột thì hai thứ cùng một lề mà không phải đoán bề rộng con
+            số, vốn co giãn theo cỡ màn hình.
+
+            04, không phải 03: mục ảnh hiện trường vừa chen vào trước nó, và hai
+            mục cùng mang số 03 thì dãy số mất hết ý nghĩa.
+          */}
+          <p className={styles.kicker}>{siteShots.length ? "04" : "03"}</p>
+
+          <div className={styles.khungChu}>
+            <h2 className={styles.khungTieuDe}>
+              {t(VENTURE_PROCESS.title, locale)}
+            </h2>
+
+            {/*
             Đoạn chữ nằm gọn lại, rê chuột (hoặc tab tới) mới mở ra.
 
             Nó nói về cách trích số liệu từ hồ sơ — cần có, nhưng không phải thứ
@@ -299,11 +310,12 @@ export default async function VenturePage({
             Trên màn hình cảm ứng không có "rê chuột" nên phần này mở sẵn — xem
             luật @media (hover: none) trong tệp kiểu.
           */}
-          <div className={styles.processIntro} tabIndex={0}>
-            <div className={styles.processIntroTrong}>
-              {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
+            <div className={styles.processIntro} tabIndex={0}>
+              <div className={styles.processIntroTrong}>
+                {tList(VENTURE_INTRO.body, locale).map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
