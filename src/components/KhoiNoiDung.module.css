@@ -1,0 +1,162 @@
+/*
+ * Khối nội dung trích từ hồ sơ.
+ *
+ * Dùng biến màu chung của trang chứ không dùng bộ biến riêng của khu Đầu tư,
+ * để cùng một khối dựng được ở cả hai bên mà không đổi màu chữ.
+ */
+.khoi {
+  min-width: 0;
+  margin-top: clamp(1.8rem, 4vw, 3rem);
+}
+
+.khoi > h2 {
+  margin: 0 0 var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-deep, var(--gold));
+}
+
+.van {
+  display: grid;
+  gap: var(--s-3);
+  max-width: 68ch;
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+.van p {
+  margin: 0;
+  max-width: none;
+}
+
+.gach {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 78ch;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.gach li {
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+.gach li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* ---------------------------------------------------------- mốc thời gian */
+
+.moc {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.moc li {
+  display: grid;
+  gap: 0.2rem;
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+@media (min-width: 720px) {
+  .moc li {
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: var(--s-5);
+    align-items: baseline;
+  }
+}
+
+.mocKhi {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--gold);
+}
+
+.mocGi {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+/* ------------------------------------------------------------------ bảng */
+
+/*
+ * Bảng cuộn ngang trong khung của chính nó.
+ *
+ * Bảng ba cột trên màn hình điện thoại mà không có khung cuộn thì nó đẩy ngang
+ * cả trang — và cái bị đẩy lệch là toàn bộ phần chữ, chứ không riêng cái bảng.
+ */
+.cuon {
+  overflow-x: auto;
+  margin-inline: calc(var(--s-4) * -1);
+  padding-inline: var(--s-4);
+}
+
+.bang {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.bang th,
+.bang td {
+  padding: 0.6rem 0.9rem 0.6rem 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+
+.bang thead th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  white-space: nowrap;
+}
+
+.bang tbody th {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.bang td {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* Cột đầu là tên hạng mục, thứ duy nhất được phép xuống dòng. */
+.bang tbody th {
+  white-space: normal;
+  min-width: 14rem;
+}
+
+.ghiChu {
+  margin: var(--s-3) 0 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--muted-soft);
+  max-width: 68ch;
+}

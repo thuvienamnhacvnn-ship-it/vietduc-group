@@ -1025,15 +1025,68 @@ export const VENTURE_PROJECTS: VentureProject[] = [
     },
     body: {
       vi: [
-        "Bản vẽ ghi diện tích lô 1+2 là 3.851,4 m² và lô 3 là 7.621,2 m². Tài liệu không nêu tên chủ đầu tư, quy mô công trình hay tiến độ, nên trang chỉ đăng đúng những gì bản vẽ ghi.",
+        "Bản vẽ ghi diện tích lô 1+2 là 3.851,4 m² và lô 3 là 7.621,2 m². Mặt bằng quy hoạch tổng thể đặt lối vào và điểm đón khách ở một đầu khu đất, rồi dẫn qua đường dạo chính tới các khối lưu trú, spa, nhà hàng và hai hồ sinh học.",
+        "Tài liệu là bản vẽ quy hoạch tổng thể ở giai đoạn sơ bộ: nó nêu tên các hạng mục và diện tích ba lô, chưa nêu diện tích từng hạng mục, số phòng, tổng mức đầu tư hay tiến độ. Trang này vì thế chỉ đăng đúng những gì bản vẽ ghi.",
       ],
     },
     facts: [
       fact(VI_ONLY("Lô 1 + 2"), VI_ONLY("3.851,4 m²")),
       fact(VI_ONLY("Lô 3"), VI_ONLY("7.621,2 m²")),
       fact(FACT_LABELS.land, VI_ONLY("11.472,6 m² (tổng ba lô)")),
+      fact(VI_ONLY("Bản vẽ"), VI_ONLY("MB quy hoạch tổng thể · KT1-03 · tỷ lệ 1/175")),
+      fact(VI_ONLY("Ngày bản vẽ"), VI_ONLY("20/07/2026")),
     ],
-    blocks: [],
+    blocks: [
+      {
+        kind: "list",
+        title: {
+          vi: "Các khối công trình",
+          de: "Baukörper",
+          en: "Buildings",
+          ja: "建物",
+          ko: "건물",
+          "zh-TW": "建築量體",
+        },
+        items: LIST_VI([
+          "Khu lễ tân, sảnh tiếp đón",
+          "Khối phòng nghỉ 4 tầng",
+          "Biệt thự",
+          "Biệt thự có bể bơi",
+          "Nhà hàng cao cấp",
+          "Khu cà phê và quầy bar cạnh hồ bơi",
+          "Khu lễ tân, nhà hàng dự phòng cho lô 1+2",
+          "Spa và chăm sóc sức khoẻ",
+          "Khu hậu cần, vận hành và nhân viên (BOH)",
+          "Phòng kỹ thuật",
+          "Bãi đỗ xe",
+        ]),
+        note: VI_ONLY(
+          "Tên hạng mục chép theo bảng ký hiệu A–K trên bản vẽ. Bản vẽ chưa ghi diện tích và số phòng của từng khối.",
+        ),
+      },
+      {
+        kind: "list",
+        title: {
+          vi: "Tiện ích cảnh quan",
+          de: "Landschaft und Außenanlagen",
+          en: "Landscape amenities",
+          ja: "外構・ランドスケープ",
+          ko: "조경 시설",
+          "zh-TW": "景觀設施",
+        },
+        items: LIST_VI([
+          "Cổng và lối vào",
+          "Điểm đón trả khách",
+          "Đường dạo chính",
+          "Ao sinh học",
+          "Hồ bơi sinh học",
+          "Sàn gỗ ngắm cảnh",
+          "Vườn hữu cơ",
+          "Sân vườn liên thông, dùng cho sự kiện ngoài trời",
+        ]),
+        note: VI_ONLY("Chép theo bảng ký hiệu 1–8 trên bản vẽ."),
+      },
+    ],
     hero: {
       src: "/media/hospitality/bo-trach-aerial-fields.webp",
       caption: {
@@ -1046,7 +1099,52 @@ export const VENTURE_PROJECTS: VentureProject[] = [
       },
     },
     gallery: [],
-    parties: [],
+    parties: [
+      {
+        name: "Công ty TNHH MTV T.O.A.M Studio",
+        role: {
+          vi: "Đơn vị thiết kế · 5A/254 Âu Cơ, Tây Hồ, Hà Nội",
+          de: "Planungsbüro · Hanoi",
+          en: "Design office, Hanoi",
+          ja: "設計事務所(ハノイ)",
+          ko: "설계 사무소(하노이)",
+          "zh-TW": "設計單位（河內）",
+        },
+      },
+      {
+        name: "KTS Nguyễn Cao Thái",
+        role: {
+          vi: "Chủ trì thiết kế và thiết kế chính",
+          de: "Entwurfsleitung",
+          en: "Design lead",
+          ja: "設計主任",
+          ko: "설계 총괄",
+          "zh-TW": "設計主持",
+        },
+      },
+      {
+        name: "KTS Phạm Thành Công",
+        role: {
+          vi: "Thiết kế triển khai",
+          de: "Ausführungsplanung",
+          en: "Detail design",
+          ja: "実施設計",
+          ko: "실시 설계",
+          "zh-TW": "施工圖設計",
+        },
+      },
+      {
+        name: "KTS Bùi Lệ Quyên",
+        role: {
+          vi: "Quản lý chất lượng bản vẽ",
+          de: "Qualitätsprüfung",
+          en: "Drawing check",
+          ja: "図面チェック",
+          ko: "도면 검토",
+          "zh-TW": "圖面審核",
+        },
+      },
+    ],
     sources: [
       { document: VI_ONLY("Phương án quy hoạch sơ bộ Phong Nha – masterplan"), date: "2026-08-06" },
     ],

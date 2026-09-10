@@ -15,6 +15,8 @@ import { formatDate, levelLabel } from "@/lib/format";
 import { resolveSiteUrl, telHref } from "@/lib/site-config";
 import { Breadcrumbs, ButtonLink, SectionHeading, SourceNote, StatRow } from "@/components/ui";
 import { PhotoWall } from "@/components/PhotoWall";
+import { KhoiNoiDung } from "@/components/KhoiNoiDung";
+import { KHOI_DU_AN_TRUONG } from "@/content/du-an-truong";
 import { khoAnh } from "@/content/kho-media";
 import shell from "../../../page-shell.module.css";
 import styles from "./school.module.css";
@@ -65,6 +67,14 @@ export default async function SchoolPage({
 
   const categoryName = new Map(categories.map((c) => [c.id, t(c.name, locale)]));
   const highlights = school.highlights?.[locale] ?? school.highlights?.vi ?? [];
+  /*
+   * Số liệu hồ sơ dự án, nếu trường này đang trong giai đoạn đầu tư.
+   *
+   * Trường đang xây thì phần đáng đọc là hồ sơ dự án — bảng hạng mục, cơ cấu
+   * sử dụng đất, vốn, tiến độ — chứ không phải mục ngành nghề đang tuyển sinh,
+   * vốn còn trống. Xem src/content/du-an-truong.ts.
+   */
+  const khoiDuAn = KHOI_DU_AN_TRUONG[school.slug] ?? [];
   const sourceDocument = documents.find((d) => d.slug === school.provenance?.source);
   const tel = telHref(school.phone ?? "");
 
@@ -178,6 +188,10 @@ export default async function SchoolPage({
                 </ul>
               </section>
             ) : null}
+
+            {khoiDuAn.map((khoi, i) => (
+              <KhoiNoiDung key={i} khoi={khoi} locale={locale} />
+            ))}
 
             {programs.length ? (
               <section className={shell.section}>

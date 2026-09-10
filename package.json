@@ -27,7 +27,8 @@
     "media:nhan-su": "tsx scripts/media-nhan-su.ts",
     "media:logo": "tsx scripts/media-logo.ts",
     "lien-he": "tsx scripts/cap-nhat-lien-he.ts",
-    "anh:pdf": "tsx scripts/anh-thanh-pdf.ts"
+    "anh:pdf": "tsx scripts/anh-thanh-pdf.ts",
+    "duyet": "tsx scripts/duyet-tai-lieu.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "^0.5.8",
