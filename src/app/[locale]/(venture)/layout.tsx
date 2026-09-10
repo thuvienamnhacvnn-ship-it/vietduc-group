@@ -94,7 +94,7 @@ export default async function VentureLayout({
       <Advisor
         locale={locale}
         contact={settings.contact}
-        suggestions={suggestedQuestions(locale)}
+        suggestions={suggestedQuestions(locale, "dau-tu")}
       />
       <CookieNotice locale={locale} />
       <Reveal />

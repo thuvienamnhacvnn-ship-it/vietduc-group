@@ -70,7 +70,7 @@ function escapeAttribute(value: string): string {
 }
 
 function systemPrompt(locale: Locale, context: string): string {
-  return `You are the education advisor for Viet Duc Group (Việt Đức Group), a Vietnamese-German vocational education system of six member schools.
+  return `You are the education advisor for Viet Duc Group (Việt Đức Group), a Vietnamese-German vocational education system of member schools in Vietnam and Germany.
 
 ANSWER LANGUAGE: ${LANGUAGE_NAME[locale]}. Always reply in ${LANGUAGE_NAME[locale]}, whatever language the question uses.
 
@@ -224,28 +224,102 @@ export async function ask({
   }
 }
 
-/** Starter questions, all answerable from the seeded documents. */
-export function suggestedQuestions(locale: Locale): string[] {
-  if (locale === "de") {
-    return [
-      "Welche Schulen gehören zur Viet Duc Group?",
-      "Welche Programme gibt es in Informationstechnik?",
-      "Welche Rolle spielt das itw Berlin?",
-      "Kann ich nach der 9. Klasse anfangen?",
-    ];
-  }
-  if (locale === "en") {
-    return [
+/**
+ * Câu hỏi mở màn, đủ sáu thứ tiếng và tách theo mảng kinh doanh.
+ *
+ * Trước đây chỉ có tiếng Việt, Anh và Đức; ba thứ tiếng còn lại rơi về bản
+ * tiếng Việt — người Nhật mở trang tiếng Nhật thì trợ lý trả lời tiếng Nhật
+ * nhưng lại mời sẵn bốn câu hỏi tiếng Việt.
+ *
+ * Hai mảng cũng khác nhau: người vào khu Đào tạo hỏi về trường và ngành nghề,
+ * người vào khu Đầu tư hỏi về dự án, quy mô và tiến độ. Mời sẵn câu hỏi của
+ * mảng kia là chỉ đường sai ngay ở câu đầu tiên.
+ *
+ * Mọi câu ở đây đều trả lời được từ tài liệu đã bóc, không phải câu hỏi đẹp mà
+ * trợ lý đành chịu.
+ */
+export type MangTuVan = "giao-duc" | "dau-tu";
+
+const CAU_HOI: Record<MangTuVan, Record<Locale, string[]>> = {
+  "giao-duc": {
+    vi: [
+      "Việt Đức Group có những trường nào?",
+      "Ngành công nghệ thông tin học ở trường nào?",
+      "Học xong lớp 9 có học được không?",
+      "ITW Berlin có vai trò gì?",
+    ],
+    en: [
       "Which schools make up Viet Duc Group?",
       "What information technology programmes are offered?",
       "What does ITW Berlin do in the system?",
       "Can I enrol after grade 9?",
-    ];
-  }
-  return [
-    "Việt Đức Group có những trường nào?",
-    "Ngành công nghệ thông tin học ở trường nào?",
-    "Học xong lớp 9 có học được không?",
-    "ITW Berlin có vai trò gì?",
-  ];
+    ],
+    de: [
+      "Welche Schulen gehören zur Viet Duc Group?",
+      "Welche Programme gibt es in Informationstechnik?",
+      "Welche Rolle spielt das itw Berlin?",
+      "Kann ich nach der 9. Klasse anfangen?",
+    ],
+    ja: [
+      "Viet Duc Group にはどの学校がありますか。",
+      "情報技術の課程はどの学校で学べますか。",
+      "中学卒業後でも入学できますか。",
+      "ITW ベルリンはどのような役割ですか。",
+    ],
+    ko: [
+      "Viet Duc Group에는 어떤 학교가 있나요?",
+      "정보기술 과정은 어느 학교에서 배울 수 있나요?",
+      "중학교를 마친 뒤에도 입학할 수 있나요?",
+      "ITW 베를린은 어떤 역할을 하나요?",
+    ],
+    "zh-TW": [
+      "Viet Duc Group 由哪些學校組成？",
+      "資訊科技課程可以在哪所學校就讀？",
+      "國中畢業後還能入學嗎？",
+      "ITW 柏林在體系中扮演什麼角色？",
+    ],
+  },
+  "dau-tu": {
+    vi: [
+      "Việt Đức Group đang có những dự án nào?",
+      "Khu nghỉ dưỡng Long Beach có quy mô bao nhiêu?",
+      "Dự án Toki nằm ở đâu?",
+      "Số liệu các dự án lấy từ tài liệu nào?",
+    ],
+    en: [
+      "Which investment projects does Viet Duc Group have?",
+      "How large is the Long Beach Resort project?",
+      "Where is the Toki project located?",
+      "Which documents do the project figures come from?",
+    ],
+    de: [
+      "Welche Investitionsprojekte hat die Viet Duc Group?",
+      "Wie groß ist das Projekt Long Beach Resort?",
+      "Wo liegt das Toki-Projekt?",
+      "Aus welchen Unterlagen stammen die Projektzahlen?",
+    ],
+    ja: [
+      "Viet Duc Group にはどの投資事業がありますか。",
+      "ロングビーチ・リゾートの規模はどれくらいですか。",
+      "Toki の事業はどこにありますか。",
+      "事業の数値はどの資料に基づいていますか。",
+    ],
+    ko: [
+      "Viet Duc Group에는 어떤 투자 사업이 있나요?",
+      "롱비치 리조트 사업의 규모는 얼마인가요?",
+      "Toki 사업은 어디에 있나요?",
+      "사업 수치는 어떤 자료에서 나온 것인가요?",
+    ],
+    "zh-TW": [
+      "Viet Duc Group 有哪些投資專案？",
+      "Long Beach Resort 專案的規模有多大？",
+      "Toki 專案位於何處？",
+      "專案數據出自哪些文件？",
+    ],
+  },
+};
+
+export function suggestedQuestions(locale: Locale, mang: MangTuVan = "giao-duc"): string[] {
+  const theoMang = CAU_HOI[mang] ?? CAU_HOI["giao-duc"];
+  return theoMang[locale] ?? theoMang.vi;
 }
