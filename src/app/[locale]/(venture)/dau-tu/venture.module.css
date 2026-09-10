@@ -5,13 +5,28 @@
  * reads like a prospectus, this side like a portfolio.
  */
 
+/*
+ * Khung chứa chung: mọi khối trên trang dùng đúng một bề rộng và một cặp lề,
+ * nên chữ ở mục nào cũng bắt đầu ở cùng một chỗ.
+ */
 .shell,
 .section,
 .intro,
 .dayCuoi {
   width: min(1400px, 100%);
   margin-inline: auto;
-  padding: clamp(2rem, 5vw, 3.5rem) var(--s-5) var(--s-7);
+  padding-inline: var(--s-5);
+}
+
+/*
+ * Dải cuối trang: lời mời liên hệ và danh mục nguồn đứng cạnh nhau.
+ *
+ * Phần dựng khối của riêng nó để ở đây, KHÔNG nhét vào nhóm bên trên — lần
+ * trước gộp vào đấy là vô tình đóng khung, thêm gạch ngang và đổi cách xếp cho
+ * cả .shell, .section lẫn .intro.
+ */
+.dayCuoi {
+  padding-block: clamp(2rem, 5vw, 3.5rem) var(--s-7);
   border-top: 1px solid var(--v-line);
   display: grid;
   gap: clamp(1.6rem, 4vw, 3.5rem);
@@ -378,11 +393,30 @@
   margin-block: clamp(2rem, 5vw, 3.5rem);
 }
 
+/*
+ * Dải nền tối chạy hết bề ngang màn hình, nên từng khối bên trong phải tự lấy
+ * lại khung chứa chung — nếu không chúng bám sát mép trái, tức là nằm ngay dưới
+ * thanh menu và bị che khi menu giãn ra.
+ */
 .dark .sectionHead,
 .dark .steps,
 .dark .partners {
   width: min(1400px, 100%);
   margin-inline: auto;
+  padding-inline: var(--s-5);
+}
+
+/*
+ * Khung mục 04 cũng vậy, chỉ khác một chỗ: nó KHÔNG lấy thêm lề trong của khung
+ * chứa, vì nó đã có phần đệm của riêng mình. Nhờ vậy nét viền lùi ra ngoài đúng
+ * một quãng lề, còn chữ bên trong rơi vào đúng cột chữ chung của trang.
+ */
+.dark .khungTrangTrong {
+  width: min(1400px, 100%);
+  margin-inline: auto;
+  /* Lề trong ĐÚNG BẰNG lề của khung chứa chung: nhờ vậy con số 04 và tiêu đề
+     rơi vào đúng cột chữ của 01, 02, 03 ở trên, còn nét viền thì nằm ngoài cột
+     ấy. Phần đệm trên dưới vẫn rộng như cũ. */
   padding-inline: var(--s-5);
 }
 
