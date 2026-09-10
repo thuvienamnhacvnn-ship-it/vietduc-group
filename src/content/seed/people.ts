@@ -16,8 +16,13 @@ import type { SeedPerson } from "./types";
  * ngày sinh đầy đủ. Đó là dữ liệu cá nhân; chúng dừng lại ở tệp nguồn. Năm sinh
  * thì chính các hồ sơ giới thiệu đã tự công bố nên giữ lại.
  *
- * Ảnh chân dung: hồ sơ nào cũng ghi "ẢNH CHÂN DUNG (Bổ sung khi có ảnh)" — tập
- * đoàn sẽ gửi sau, nên `photoPath` để trống và giao diện tự dựng chữ cái đầu.
+ * Ảnh chân dung KHÔNG khai ở tệp này. Ảnh nằm trong public/media/people/ theo
+ * đúng slug của người, và `scripts/seed.ts` tự ghép bằng anhChanDung(slug) —
+ * thêm ảnh chỉ là bỏ tệp vào thư mục rồi chạy lại seed. Ai chưa có ảnh thì giao
+ * diện tự dựng chữ cái đầu.
+ *
+ * (Ghi chú cũ ở đây nói "tập đoàn sẽ gửi sau nên photoPath để trống" — ảnh đã
+ * gửi và đã bóc ra từ chính các tệp .docx hồ sơ, nên câu ấy sai từ 09/09/2026.)
  *
  * Bản dịch năm thứ tiếng còn lại do `npm run i18n` sinh; ở đây chỉ có tiếng
  * Việt, đúng như tài liệu gốc.

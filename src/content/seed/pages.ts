@@ -154,9 +154,9 @@ Hochwertige, praxisnahe Ausbildungsprogramme anzubieten, die Lernenden tragfähi
 
 ## 1. Đơn vị chịu trách nhiệm
 
-Công ty Cổ phần Tập đoàn Đầu tư và Giáo dục Quốc tế Việt Đức — Tòa nhà Việt Đức Group, 129 Trần Phú, Hà Nội. Email: info@vietducgroup.com.vn.
+Công ty Cổ phần Tập đoàn Đầu tư và Giáo dục Quốc tế Việt Đức — Tầng 4, Toà nhà Rainbow, số 79 Đường 19/5, KĐTM Văn Quán, Phường Hà Đông, Thành phố Hà Nội, Việt Nam. Email: info@vietducgroup.com.vn.
 
-Người phụ trách bảo vệ dữ liệu: [CẦN BỔ SUNG].
+Đầu mối về dữ liệu cá nhân: mọi yêu cầu xin gửi tới info@vietducgroup.com.vn hoặc 024 3 123 6868. Công ty chưa bổ nhiệm một cán bộ bảo vệ dữ liệu riêng.
 
 ## 2. Dữ liệu chúng tôi thu thập
 
@@ -198,7 +198,7 @@ Xem trang Chính sách cookie.`,
 
 ## 1. Controller
 
-Viet Duc International Investment and Education Group Joint Stock Company — Viet Duc Group Building, 129 Tran Phu, Hanoi. Email: info@vietducgroup.com.vn. Data protection contact: [CẦN BỔ SUNG].
+Viet Duc International Investment and Education Group Joint Stock Company — 4th Floor, Rainbow Building, No. 79, 19/5 Street, Van Quan New Urban Area, Ha Dong Ward, Hanoi, Vietnam. Email: info@vietducgroup.com.vn. Data protection contact: write to info@vietducgroup.com.vn or call +84 24 3 123 6868. The company has not appointed a separate data protection officer.
 
 ## 2. Data we collect
 
@@ -240,7 +240,7 @@ See the cookie policy page.`,
 
 ## 1. Verantwortliche Stelle
 
-Viet Duc International Investment and Education Group JSC — Viet Duc Group Building, 129 Tran Phu, Hanoi. E-Mail: info@vietducgroup.com.vn. Datenschutzkontakt: [CẦN BỔ SUNG].
+Viet Duc International Investment and Education Group JSC — 4th Floor, Rainbow Building, No. 79, 19/5 Street, Van Quan New Urban Area, Ha Dong Ward, Hanoi, Vietnam. E-Mail: info@vietducgroup.com.vn. Datenschutzkontakt: info@vietducgroup.com.vn oder +84 24 3 123 6868. Ein eigener Datenschutzbeauftragter ist nicht bestellt.
 
 ## 2. Erhobene Daten
 
@@ -445,18 +445,16 @@ Diese Bedingungen können aktualisiert werden. Das Datum der letzten Änderung s
 ## Đơn vị vận hành website
 
 Công ty Cổ phần Tập đoàn Đầu tư và Giáo dục Quốc tế Việt Đức
-Tòa nhà Việt Đức Group, 129 Trần Phú, Hà Nội, Việt Nam
+Tầng 4, Toà nhà Rainbow, số 79 Đường 19/5, KĐTM Văn Quán, Phường Hà Đông, Thành phố Hà Nội, Việt Nam
 Email: info@vietducgroup.com.vn
 Điện thoại: 024 3 123 6868
 
-## Các mục còn thiếu
+## Thông tin đăng ký doanh nghiệp
 
-Những thông tin sau bắt buộc phải có trong Impressum theo luật Đức và **chưa có trong tài liệu nào của dự án**. Quản trị viên phải bổ sung tại trang quản trị trước khi công bố website cho người dùng tại Đức:
-
-- Người đại diện theo pháp luật (Vertretungsberechtigte Person): **[CẦN BỔ SUNG]**
-- Mã số doanh nghiệp / số đăng ký kinh doanh: **[CẦN BỔ SUNG]**
-- Mã số thuế GTGT (USt-IdNr., nếu có hoạt động tại EU): **[CẦN BỔ SUNG]**
-- Người chịu trách nhiệm nội dung (V.i.S.d.P.): **[CẦN BỔ SUNG]**
+- Người đại diện theo pháp luật (Vertretungsberechtigte Person): Ông Phan Phương Nguyên, Tổng Giám đốc
+- Mã số doanh nghiệp: 3101147607 — đăng ký lần đầu ngày 20/08/2025, đăng ký thay đổi lần thứ nhất ngày 23/01/2026, do Phòng Đăng ký kinh doanh, Sở Tài chính tỉnh Quảng Trị cấp
+- Mã số thuế: trùng mã số doanh nghiệp 3101147607. Công ty không đăng ký thuế giá trị gia tăng tại EU nên không có USt-IdNr.
+- Người chịu trách nhiệm nội dung (V.i.S.d.P.): Ông Phan Phương Nguyên
 
 ## Đối tác tại CHLB Đức
 
@@ -466,18 +464,16 @@ itw – Institut für Aus- und Weiterbildung gGmbH, Berlin, là đơn vị đố
 ## Website operator
 
 Viet Duc International Investment and Education Group Joint Stock Company
-Viet Duc Group Building, 129 Tran Phu, Hanoi, Vietnam
+4th Floor, Rainbow Building, No. 79, 19/5 Street, Van Quan New Urban Area, Ha Dong Ward, Hanoi, Vietnam
 Email: info@vietducgroup.com.vn
 Phone: +84 24 3 123 6868
 
-## Still missing
+## Company registration
 
-German law requires the following, and **no project document contains them**. An administrator must supply them in the admin area before the site is published to visitors in Germany:
-
-- Legal representative: **[CẦN BỔ SUNG]**
-- Company / commercial register number: **[CẦN BỔ SUNG]**
-- VAT identification number (if operating in the EU): **[CẦN BỔ SUNG]**
-- Person responsible for content (V.i.S.d.P.): **[CẦN BỔ SUNG]**
+- Legal representative: Mr Phan Phuong Nguyen, General Director
+- Company registration number: 3101147607 — first registered 20 August 2025, first amendment 23 January 2026, issued by the Business Registration Office, Department of Finance of Quang Tri Province
+- Tax number: the same as the company registration number, 3101147607. The company is not registered for VAT in the EU and therefore holds no USt-IdNr.
+- Person responsible for content (V.i.S.d.P.): Mr Phan Phuong Nguyen
 
 ## German partner
 
@@ -487,18 +483,16 @@ itw – Institut für Aus- und Weiterbildung gGmbH, Berlin, is the training part
 ## Betreiber der Website
 
 Viet Duc International Investment and Education Group JSC
-Viet Duc Group Building, 129 Tran Phu, Hanoi, Vietnam
+4th Floor, Rainbow Building, No. 79, 19/5 Street, Van Quan New Urban Area, Ha Dong Ward, Hanoi, Vietnam
 E-Mail: info@vietducgroup.com.vn
 Telefon: +84 24 3 123 6868
 
-## Noch zu ergänzen
+## Registerangaben
 
-Das deutsche Recht verlangt die folgenden Angaben; **in keinem Projektdokument sind sie enthalten**. Eine Administratorin muss sie im Redaktionsbereich ergänzen, bevor die Website in Deutschland veröffentlicht wird:
-
-- Vertretungsberechtigte Person: **[CẦN BỔ SUNG]**
-- Handels-/Unternehmensregisternummer: **[CẦN BỔ SUNG]**
-- Umsatzsteuer-Identifikationsnummer (bei EU-Tätigkeit): **[CẦN BỔ SUNG]**
-- Verantwortlich für den Inhalt (V.i.S.d.P.): **[CẦN BỔ SUNG]**
+- Vertretungsberechtigte Person: Herr Phan Phuong Nguyen, Generaldirektor
+- Unternehmensregisternummer: 3101147607 — Ersteintragung am 20.08.2025, erste Änderung am 23.01.2026, ausgestellt vom Amt für Unternehmensregistrierung der Finanzbehörde der Provinz Quang Tri
+- Steuernummer: identisch mit der Unternehmensregisternummer 3101147607. Das Unternehmen ist in der EU nicht umsatzsteuerlich registriert und führt daher keine USt-IdNr.
+- Verantwortlich für den Inhalt (V.i.S.d.P.): Herr Phan Phuong Nguyen
 
 ## Partner in Deutschland
 
