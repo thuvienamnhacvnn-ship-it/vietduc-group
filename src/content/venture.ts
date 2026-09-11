@@ -164,7 +164,8 @@ export const VENTURE_SERVICES: VentureService[] = [
         "Restaurant, spa and beach bar sit apart from the guest villas",
       ],
     },
-    image: "/media/hospitality/bo-trach-terrace.webp",
+    // Phối cảnh Long Beach Resort — khu nghỉ dưỡng ven biển thật trong danh mục, không mượn ảnh dự án 1.
+    image: "/media/hospitality/long-beach/long-beach-04.webp",
   },
   {
     key: "travel",
@@ -799,18 +800,26 @@ export const VENTURE_PROJECTS: VentureProject[] = [
         ]),
       },
     ],
+    /* Ảnh Toki Ecolodge do tập đoàn gửi ngày 11/09/2026, đứng trước các bản vẽ hồ sơ. */
     hero: {
-      src: "/media/hospitality/bo-trach-terrace.webp",
-      caption: {
-        vi: "Ảnh minh hoạ mô hình nghỉ dưỡng của nhóm (phối cảnh dự án lân cận tại Bố Trạch, TOAM Studio 10/2025). Bản vẽ và hiện trạng của chính khu đất Vĩnh Hưng ở ngay bên dưới.",
-        de: "Illustration des Resortmodells der Gruppe (Visualisierung eines Nachbarprojekts in Bo Trach). Die Pläne des Grundstücks Vinh Hung stehen direkt darunter.",
-        en: "An illustrative view of the group's resort model (rendering of a neighbouring project in Bo Trach). Vinh Hung's own drawings are directly below.",
-        ja: "当グループのリゾート像を示す参考図（ボチャックの近隣計画のパース、TOAM Studio 2025年10月）。ヴィンフンの敷地そのものの図面と現況は、すぐ下に掲げています。",
-        ko: "그룹의 리조트 모형을 보여 주는 참고 이미지(보짜익 인근 프로젝트 조감도, TOAM Studio 2025년 10월). 빈흥 부지 자체의 도면과 현황은 바로 아래에 있습니다.",
-        "zh-TW": "本集團度假模式的示意圖（布澤鄰近專案透視圖，TOAM Studio 2025 年 10 月）。永興基地本身的圖說與現況，即列於下方。",
-      },
+      src: "/media/hospitality/toki-ecolodge/toki-ecolodge-13.webp",
+      caption: { vi: "Toki Ecolodge — Hồ bơi dưới chân núi đá vôi", en: "Toki Ecolodge — Pool beneath the limestone hills" },
     },
     gallery: [
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-01.webp", caption: { vi: "Toki Ecolodge — Cầu thang ngoài trời giữa vườn", en: "Toki Ecolodge — Outdoor stair in the garden" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-02.webp", caption: { vi: "Toki Ecolodge — Phòng khách gỗ và đá", en: "Toki Ecolodge — Living room in timber and stone" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-03.webp", caption: { vi: "Toki Ecolodge — Không gian nhìn từ tầng lửng", en: "Toki Ecolodge — Seen from the mezzanine" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-04.webp", caption: { vi: "Toki Ecolodge — Phòng khách mở ra vườn", en: "Toki Ecolodge — Living room opening onto the garden" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-05.webp", caption: { vi: "Toki Ecolodge — Phòng khách tầng trệt", en: "Toki Ecolodge — Ground-floor living room" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-06.webp", caption: { vi: "Toki Ecolodge — Hiên gỗ giữa rừng cây", en: "Toki Ecolodge — Timber veranda among the trees" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-07.webp", caption: { vi: "Toki Ecolodge — Bồn tắm ngoài trời dưới mái lá", en: "Toki Ecolodge — Outdoor bathtub under the thatch" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-08.webp", caption: { vi: "Toki Ecolodge — Phòng ngủ nhìn ra thung lũng", en: "Toki Ecolodge — Bedroom looking out over the valley" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-09.webp", caption: { vi: "Toki Ecolodge — Phòng ngủ", en: "Toki Ecolodge — Bedroom" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-10.webp", caption: { vi: "Toki Ecolodge — Phòng khách nhìn từ trên cao", en: "Toki Ecolodge — Living room from above" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-11.webp", caption: { vi: "Toki Ecolodge — Quầy bar cạnh hồ bơi", en: "Toki Ecolodge — Poolside bar" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-12.webp", caption: { vi: "Toki Ecolodge — Hồ bơi và nhà hàng lúc chạng vạng", en: "Toki Ecolodge — Pool and restaurant at dusk" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-14.webp", caption: { vi: "Toki Ecolodge — Phòng tắm tường đá", en: "Toki Ecolodge — Stone-walled bathroom" } },
+      { src: "/media/hospitality/toki-ecolodge/toki-ecolodge-15.webp", caption: { vi: "Toki Ecolodge — Phòng khách mở ra hiên", en: "Toki Ecolodge — Living room opening onto the terrace" } },
       {
         src: "/media/hospitality/vinh-hung-mat-bang.webp",
         caption: {
@@ -963,13 +972,28 @@ export const VENTURE_PROJECTS: VentureProject[] = [
         ],
       },
     ],
+    /* Phối cảnh Long Beach Resort do tập đoàn gửi ngày 11/09/2026, đứng trước các bản vẽ. */
     hero: {
-      src: "/media/hospitality/bo-trach-pool-night.webp",
-      caption: VI_ONLY(
-        "Ảnh minh hoạ mô hình nghỉ dưỡng của nhóm (phối cảnh dự án lân cận tại Bố Trạch, TOAM Studio 10/2025). Bản vẽ thiết kế cơ sở của chính Long Beach Resort ở ngay bên dưới.",
-      ),
+      src: "/media/hospitality/long-beach/long-beach-14.webp",
+      caption: { vi: "Phối cảnh Long Beach Resort — Toàn cảnh khu nghỉ dưỡng", en: "Rendering, Long Beach Resort — The whole resort from the air" },
     },
     gallery: [
+      { src: "/media/hospitality/long-beach/long-beach-01.webp", caption: { vi: "Phối cảnh Long Beach Resort — Lối đi giữa các dãy phòng", en: "Rendering, Long Beach Resort — Walkway between the room wings" } },
+      { src: "/media/hospitality/long-beach/long-beach-02.webp", caption: { vi: "Phối cảnh Long Beach Resort — Sân vườn và biển chỉ dẫn", en: "Rendering, Long Beach Resort — Garden court with signposts" } },
+      { src: "/media/hospitality/long-beach/long-beach-03.webp", caption: { vi: "Phối cảnh Long Beach Resort — Khối phòng nghỉ nhìn ra hồ bơi", en: "Rendering, Long Beach Resort — Guest wing above the pool" } },
+      { src: "/media/hospitality/long-beach/long-beach-04.webp", caption: { vi: "Phối cảnh Long Beach Resort — Hồ bơi trung tâm", en: "Rendering, Long Beach Resort — Central pool" } },
+      { src: "/media/hospitality/long-beach/long-beach-05.webp", caption: { vi: "Phối cảnh Long Beach Resort — Sân trong giữa các block", en: "Rendering, Long Beach Resort — Courtyard between the blocks" } },
+      { src: "/media/hospitality/long-beach/long-beach-06.webp", caption: { vi: "Phối cảnh Long Beach Resort — Góc cà phê trong sân", en: "Rendering, Long Beach Resort — Café corner in the courtyard" } },
+      { src: "/media/hospitality/long-beach/long-beach-07.webp", caption: { vi: "Phối cảnh Long Beach Resort — Lối vào dãy phòng", en: "Rendering, Long Beach Resort — Entrance to a room wing" } },
+      { src: "/media/hospitality/long-beach/long-beach-08.webp", caption: { vi: "Phối cảnh Long Beach Resort — Hẻm xanh giữa hai block", en: "Rendering, Long Beach Resort — Green lane between two blocks" } },
+      { src: "/media/hospitality/long-beach/long-beach-09.webp", caption: { vi: "Phối cảnh Long Beach Resort — Lối dạo trong khuôn viên", en: "Rendering, Long Beach Resort — Path through the grounds" } },
+      { src: "/media/hospitality/long-beach/long-beach-10.webp", caption: { vi: "Phối cảnh Long Beach Resort — Sảnh chính", en: "Rendering, Long Beach Resort — Main entrance" } },
+      { src: "/media/hospitality/long-beach/long-beach-11.webp", caption: { vi: "Phối cảnh Long Beach Resort — Đường vào khu nghỉ dưỡng", en: "Rendering, Long Beach Resort — Approach road" } },
+      { src: "/media/hospitality/long-beach/long-beach-12.webp", caption: { vi: "Phối cảnh Long Beach Resort — Biển tên Long Beach Resort", en: "Rendering, Long Beach Resort — Long Beach Resort sign" } },
+      { src: "/media/hospitality/long-beach/long-beach-13.webp", caption: { vi: "Phối cảnh Long Beach Resort — Toàn cảnh nhìn từ trên xuống", en: "Rendering, Long Beach Resort — Seen from directly above" } },
+      { src: "/media/hospitality/long-beach/long-beach-15.webp", caption: { vi: "Phối cảnh Long Beach Resort — Mặt tiền nhìn từ đường", en: "Rendering, Long Beach Resort — Frontage from the road" } },
+      { src: "/media/hospitality/long-beach/long-beach-16.webp", caption: { vi: "Phối cảnh Long Beach Resort — Mặt tiền và cổng", en: "Rendering, Long Beach Resort — Frontage and gateway" } },
+      { src: "/media/hospitality/long-beach/long-beach-17.webp", caption: { vi: "Phối cảnh Long Beach Resort — Mặt đứng khối chính", en: "Rendering, Long Beach Resort — Main block elevation" } },
       {
         src: "/media/hospitality/long-beach-mat-bang-tong-the.webp",
         caption: VI_ONLY("Mặt bằng tổng thể, tỷ lệ 1/250 – hồ sơ thiết kế cơ sở 01/08/2025"),
@@ -1035,17 +1059,51 @@ export const VENTURE_PROJECTS: VentureProject[] = [
     body: {
       vi: [
         "Bản vẽ ghi diện tích lô 1+2 là 3.851,4 m² và lô 3 là 7.621,2 m². Mặt bằng quy hoạch tổng thể đặt lối vào và điểm đón khách ở một đầu khu đất, rồi dẫn qua đường dạo chính tới các khối lưu trú, spa, nhà hàng và hai hồ sinh học.",
-        "Tài liệu là bản vẽ quy hoạch tổng thể ở giai đoạn sơ bộ: nó nêu tên các hạng mục và diện tích ba lô, chưa nêu diện tích từng hạng mục, số phòng, tổng mức đầu tư hay tiến độ. Trang này vì thế chỉ đăng đúng những gì bản vẽ ghi.",
+        "Bảng quy mô trên bản vẽ dự kiến 54 căn và phòng: 8 căn nghỉ 1 tầng và 6 căn có bể bơi riêng ở lô 1+2, cùng khối phòng nghỉ 4 tầng 40 phòng ở lô 3. Tổng diện tích sàn và quỹ đất đề xuất 12.990 m², mật độ xây dựng 25,1%, cảnh quan tối thiểu 45% khu đất.",
+        "Bản vẽ ở giai đoạn sơ bộ nên chưa nêu tổng mức đầu tư hay tiến độ; trang không nêu những thứ ấy.",
       ],
     },
     facts: [
       fact(VI_ONLY("Lô 1 + 2"), VI_ONLY("3.851,4 m²")),
       fact(VI_ONLY("Lô 3"), VI_ONLY("7.621,2 m²")),
       fact(FACT_LABELS.land, VI_ONLY("11.472,6 m² (tổng ba lô)")),
+      fact(VI_ONLY("Quy mô lưu trú"), VI_ONLY("54 căn và phòng")),
+      fact(FACT_LABELS.built, VI_ONLY("2.875 m²")),
+      fact(FACT_LABELS.density, VI_ONLY("25,1%")),
+      fact(VI_ONLY("Tổng sàn và quỹ đất đề xuất"), VI_ONLY("12.990 m²")),
       fact(VI_ONLY("Bản vẽ"), VI_ONLY("MB quy hoạch tổng thể · KT1-03 · tỷ lệ 1/175")),
       fact(VI_ONLY("Ngày bản vẽ"), VI_ONLY("20/07/2026")),
     ],
     blocks: [
+      {
+        kind: "grid",
+        title: {
+          vi: "Quy mô dự kiến theo khối",
+          de: "Geplanter Umfang nach Baukörpern",
+          en: "Planned size by block",
+          ja: "棟ごとの予定規模",
+          ko: "동별 예정 규모",
+          "zh-TW": "各區塊預定規模",
+        },
+        columns: [VI_ONLY("Hạng mục"), VI_ONLY("Quy mô dự kiến"), VI_ONLY("Sàn / quỹ đất")],
+        rows: [
+          [VI_ONLY("Căn nghỉ 1 tầng (lô 1+2)"), VI_ONLY("08 căn × 50 m²"), VI_ONLY("400 m²")],
+          [VI_ONLY("Căn có bể bơi riêng (lô 1+2)"), VI_ONLY("06 căn × 50 m², 35 m² mặt nước"), VI_ONLY("510 m²")],
+          [VI_ONLY("Khối phòng nghỉ 4 tầng (lô 3)"), VI_ONLY("40 phòng × 50 m², 10–15 phòng/tầng"), VI_ONLY("2.400 m²")],
+          [VI_ONLY("Lễ tân, lobby, lounge (lô 3)"), VI_ONLY("300–450 m²"), VI_ONLY("300 m²")],
+          [VI_ONLY("Nhà hàng, bar, bếp (lô 3)"), VI_ONLY("500–750 m², 1 tầng, gắn với bể bơi chung"), VI_ONLY("550 m²")],
+          [VI_ONLY("Bể bơi chung (lô 3)"), VI_ONLY("250–400 m² mặt nước và deck"), VI_ONLY("900 m²")],
+          [VI_ONLY("Wellness: spa, gym, yoga deck"), VI_ONLY("Trong khối phòng nghỉ 4 tầng"), VI_ONLY("250 m²")],
+          [VI_ONLY("Khu vận hành BOH"), VI_ONLY("300–500 m² sàn"), VI_ONLY("500 m²")],
+          [VI_ONLY("Kỹ thuật hạ tầng"), VI_ONLY("Trạm điện, máy phát, bơm, xử lý nước, rác"), VI_ONLY("150 m²")],
+          [VI_ONLY("Cổng, nhà bảo vệ"), VI_ONLY("20–40 m²"), VI_ONLY("30 m²")],
+          [VI_ONLY("Giao thông, bãi xe"), VI_ONLY("Khoảng 13–18% đất; ~25 chỗ đỗ xe"), VI_ONLY("1.500 m²")],
+          [VI_ONLY("Cảnh quan, khoảng mở"), VI_ONLY("Tối thiểu 45% đất"), VI_ONLY("5.200 m²")],
+          [VI_ONLY("Sự kiện nhỏ ngoài trời"), VI_ONLY("Sân cỏ, yoga, event deck"), VI_ONLY("300 m²")],
+          [VI_ONLY("Tổng"), VI_ONLY("Mật độ xây dựng 25,1% · diện tích xây dựng 2.875 m²"), VI_ONLY("12.990 m²")],
+        ],
+        note: VI_ONLY("Chép từ bảng trên bản vẽ KT1-03 của TOAM Studio, 20/07/2026."),
+      },
       {
         kind: "list",
         title: {
@@ -1097,17 +1155,22 @@ export const VENTURE_PROJECTS: VentureProject[] = [
       },
     ],
     hero: {
-      src: "/media/hospitality/bo-trach-aerial-fields.webp",
+      src: "/media/hospitality/phong-nha-masterplan.webp",
       caption: {
-        vi: "Ảnh minh hoạ khu vực Bố Trạch – Phong Nha (phối cảnh dự án lân cận, TOAM Studio 10/2025)",
-        de: "Illustration der Region Bo Trach – Phong Nha (Visualisierung eines Nachbarprojekts)",
-        en: "Illustrative view of the Bo Trach - Phong Nha area (rendering of a nearby project)",
-        ja: "ボチャック・フォンニャ一帯の参考図（近隣計画のパース、TOAM Studio 2025年10月）",
-        ko: "보짜익·퐁냐 일대 참고 이미지(인근 프로젝트 조감도, TOAM Studio 2025년 10월)",
-        "zh-TW": "布澤與峰牙一帶示意圖（鄰近專案透視圖，TOAM Studio 2025 年 10 月）",
+        vi: "Mặt bằng quy hoạch tổng thể: lô 1+2 bên trái, lô 3 bên phải — TOAM Studio 20/07/2026",
+        de: "Gesamtplan: Parzellen 1+2 links, Parzelle 3 rechts — TOAM Studio, 20.07.2026",
+        en: "Masterplan: plots 1+2 on the left, plot 3 on the right — TOAM Studio, 20 July 2026",
+        ja: "全体配置図：左が第1・2区画、右が第3区画 — TOAM Studio 2026年7月20日",
+        ko: "마스터플랜: 왼쪽 1+2 필지, 오른쪽 3 필지 — TOAM Studio 2026년 7월 20일",
+        "zh-TW": "總體規劃：左為第1+2地塊，右為第3地塊 — TOAM Studio，2026年7月20日",
       },
     },
-    gallery: [],
+    gallery: [
+      {
+        src: "/media/hospitality/phong-nha-ban-ve.webp",
+        caption: VI_ONLY("Nguyên tờ bản vẽ KT1-03, gồm bảng quy mô và khung tên"),
+      },
+    ],
     parties: [
       {
         name: "Công ty TNHH MTV T.O.A.M Studio",
