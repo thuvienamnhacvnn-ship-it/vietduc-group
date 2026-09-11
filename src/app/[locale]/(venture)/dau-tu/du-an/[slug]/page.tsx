@@ -7,6 +7,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import { documentDate, findProject, publishedProjects } from "@/content/venture";
 import type { VentureBlock } from "@/content/venture-types";
 import { Showcase } from "@/components/venture/Showcase";
+import { HoSoCoSo } from "@/components/venture/HoSoCoSo";
 import styles from "./project.module.css";
 
 type Params = Promise<{ locale: string; slug: string }>;
@@ -156,6 +157,9 @@ export default async function VentureProjectPage({ params }: { params: Params })
         ) : null}
       </section>
 
+      {/* Cơ sở đang vận hành có hồ sơ riêng (ô số, pháp nhân, bảng dịch vụ…),
+          thay cho cột chữ + cột thông số + danh sách của dự án trên giấy. */}
+      {project.dossier ? <HoSoCoSo project={project} locale={locale} /> : (
       <div className={styles.body}>
         <div className={styles.prose}>
           {tList(project.body, locale).map((paragraph) => (
@@ -189,12 +193,15 @@ export default async function VentureProjectPage({ params }: { params: Params })
           </dl>
         </aside>
       </div>
+      )}
 
-      <div className={styles.blocks}>
-        {project.blocks.map((block) => (
-          <Block key={t(block.title, locale)} block={block} locale={locale} />
-        ))}
-      </div>
+      {project.blocks.length ? (
+        <div className={styles.blocks}>
+          {project.blocks.map((block) => (
+            <Block key={t(block.title, locale)} block={block} locale={locale} />
+          ))}
+        </div>
+      ) : null}
 
       {/* Cơ sở đang vận hành: chia video, hạng phòng và các khu ảnh thành từng
           bảng riêng, thay cho một bộ ảnh chung. Khi đã có phần trưng bày thì bộ

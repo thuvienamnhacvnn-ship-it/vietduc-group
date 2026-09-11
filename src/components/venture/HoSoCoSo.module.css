@@ -1,0 +1,548 @@
+/*
+ * Hồ sơ cơ sở đang vận hành — xem HoSoCoSo.tsx.
+ *
+ * Cùng bề ngang 1400px và lề var(--s-5) với các khối khác của trang dự án, để
+ * mép trái của mọi bảng thẳng hàng với tiêu đề phần trưng bày bên dưới. Dùng
+ * token --v-* của mảng Đầu tư nên tự đổi theo giao diện sáng/tối.
+ */
+.wrap {
+  display: grid;
+  gap: clamp(1.2rem, 2.4vw, 1.6rem);
+  width: min(1400px, 100%);
+  margin-inline: auto;
+  padding: clamp(2.5rem, 6vw, 4.5rem) var(--s-5) clamp(2.5rem, 5vw, 4rem);
+}
+
+.wrap > * {
+  min-width: 0;
+}
+
+/* ------------------------------------------------------ tổng quan */
+.tongQuan {
+  display: grid;
+  gap: clamp(1.2rem, 2.4vw, 1.6rem);
+  margin-bottom: clamp(0.6rem, 2vw, 1.4rem);
+}
+
+@media (min-width: 1000px) {
+  .tongQuan {
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr);
+    align-items: stretch;
+  }
+}
+
+.tongQuanChu {
+  display: grid;
+  align-content: start;
+  gap: var(--s-4);
+}
+
+.nhan {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--v-clay);
+}
+
+.nhan::after {
+  content: "";
+  flex: 0 0 3rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.dan {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--v-ink);
+}
+
+.theDoi {
+  display: grid;
+  gap: var(--s-4);
+  margin-top: var(--s-2);
+}
+
+@media (min-width: 720px) {
+  .theDoi {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.the {
+  display: grid;
+  align-content: start;
+  gap: var(--s-3);
+  padding: var(--s-5);
+  border: 1px solid var(--v-line);
+  border-left: 3px solid var(--v-gold);
+  border-radius: var(--r-3);
+  background: var(--v-raised);
+}
+
+.the header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.8rem;
+}
+
+.the h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--v-ink);
+}
+
+.the p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--v-ink-soft);
+}
+
+.nhanNoi {
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  background: var(--v-gold);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #14110d;
+}
+
+/* Bốn ô số: lưới 2×2, số lớn chữ có chân, nhãn nhỏ viết hoa. */
+.kpi {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  border: 1px solid var(--v-line);
+  border-radius: var(--r-4);
+  background: var(--v-line);
+}
+
+.kpi li {
+  display: grid;
+  align-content: center;
+  gap: 0.45rem;
+  min-height: 9rem;
+  padding: var(--s-5);
+  background:
+    radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--v-gold) 12%, transparent), transparent 60%),
+    var(--v-raised);
+}
+
+.kpi strong {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 1.8rem + 2.4vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--v-gold);
+}
+
+.kpi span {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--v-ink-soft);
+}
+
+/* ----------------------------------------------------------- bảng */
+.bang {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(1.2rem, 2.4vw, 1.7rem);
+  border: 1px solid var(--v-line);
+  border-radius: var(--r-4);
+  background: var(--v-raised);
+  transition: border-color var(--dur-2) var(--ease);
+}
+
+.bang:hover {
+  border-color: color-mix(in srgb, var(--v-gold) 55%, var(--v-line));
+}
+
+.dauBang {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--v-line);
+}
+
+.dauBang h2 {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--v-ink);
+}
+
+.hinhBang {
+  flex: none;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0.4rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--v-gold) 14%, transparent);
+  color: var(--v-gold);
+}
+
+.phu {
+  margin-left: auto;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--v-ink-soft);
+}
+
+.so {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--v-gold);
+}
+
+.chanBang {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1rem;
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px dashed var(--v-line);
+}
+
+.chanBang p {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--v-ink-soft);
+}
+
+.chanBang a {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--v-clay);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.chanBang a:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------------------------- pháp nhân + đối tác */
+.phapLy {
+  display: grid;
+  gap: clamp(1.2rem, 2.4vw, 1.6rem);
+}
+
+@media (min-width: 1000px) {
+  .phapLy {
+    grid-template-columns: minmax(0, 1.55fr) minmax(300px, 1fr);
+  }
+}
+
+.tenCongTy {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.tenViet {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1rem + 0.7vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--v-ink);
+}
+
+.tenAnh {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--v-clay);
+}
+
+/* Hai cột: dòng đầu (vai trò) và dòng cuối (địa chỉ) chiếm trọn hàng, bốn số
+   liệu ngắn ở giữa thành lưới 2×2 — không ô nào bị bỏ trống. */
+.thongSo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--v-line);
+  border-radius: var(--r-3);
+  background: var(--v-line);
+}
+
+.thongSo div {
+  padding: 0.8rem 1rem;
+  background: var(--v-paper);
+}
+
+.thongSo div:first-child,
+.thongSo div:last-child {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 480px) {
+  .thongSo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.thongSo dt {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--v-ink-soft);
+}
+
+.thongSo dd {
+  margin: 0.25rem 0 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 1.35;
+  color: var(--v-ink);
+  overflow-wrap: anywhere;
+}
+
+.doiTac {
+  display: grid;
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.doiTac li {
+  display: flex;
+  gap: 0.9rem;
+  padding: var(--s-4);
+  border: 1px solid var(--v-line);
+  border-radius: var(--r-3);
+  background: var(--v-paper);
+}
+
+.doiTac div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.doiTac strong {
+  font-size: 1rem;
+  line-height: 1.35;
+  color: var(--v-ink);
+}
+
+.doiTac div span {
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: var(--v-ink-soft);
+}
+
+/* -------------------------------------------------------- bốn bảng */
+.bonBang {
+  display: grid;
+  gap: clamp(1.2rem, 2.4vw, 1.6rem);
+}
+
+@media (min-width: 900px) {
+  .bonBang {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.dichVu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr));
+  gap: var(--s-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dichVu li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--v-line);
+  border-radius: var(--r-3);
+  background: var(--v-paper);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--v-ink);
+}
+
+.hinhDv {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--v-gold);
+}
+
+.khuPhong {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-4);
+}
+
+@media (max-width: 480px) {
+  .khuPhong {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.tenKhu {
+  display: inline-block;
+  margin: 0 0 var(--s-3);
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--v-gold) 16%, transparent);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--v-gold);
+}
+
+.khuPhong ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.khuPhong li {
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--v-line);
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  line-height: 1.35;
+  color: var(--v-ink);
+}
+
+.khuPhong li:last-child {
+  border-bottom: 0;
+}
+
+/* Dòng thời gian: cột ngày bên trái, vạch dọc nối các chấm. */
+.dongThoiGian {
+  position: relative;
+  display: grid;
+  gap: var(--s-4);
+  margin: 0;
+  padding: 0 0 0 1.3rem;
+  list-style: none;
+}
+
+.dongThoiGian::before {
+  content: "";
+  position: absolute;
+  left: 0.3rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(180deg, var(--v-gold), var(--v-line));
+}
+
+.dongThoiGian li {
+  position: relative;
+  display: grid;
+  gap: 0.15rem;
+}
+
+.dongThoiGian li::before {
+  content: "";
+  position: absolute;
+  left: -1.3rem;
+  top: 0.35rem;
+  width: 0.65rem;
+  height: 0.65rem;
+  border: 2px solid var(--v-gold);
+  border-radius: 50%;
+  background: var(--v-raised);
+}
+
+.dongThoiGian time {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--v-gold);
+}
+
+.dongThoiGian span {
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: var(--v-ink);
+}
+
+.loTrinh {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.loTrinh li {
+  display: flex;
+  gap: 0.9rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--v-line);
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--v-ink);
+}
+
+.loTrinh li:first-child {
+  padding-top: 0;
+}
+
+.loTrinh li:last-child {
+  border-bottom: 0;
+}
+
+/* Bảng đào tạo: điểm nhấn của cả hồ sơ, nền ấm hơn các bảng khác. */
+.bangNhan {
+  border-color: color-mix(in srgb, var(--v-gold) 45%, var(--v-line));
+  background:
+    radial-gradient(100% 70% at 100% 0%, color-mix(in srgb, var(--v-gold) 12%, transparent), transparent 65%),
+    var(--v-raised);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bang {
+    transition: none;
+  }
+}

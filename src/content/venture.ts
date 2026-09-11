@@ -1292,85 +1292,73 @@ export const VENTURE_PROJECTS: VentureProject[] = [
       fact(VI_ONLY("Vốn điều lệ"), VI_ONLY("30.000.000.000 đồng")),
       fact(VI_ONLY("Điện thoại"), VI_ONLY("0229 386 8688")),
     ],
-    blocks: [
-      {
-        kind: "list",
-        title: {
-          vi: "Dịch vụ",
-          de: "Leistungen",
-          en: "Services",
-          ja: "サービス",
-          ko: "서비스",
-          "zh-TW": "服務",
+    /* Dịch vụ, hạng phòng, đoàn khách và đào tạo nằm trong `dossier` bên dưới. */
+    blocks: [],
+    dossier: {
+      kpis: [
+        { value: "3★", label: { vi: "Khách sạn 3 sao", en: "Three-star hotel" } },
+        { value: "85", label: { vi: "Phòng nghỉ", en: "Guest rooms" } },
+        { value: "02", label: { vi: "Nhà hàng", en: "Restaurants" } },
+        { value: "500", label: { vi: "Chỗ ngồi", en: "Seats" } },
+      ],
+      bodyCards: [
+        {
+          title: { vi: "Cơ sở thực hành của tập đoàn", en: "The group's training ground" },
+          badge: { vi: "Học phí 0 đồng", en: "Zero tuition" },
         },
-        items: LIST_VI([
-          "Lưu trú khách sạn 3 sao, 85 phòng",
-          "Hai nhà hàng, tổng cộng 500 chỗ ngồi: Nhà hàng A và Nhà hàng B (German Beer Club)",
-          "Golden Dragon Bar",
-          "Karaoke",
-          "Bữa sáng set menu và buffet",
-          "Tiệc đoàn, tiệc gala và tiệc nướng BBQ",
-        ]),
-      },
-      {
-        kind: "list",
-        title: {
-          vi: "Hạng phòng",
-          de: "Zimmerkategorien",
-          en: "Room types",
-          ja: "客室タイプ",
-          ko: "객실 유형",
-          "zh-TW": "房型",
+        {
+          title: { vi: "Chuẩn quốc tế Đức – Nhật Bản", en: "German and Japanese standards" },
         },
-        items: LIST_VI([
-          "Khu A — Deluxe Double Room",
-          "Khu A — Deluxe Double Room có bồn tắm",
-          "Khu A — Deluxe Twin Room",
-          "Khu A — Deluxe Family Suite",
-          "Khu B — Deluxe King Suite",
-          "Khu B — Superior King Room",
-          "Khu B — Superior Queen Room",
-          "Khu B — Superior Triple Room",
-        ]),
-        note: VI_ONLY("Tên hạng phòng theo bộ ảnh khách sạn gửi các hãng lữ hành."),
+      ],
+      company: {
+        name: "Công ty Cổ phần Khách sạn Du lịch Hoàng Long",
+        nameEn: "Golden Dragon Hotel Travel Services JSC",
+        rows: [
+          fact({ vi: "Vai trò", en: "Role" }, { vi: "Chủ đầu tư và đơn vị vận hành", en: "Owner and operator" }),
+          fact({ vi: "Mã số doanh nghiệp", en: "Enterprise code" }, VI_ONLY("2700836682")),
+          fact({ vi: "Đăng ký lần đầu", en: "First registered" }, VI_ONLY("07/02/2017")),
+          fact({ vi: "Vốn điều lệ", en: "Charter capital" }, { vi: "30.000.000.000 đồng", en: "VND 30,000,000,000" }),
+          fact({ vi: "Điện thoại", en: "Telephone" }, VI_ONLY("0229 386 8688")),
+          fact(
+            { vi: "Địa chỉ", en: "Address" },
+            { vi: "Km 10 Quốc lộ 1A (Ninh Bình – Hà Nội), xã Gia Trấn, tỉnh Ninh Bình", en: "Km 10, National Road 1A, Gia Tran commune, Ninh Binh province" },
+          ),
+        ],
       },
-      {
-        kind: "list",
-        title: {
-          vi: "Đoàn khách và sự kiện tiêu biểu",
-          de: "Gruppen und Veranstaltungen",
-          en: "Groups and events",
-          ja: "団体客とイベント",
-          ko: "단체 고객과 행사",
-          "zh-TW": "團體與活動",
+      services: [
+        { icon: "bed", text: { vi: "Lưu trú khách sạn 3 sao, 85 phòng", en: "Three-star accommodation, 85 rooms" } },
+        { icon: "dining", text: { vi: "Hai nhà hàng, 500 chỗ: Nhà hàng A và Nhà hàng B (German Beer Club)", en: "Two restaurants seating 500: Restaurant A and Restaurant B (German Beer Club)" } },
+        { icon: "bar", text: { vi: "Golden Dragon Bar", en: "Golden Dragon Bar" } },
+        { icon: "mic", text: { vi: "Karaoke", en: "Karaoke" } },
+        { icon: "breakfast", text: { vi: "Bữa sáng set menu và buffet", en: "Set-menu and buffet breakfast" } },
+        { icon: "party", text: { vi: "Tiệc đoàn, tiệc gala và tiệc nướng BBQ", en: "Group dinners, galas and barbecues" } },
+      ],
+      roomZones: [
+        {
+          zone: { vi: "Khu A", en: "Block A" },
+          rooms: ["Deluxe Double Room", "Deluxe Double Room có bồn tắm", "Deluxe Twin Room", "Deluxe Family Suite"],
         },
-        items: LIST_VI([
-          "Đoàn khách của hãng lữ hành H.I.S (Nhật Bản), 11/12/2017",
-          "Đoàn công đoàn, 03/12/2017",
-          "Gala Dinner 2017 \"Mùa Hè Rực Rỡ\" của VPBank tại German Beer Club, 03/06/2017",
-          "Tiệc nướng BBQ cho đoàn",
-        ]),
-        note: VI_ONLY("Theo thư mục ảnh \"Hình ảnh các đoàn\" của khách sạn."),
-      },
-      {
-        kind: "list",
-        title: {
-          vi: "Gắn với đào tạo",
-          de: "Verbindung zur Ausbildung",
-          en: "Link to training",
-          ja: "研修とのつながり",
-          ko: "교육과의 연계",
-          "zh-TW": "與培訓的連結",
+        {
+          zone: { vi: "Khu B", en: "Block B" },
+          rooms: ["Deluxe King Suite", "Superior King Room", "Superior Queen Room", "Superior Triple Room"],
         },
-        items: LIST_VI([
-          "Cơ sở thực hành cho học viên ngành nhà hàng – khách sạn của tập đoàn",
-          "Hợp tác với Trường Trung cấp nghề Quốc tế (IVS) tổ chức đào tạo kết hợp thực hành",
-          "Học viên vừa học vừa làm, có lương thực hành — mô hình học phí 0 đồng",
-          "Liên kết đối tác Đức và Nhật Bản đào tạo chuẩn quốc tế, cung ứng lao động sang Nhật Bản, Đức và châu Âu",
-        ]),
-        note: VI_ONLY("Theo Hồ sơ năng lực NIBELC Group, bản tiếng Việt tr.3, 4 và 14."),
-      },
-    ],
+      ],
+      roomsNote: { vi: "Tên hạng phòng theo bộ ảnh khách sạn gửi các hãng lữ hành.", en: "Room names as used in the hotel's photo set for tour operators." },
+      timeline: [
+        { date: "11/12/2017", text: { vi: "Đoàn khách của hãng lữ hành H.I.S (Nhật Bản)", en: "A group from the Japanese tour operator H.I.S" } },
+        { date: "03/12/2017", text: { vi: "Đoàn công đoàn", en: "A trade-union group" } },
+        { date: "03/06/2017", text: { vi: "Gala Dinner 2017 \"Mùa Hè Rực Rỡ\" của VPBank tại German Beer Club", en: "VPBank's 2017 summer gala dinner at the German Beer Club" } },
+        { text: { vi: "Tiệc nướng BBQ cho đoàn", en: "Barbecues for groups" } },
+      ],
+      timelineNote: { vi: "Theo thư mục ảnh \"Hình ảnh các đoàn\" của khách sạn.", en: "From the hotel's \"group photos\" folder." },
+      training: [
+        { vi: "Cơ sở thực hành cho học viên ngành nhà hàng – khách sạn của tập đoàn", en: "Practical training site for the group's hospitality trainees" },
+        { vi: "Hợp tác với Trường Trung cấp nghề Quốc tế (IVS) tổ chức đào tạo kết hợp thực hành", en: "Training combined with practice, run with the International Vocational School (IVS)" },
+        { vi: "Học viên vừa học vừa làm, có lương thực hành — mô hình học phí 0 đồng", en: "Trainees earn a practice wage while they study — a zero-tuition model" },
+        { vi: "Liên kết đối tác Đức và Nhật Bản đào tạo chuẩn quốc tế, cung ứng lao động sang Nhật Bản, Đức và châu Âu", en: "German and Japanese partners bring international curricula and placements in Japan, Germany and Europe" },
+      ],
+      trainingNote: { vi: "Theo Hồ sơ năng lực NIBELC Group, bản tiếng Việt tr.3, 4 và 14.", en: "From the NIBELC Group capability profile (Vietnamese edition), pp. 3, 4 and 14." },
+    },
     hero: {
       src: "/media/hospitality/golden-dragon/sanh-le-tan.webp",
       caption: {

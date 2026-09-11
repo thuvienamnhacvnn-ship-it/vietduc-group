@@ -6,7 +6,6 @@ import {
   getActivities,
   getCategories,
   getFeaturedPrograms,
-  getPartners,
   getPosts,
   getPrograms,
   getSchools,
@@ -33,6 +32,7 @@ import { PhotoSections } from "@/components/PhotoSections";
 import { NHOM_NGANH } from "@/content/anh-nhom";
 import { khoAnh } from "@/content/kho-media";
 import { ProgramFinder } from "@/components/ProgramFinder";
+import { MangLuoiNibelc } from "@/components/mang-luoi/MangLuoiNibelc";
 import styles from "./home.module.css";
 
 /**
@@ -65,7 +65,6 @@ export default async function HomePage({
     programs,
     featured,
     activities,
-    partners,
     posts,
     settings,
   ] = await Promise.all([
@@ -74,7 +73,6 @@ export default async function HomePage({
     getPrograms(),
     getFeaturedPrograms(6),
     getActivities(),
-    getPartners(),
     getPosts(3),
     getSiteSettings(),
   ]);
@@ -1164,57 +1162,9 @@ export default async function HomePage({
       ) : null}
 
       {/* ------------------------------------------------------- partners */}
-      {partners.length ? (
-        <section className={`section ${styles.bandPaper}`}>
-          <div className="shell">
-            <SectionHeading
-              noiBat
-              so="09"
-              eyebrow={pick(
-                {
-                  vi: "Mạng lưới",
-                  en: "Network",
-                  de: "Netzwerk",
-                  ja: "ネットワーク",
-                  ko: "네트워크",
-                  "zh-TW": "網絡",
-                },
-                locale,
-              )}
-              title={dict.home.partnersTitle}
-              lead={pick(
-                {
-                  vi: "Doanh nghiệp và tổ chức được nêu trong hồ sơ năng lực của Việt Đức Group và mạng lưới đối tác chiến lược NIBELC.",
-                  en: "Employers and organisations named in the Viet Duc Group capability profile and in the NIBELC strategic partner network.",
-                  de: "Unternehmen und Organisationen aus dem Leistungsprofil der Viet Duc Group und dem Partnernetz von NIBELC.",
-                  ja: "Viet Duc Group の会社案内および NIBELC 戦略提携ネットワークに名前の挙がる企業・団体です。",
-                  ko: "Viet Duc Group 역량 소개서와 NIBELC 전략 협력 네트워크에 이름이 오른 기업과 기관입니다.",
-                  "zh-TW":
-                    "列名於 Viet Duc Group 能力簡介與 NIBELC 策略夥伴網絡中的企業與機構。",
-                },
-                locale,
-              )}
-              action={
-                <ArrowLink href={path("/doi-tac")}>
-                  {dict.common.viewAll}
-                </ArrowLink>
-              }
-            />
-            <ul
-              className={styles.partnerStrip}
-              data-reveal
-              suppressHydrationWarning
-            >
-              {partners.slice(0, 16).map((partner) => (
-                <li key={partner.id}>
-                  <span>{partner.name}</span>
-                  {partner.country ? <small>{partner.country}</small> : null}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      ) : null}
+      {/* Mạng lưới NIBELC, bản rút gọn: bản đồ, số liệu, dải cờ và nhóm chiến
+          lược; danh sách từng nước nằm ở trang Đối tác. */}
+      <MangLuoiNibelc locale={locale} gon so="09" lienKet={path("/doi-tac")} />
 
       {/* ----------------------------------------------------------- news */}
       {posts.length ? (

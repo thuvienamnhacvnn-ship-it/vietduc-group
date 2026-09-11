@@ -67,6 +67,34 @@ export type VentureProject = {
    * dự án dựng như cũ.
    */
   showcase?: VentureShowcase;
+  /**
+   * Hồ sơ của cơ sở đang vận hành, dựng thành các ô số, thẻ pháp nhân và bảng
+   * (dịch vụ, hạng phòng, dòng thời gian, đào tạo) thay cho cột chữ + danh sách
+   * gạch đầu dòng. Có trường này thì trang không dựng `blocks` và cột `facts`
+   * nữa — `facts` vẫn giữ cho thẻ dự án ở trang tổng.
+   */
+  dossier?: VentureDossier;
+};
+
+export type DossierIcon = "bed" | "dining" | "bar" | "mic" | "breakfast" | "party";
+
+export type VentureDossier = {
+  /** Các ô số lớn đầu trang: "85" + "phòng nghỉ". */
+  kpis: { value: string; label: Localised }[];
+  /**
+   * Tiêu đề cho các đoạn `body` từ đoạn thứ hai trở đi; đoạn đầu là lời dẫn.
+   * `badge` là nhãn nổi bật gắn vào thẻ (ví dụ "Học phí 0 đồng").
+   */
+  bodyCards: { title: Localised; badge?: Localised }[];
+  /** Thẻ pháp nhân vận hành. */
+  company: { name: string; nameEn: string; rows: VentureFact[] };
+  services: { icon: DossierIcon; text: Localised }[];
+  roomZones: { zone: Localised; rooms: string[] }[];
+  roomsNote?: Localised;
+  timeline: { date?: string; text: Localised }[];
+  timelineNote?: Localised;
+  training: Localised[];
+  trainingNote?: Localised;
 };
 
 export type VentureShowcase = {

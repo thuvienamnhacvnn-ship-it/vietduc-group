@@ -23,7 +23,7 @@ import {
 
 type PartnerSeed = SeedPartner & { needsVerification?: boolean };
 
-const VIA_NIBELC = {
+export const VIA_NIBELC = {
   vi: "Đối tác trong mạng lưới của NIBELC Group – đối tác chiến lược của Việt Đức Group.",
   en: "Partner within the network of NIBELC Group, a strategic partner of Viet Duc Group.",
   de: "Partner im Netzwerk der NIBELC Group, eines strategischen Partners der Viet Duc Group.",
@@ -101,9 +101,10 @@ export const PARTNERS: PartnerSeed[] = [
   { slug: "gabor-varadi", name: "Gábor Varadi Kft", kind: "enterprise", country: "HU", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
 
   // --- Middle East & West Asia (page 24) ----------------------------------
-  { slug: "deas", name: "DEAS", kind: "enterprise", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
+  // DEAS là doanh nghiệp Hy Lạp, Bellas Group ở Ấn Độ — theo danh sách tập đoàn gửi 11/09/2026.
+  { slug: "deas", name: "DEAS S.A.", kind: "enterprise", country: "GR", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
   { slug: "hilton-abu-dhabi", name: "Hilton Abu Dhabi", kind: "enterprise", country: "AE", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
-  { slug: "bliss-group", name: "Bellas Group", kind: "group", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
+  { slug: "bliss-group", name: "Bellas Group", kind: "group", country: "IN", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
   // --- hợp tác trực tiếp của trường thành viên (hồ sơ Việt Đức tr.22) ------
   { slug: "sungwoo-vina", name: "Công ty TNHH Sungwoo Vina", kind: "enterprise", country: "VN", note: { vi: "Ký kết hợp tác với Trường Cao đẳng Công nghệ – Ngoại thương.", en: "Signed a cooperation agreement with the Foreign Trade Technology College.", de: "Kooperationsvereinbarung mit dem Foreign Trade Technology College.", ja: "貿易技術短期大学と協力協定を締結。", ko: "무역기술전문대학과 협력 협약을 체결했습니다.", "zh-TW": "與外貿科技專科學校簽署合作協議。" }, order: next(), provenance: fromProfileVi(22) },
   { slug: "acts-university", name: "ACTS University", kind: "institution", country: "KR", region: "asia", note: { vi: "Đại học Hàn Quốc, ký biên bản ghi nhớ hợp tác (MOU) với Trường Trung cấp nghề Quốc tế IVS Ninh Bình.", en: "Korean university; signed a memorandum of understanding with the International Vocational School (IVS), Ninh Binh.", de: "Koreanische Universität; Absichtserklärung mit der International Vocational School (IVS), Ninh Binh.", ja: "韓国の大学。ニンビンの国際職業訓練学校（IVS）と覚書（MOU）を締結。", ko: "한국 대학으로, 닌빈 국제직업학교(IVS)와 양해각서(MOU)를 체결했습니다.", "zh-TW": "韓國大學，與寧平國際職業學校（IVS）簽署合作備忘錄。" }, order: next(), provenance: fromProfileVi(22) },

@@ -420,64 +420,6 @@
   grid-column: span 2;
 }
 
-/* ------------------------------------------------------------- partners */
-
-.partnerStrip {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(210px, 100%), 1fr));
-  gap: 1px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  background: var(--line);
-  border: 1px solid var(--line);
-  border-radius: var(--r-3);
-  overflow: hidden;
-}
-
-.partnerStrip li {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.2rem;
-  min-height: 82px;
-  padding: var(--s-4);
-  background: var(--paper-raised);
-  font-size: 0.87rem;
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-.partnerStrip small {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  color: var(--gold-deep);
-}
-
-/*
- * Trên điện thoại: hai cột.
- *
- * Ô rộng tối thiểu 210px không đủ chỗ cho hai cột ở màn 390px, nên mười sáu
- * đối tác xếp thành mười sáu hàng — riêng mục này cao 1.686px. Mà mỗi ô chỉ
- * có tên và tên nước; ép hai cột vẫn đọc thoải mái và mục còn chưa tới 600px.
- */
-@media (max-width: 699px) {
-  .partnerStrip {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .partnerStrip li {
-    min-height: 66px;
-    padding: 0.6rem 0.7rem;
-    font-size: 0.8rem;
-    line-height: 1.3;
-  }
-
-  .partnerStrip small {
-    font-size: 0.64rem;
-  }
-}
-
 /* ----------------------------------------------------------------- news */
 
 .postGrid {

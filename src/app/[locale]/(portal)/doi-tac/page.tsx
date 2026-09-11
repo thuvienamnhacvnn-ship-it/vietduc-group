@@ -7,14 +7,10 @@ import { Breadcrumbs, EmptyState, SourceNote } from "@/components/ui";
 import { PhotoSections } from "@/components/PhotoSections";
 import { NHOM_DOI_TAC } from "@/content/anh-nhom";
 import { khoAnh } from "@/content/kho-media";
+import { MangLuoiNibelc } from "@/components/mang-luoi/MangLuoiNibelc";
+import { VIA_NIBELC } from "@/content/seed/network";
 import shell from "../page-shell.module.css";
 import styles from "./partners.module.css";
-
-const REGION_LABEL: Record<string, L10nMap> = {
-  europe: { vi: "Châu Âu", en: "Europe", de: "Europa", ja: "ヨーロッパ", ko: "유럽", "zh-TW": "歐洲" },
-  "middle-east": { vi: "Trung Đông & Tây Á", en: "Middle East & West Asia", de: "Naher Osten & Westasien", ja: "中東・西アジア", ko: "중동·서아시아", "zh-TW": "中東與西亞" },
-  asia: { vi: "Châu Á", en: "Asia", de: "Asien", ja: "アジア", ko: "아시아", "zh-TW": "亞洲" },
-};
 
 const COUNTRY_LABEL: Record<string, L10nMap> = {
   VN: { vi: "Việt Nam", en: "Vietnam", de: "Vietnam", ja: "ベトナム", ko: "베트남", "zh-TW": "越南" },
@@ -26,6 +22,9 @@ const COUNTRY_LABEL: Record<string, L10nMap> = {
   QA: { vi: "Qatar", en: "Qatar", de: "Katar", ja: "カタール", ko: "카타르", "zh-TW": "卡達" },
   KR: { vi: "Hàn Quốc", en: "South Korea", de: "Südkorea", ja: "韓国", ko: "대한민국", "zh-TW": "韓國" },
   JP: { vi: "Nhật Bản", en: "Japan", de: "Japan", ja: "日本", ko: "일본", "zh-TW": "日本" },
+  IN: { vi: "Ấn Độ", en: "India", de: "Indien", ja: "インド", ko: "인도", "zh-TW": "印度" },
+  MY: { vi: "Malaysia", en: "Malaysia", de: "Malaysia", ja: "マレーシア", ko: "말레이시아", "zh-TW": "馬來西亞" },
+  RO: { vi: "Romania", en: "Romania", de: "Rumänien", ja: "ルーマニア", ko: "루마니아", "zh-TW": "羅馬尼亞" },
   KW: { vi: "Kuwait", en: "Kuwait", de: "Kuwait", ja: "クウェート", ko: "쿠웨이트", "zh-TW": "科威特" },
 };
 
@@ -51,20 +50,38 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
   const [partners, documents] = await Promise.all([getPartners(), getSourceDocuments()]);
   const profile = documents.find((d) => d.slug === "profile-viet-duc-vi");
 
-  // Grouped by region, with the unassigned ones - direct partners of the group
-  // rather than of the NIBELC network - shown first.
-  const groups = new Map<string, typeof partners>();
-  for (const partner of partners) {
-    const key = partner.region ?? "direct";
-    const list = groups.get(key) ?? [];
-    list.push(partner);
-    groups.set(key, list);
-  }
-  const order = ["direct", "europe", "middle-east", "asia", ...groups.keys()];
-  const seen = new Set<string>();
+  /*
+   * Danh sách theo nước của mạng lưới NIBELC nằm trong khối MangLuoiNibelc
+   * (theo danh sách tập đoàn gửi). Từ cơ sở dữ liệu chỉ còn lấy hai phần mà
+   * danh sách ấy không có: đối tác trực tiếp của Việt Đức (không gắn khu vực),
+   * và những mốc hợp tác có ngày tháng, việc cụ thể — bản ghi nào chỉ mang câu
+   * chung "đối tác trong mạng lưới NIBELC" thì đã có mặt trong bảng ở trên.
+   */
+  const direct = partners.filter((p) => !p.region);
+  const milestones = partners.filter((p) => p.region && p.note && p.note.vi !== VIA_NIBELC.vi);
 
   /* Ảnh mạng lưới đối tác lấy từ kho tiếp nhận. */
   const network = khoAnh("partners");
+
+  const renderList = (list: typeof partners) => (
+    <ul className={styles.list}>
+      {list.map((partner) => (
+        <li key={partner.id}>
+          <span className={styles.name}>{partner.name}</span>
+          {partner.country ? (
+            <span className={styles.country}>
+              {COUNTRY_LABEL[partner.country]
+                ? pick(COUNTRY_LABEL[partner.country], locale)
+                : partner.country}
+            </span>
+          ) : null}
+          {partner.note ? (
+            <span className={styles.note}>{t(partner.note, locale)}</span>
+          ) : null}
+        </li>
+      ))}
+    </ul>
+  );
 
   return (
     <div className={shell.page}>
@@ -75,53 +92,42 @@ export default async function PartnersPage({ params }: { params: Promise<{ local
           <p className={shell.lead}>
             {
               pick({
-                vi: "Danh sách dưới đây được nêu trong hồ sơ năng lực của Việt Đức Group. Phần lớn đối tác quốc tế đến từ mạng lưới của NIBELC Group – đối tác chiến lược của Việt Đức Group – và được ghi rõ trong từng mục.",
-                en: "The list below is named in the Viet Duc Group capability profile. Most international partners come through the network of NIBELC Group, a strategic partner of Viet Duc Group; each entry says which.",
-                de: "Die folgende Liste stammt aus dem Leistungsprofil der Viet Duc Group. Die meisten internationalen Partner stammen aus dem Netzwerk der NIBELC Group, eines strategischen Partners; jeder Eintrag weist dies aus.",
-                ja: "以下は Viet Duc Group の会社案内に記載された一覧です。海外提携先の多くは、Viet Duc Group の戦略的パートナーである NIBELC Group のネットワークを通じたもので、各項目にその旨を明記しています。",
-                ko: "아래 목록은 Viet Duc Group 역량 소개서에 실린 것입니다. 해외 협력사의 대부분은 Viet Duc Group의 전략적 파트너인 NIBELC Group의 네트워크를 통한 곳이며, 항목마다 이를 밝혀 두었습니다.",
-                "zh-TW": "以下清單載於 Viet Duc Group 的能力簡介。多數國際夥伴來自 Viet Duc Group 策略夥伴 NIBELC Group 的網絡，各項目均已註明。",
+                vi: "Việt Đức Group hợp tác trực tiếp với doanh nghiệp và nhà trường trong, ngoài nước, và mở đường ra thị trường quốc tế qua mạng lưới của NIBELC Group – đối tác chiến lược của tập đoàn.",
+                en: "Viet Duc Group works directly with employers and schools at home and abroad, and reaches international markets through the network of NIBELC Group, the group's strategic partner.",
+                de: "Die Viet Duc Group arbeitet direkt mit Unternehmen und Schulen im In- und Ausland zusammen und erreicht internationale Märkte über das Netzwerk der NIBELC Group, ihres strategischen Partners.",
+                ja: "Viet Duc Group は国内外の企業・教育機関と直接連携し、戦略的パートナーである NIBELC Group のネットワークを通じて海外市場へ道を開いています。",
+                ko: "Viet Duc Group은 국내외 기업·학교와 직접 협력하고, 전략적 파트너인 NIBELC Group의 네트워크를 통해 해외 시장으로 길을 열고 있습니다.",
+                "zh-TW": "Viet Duc Group 與國內外企業、學校直接合作，並透過策略夥伴 NIBELC Group 的網絡通往國際市場。",
               }, locale)
             }
           </p>
         </header>
+      </div>
 
+      <MangLuoiNibelc locale={locale} />
+
+      <div className="shell">
         {!partners.length ? (
           <EmptyState title={dict.common.empty} />
         ) : (
-          order.map((key) => {
-            if (seen.has(key)) return null;
-            seen.add(key);
-            const list = groups.get(key);
-            if (!list?.length) return null;
-            const label =
-              key === "direct"
-                ? pick({ vi: "Đối tác và tổ chức thành viên", en: "Partners and member organisations", de: "Partner und Mitgliedsorganisationen", ja: "提携先と加盟団体", ko: "협력사와 회원 기관", "zh-TW": "合作夥伴與成員機構" }, locale)
-                : (REGION_LABEL[key] ? pick(REGION_LABEL[key], locale) : key);
-
-            return (
-              <section key={key} className={styles.group}>
-                <h2 className={styles.groupTitle}>{label}</h2>
-                <ul className={styles.list}>
-                  {list.map((partner) => (
-                    <li key={partner.id}>
-                      <span className={styles.name}>{partner.name}</span>
-                      {partner.country ? (
-                        <span className={styles.country}>
-                          {COUNTRY_LABEL[partner.country]
-                            ? pick(COUNTRY_LABEL[partner.country], locale)
-                            : partner.country}
-                        </span>
-                      ) : null}
-                      {partner.note ? (
-                        <span className={styles.note}>{t(partner.note, locale)}</span>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
+          <>
+            {direct.length ? (
+              <section className={styles.group}>
+                <h2 className={styles.groupTitle}>
+                  {pick({ vi: "Đối tác trực tiếp và tổ chức thành viên", en: "Direct partners and member organisations", de: "Direkte Partner und Mitgliedsorganisationen", ja: "直接の提携先と加盟団体", ko: "직접 협력사와 회원 기관", "zh-TW": "直接合作夥伴與成員機構" }, locale)}
+                </h2>
+                {renderList(direct)}
               </section>
-            );
-          })
+            ) : null}
+            {milestones.length ? (
+              <section className={styles.group}>
+                <h2 className={styles.groupTitle}>
+                  {pick({ vi: "Dấu mốc hợp tác quốc tế", en: "International cooperation milestones", de: "Meilensteine der internationalen Zusammenarbeit", ja: "国際協力のあゆみ", ko: "국제 협력의 이정표", "zh-TW": "國際合作里程碑" }, locale)}
+                </h2>
+                {renderList(milestones)}
+              </section>
+            ) : null}
+          </>
         )}
 
         {/* Ảnh mạng lưới đối tác: văn phòng NIBELC ở Hungary, Ba Lan, Rumani,
