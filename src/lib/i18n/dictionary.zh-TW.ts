@@ -73,7 +73,7 @@ export const zhTW: Dictionary = {
   home: {
     heroEyebrow: "越德技職教育體系",
     heroLead:
-      "六所成員學校，共同的承諾：紮實的專業訓練、與企業緊密連結，以及通往國際就業市場的道路。",
+      "八所成員學校，共同的承諾：紮實的專業訓練、與企業緊密連結，以及通往國際就業市場的道路。",
     findProgram: "找到適合的課程",
     findProgramHint: "選擇領域與課程層級，即可看到目前招生的課程。",
     aboutTitle: "關於 Viet Duc Group",
@@ -290,7 +290,7 @@ export const zhTW: Dictionary = {
       name: "教育與職業訓練",
       tagline: "越德技職教育網絡",
       desc:
-        "六所成員學校，提供與企業接軌的技職訓練，銜接國際就業市場。",
+        "八所成員學校，提供與企業接軌的技職訓練，銜接國際就業市場。",
     },
     venture: {
       name: "飯店、度假村與旅遊",

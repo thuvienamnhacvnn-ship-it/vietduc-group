@@ -1272,7 +1272,7 @@ export const SCHOOLS: SeedSchool[] = [
       "zh-TW": "廣治",
     },
     country: "VN",
-    address: "Xã Quảng Ninh, tỉnh Quảng Trị (địa điểm thực hiện dự án)",
+    address: "Văn phòng Tổ dân phố 15, Phường Đồng Thuận, Tỉnh Quảng Trị",
     logoPath: "/media/schools/logos/cao-dang-cong-nghe-viet-duc.webp",
     highlights: {
       vi: [
@@ -1348,7 +1348,7 @@ export const SCHOOLS: SeedSchool[] = [
     ],
     provenance: fromDuAnCaoDang(),
     editorNote:
-      "Mọi số liệu ở đây lấy từ hồ sơ DỰ ÁN đầu tư (văn bản 06/CV-CTy ngày 03/09/2026), tức là số liệu THIẾT KẾ chứ không phải số liệu vận hành: trường chưa hoạt động, chưa có điện thoại, email, website và chưa có giấy chứng nhận đăng ký hoạt động giáo dục nghề nghiệp. Địa chỉ ghi ở đây là địa điểm thực hiện dự án. Khi trường được cấp phép và tuyển sinh thì phải thay toàn bộ phần này bằng số liệu thật.",
+      "Mọi số liệu ở đây lấy từ hồ sơ DỰ ÁN đầu tư (văn bản 06/CV-CTy ngày 03/09/2026), tức là số liệu THIẾT KẾ chứ không phải số liệu vận hành: trường chưa hoạt động, chưa có điện thoại, email, website và chưa có giấy chứng nhận đăng ký hoạt động giáo dục nghề nghiệp. Địa chỉ liên hệ là văn phòng của chủ đầu tư VGIE tại Tổ dân phố 15, Phường Đồng Thuận, Tỉnh Quảng Trị (theo giấy chứng nhận ĐKKD của VGIE), nơi ông Hồ Văn Phong – Phó Giám đốc – phụ trách; địa điểm xây trường là xã Quảng Ninh, ghi ở bảng Quy mô dự án. Số điện thoại và email của văn phòng đang chờ tập đoàn gửi. Khi trường được cấp phép và tuyển sinh thì phải thay toàn bộ phần này bằng số liệu thật.",
   },
   {
     slug: "trung-cap-ky-nghe-viet-duc",

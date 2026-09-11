@@ -198,6 +198,17 @@ export function fromProfileEn(page: number): Provenance {
  * dạng bản quét (phải OCR). Không phải PDF hồ sơ năng lực như các nguồn khác,
  * nên có mã nguồn riêng.
  */
+/** Hồ sơ năng lực NIBELC Group, bản tiếng Việt — nguồn của phần lớn mạng lưới đối tác. */
+export function fromNibelcVi(page: number): Provenance {
+  return {
+    source: "nibelc-profile-vi",
+    sourceTitle: "Hồ sơ năng lực NIBELC Group (bản tiếng Việt)",
+    page,
+    importedAt: "2026-09-11",
+    method: "pdf-ocr",
+  };
+}
+
 export function fromHoSoNhanSu(): Provenance {
   return {
     source: "ho-so-nhan-su-2026",

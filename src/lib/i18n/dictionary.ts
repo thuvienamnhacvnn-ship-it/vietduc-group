@@ -73,7 +73,7 @@ const vi = {
   home: {
     heroEyebrow: "Hệ thống giáo dục nghề nghiệp Việt–Đức",
     heroLead:
-      "Sáu trường thành viên, một cam kết: đào tạo thực chất, gắn với doanh nghiệp và mở đường ra thị trường lao động quốc tế.",
+      "Tám trường thành viên, một cam kết: đào tạo thực chất, gắn với doanh nghiệp và mở đường ra thị trường lao động quốc tế.",
     findProgram: "Tìm chương trình phù hợp",
     findProgramHint: "Chọn lĩnh vực và trình độ để xem các ngành đang tuyển sinh.",
     aboutTitle: "Về Việt Đức Group",
@@ -284,7 +284,7 @@ const vi = {
     education: {
       name: "Giáo dục & Đào tạo",
       tagline: "Hệ thống trường nghề Việt–Đức",
-      desc: "Sáu trường thành viên, đào tạo nghề gắn với doanh nghiệp và thị trường lao động quốc tế.",
+      desc: "Tám trường thành viên, đào tạo nghề gắn với doanh nghiệp và thị trường lao động quốc tế.",
     },
     venture: {
       name: "Khách sạn, Resort & Lữ hành",
@@ -408,7 +408,7 @@ const de: Dictionary = {
   home: {
     heroEyebrow: "Vietnamesisch-deutsches Berufsbildungsnetzwerk",
     heroLead:
-      "Sechs Mitgliedsschulen, ein Versprechen: praxisnahe Ausbildung, enge Verbindung zu Unternehmen und Zugang zum internationalen Arbeitsmarkt.",
+      "Acht Mitgliedsschulen, ein Versprechen: praxisnahe Ausbildung, enge Verbindung zu Unternehmen und Zugang zum internationalen Arbeitsmarkt.",
     findProgram: "Passendes Programm finden",
     findProgramHint: "Fachbereich und Niveau wählen, um laufende Programme zu sehen.",
     aboutTitle: "Über Viet Duc Group",
@@ -619,7 +619,7 @@ const de: Dictionary = {
     education: {
       name: "Bildung & Ausbildung",
       tagline: "Vietnamesisch-deutsches Berufsschulnetz",
-      desc: "Sechs Mitgliedsschulen mit betriebsnaher Berufsausbildung für den internationalen Arbeitsmarkt.",
+      desc: "Acht Mitgliedsschulen mit betriebsnaher Berufsausbildung für den internationalen Arbeitsmarkt.",
     },
     venture: {
       name: "Hotels, Resorts & Reisen",
@@ -740,7 +740,7 @@ const en: Dictionary = {
   home: {
     heroEyebrow: "A Vietnamese–German vocational education system",
     heroLead:
-      "Six member schools, one commitment: substantive training, close ties to employers, and a route into the international labour market.",
+      "Eight member schools, one commitment: substantive training, close ties to employers, and a route into the international labour market.",
     findProgram: "Find the right programme",
     findProgramHint: "Pick a field and level to see programmes currently enrolling.",
     aboutTitle: "About Viet Duc Group",
@@ -951,7 +951,7 @@ const en: Dictionary = {
     education: {
       name: "Education & Training",
       tagline: "The Vietnamese-German vocational network",
-      desc: "Six member schools delivering employer-linked vocational training for the international labour market.",
+      desc: "Eight member schools delivering employer-linked vocational training for the international labour market.",
     },
     venture: {
       name: "Hotels, Resorts & Travel",

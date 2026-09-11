@@ -1,4 +1,11 @@
-import { fromProfileVi, type SeedActivity, type SeedFaq, type SeedPartner } from "./types";
+import {
+  fromNibelcVi,
+  fromProfileEn,
+  fromProfileVi,
+  type SeedActivity,
+  type SeedFaq,
+  type SeedPartner,
+} from "./types";
 
 /**
  * Partner network as printed in the group profile.
@@ -47,21 +54,28 @@ export const PARTNERS: PartnerSeed[] = [
       ko: "인력 파견과 인프라·산업 프로젝트 수행에서 20년 이상의 경험을 쌓았으며 15개국 이상에서 사업을 펼치는 기업 그룹입니다. Viet Duc Group의 전략적 파트너입니다.",
       "zh-TW": "在人力派遣與基礎建設、工業專案執行方面擁有逾 20 年經驗，業務遍及 15 個以上國家的企業集團。為 Viet Duc Group 的策略夥伴。",
     }, order: next(), provenance: fromProfileVi(24) },
-  { slug: "samsung", name: "Samsung", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22) },
-  { slug: "hyundai", name: "Hyundai", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22) },
-  { slug: "cj-group", name: "CJ Group", kind: "group", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22) },
-  { slug: "qatar-airways", name: "Qatar Airways", kind: "enterprise", country: "QA", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22) },
-  { slug: "toda-corporation", name: "Toda Corporation", kind: "enterprise", country: "JP", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22) },
-  { slug: "taisei", name: "Taisei", kind: "enterprise", country: "JP", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22), needsVerification: true },
-  { slug: "lotte", name: "Lotte", kind: "enterprise", country: "KR", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22) },
-  { slug: "hyosung", name: "Hyosung", kind: "enterprise", country: "KR", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22), needsVerification: true },
-  { slug: "jabil", name: "Jabil", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22), needsVerification: true },
-  { slug: "kharafi-national", name: "Kharafi National", kind: "enterprise", country: "KW", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22), needsVerification: true },
-  { slug: "kimabex-international", name: "Kimabex International", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22), needsVerification: true },
-  { slug: "queen-global", name: "Queen Global", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(6), needsVerification: true },
-  { slug: "apex-global-education", name: "Apex Global Education", kind: "institution", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22), needsVerification: true },
-  { slug: "vinaenter-edu", name: "VinaEnter Edu", kind: "institution", country: "VN", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(22), needsVerification: true },
-  { slug: "vonder-tour", name: "Vonder Tour", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(6), needsVerification: true },
+  { slug: "samsung", name: "Samsung", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "hyundai", name: "Hyundai", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "cj-group", name: "CJ Group", kind: "group", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "qatar-airways", name: "Qatar Airways", kind: "enterprise", country: "QA", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "toda-corporation", name: "Toda Corporation", kind: "enterprise", country: "JP", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "taisei", name: "Taisei Corporation", kind: "enterprise", country: "JP", region: "asia", note: {
+      vi: "Tập đoàn xây dựng Nhật Bản, khách hàng dự án của NIBELC; đã khảo sát Trường IVS và hợp tác phát triển nhân lực.",
+      en: "Japanese construction group and NIBELC project client; surveyed IVS and cooperates on workforce development.",
+      de: "Japanischer Baukonzern und Projektkunde der NIBELC; hat die IVS besichtigt und arbeitet bei der Fachkräfteentwicklung mit.",
+      ja: "日本の建設会社で NIBELC の事業顧客。IVS を視察し、人材育成で協力しています。",
+      ko: "일본 건설 그룹이자 NIBELC의 사업 고객으로, IVS를 시찰하고 인력 양성에서 협력하고 있습니다.",
+      "zh-TW": "日本營建集團，NIBELC 的專案客戶；曾考察 IVS 並合作培育人力。",
+    }, order: next(), provenance: fromNibelcVi(43) },
+  { slug: "lotte", name: "Lotte", kind: "enterprise", country: "KR", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "hyosung", name: "Hyosung", kind: "enterprise", country: "KR", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "jabil", name: "Jabil", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "kharafi-national", name: "Kharafi National KSC", kind: "enterprise", country: "KW", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(27) },
+  { slug: "kimabex-international", name: "Kimabex International", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "queen-global", name: "Queen Global", kind: "enterprise", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(10) },
+  { slug: "apex-global-education", name: "Apex Global Education", kind: "institution", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "vinaenter-edu", name: "VinaEnter Edu", kind: "institution", country: "VN", note: LOGO_STRIP, order: next(), provenance: fromProfileEn(22) },
+  { slug: "vonder-tour", name: "Wonder Tour", kind: "enterprise", country: "VN", note: LOGO_STRIP, order: next(), provenance: fromProfileVi(10) },
 
   // --- Greece (page 24) ---------------------------------------------------
   { slug: "hellenic-hypermarkets-sklavenitis", name: "Hellenic Hypermarkets Sklavenitis S.A.", kind: "enterprise", country: "GR", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
@@ -73,23 +87,61 @@ export const PARTNERS: PartnerSeed[] = [
 
   // --- Germany (page 24) --------------------------------------------------
   { slug: "toennies-group", name: "Tönnies Group", kind: "group", country: "DE", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
-  { slug: "peteces", name: "Peteces", kind: "enterprise", country: "DE", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24), needsVerification: true },
+  { slug: "peteces", name: "Petrotec", kind: "enterprise", country: "DE", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
   { slug: "m-w-group", name: "M + W Group", kind: "group", country: "DE", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
 
   // --- Austria (page 24) --------------------------------------------------
   { slug: "kainz-mayer-marchfeldtomaten", name: "Kainz & Mayer Marchfeldtomaten", kind: "enterprise", country: "AT", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
-  { slug: "k-kasehs-qualitaetsgemuese", name: "K. Kasehs Qualitätsgemüse GmbH", kind: "enterprise", country: "AT", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24), needsVerification: true },
+  { slug: "k-kasehs-qualitaetsgemuese", name: "K. Kasehs Qualitätsgemüse GmbH", kind: "enterprise", country: "AT", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
   { slug: "gartenbau-wallner", name: "Gartenbau Wallner GmbH", kind: "enterprise", country: "AT", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
 
   // --- Hungary (page 24) --------------------------------------------------
   { slug: "samsung-hungary", name: "Samsung Hungary", kind: "enterprise", country: "HU", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
   { slug: "villeroy-boch-magyarorszag", name: "Villeroy & Boch Magyarország Kft", kind: "enterprise", country: "HU", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
-  { slug: "gabor-varadi", name: "Gábor Varadi Kft", kind: "enterprise", country: "HU", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24), needsVerification: true },
+  { slug: "gabor-varadi", name: "Gábor Varadi Kft", kind: "enterprise", country: "HU", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
 
   // --- Middle East & West Asia (page 24) ----------------------------------
-  { slug: "deas", name: "DEAS", kind: "enterprise", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24), needsVerification: true },
+  { slug: "deas", name: "DEAS", kind: "enterprise", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
   { slug: "hilton-abu-dhabi", name: "Hilton Abu Dhabi", kind: "enterprise", country: "AE", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
-  { slug: "bliss-group", name: "Bliss Group", kind: "group", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24), needsVerification: true },
+  { slug: "bliss-group", name: "Bellas Group", kind: "group", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
+  // --- hợp tác trực tiếp của trường thành viên (hồ sơ Việt Đức tr.22) ------
+  { slug: "sungwoo-vina", name: "Công ty TNHH Sungwoo Vina", kind: "enterprise", country: "VN", note: { vi: "Ký kết hợp tác với Trường Cao đẳng Công nghệ – Ngoại thương.", en: "Signed a cooperation agreement with the Foreign Trade Technology College.", de: "Kooperationsvereinbarung mit dem Foreign Trade Technology College.", ja: "貿易技術短期大学と協力協定を締結。", ko: "무역기술전문대학과 협력 협약을 체결했습니다.", "zh-TW": "與外貿科技專科學校簽署合作協議。" }, order: next(), provenance: fromProfileVi(22) },
+  { slug: "acts-university", name: "ACTS University", kind: "institution", country: "KR", region: "asia", note: { vi: "Đại học Hàn Quốc, ký biên bản ghi nhớ hợp tác (MOU) với Trường Trung cấp nghề Quốc tế IVS Ninh Bình.", en: "Korean university; signed a memorandum of understanding with the International Vocational School (IVS), Ninh Binh.", de: "Koreanische Universität; Absichtserklärung mit der International Vocational School (IVS), Ninh Binh.", ja: "韓国の大学。ニンビンの国際職業訓練学校（IVS）と覚書（MOU）を締結。", ko: "한국 대학으로, 닌빈 국제직업학교(IVS)와 양해각서(MOU)를 체결했습니다.", "zh-TW": "韓國大學，與寧平國際職業學校（IVS）簽署合作備忘錄。" }, order: next(), provenance: fromProfileVi(22) },
+  { slug: "ninh-binh-legend-hotel", name: "Khách sạn Ninh Bình Legend", kind: "enterprise", country: "VN", note: { vi: "Giao lưu và tiếp nhận sinh viên Trường IVS thực tập, ngày 08/11/2025.", en: "Exchange programme and internship placements for IVS students, 8 November 2025.", de: "Austausch und Praktikumsplätze für IVS-Studierende, 8. November 2025.", ja: "2025年11月8日、IVS の学生の交流と実習受け入れ。", ko: "2025년 11월 8일, IVS 학생 교류 및 실습생 수용.", "zh-TW": "2025年11月8日，與 IVS 學生交流並接收實習生。" }, order: next(), provenance: fromProfileVi(22) },
+  { slug: "hoc-vien-tu-phap", name: "Học viện Tư pháp (Bộ Tư pháp)", kind: "institution", country: "VN", note: { vi: "Phối hợp với Trường Cao đẳng Công nghệ – Ngoại thương khai giảng lớp đào tạo.", en: "Opened a training class together with the Foreign Trade Technology College.", de: "Gemeinsam mit dem Foreign Trade Technology College einen Ausbildungskurs eröffnet.", ja: "貿易技術短期大学と共同で研修クラスを開講。", ko: "무역기술전문대학과 함께 교육 과정을 개강했습니다.", "zh-TW": "與外貿科技專科學校合作開辦培訓班。" }, order: next(), provenance: fromProfileVi(22) },
+
+  // --- Châu Á: đối tác Nhật, Hàn, Malaysia trong mạng lưới NIBELC ---------
+  { slug: "fcip-japan", name: "Quỹ Thúc đẩy Ngành Xây dựng Nhật Bản (FCIP)", kind: "association", country: "JP", region: "asia", note: { vi: "Ký Thỏa thuận Trao đổi Thực tập sinh với NIBELC ngày 03/01/2012 tại Hà Nội.", en: "Signed a trainee exchange agreement with NIBELC on 3 January 2012 in Hanoi.", de: "Unterzeichnete am 3. Januar 2012 in Hanoi ein Austauschabkommen für Auszubildende mit NIBELC.", ja: "2012年1月3日、ハノイで NIBELC と技能実習生交換協定を締結。", ko: "2012년 1월 3일 하노이에서 NIBELC와 연수생 교류 협정을 체결했습니다.", "zh-TW": "2012年1月3日於河內與 NIBELC 簽署實習生交流協議。" }, order: next(), provenance: fromNibelcVi(42) },
+  { slug: "mlit-japan", name: "Bộ Đất đai, Hạ tầng, Giao thông và Du lịch Nhật Bản (MLIT)", kind: "institution", country: "JP", region: "asia", note: { vi: "Hợp tác với NIBELC từ ngày 29/02/2012.", en: "Cooperating with NIBELC since 29 February 2012.", de: "Zusammenarbeit mit NIBELC seit dem 29. Februar 2012.", ja: "2012年2月29日から NIBELC と協力。", ko: "2012년 2월 29일부터 NIBELC와 협력하고 있습니다.", "zh-TW": "自2012年2月29日起與 NIBELC 合作。" }, order: next(), provenance: fromNibelcVi(38) },
+  { slug: "konoike-construction", name: "Konoike Construction", kind: "enterprise", country: "JP", region: "asia", note: { vi: "Chủ tịch Konoike thăm Trường IVS ngày 14/02/2014; từ đó bắt đầu tiếp nhận thực tập sinh.", en: "Konoike's chairman visited IVS on 14 February 2014, after which it began taking trainees.", de: "Der Vorsitzende von Konoike besuchte die IVS am 14. Februar 2014; seitdem nimmt das Unternehmen Auszubildende auf.", ja: "2014年2月14日に鴻池組の会長が IVS を訪問し、以後実習生の受け入れを開始。", ko: "2014년 2월 14일 고노이케 회장이 IVS를 방문한 뒤 연수생을 받기 시작했습니다.", "zh-TW": "鴻池組董事長於2014年2月14日參訪 IVS，此後開始接收實習生。" }, order: next(), provenance: fromNibelcVi(43) },
+  { slug: "igl-health-welfare-college", name: "Trường Cao đẳng Sức khỏe và Phúc lợi IGL", kind: "institution", country: "JP", region: "asia", note: { vi: "Trường Nhật Bản hợp tác với Trường IVS đào tạo điều dưỡng.", en: "Japanese college cooperating with IVS on nursing training.", de: "Japanisches College, das mit der IVS in der Pflegeausbildung zusammenarbeitet.", ja: "IVS と看護人材の育成で協力する日本の専門学校。", ko: "IVS와 간호 인력 양성에서 협력하는 일본 전문대학입니다.", "zh-TW": "與 IVS 合作培訓護理人才的日本學校。" }, order: next(), provenance: fromNibelcVi(11) },
+  { slug: "kajima", name: "Kajima", kind: "enterprise", country: "JP", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "obayashi", name: "Obayashi", kind: "enterprise", country: "JP", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "hazama", name: "Hazama", kind: "enterprise", country: "JP", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "penta-ocean", name: "Penta-Ocean Construction", kind: "enterprise", country: "JP", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "toyo-construction", name: "Toyo Construction", kind: "enterprise", country: "JP", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "mitsui-construction", name: "Mitsui Construction", kind: "enterprise", country: "JP", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "chiyoda", name: "Chiyoda Chemical Engineering & Construction", kind: "enterprise", country: "JP", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "samsung-c-and-t", name: "Samsung C&T", kind: "enterprise", country: "KR", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "gs-e-and-c", name: "GS Engineering & Construction", kind: "enterprise", country: "KR", region: "asia", note: { vi: "Tổng thầu Hàn Quốc; NIBELC cung ứng hơn 1.100 nhân sự cho các dự án điện hạt nhân Abu Dhabi và mở rộng lọc dầu Ruwais.", en: "Korean main contractor; NIBELC supplied more than 1,100 staff to its Abu Dhabi nuclear and Ruwais refinery expansion projects.", de: "Koreanischer Generalunternehmer; NIBELC stellte über 1.100 Fachkräfte für Kernkraftprojekte in Abu Dhabi und die Erweiterung der Raffinerie Ruwais.", ja: "韓国のゼネコン。NIBELC はアブダビ原子力とルワイス製油所拡張の工事に1,100人以上を派遣。", ko: "한국 종합건설사로, NIBELC가 아부다비 원전과 루와이스 정유공장 확장 공사에 1,100명 이상을 공급했습니다.", "zh-TW": "韓國總承包商；NIBELC 為其阿布達比核電與魯韋斯煉油廠擴建工程提供逾1,100名人員。" }, order: next(), provenance: fromProfileVi(24) },
+  { slug: "doosan-heavy-industries", name: "Doosan Heavy Industries", kind: "enterprise", country: "KR", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "posco-e-and-c", name: "Posco E&C", kind: "enterprise", country: "KR", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "hyundai-e-and-c", name: "Hyundai E&C", kind: "enterprise", country: "KR", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "petronas", name: "Petronas", kind: "enterprise", country: "MY", region: "asia", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+
+  // --- châu Âu: bổ sung từ hồ sơ Việt Đức tr.24 và NIBELC ------------------
+  { slug: "arany-kaviar-restaurant", name: "Arany Kaviár Restaurant", kind: "enterprise", country: "HU", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
+  { slug: "modul-university-vienna", name: "Đại học Modul Vienna", kind: "institution", country: "AT", region: "europe", note: { vi: "Hợp tác chương trình du học kết hợp làm việc tại Áo.", en: "Cooperation on a study-and-work programme in Austria.", de: "Kooperation bei einem Studien- und Arbeitsprogramm in Österreich.", ja: "オーストリアでの留学と就労を組み合わせたプログラムで協力。", ko: "오스트리아 유학·취업 연계 프로그램에서 협력합니다.", "zh-TW": "合作辦理奧地利留學結合工作的計畫。" }, order: next(), provenance: fromNibelcVi(42) },
+  { slug: "astra-vagoane", name: "Astra Vagoane S.A.", kind: "enterprise", country: "RO", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(15) },
+  { slug: "donau-casings", name: "Donau Casings Srl", kind: "enterprise", country: "RO", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(15) },
+  { slug: "mcdonalds-hungary", name: "McDonald's Kft", kind: "enterprise", country: "HU", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "ppc-group", name: "PPC Group", kind: "group", country: "GR", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "motor-oil-hellas", name: "Motor Oil (Hellas) S.A.", kind: "enterprise", country: "GR", region: "europe", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+
+  // --- Trung Đông: bổ sung ----------------------------------------------------
+  { slug: "redco-international", name: "Redco International", kind: "enterprise", country: "QA", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromProfileVi(24) },
+  { slug: "spinneys-dubai", name: "Spinneys Dubai LLC", kind: "enterprise", country: "AE", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
+  { slug: "mowasalat", name: "Mowasalat Group", kind: "group", country: "QA", region: "middle-east", note: VIA_NIBELC, order: next(), provenance: fromNibelcVi(6) },
 ];
 
 export const ACTIVITIES: SeedActivity[] = [

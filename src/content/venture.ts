@@ -179,20 +179,22 @@ export const VENTURE_SERVICES: VentureService[] = [
     },
     points: {
       vi: [
-        "Hồ sơ dự án Toki đăng ký các mã ngành dịch vụ lưu trú, ăn uống, thể thao và vui chơi giải trí đi kèm.",
-        "Nội dung chi tiết của mảng lữ hành đang được hoàn thiện và sẽ đăng khi có hồ sơ chính thức.",
+        "Đón đoàn khách trong nước và quốc tế tại khách sạn Golden Dragon (Hoàng Long), Ninh Bình: lưu trú, ăn uống, tiệc đoàn và tiệc gala — đã phục vụ đoàn của hãng lữ hành H.I.S (Nhật Bản), đoàn công đoàn và sự kiện của VPBank.",
+        "Điểm đến quanh khách sạn: Tràng An, chùa Bái Đính, Hang Múa, đầm Vân Long, Nhà thờ đá Phát Diệm, đền Thái Vi.",
+        "Dự án Toki đăng ký thêm các mã ngành lưu trú, ăn uống, thể thao và vui chơi giải trí.",
       ],
       de: [
-        "Die Toki-Unterlagen registrieren die Branchencodes für Beherbergung, Gastronomie, Sport und Freizeit.",
-        "Die Einzelheiten des Reisegeschäfts werden erarbeitet und erscheinen, sobald Unterlagen vorliegen.",
+        "Empfang in- und ausländischer Reisegruppen im Hotel Golden Dragon (Hoang Long), Ninh Binh: Unterkunft, Verpflegung, Gruppen- und Galaabende — unter anderem für Gruppen des japanischen Reiseveranstalters H.I.S und eine Veranstaltung der VPBank.",
+        "Ziele rund um das Hotel: Trang An, Pagode Bai Dinh, Hang Mua, Lagune Van Long, Steinkathedrale Phat Diem, Tempel Thai Vi.",
+        "Das Toki-Projekt registriert zusätzlich Beherbergung, Gastronomie, Sport und Freizeit.",
       ],
       en: [
-        "The Toki file registers the industry codes for accommodation, food, sport and leisure services.",
-        "The detail of the travel business is being prepared and will be published once the paperwork is in.",
+        "Hosting domestic and international tour groups at the Golden Dragon (Hoang Long) hotel in Ninh Binh: rooms, meals, group dinners and gala evenings — including groups from the Japanese tour operator H.I.S and an event for VPBank.",
+        "Destinations around the hotel: Trang An, Bai Dinh pagoda, Hang Mua, Van Long lagoon, Phat Diem stone cathedral and Thai Vi temple.",
+        "The Toki project also registers accommodation, food, sport and leisure services.",
       ],
     },
-    image: "/media/hospitality/bo-trach-aerial-fields.webp",
-    pending: true,
+    image: "/media/hospitality/golden-dragon/doan-khach-nha-hang.webp",
   },
 ];
 
@@ -326,12 +328,12 @@ export const VENTURE_PROJECTS: VentureProject[] = [
     status: "published",
     order: 1,
     name: {
-      vi: "Khách sạn nghỉ dưỡng Toki",
-      de: "Resorthotel Toki",
-      en: "Toki Resort Hotel",
-      ja: "Toki リゾートホテル",
-      ko: "Toki 리조트 호텔",
-      "zh-TW": "Toki 度假飯店",
+      vi: "Khu nghỉ dưỡng cao cấp Toki Boutique Phong Nha",
+      de: "Luxusresort Toki Boutique Phong Nha",
+      en: "Toki Boutique Phong Nha luxury resort",
+      ja: "高級リゾート Toki Boutique フォンニャ",
+      ko: "고급 리조트 Toki Boutique 퐁냐",
+      "zh-TW": "Toki Boutique 峰牙高級度假村",
     },
     kind: {
       vi: "Khách sạn nghỉ dưỡng tiêu chuẩn 3 sao",
@@ -682,7 +684,14 @@ export const VENTURE_PROJECTS: VentureProject[] = [
     slug: "khu-nghi-duong-vinh-hung",
     status: "published",
     order: 2,
-    name: { vi: "Khu nghỉ dưỡng Vĩnh Hưng", de: "Resort Vinh Hung", en: "Vinh Hung Resort", ja: "ヴィンフン・リゾート", ko: "빈흥 리조트", "zh-TW": "永興度假村" },
+    name: {
+      vi: "Khu nghỉ dưỡng cao cấp ven biển Toki Ecolodge",
+      de: "Luxus-Küstenresort Toki Ecolodge",
+      en: "Toki Ecolodge coastal luxury resort",
+      ja: "海辺の高級リゾート Toki Ecolodge",
+      ko: "해안 고급 리조트 Toki Ecolodge",
+      "zh-TW": "Toki Ecolodge 濱海高級度假村",
+    },
     kind: { vi: "Khu nghỉ dưỡng ven biển", de: "Küstenresort", en: "Coastal resort", ja: "海辺のリゾート", ko: "해안 리조트", "zh-TW": "濱海度假村" },
     location: {
       vi: "Bố Trạch, tỉnh Quảng Trị",
@@ -1147,6 +1156,211 @@ export const VENTURE_PROJECTS: VentureProject[] = [
     ],
     sources: [
       { document: VI_ONLY("Phương án quy hoạch sơ bộ Phong Nha – masterplan"), date: "2026-08-06" },
+    ],
+  },
+  /* ------------------------------------------- Hoàng Long / Golden Dragon */
+  /*
+   * Dự án duy nhất trong danh sách đã hoàn thành và đang vận hành.
+   *
+   * Nguồn: Hồ sơ năng lực NIBELC Group (bản tiếng Việt tr.3, 4, 14; bản tiếng
+   * Anh tr.10, 14) và Giấy chứng nhận đăng ký doanh nghiệp của Công ty CP Khách
+   * sạn Du lịch Hoàng Long, thay đổi lần 5 ngày 30/06/2026. Tài liệu không ghi
+   * số tầng, diện tích, năm khai trương hay sức chứa hội trường, nên trang không
+   * nêu. Ảnh sảnh lấy từ hồ sơ tiếng Anh tr.14 — tấm duy nhất có trong tài liệu,
+   * độ phân giải gốc thấp; cần ảnh chụp thật của khách sạn để thay.
+   */
+  {
+    slug: "golden-dragon-hotel-restaurant",
+    status: "published",
+    order: 5,
+    name: {
+      vi: "Tổ hợp Hotel – Restaurant Hoàng Long (Golden Dragon Hotel – Restaurant)",
+      de: "Hotel- und Restaurantkomplex Hoang Long (Golden Dragon Hotel – Restaurant)",
+      en: "Hoang Long hotel and restaurant complex (Golden Dragon Hotel – Restaurant)",
+      ja: "ホアンロン・ホテル＆レストラン複合施設（Golden Dragon Hotel – Restaurant）",
+      ko: "호앙롱 호텔·레스토랑 복합시설(Golden Dragon Hotel – Restaurant)",
+      "zh-TW": "黃龍飯店餐廳綜合設施（Golden Dragon Hotel – Restaurant）",
+    },
+    kind: {
+      vi: "Khách sạn – nhà hàng",
+      de: "Hotel und Restaurant",
+      en: "Hotel and restaurant",
+      ja: "ホテル・レストラン",
+      ko: "호텔·레스토랑",
+      "zh-TW": "飯店與餐廳",
+    },
+    location: {
+      vi: "Km 10 Quốc lộ 1A (Ninh Bình – Hà Nội), xã Gia Trấn, tỉnh Ninh Bình",
+      de: "Km 10, Nationalstraße 1A, Gemeinde Gia Tran, Provinz Ninh Binh",
+      en: "Km 10, National Road 1A, Gia Tran commune, Ninh Binh province",
+      ja: "ニンビン省ザーチャン社、国道1A号線10キロ地点",
+      ko: "닌빈성 자쩐사, 국도 1A호선 10km 지점",
+      "zh-TW": "寧平省嘉鎮社，1A國道10公里處",
+    },
+    stage: {
+      vi: "Đã hoàn thành, đang vận hành",
+      de: "Fertiggestellt und in Betrieb",
+      en: "Completed and in operation",
+      ja: "完成・営業中",
+      ko: "완공·운영 중",
+      "zh-TW": "已完工並營運中",
+    },
+    lead: {
+      vi: "Tổ hợp khách sạn 3 sao 85 phòng và hai nhà hàng 500 chỗ ngồi tại Ninh Bình, đã đưa vào vận hành — đồng thời là nơi thực hành cho học viên ngành nhà hàng – khách sạn của tập đoàn.",
+      de: "Ein Drei-Sterne-Hotel mit 85 Zimmern und zwei Restaurants mit 500 Plätzen in Ninh Binh, bereits in Betrieb — zugleich Praxisort für die Auszubildenden der Gruppe im Hotel- und Gastgewerbe.",
+      en: "A three-star, 85-room hotel with two restaurants seating 500 in Ninh Binh, already in operation — and the place where the group's hospitality trainees do their practical work.",
+      ja: "ニンビンにある85室の3つ星ホテルと500席のレストラン2軒。すでに営業しており、グループのホテル・飲食分野の研修生の実習の場でもあります。",
+      ko: "닌빈에 있는 85실 규모의 3성급 호텔과 500석 레스토랑 두 곳. 이미 운영 중이며, 그룹 호텔·외식 분야 연수생의 실습 장소이기도 합니다.",
+      "zh-TW": "位於寧平的三星級飯店，85間客房與兩間共500席的餐廳，已開始營運，同時也是集團餐旅科系學員的實習場所。",
+    },
+    body: {
+      vi: [
+        "Công ty Cổ phần Khách sạn Du lịch Hoàng Long (Golden Dragon Hotel Travel Services JSC) vận hành tổ hợp khách sạn 3 sao với 85 phòng và hai nhà hàng 500 chỗ ngồi, kinh doanh lưu trú, nhà hàng và quầy bar.",
+        "Khách sạn được dùng làm cơ sở thực hành cho học viên của tập đoàn: Trường Trung cấp nghề Quốc tế (IVS) hợp tác với Hoàng Long để tổ chức các chương trình đào tạo kết hợp thực hành trong lĩnh vực dịch vụ, khách sạn và nhà hàng. Học viên vừa học vừa làm, được trả lương thực hành để chi trả chi phí học — mô hình học phí 0 đồng.",
+        "Hoàng Long liên kết với các đối tác Đức và Nhật Bản để đào tạo theo chương trình chuẩn quốc tế ngành nhà hàng – khách sạn, cung ứng lao động cho thị trường Nhật Bản, Đức và châu Âu.",
+      ],
+    },
+    facts: [
+      fact(VI_ONLY("Hạng"), VI_ONLY("Khách sạn 3 sao")),
+      fact(VI_ONLY("Số phòng"), VI_ONLY("85 phòng")),
+      fact(VI_ONLY("Nhà hàng"), VI_ONLY("02 nhà hàng · 500 chỗ ngồi")),
+      fact(VI_ONLY("Đơn vị vận hành"), VI_ONLY("Công ty CP Khách sạn Du lịch Hoàng Long (GD)")),
+      fact(VI_ONLY("Mã số doanh nghiệp"), VI_ONLY("2700836682 · đăng ký lần đầu 07/02/2017")),
+      fact(VI_ONLY("Vốn điều lệ"), VI_ONLY("30.000.000.000 đồng")),
+      fact(VI_ONLY("Điện thoại"), VI_ONLY("0229 386 8688")),
+    ],
+    blocks: [
+      {
+        kind: "list",
+        title: {
+          vi: "Dịch vụ",
+          de: "Leistungen",
+          en: "Services",
+          ja: "サービス",
+          ko: "서비스",
+          "zh-TW": "服務",
+        },
+        items: LIST_VI([
+          "Lưu trú khách sạn 3 sao, 85 phòng",
+          "Hai nhà hàng, tổng cộng 500 chỗ ngồi: Nhà hàng A và Nhà hàng B (German Beer Club)",
+          "Golden Dragon Bar",
+          "Karaoke",
+          "Bữa sáng set menu và buffet",
+          "Tiệc đoàn, tiệc gala và tiệc nướng BBQ",
+        ]),
+      },
+      {
+        kind: "list",
+        title: {
+          vi: "Hạng phòng",
+          de: "Zimmerkategorien",
+          en: "Room types",
+          ja: "客室タイプ",
+          ko: "객실 유형",
+          "zh-TW": "房型",
+        },
+        items: LIST_VI([
+          "Khu A — Deluxe Double Room",
+          "Khu A — Deluxe Double Room có bồn tắm",
+          "Khu A — Deluxe Twin Room",
+          "Khu A — Deluxe Family Suite",
+          "Khu B — Deluxe King Suite",
+          "Khu B — Superior King Room",
+          "Khu B — Superior Queen Room",
+          "Khu B — Superior Triple Room",
+        ]),
+        note: VI_ONLY("Tên hạng phòng theo bộ ảnh khách sạn gửi các hãng lữ hành."),
+      },
+      {
+        kind: "list",
+        title: {
+          vi: "Đoàn khách và sự kiện tiêu biểu",
+          de: "Gruppen und Veranstaltungen",
+          en: "Groups and events",
+          ja: "団体客とイベント",
+          ko: "단체 고객과 행사",
+          "zh-TW": "團體與活動",
+        },
+        items: LIST_VI([
+          "Đoàn khách của hãng lữ hành H.I.S (Nhật Bản), 11/12/2017",
+          "Đoàn công đoàn, 03/12/2017",
+          "Gala Dinner 2017 \"Mùa Hè Rực Rỡ\" của VPBank tại German Beer Club, 03/06/2017",
+          "Tiệc nướng BBQ cho đoàn",
+        ]),
+        note: VI_ONLY("Theo thư mục ảnh \"Hình ảnh các đoàn\" của khách sạn."),
+      },
+      {
+        kind: "list",
+        title: {
+          vi: "Gắn với đào tạo",
+          de: "Verbindung zur Ausbildung",
+          en: "Link to training",
+          ja: "研修とのつながり",
+          ko: "교육과의 연계",
+          "zh-TW": "與培訓的連結",
+        },
+        items: LIST_VI([
+          "Cơ sở thực hành cho học viên ngành nhà hàng – khách sạn của tập đoàn",
+          "Hợp tác với Trường Trung cấp nghề Quốc tế (IVS) tổ chức đào tạo kết hợp thực hành",
+          "Học viên vừa học vừa làm, có lương thực hành — mô hình học phí 0 đồng",
+          "Liên kết đối tác Đức và Nhật Bản đào tạo chuẩn quốc tế, cung ứng lao động sang Nhật Bản, Đức và châu Âu",
+        ]),
+        note: VI_ONLY("Theo Hồ sơ năng lực NIBELC Group, bản tiếng Việt tr.3, 4 và 14."),
+      },
+    ],
+    hero: {
+      src: "/media/hospitality/golden-dragon/sanh-le-tan.webp",
+      caption: {
+        vi: "Quầy lễ tân khách sạn Hoàng Long",
+        de: "Rezeption des Hotels Hoang Long",
+        en: "Reception desk, Hoang Long hotel",
+        ja: "ホアンロン・ホテルのフロント",
+        ko: "호앙롱 호텔 프런트",
+        "zh-TW": "黃龍飯店櫃台",
+      },
+    },
+    /* Ảnh của chính khách sạn, lấy từ thư mục Drive "Golden Dragon HOTEL - PICS". */
+    gallery: [
+      { src: "/media/hospitality/golden-dragon/sanh-cho.webp", caption: { vi: "Sảnh chờ", en: "Lobby lounge" } },
+      { src: "/media/hospitality/golden-dragon/family-suite.webp", caption: { vi: "Junior Family Suite", en: "Junior Family Suite" } },
+      { src: "/media/hospitality/golden-dragon/phong-deluxe.webp", caption: { vi: "Phòng Junior Family Suite", en: "Junior Family Suite bedroom" } },
+      { src: "/media/hospitality/golden-dragon/phong-bon-tam.webp", caption: { vi: "Phòng có bồn tắm", en: "Room with bathtub" } },
+      { src: "/media/hospitality/golden-dragon/phong-twin.webp", caption: { vi: "Phòng Superior Triple", en: "Superior Triple room" } },
+      { src: "/media/hospitality/golden-dragon/goi-logo.webp", caption: { vi: "Đồ vải thêu logo Golden Dragon Hotel", en: "Linen embroidered with the Golden Dragon Hotel mark" } },
+      { src: "/media/hospitality/golden-dragon/nha-hang-a.webp", caption: { vi: "Nhà hàng A", en: "Restaurant A" } },
+      { src: "/media/hospitality/golden-dragon/golden-dragon-bar.webp", caption: { vi: "Golden Dragon Bar", en: "Golden Dragon Bar" } },
+      { src: "/media/hospitality/golden-dragon/german-beer-club.webp", caption: { vi: "Nhà hàng B — German Beer Club", en: "Restaurant B — German Beer Club" } },
+      { src: "/media/hospitality/golden-dragon/tiec-ban-tiec.webp", caption: { vi: "Bàn tiệc đặt trước cho đoàn", en: "Banquet tables laid for a group" } },
+      { src: "/media/hospitality/golden-dragon/buffet.webp", caption: { vi: "Quầy buffet", en: "Buffet counter" } },
+      { src: "/media/hospitality/golden-dragon/view-tang-thuong.webp", caption: { vi: "Nhìn từ tầng trên của khách sạn", en: "View from the upper floors" } },
+    ],
+    parties: [
+      {
+        name: "Công ty CP Khách sạn Du lịch Hoàng Long",
+        role: {
+          vi: "Chủ đầu tư và đơn vị vận hành · Golden Dragon Hotel Travel Services JSC",
+          de: "Eigentümer und Betreiber",
+          en: "Owner and operator",
+          ja: "所有・運営",
+          ko: "소유·운영",
+          "zh-TW": "業主暨營運單位",
+        },
+      },
+      {
+        name: "Trường Trung cấp nghề Quốc tế (IVS)",
+        role: {
+          vi: "Đối tác đào tạo thực hành",
+          de: "Ausbildungspartner",
+          en: "Training partner",
+          ja: "研修パートナー",
+          ko: "교육 협력 기관",
+          "zh-TW": "培訓合作夥伴",
+        },
+      },
+    ],
+    sources: [
+      { document: VI_ONLY("Hồ sơ năng lực NIBELC Group (tr.3, 4, 14)"), date: "2026-09-05" },
+      { document: VI_ONLY("Giấy chứng nhận đăng ký doanh nghiệp Công ty CP Khách sạn Du lịch Hoàng Long, thay đổi lần 5"), date: "2026-06-30" },
     ],
   },
 ];
