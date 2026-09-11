@@ -59,6 +59,23 @@ export type VentureProject = {
   /** Named organisations, with the role each document gives them. */
   parties: { name: string; role: Localised }[];
   sources: { document: Localised; date: string }[];
+  /**
+   * Phần trưng bày của cơ sở ĐANG VẬN HÀNH: video, bảng hạng phòng, các khu ảnh.
+   *
+   * Dự án trên giấy chỉ có bản vẽ và số liệu; cơ sở đã chạy thì thứ khách cần xem
+   * là phòng thật, nhà hàng thật, đoàn khách thật. Không có trường này thì trang
+   * dự án dựng như cũ.
+   */
+  showcase?: VentureShowcase;
+};
+
+export type VentureShowcase = {
+  /** Video đầu tiên dựng khổ lớn, các video sau thành hàng thẻ. */
+  videos?: { src: string; poster: string; title: Localised; note?: Localised }[];
+  /** Mỗi hạng phòng một thẻ: ảnh bìa, tên, khu, và vài ảnh phụ. */
+  rooms?: { name: string; zone: Localised; cover: string; more: string[] }[];
+  /** Các khu ảnh có tiêu đề riêng, mỗi khu một bức tường ảnh. */
+  sections?: { key: string; title: Localised; lead?: Localised; shots: VentureImage[] }[];
 };
 
 export type VentureService = {

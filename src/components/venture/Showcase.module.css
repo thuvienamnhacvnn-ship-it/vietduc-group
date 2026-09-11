@@ -1,0 +1,286 @@
+/*
+ * Phần trưng bày cơ sở đang vận hành.
+ *
+ * Mỗi khu là một "bảng" có đầu mục đánh số, cùng lối với đầu mục của trang Đầu
+ * tư. Thanh điều hướng dính trên đầu để nhảy giữa các khu mà không phải cuộn
+ * qua mấy chục tấm ảnh.
+ */
+.wrap {
+  width: min(1400px, 100%);
+  margin: 0 auto;
+  padding: 0 var(--s-5) clamp(2rem, 5vw, 3.5rem);
+}
+
+/* ------------------------------------------------------ thanh điều hướng */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: 0 calc(var(--s-5) * -1) clamp(1.6rem, 4vw, 2.6rem);
+  padding: 0.6rem var(--s-5);
+  background: color-mix(in srgb, var(--v-paper, #14110d) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid color-mix(in srgb, var(--gold) 22%, var(--v-line, rgba(255, 255, 255, 0.1)));
+}
+
+.nav ul {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav ul::-webkit-scrollbar {
+  display: none;
+}
+
+.nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--v-line, rgba(255, 255, 255, 0.12));
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--v-ink, #f2eee7);
+  text-decoration: none;
+  transition:
+    border-color var(--dur-2) var(--ease),
+    background-color var(--dur-2) var(--ease);
+}
+
+.nav a:hover,
+.nav a:focus-visible {
+  border-color: var(--gold);
+  background: color-mix(in srgb, var(--gold) 12%, transparent);
+}
+
+.navSo {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+
+/* ---------------------------------------------------------------- khu */
+.section {
+  scroll-margin-top: 5rem;
+  margin-bottom: clamp(2.6rem, 6vw, 4.5rem);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 1.4rem);
+  margin-bottom: var(--s-5);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--v-line, rgba(255, 255, 255, 0.12));
+}
+
+.headSo {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  font-weight: 600;
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1.2px color-mix(in srgb, var(--gold) 60%, transparent);
+}
+
+.head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  font-weight: 600;
+  color: var(--v-ink, #f2eee7);
+}
+
+.dem {
+  margin-left: auto;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--v-ink-soft, rgba(255, 255, 255, 0.6));
+}
+
+.lead {
+  max-width: 68ch;
+  margin: 0 0 var(--s-5);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--v-ink-soft, rgba(255, 255, 255, 0.7));
+}
+
+/* -------------------------------------------------------------- video */
+.videoChinh {
+  margin: 0 0 var(--s-5);
+}
+
+.videoChinh video,
+.videoHang video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: var(--r-4);
+  border: 1px solid color-mix(in srgb, var(--gold) 26%, transparent);
+}
+
+/* align-content: start — các ô cùng hàng cao bằng nhau, không có nó thì phần
+   dư chiều cao bị chia vào khe giữa tên video và dòng ghi chú. */
+.videoChinh figcaption,
+.videoHang li {
+  display: grid;
+  gap: 0.2rem;
+  align-content: start;
+}
+
+.videoChinh figcaption {
+  margin-top: var(--s-3);
+}
+
+.videoChinh strong,
+.videoHang strong {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--v-ink, #f2eee7);
+}
+
+.videoChinh span,
+.videoHang span {
+  font-size: 0.86rem;
+  color: var(--v-ink-soft, rgba(255, 255, 255, 0.65));
+}
+
+.videoHang {
+  display: grid;
+  gap: clamp(1rem, 2.4vw, 1.6rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.videoHang video {
+  margin-bottom: 0.5rem;
+}
+
+/* --------------------------------------------------------- hạng phòng */
+.phong {
+  display: grid;
+  gap: clamp(1rem, 2.2vw, 1.5rem);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 1099px) {
+  .phong {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .phong {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.the {
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--gold) 20%, var(--v-line, rgba(255, 255, 255, 0.12)));
+  border-radius: var(--r-4);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.04), rgba(0, 0, 0, 0.14));
+  transition:
+    border-color var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
+}
+
+.the:hover {
+  border-color: color-mix(in srgb, var(--gold) 55%, transparent);
+  transform: translateY(-3px);
+}
+
+.theAnh {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+}
+
+.theAnh img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale 900ms var(--ease);
+}
+
+.the:hover .theAnh img {
+  scale: 1.05;
+}
+
+.khu {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(10, 8, 6, 0.72);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+}
+
+.theChu {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.8rem 0.9rem 0.5rem;
+}
+
+.theChu strong {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--v-ink, #f2eee7);
+}
+
+.theChu span {
+  flex: none;
+  font-size: 0.74rem;
+  color: var(--v-ink-soft, rgba(255, 255, 255, 0.6));
+}
+
+/* Ba ảnh phụ nhỏ ở chân thẻ — xem nhanh phòng tắm, góc khác của phòng. */
+.theNho {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  align-self: end;
+  padding: 0 0.9rem 0.9rem;
+}
+
+.theNho img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--r-2, 6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .the,
+  .theAnh img,
+  .nav a {
+    transition: none;
+  }
+}

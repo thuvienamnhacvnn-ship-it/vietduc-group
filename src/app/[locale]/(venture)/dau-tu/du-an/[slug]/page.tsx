@@ -6,6 +6,7 @@ import { isLocale, localePath, t, tList, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { documentDate, findProject, publishedProjects } from "@/content/venture";
 import type { VentureBlock } from "@/content/venture-types";
+import { Showcase } from "@/components/venture/Showcase";
 import styles from "./project.module.css";
 
 type Params = Promise<{ locale: string; slug: string }>;
@@ -195,7 +196,12 @@ export default async function VentureProjectPage({ params }: { params: Params })
         ))}
       </div>
 
-      {project.gallery.length ? (
+      {/* Cơ sở đang vận hành: chia video, hạng phòng và các khu ảnh thành từng
+          bảng riêng, thay cho một bộ ảnh chung. Khi đã có phần trưng bày thì bộ
+          ảnh chung không dựng nữa, kẻo cùng một tấm hiện hai lần. */}
+      {project.showcase ? <Showcase showcase={project.showcase} locale={locale} /> : null}
+
+      {project.gallery.length && !project.showcase ? (
         <section className={styles.gallery} data-reveal suppressHydrationWarning>
           <h2>{dict.venture.gallery}</h2>
           <div className={styles.grid}>
