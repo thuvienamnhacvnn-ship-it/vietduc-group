@@ -64,7 +64,6 @@ export function ServicePanels({
                 aria-controls={vungId}
                 onClick={() => setDangMo(mo ? null : service.key)}
               >
-                <span className={styles.no}>{String(index + 1).padStart(2, "0")}</span>
                 <span className={styles.ten}>{t(service.name, locale)}</span>
                 <svg className={styles.chev} viewBox="0 0 24 24" aria-hidden="true">
                   <path

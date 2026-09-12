@@ -560,11 +560,6 @@ export default async function AboutPage({
       <section className={`${styles.khoi} ${styles.khoiNen}`}>
         <div className="shell">
           <div className={styles.dauMucSo} data-reveal suppressHydrationWarning>
-            {/* Con số này là số trường thật, lấy từ chính danh sách ngay bên
-                dưới — nên máy đọc màn hình bỏ qua nó là đúng, tiêu đề đã nói. */}
-            <span className={styles.soLon} aria-hidden="true">
-              {String(schools.length).padStart(2, "0")}
-            </span>
             <div>
               <p className={styles.deTua}>
                 <span className={styles.gach} aria-hidden="true" />

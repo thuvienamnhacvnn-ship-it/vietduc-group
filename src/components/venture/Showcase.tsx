@@ -39,12 +39,9 @@ export function Showcase({ showcase, locale }: { showcase: VentureShowcase; loca
       {/* Thanh điều hướng các khu, dính trên đầu khi cuộn. */}
       <nav className={styles.nav} aria-label={t(NHAN.rooms, locale)}>
         <ul>
-          {muc.map((m, i) => (
+          {muc.map((m) => (
             <li key={m.id}>
-              <a href={`#${m.id}`}>
-                <span className={styles.navSo}>{String(i + 1).padStart(2, "0")}</span>
-                {m.ten}
-              </a>
+              <a href={`#${m.id}`}>{m.ten}</a>
             </li>
           ))}
         </ul>
@@ -54,7 +51,6 @@ export function Showcase({ showcase, locale }: { showcase: VentureShowcase; loca
       {chinh ? (
         <section id="video" className={styles.section}>
           <header className={styles.head}>
-            <span className={styles.headSo}>01</span>
             <h2>{t(NHAN.video, locale)}</h2>
           </header>
 
@@ -84,7 +80,6 @@ export function Showcase({ showcase, locale }: { showcase: VentureShowcase; loca
       {rooms.length ? (
         <section id="hang-phong" className={styles.section}>
           <header className={styles.head}>
-            <span className={styles.headSo}>{String(videos.length ? 2 : 1).padStart(2, "0")}</span>
             <h2>{t(NHAN.rooms, locale)}</h2>
           </header>
 
@@ -115,12 +110,10 @@ export function Showcase({ showcase, locale }: { showcase: VentureShowcase; loca
       ) : null}
 
       {/* ------------------------------------------------------- các khu ảnh */}
-      {sections.map((s, i) => {
-        const so = (videos.length ? 1 : 0) + (rooms.length ? 1 : 0) + i + 1;
+      {sections.map((s) => {
         return (
           <section key={s.key} id={s.key} className={styles.section}>
             <header className={styles.head}>
-              <span className={styles.headSo}>{String(so).padStart(2, "0")}</span>
               <h2>{t(s.title, locale)}</h2>
               <span className={styles.dem}>
                 {s.shots.length} {t(NHAN.photos, locale)}

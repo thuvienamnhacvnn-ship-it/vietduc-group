@@ -151,9 +151,18 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
             chuyện khác, còn trang Liên hệ thì dài ra mà không ai đọc hết.
             Danh bạ nay ở /dao-tao/truong; đây chỉ giữ lối dẫn sang.
           */}
-          <section className={styles.card}>
-            <h2>{dict.contact.schoolsTitle}</h2>
-            <p className={styles.schoolsLead}>
+          {/*
+            Cột phải: thẻ trường ĐỨNG TRÊN bản đồ.
+
+            Trước đây thẻ trường đứng một mình cạnh thẻ trụ sở dài gấp bốn lần
+            nó, còn bản đồ nằm tận dưới cùng trang — nên nửa bên phải màn hình
+            là một mảng trống cao gần 400px, đúng chỗ Sếp thấy. Bản đồ lên đây
+            thì hai cột cao ngang nhau và trang không còn chỗ hổng nào.
+          */}
+          <div className={styles.cotPhai}>
+            <section className={styles.card}>
+              <h2>{dict.contact.schoolsTitle}</h2>
+              <p className={styles.schoolsLead}>
               {pick(
                 {
                   vi: `${schools.length} trường thành viên, mỗi trường một địa bàn và một phòng tuyển sinh riêng. Địa chỉ, điện thoại và hòm thư của từng trường nằm ở trang hệ thống trường.`,
@@ -166,23 +175,22 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 locale,
               )}
             </p>
-            <ArrowLink href={localePath(locale, "/dao-tao/truong")}>{dict.nav.schools}</ArrowLink>
-          </section>
-        </div>
+              <ArrowLink href={localePath(locale, "/dao-tao/truong")}>{dict.nav.schools}</ArrowLink>
+            </section>
 
-        {/* The map is drawn from the address rather than from a configured
-            embed URL. The setting for that URL has never been filled in, so
-            the page has been shipping without a map at all - the largest part
-            of why it read as a wall of type. */}
-        <section className={styles.map}>
-          <FooterMap
-            address={contact.headquarters}
-            bbox="105.7690,20.9660,105.7900,20.9780"
-            marker="20.9718,105.7793"
-            title={dict.contact.headquarters}
-            directionsLabel={dict.footer.directions}
-          />
-        </section>
+            {/* Bản đồ vẽ từ chính địa chỉ trụ sở, không phải từ một đường nhúng
+                cấu hình sẵn — ô cấu hình ấy chưa bao giờ được điền. */}
+            <div className={styles.mapWrap}>
+              <FooterMap
+                address={contact.headquarters}
+                bbox="105.7690,20.9660,105.7900,20.9780"
+                marker="20.9718,105.7793"
+                title={dict.contact.headquarters}
+                directionsLabel={dict.footer.directions}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

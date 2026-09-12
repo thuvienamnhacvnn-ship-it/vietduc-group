@@ -493,14 +493,6 @@
     margin-inline: auto;
   }
 
-  /*
-   * Con số mốc lùi lên một dòng riêng.
-   *
-   * Nó vốn là một cột đứng cạnh phần chữ; ở khổ 410px cột ấy chiếm 44px cộng
-   * khoảng cách, nên tiêu đề bắt đầu ở 72px trong khi đoạn văn ngay dưới bắt
-   * đầu ở 28px. Cho số đứng riêng thì chữ trong đầu mục và chữ trong thân mục
-   * cùng một lề.
-   */
   .headingChinh {
     flex-direction: column;
     align-items: flex-start;
@@ -509,11 +501,6 @@
 
   .headingCenter .headingChinh {
     align-items: center;
-  }
-
-  .headingSo {
-    font-size: 1.9rem;
-    line-height: 1;
   }
 }
 
@@ -616,23 +603,6 @@
   min-width: 0;
 }
 
-/* Con số mốc: rỗng ruột, ửng vàng khi rê vào đầu mục. */
-.headingSo {
-  flex: none;
-  font-family: var(--font-display);
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 600;
-  line-height: 0.85;
-  color: transparent;
-  -webkit-text-stroke: 1.2px color-mix(in srgb, var(--gold) 58%, transparent);
-  font-variant-numeric: tabular-nums;
-  transition: color 700ms var(--ease);
-}
-
-.heading:hover .headingSo {
-  color: color-mix(in srgb, var(--gold) 15%, transparent);
-}
-
 /* Nhãn mục có nét vàng dẫn ở đầu dòng. */
 .headingNoiBat .eyebrow {
   display: flex;
@@ -689,8 +659,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .headingNoiBat .headingTitle::after,
-  .headingNoiBat .eyebrow::before,
-  .headingSo {
+  .headingNoiBat .eyebrow::before {
     transition: none;
     scale: 1 1;
   }

@@ -16,8 +16,6 @@ type SectionHeadingProps = {
   tone?: "light" | "dark";
   /** Lối trình bày đậm cho trang landing. Mặc định tắt. */
   noiBat?: boolean;
-  /** Số thứ tự mục, in khổ lớn rỗng ruột trước tiêu đề. */
-  so?: string;
 };
 
 /**
@@ -27,9 +25,6 @@ type SectionHeadingProps = {
  * vàng dẫn, tiêu đề mang gạch chân tự vẽ khi khối trôi vào màn hình và dài ra
  * khi rê chuột. Mặc định TẮT, vì đầu mục này dùng khắp các trang trong và ở đó
  * lối trình bày trầm mới đúng.
- *
- * `so` in một con số khổ lớn rỗng ruột đứng trước tiêu đề — cái mốc cho mắt
- * khi một trang có nhiều mục nối nhau.
  */
 export function SectionHeading({
   eyebrow,
@@ -40,7 +35,6 @@ export function SectionHeading({
   action,
   tone = "light",
   noiBat = false,
-  so,
 }: SectionHeadingProps) {
   return (
     <div
@@ -56,11 +50,6 @@ export function SectionHeading({
       suppressHydrationWarning={noiBat ? true : undefined}
     >
       <div className={styles.headingChinh}>
-        {so ? (
-          <span className={styles.headingSo} aria-hidden="true">
-            {so}
-          </span>
-        ) : null}
         <div className={styles.headingChu}>
           {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
           <Tag className={styles.headingTitle}>{title}</Tag>

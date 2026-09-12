@@ -22,7 +22,7 @@
 .head {
   position: relative;
   display: grid;
-  grid-template-columns: auto auto minmax(2rem, 1fr) auto auto;
+  grid-template-columns: auto minmax(2rem, 1fr) auto auto;
   align-items: baseline;
   gap: 0.9rem;
   padding: clamp(0.9rem, 1.6vw, 1.35rem) 0 calc(clamp(0.9rem, 1.6vw, 1.35rem) + 5px);
@@ -38,13 +38,6 @@
 .head:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-}
-
-.index {
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  color: var(--muted-soft);
-  font-variant-numeric: tabular-nums;
 }
 
 .name {

@@ -202,7 +202,6 @@ export default async function HomePage({
 
   const pathway = [
     {
-      step: "01",
       title: pick(
         {
           vi: "Học tập",
@@ -227,7 +226,6 @@ export default async function HomePage({
       ),
     },
     {
-      step: "02",
       title: pick(
         {
           vi: "Thực hành",
@@ -252,7 +250,6 @@ export default async function HomePage({
       ),
     },
     {
-      step: "03",
       title: pick(
         {
           vi: "Thực tập",
@@ -277,7 +274,6 @@ export default async function HomePage({
       ),
     },
     {
-      step: "04",
       title: pick(
         {
           vi: "Việc làm",
@@ -604,7 +600,6 @@ export default async function HomePage({
             <div data-reveal suppressHydrationWarning>
               <SectionHeading
                 noiBat
-                so="01"
                 eyebrow={dict.home.aboutTitle}
                 title={pick(
                   {
@@ -758,7 +753,6 @@ export default async function HomePage({
         <div className="shell">
           <SectionHeading
             noiBat
-            so="02"
             eyebrow={pick(
               {
                 vi: "Hệ thống",
@@ -833,7 +827,6 @@ export default async function HomePage({
         <div className="shell">
           <SectionHeading
             noiBat
-            so="03"
             eyebrow={pick(
               {
                 vi: "Ngành nghề",
@@ -903,7 +896,6 @@ export default async function HomePage({
         <div className="shell">
           <SectionHeading
             noiBat
-            so="04"
             eyebrow={pick(
               {
                 vi: "Đào tạo",
@@ -976,7 +968,6 @@ export default async function HomePage({
           <div className="shell">
             <SectionHeading
               noiBat
-              so="05"
               eyebrow={pick(
                 {
                   vi: "Trong xưởng",
@@ -1044,7 +1035,6 @@ export default async function HomePage({
               theme, khác với mục "Nhóm ngành" trước đây chỉ có lớp phủ mờ. */}
           <SectionHeading
             noiBat
-            so="06"
             eyebrow={pick(
               {
                 vi: "Lý do",
@@ -1088,7 +1078,6 @@ export default async function HomePage({
         <div className="shell">
           <SectionHeading
             noiBat
-            so="07"
             eyebrow={pick(
               {
                 vi: "Lộ trình",
@@ -1106,14 +1095,13 @@ export default async function HomePage({
           <ol className={styles.pathway}>
             {pathway.map((item, index) => (
               <li
-                key={item.step}
+                key={item.title}
                 data-reveal
                 suppressHydrationWarning
                 style={
                   { "--reveal-delay": `${index * 70}ms` } as React.CSSProperties
                 }
               >
-                <span className={styles.pathwayStep}>{item.step}</span>
                 <h3>{item.title}</h3>
                 <p>{item.body}</p>
               </li>
@@ -1128,7 +1116,6 @@ export default async function HomePage({
           <div className="shell">
             <SectionHeading
               noiBat
-              so="08"
               eyebrow={pick(
                 {
                   vi: "Đời sống",
@@ -1164,7 +1151,7 @@ export default async function HomePage({
       {/* ------------------------------------------------------- partners */}
       {/* Mạng lưới NIBELC, bản rút gọn: bản đồ, số liệu, dải cờ và nhóm chiến
           lược; danh sách từng nước nằm ở trang Đối tác. */}
-      <MangLuoiNibelc locale={locale} gon so="09" lienKet={path("/doi-tac")} />
+      <MangLuoiNibelc locale={locale} gon lienKet={path("/doi-tac")} />
 
       {/* ----------------------------------------------------------- news */}
       {posts.length ? (
@@ -1172,7 +1159,6 @@ export default async function HomePage({
           <div className="shell">
             <SectionHeading
               noiBat
-              so="10"
               eyebrow={pick(
                 {
                   vi: "Tin tức",

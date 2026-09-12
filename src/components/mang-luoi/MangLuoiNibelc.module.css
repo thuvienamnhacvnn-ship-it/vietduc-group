@@ -67,18 +67,6 @@
   transform: scaleX(-1);
 }
 
-.nhanSo {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  color: #fff;
-}
-
-.nhanSo::after {
-  content: "—";
-  margin-left: 0.8rem;
-  color: var(--gold);
-}
 
 .tieuDe {
   display: grid;
@@ -354,15 +342,6 @@
   border-bottom: 1px solid rgba(210, 162, 89, 0.3);
 }
 
-.khuSo {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.6rem + 2.6vw, 3.6rem);
-  font-weight: 600;
-  line-height: 0.9;
-  color: transparent;
-  -webkit-text-stroke: 1.2px var(--gold);
-}
-
 .khuDau h3 {
   margin: 0;
   font-family: var(--font-display);
@@ -477,7 +456,6 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  counter-reset: dt;
 }
 
 .lon .ds,
@@ -493,24 +471,25 @@
 
 .ds li {
   position: relative;
-  padding: 0.38rem 0 0.38rem 1.9rem;
+  padding: 0.38rem 0 0.38rem 0.95rem;
   break-inside: avoid;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.07);
   font-size: 0.88rem;
   line-height: 1.4;
   color: #dde2e8;
-  counter-increment: dt;
 }
 
+/* Một hạt vàng thay cho số thứ tự: vẫn tách được từng dòng trong một cột dài
+   hai mươi mấy cái tên, mà không thêm một dãy số nữa vào trang. */
 .ds li::before {
-  content: counter(dt, decimal-leading-zero);
+  content: "";
   position: absolute;
   left: 0;
-  top: 0.45rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  color: rgba(210, 162, 89, 0.75);
+  top: 0.78rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(210, 162, 89, 0.75);
 }
 
 @media (max-width: 1099px) {
@@ -572,11 +551,6 @@
   font-size: 1.3rem;
   font-weight: 600;
   color: #fff;
-}
-
-.tomTatKhu span {
-  font-size: 0.85rem;
-  color: var(--gold);
 }
 
 .tomTat ul {

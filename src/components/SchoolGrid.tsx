@@ -36,7 +36,6 @@ export function SchoolGrid({
         // Tên riêng không bao giờ bị bẻ làm hai dòng — xem giuTenLien().
         const name = giuTenLien(t(school.shortName ?? school.name, locale));
         const city = school.city ? t(school.city, locale) : "";
-        const soTT = String(index + 1).padStart(2, "0");
 
         return (
           <li
@@ -75,8 +74,6 @@ export function SchoolGrid({
                     />
                   </span>
                 ) : null}
-
-                <span className={styles.rank}>{soTT}</span>
               </span>
 
               <span className={styles.body}>

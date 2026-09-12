@@ -154,13 +154,10 @@ export function MangLuoiNibelc({
   locale,
   gon = false,
   lienKet,
-  so,
 }: {
   locale: Locale;
   gon?: boolean;
   lienKet?: string;
-  /** Số thứ tự mục khi khu này nằm giữa các mục đánh số của một trang. */
-  so?: string;
 }) {
   const dem = demMangLuoi();
   const tatCaNuoc = KHU_VUC.flatMap((k) => k.quocGia);
@@ -178,10 +175,7 @@ export function MangLuoiNibelc({
       <div className={`shell ${styles.trong}`}>
         {/* ---------------------------------------------------- tiêu đề */}
         <header className={styles.dau} data-reveal suppressHydrationWarning>
-          <p className={styles.nhan}>
-            {so ? <span className={styles.nhanSo}>{so}</span> : null}
-            {pick(CHU.nhan, locale)}
-          </p>
+          <p className={styles.nhan}>{pick(CHU.nhan, locale)}</p>
           <h2 id="mang-luoi-nibelc-td" className={styles.tieuDe}>
             <span className={styles.tenLon}>NIBELC GROUP</span>
             <span className={styles.phuDe}>{pick(CHU.phuDe, locale)}</span>
@@ -252,12 +246,9 @@ export function MangLuoiNibelc({
         {/* ------------------------------------------- bảng theo khu vực */}
         {gon ? (
           <ul className={styles.tomTat} data-reveal suppressHydrationWarning>
-            {KHU_VUC.map((k, i) => (
+            {KHU_VUC.map((k) => (
               <li key={k.key}>
-                <p className={styles.tomTatKhu}>
-                  <span>{String(i + 1).padStart(2, "0")}</span>
-                  {pick(k.ten, locale)}
-                </p>
+                <p className={styles.tomTatKhu}>{pick(k.ten, locale)}</p>
                 <ul>
                   {k.quocGia.map((q) => (
                     <li key={q.ma}>
@@ -271,12 +262,11 @@ export function MangLuoiNibelc({
             ))}
           </ul>
         ) : (
-          KHU_VUC.map((k, i) => {
+          KHU_VUC.map((k) => {
             const soDt = k.quocGia.reduce((s, q) => s + q.doiTac.length, 0);
             return (
               <section key={k.key} className={styles.khu} aria-labelledby={`nb-${k.key}`}>
                 <header className={styles.khuDau} data-reveal suppressHydrationWarning>
-                  <span className={styles.khuSo}>{String(i + 1).padStart(2, "0")}</span>
                   <h3 id={`nb-${k.key}`}>{pick(k.ten, locale)}</h3>
                   <span className={styles.khuDem}>
                     {k.quocGia.length} {pick(CHU.quocGia, locale)} · {soDt} {pick(CHU.doiTac, locale)}
@@ -315,7 +305,6 @@ export function MangLuoiNibelc({
         {/* ------------------------------------------ nhóm chiến lược */}
         <section className={styles.chienLuoc} aria-labelledby="nb-chien-luoc">
           <header className={styles.khuDau} data-reveal suppressHydrationWarning>
-            <span className={styles.khuSo}>{gon ? "04" : String(KHU_VUC.length + 1).padStart(2, "0")}</span>
             <h3 id="nb-chien-luoc">{pick(CHU.chienLuoc, locale)}</h3>
           </header>
           <ul className={styles.nhom}>

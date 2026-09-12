@@ -6,7 +6,24 @@
 @media (min-width: 900px) {
   .grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-    align-items: start;
+    /* stretch, không phải start: cột phải phải cao bằng thẻ trụ sở bên trái
+       thì bản đồ mới giãn ra lấp hết chỗ dưới thẻ trường. */
+    align-items: stretch;
+  }
+}
+
+/* Cột phải: thẻ trường ở trên, bản đồ giãn hết phần còn lại. */
+.cotPhai {
+  display: grid;
+  gap: var(--s-5);
+  align-content: start;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .cotPhai {
+    grid-template-rows: auto minmax(280px, 1fr);
+    align-content: stretch;
   }
 }
 
@@ -203,12 +220,30 @@
   text-decoration: underline;
 }
 
-.map {
-  margin-top: var(--s-6);
+.mapWrap {
+  min-width: 0;
 }
 
-.map iframe {
-  height: clamp(300px, 42vw, 440px);
+.mapWrap iframe {
+  min-height: clamp(280px, 34vw, 420px);
+}
+
+/* Khổ rộng: bản đồ cao bằng đúng phần còn thừa của cột, nên chân hai cột bằng
+   nhau. Chiều cao truyền xuống ba tầng — khung bọc, khối của FooterMap, rồi
+   thẻ iframe — nên phải nói rõ ở cả ba. */
+@media (min-width: 900px) {
+  .mapWrap {
+    min-height: 0;
+  }
+
+  .mapWrap > * {
+    height: 100%;
+  }
+
+  .mapWrap iframe {
+    min-height: 0;
+    height: 100%;
+  }
 }
 
 /* Lối dẫn sang trang hệ thống trường, thay cho danh bạ sáu trường từng nằm ở

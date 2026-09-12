@@ -860,28 +860,6 @@
   gap: clamp(1rem, 3vw, 2.2rem);
 }
 
-/*
- * Con số khổ lớn, chỉ có đường viền.
- *
- * Nó không phải trang trí: đây đúng là số trường thành viên, lấy từ danh sách
- * ngay bên dưới. Để rỗng ruột thì nó không tranh chỗ với tiêu đề mà vẫn là thứ
- * mắt chạm vào trước.
- */
-.soLon {
-  font-family: var(--font-display);
-  font-size: clamp(3.4rem, 9vw, 7rem);
-  font-weight: 600;
-  line-height: 0.82;
-  color: transparent;
-  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--gold) 62%, transparent);
-  font-variant-numeric: tabular-nums;
-  transition: color 700ms var(--ease);
-}
-
-.dauMucSo:hover .soLon {
-  color: color-mix(in srgb, var(--gold) 16%, transparent);
-}
-
 .dauMucSo .deTua {
   margin-bottom: var(--s-3);
 }

@@ -139,9 +139,8 @@ export function HoSoCoSo({ project, locale }: { project: VentureProject; locale:
           <article className={styles.bang} data-reveal suppressHydrationWarning>
             <DauBang hinh="bat-tay" ten={pick(CHU.doiTac, locale)} />
             <ol className={styles.doiTac}>
-              {project.parties.map((p, i) => (
+              {project.parties.map((p) => (
                 <li key={p.name}>
-                  <span className={styles.so}>{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <strong>{p.name}</strong>
                     <span>{t(p.role, locale)}</span>
@@ -208,9 +207,8 @@ export function HoSoCoSo({ project, locale }: { project: VentureProject; locale:
         <article className={`${styles.bang} ${styles.bangNhan}`} data-reveal suppressHydrationWarning>
           <DauBang hinh="mu" ten={pick(CHU.daoTao, locale)} />
           <ol className={styles.loTrinh}>
-            {hs.training.map((b, i) => (
+            {hs.training.map((b) => (
               <li key={t(b, locale)}>
-                <span className={styles.so}>{String(i + 1).padStart(2, "0")}</span>
                 <span>{t(b, locale)}</span>
               </li>
             ))}

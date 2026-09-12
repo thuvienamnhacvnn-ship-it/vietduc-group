@@ -215,15 +215,6 @@
   color: var(--v-ink-soft);
 }
 
-.so {
-  flex: none;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  color: var(--v-gold);
-}
-
 .chanBang {
   display: flex;
   flex-wrap: wrap;
@@ -515,18 +506,35 @@
   list-style: none;
 }
 
+/* Hạt vàng đầu dòng thay cho số thứ tự đã bỏ. */
 .loTrinh li {
+  position: relative;
   display: flex;
   gap: 0.9rem;
-  padding: 0.8rem 0;
+  padding: 0.8rem 0 0.8rem 0.95rem;
   border-bottom: 1px solid var(--v-line);
   font-size: 0.94rem;
   line-height: 1.55;
   color: var(--v-ink);
 }
 
+.loTrinh li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.42rem;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--v-gold);
+}
+
 .loTrinh li:first-child {
   padding-top: 0;
+}
+
+.loTrinh li:first-child::before {
+  top: 0.62rem;
 }
 
 .loTrinh li:last-child {

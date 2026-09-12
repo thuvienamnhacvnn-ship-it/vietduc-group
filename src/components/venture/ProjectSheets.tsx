@@ -27,7 +27,7 @@ export function ProjectSheets({
 }) {
   return (
     <ol className={styles.sheets}>
-      {projects.map((project, index) => (
+      {projects.map((project) => (
         <li key={project.slug} className={styles.sheet} data-reveal suppressHydrationWarning>
           <Link
             href={localePath(locale, `/dau-tu/du-an/${project.slug}`)}
@@ -47,7 +47,6 @@ export function ProjectSheets({
 
             <span className={styles.text}>
               <span className={styles.head}>
-                <span className={styles.no}>{String(index + 1).padStart(2, "0")}</span>
                 <span className={styles.kind}>
                   {t(project.kind, locale)} · {t(project.location, locale)}
                 </span>

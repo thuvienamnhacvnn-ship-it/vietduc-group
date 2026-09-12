@@ -43,7 +43,6 @@ export function FieldBoard({
               className={styles.head}
               style={{ "--share": `${Math.round((field.count / largest) * 100)}%` } as React.CSSProperties}
             >
-              <span className={styles.index}>{String(index + 1).padStart(2, "0")}</span>
               <span className={styles.name}>{field.label}</span>
               <span className={styles.leader} aria-hidden="true" />
               <span className={styles.figure}>

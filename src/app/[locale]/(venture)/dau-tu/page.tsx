@@ -183,7 +183,6 @@ export default async function VenturePage({
         suppressHydrationWarning
       >
         <div className={styles.sectionHead}>
-          <p className={styles.kicker}>01</p>
           <h2>{dict.venture.services}</h2>
         </div>
 
@@ -197,7 +196,6 @@ export default async function VenturePage({
         suppressHydrationWarning
       >
         <div className={styles.sectionHead}>
-          <p className={styles.kicker}>02</p>
           <h2>{dict.venture.projects}</h2>
         </div>
 
@@ -221,7 +219,6 @@ export default async function VenturePage({
           suppressHydrationWarning
         >
           <div className={styles.sectionHead}>
-            <p className={styles.kicker}>03</p>
             <h2>
               {pick(
                 {
@@ -293,7 +290,6 @@ export default async function VenturePage({
             04, không phải 03: mục ảnh hiện trường vừa chen vào trước nó, và hai
             mục cùng mang số 03 thì dãy số mất hết ý nghĩa.
           */}
-          <p className={styles.kicker}>{siteShots.length ? "04" : "03"}</p>
 
           <div className={styles.khungChu}>
             <h2 className={styles.khungTieuDe}>
@@ -321,11 +317,8 @@ export default async function VenturePage({
         </div>
 
         <ol className={styles.steps}>
-          {VENTURE_PROCESS.steps.map((step, i) => (
+          {VENTURE_PROCESS.steps.map((step) => (
             <li key={t(step.name, locale)}>
-              <span className={styles.stepNo}>
-                {String(i + 1).padStart(2, "0")}
-              </span>
               <h3>{t(step.name, locale)}</h3>
               <p>{t(step.detail, locale)}</p>
             </li>

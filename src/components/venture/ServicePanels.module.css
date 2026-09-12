@@ -51,7 +51,7 @@
 /* Cả hàng tên là một cái nút: chạm chỗ nào trên hàng cũng mở được. */
 .head {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.7rem;
   width: 100%;
@@ -67,13 +67,6 @@
 .head:focus-visible {
   outline: 2px solid var(--v-clay);
   outline-offset: -3px;
-}
-
-.no {
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--v-clay);
 }
 
 .ten {
@@ -227,14 +220,8 @@
   .head {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.3rem;
-    padding: var(--s-5) var(--s-5) 0;
+    padding: var(--s-5);
     cursor: default;
-  }
-
-  .no {
-    font-size: 0.94rem;
-    color: var(--gold);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
   }
 
   .ten {
@@ -244,38 +231,21 @@
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
   }
 
-  /* Mũi tên là dấu hiệu của thao tác chạm; ở đây mở bằng rê chuột. */
+  /* Mũi tên là dấu hiệu của thao tác chạm; ở khổ này không có gì để mở. */
   .chev {
     display: none;
   }
 
-  .panel:hover .detail,
-  .panel:focus-within .detail {
-    grid-template-rows: 1fr;
-    opacity: 1;
-  }
-
-  .detailTrong {
-    padding-top: var(--s-2);
-  }
-
-  .detail p {
-    padding: 0 var(--s-5);
-    color: rgba(255, 255, 255, 0.92);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
-    max-width: 42ch;
-  }
-
-  .detail ul {
-    padding: 0 var(--s-5) var(--s-5);
-    font-size: 0.88rem;
-    color: rgba(255, 255, 255, 0.88);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
-    max-width: 46ch;
-  }
-
-  .detail li::before {
-    background: var(--gold);
+  /*
+   * Trên máy tính chỉ còn TÊN, không còn phần mô tả hiện ra khi rê chuột.
+   *
+   * Đoạn mô tả cộng ba gạch đầu dòng đặt lên chính tấm ảnh: ảnh nào cũng có
+   * chỗ sáng chỗ tối, nên vài dòng đọc được còn vài dòng chìm hẳn, và đổ bóng
+   * dày thêm chỉ làm tấm ảnh bẩn đi. Nội dung ấy vẫn còn nguyên ở khổ điện
+   * thoại, nơi nó nằm trên nền giấy và mở ra bằng một cú chạm.
+   */
+  .detail {
+    display: none;
   }
 }
 

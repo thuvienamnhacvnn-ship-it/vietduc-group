@@ -73,12 +73,6 @@
     padding: var(--s-4) var(--s-4) var(--s-5);
   }
 
-  /* Số thứ tự lùi về cỡ của một cái nhãn: ở khổ hẹp nó vốn to gần bằng tên dự
-     án, thành ra hai thứ tranh nhau chỗ đứng đầu thẻ. */
-  .no {
-    font-size: 1.3rem;
-  }
-
   .figures {
     gap: var(--s-3) var(--s-5);
     margin-top: var(--s-2);
@@ -147,13 +141,6 @@
   align-items: baseline;
   gap: 0.9rem;
   min-width: 0;
-}
-
-.no {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
-  line-height: 1;
-  color: var(--v-line);
 }
 
 .kind {
