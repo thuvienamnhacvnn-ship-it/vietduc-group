@@ -463,17 +463,57 @@
     max-width: none;
   }
 
-  /* The heading is a row on a wide page - title on the left, its link on the
-     right. There is no room for two things side by side here, so it stacks and
-     centres, and the link sits under what it belongs to. */
+  /*
+   * Đầu mục xếp dọc và bám LỀ TRÁI, không căn giữa.
+   *
+   * Bản trước căn giữa cả khối đầu mục, trong khi mọi thứ bên dưới nó — đoạn
+   * dẫn, danh sách, thẻ — vẫn bám lề trái. Trên màn hình hẹp hai lối căn khác
+   * nhau nằm chồng lên nhau chính là cái "chỗ thò ra chỗ thụt vào": tiêu đề
+   * lửng lơ giữa cột còn chữ dưới nó thì thẳng lề. Một lề cho tất cả.
+   *
+   * `.headingCenter` vẫn được căn giữa: đó là lựa chọn cố ý của vài mục, và
+   * ở đó thì CẢ mục căn giữa chứ không riêng cái đầu mục.
+   */
   .heading {
     flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .headingCenter {
     align-items: center;
     text-align: center;
   }
 
   .headingLead {
+    margin-inline: 0;
+  }
+
+  .headingCenter .headingLead {
     margin-inline: auto;
+  }
+
+  /*
+   * Con số mốc lùi lên một dòng riêng.
+   *
+   * Nó vốn là một cột đứng cạnh phần chữ; ở khổ 410px cột ấy chiếm 44px cộng
+   * khoảng cách, nên tiêu đề bắt đầu ở 72px trong khi đoạn văn ngay dưới bắt
+   * đầu ở 28px. Cho số đứng riêng thì chữ trong đầu mục và chữ trong thân mục
+   * cùng một lề.
+   */
+  .headingChinh {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
+  }
+
+  .headingCenter .headingChinh {
+    align-items: center;
+  }
+
+  .headingSo {
+    font-size: 1.9rem;
+    line-height: 1;
   }
 }
 

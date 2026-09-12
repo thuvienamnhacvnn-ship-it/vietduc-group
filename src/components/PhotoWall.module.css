@@ -40,10 +40,11 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     /* Lùi ra sát mép màn hình rồi đệm lại, để tấm đầu vẫn thẳng lề chữ mà dải
-       ảnh thì chạy tràn hết bề ngang — cắt ở lề trong trông như bị hụt. */
-    margin-inline: calc(var(--s-4) * -1);
-    padding-inline: var(--s-4);
-    scroll-padding-inline: var(--s-4);
+       ảnh thì chạy tràn hết bề ngang — cắt ở lề trong trông như bị hụt. Lấy
+       đúng lề của trang đang chứa nó, xem --le-trang trong tokens.css. */
+    margin-inline: calc(var(--le-trang, var(--s-4)) * -1);
+    padding-inline: var(--le-trang, var(--s-4));
+    scroll-padding-inline: var(--le-trang, var(--s-4));
     scrollbar-width: none;
     overscroll-behavior-x: contain;
   }

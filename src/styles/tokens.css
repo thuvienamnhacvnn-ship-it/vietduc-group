@@ -135,6 +135,14 @@
   --s-9: 6rem;
   --section-y: clamp(3.5rem, 2rem + 6vw, 7.5rem);
   --gutter: clamp(1.15rem, 0.6rem + 2.4vw, 3.5rem);
+  /*
+   * Lề trang, dùng cho những khối phải TRÀN RA khỏi cột chữ rồi đệm lại: dải
+   * ảnh vuốt ngang, băng ảnh, bảng rộng. Trước đây mỗi khối tự chọn một trị số
+   * (--s-4 ở tường ảnh, --gutter ở khung chứa, --s-5 ở mảng Đầu tư), nên trên
+   * điện thoại mép ảnh và mép chữ lệch nhau vài pixel ở mỗi mục — nhìn ra đúng
+   * là "chỗ thò ra chỗ thụt vào". Một biến duy nhất thì mọi mép thẳng hàng.
+   */
+  --le-trang: var(--gutter);
   --measure: 68ch;
   --shell: 1360px;
   --shell-narrow: 940px;

@@ -193,6 +193,57 @@
   height: auto;
 }
 
+/*
+ * Trên điện thoại bản đồ thu gọn vào vừa màn hình thay vì bắt vuốt ngang.
+ *
+ * 640px là bề rộng tối thiểu để nhãn mười hai nước không chồng lên nhau; ở đây
+ * nhãn nhỏ lại một nấc và chấm to lên, nên cả bản đồ nằm gọn trong 100% bề
+ * ngang mà vẫn đọc được tên nước.
+ */
+@media (max-width: 719px) {
+  /*
+   * "NIBELC GROUP" được phép xuống dòng.
+   *
+   * Ở khổ rộng nó phải nằm một dòng — tên tập đoàn cắt làm đôi là điều kiêng
+   * kỵ. Nhưng `white-space: nowrap` cộng với cỡ chữ tối thiểu 2,8rem thì ở màn
+   * 410px dòng chữ rộng hơn cả màn hình, và nó kéo giãn cả khu ra ngoài lề
+   * phải 22px — đúng chỗ Sếp thấy "thò ra". Ở đây chữ nhỏ lại và xuống dòng
+   * giữa hai TỪ, nên tên riêng vẫn không bị cắt.
+   */
+  .tenLon {
+    white-space: normal;
+    font-size: clamp(1.9rem, 10.5vw, 3rem);
+    letter-spacing: 0.02em;
+  }
+
+  .phuDe {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+
+  .banDo {
+    padding: 0.5rem;
+  }
+
+  .banDo svg {
+    min-width: 0;
+  }
+
+  .chuDiem {
+    font-size: 17px;
+    stroke-width: 5px;
+  }
+
+  .chuTam {
+    font-size: 21px;
+    stroke-width: 5px;
+  }
+
+  .cham {
+    stroke-width: 5.2;
+  }
+}
+
 .cham {
   fill: none;
   stroke: rgba(170, 190, 215, 0.2);

@@ -91,6 +91,87 @@
   color: rgba(255, 255, 255, 0.82);
 }
 
+/* ---------- điện thoại: ảnh trên, tên dưới ảnh ---------- */
+
+/*
+ * Trên màn hình hẹp, tên dự án RỜI khỏi tấm ảnh.
+ *
+ * Banner kiểu chữ-nằm-trên-ảnh chỉ chạy được khi tấm ảnh còn một mảng trống đủ
+ * rộng — trời, mặt nước, một bức tường trơn. Ở khổ 410px thì dòng tên bốn dòng
+ * phủ gần kín khung hình, và với ảnh sảnh khách sạn Hoàng Long nó rơi đúng vào
+ * tấm biển "HOANG LONG HOTEL" trên tường: chữ chồng lên chữ, không đọc được
+ * dòng nào. Ở đây ảnh chiếm phần trên, tên và thông tin nằm dưới trên nền giấy,
+ * thẳng đúng hai lề của phần còn lại của trang.
+ */
+@media (max-width: 719px) {
+  .hero {
+    display: grid;
+    grid-template-rows: 58svh auto;
+    align-items: start;
+    min-height: 0;
+    padding: 0;
+    color: var(--v-ink);
+  }
+
+  /* Ảnh dùng `fill` của next/image nên vị trí do kiểu nội tuyến đặt; phải ghi
+     đè để nó chỉ chiếm hàng đầu thay vì phủ cả khối. */
+  .heroImage {
+    bottom: auto !important;
+    height: 58svh !important;
+  }
+
+  /* Lớp phủ mép cũng chỉ trùm phần ảnh. */
+  .hero::after {
+    inset: 0 0 auto 0;
+    height: 58svh;
+  }
+
+  .heroText {
+    grid-row: 2;
+    max-width: none;
+    padding: var(--s-5) var(--le-trang, var(--s-5)) var(--s-4);
+    background: var(--v-paper);
+  }
+
+  /* Chữ trên nền giấy thì không cần bóng, và phải trở về màu mực của trang. */
+  .hero :is(.kind, h1, .lead, .stage, .heroCaption) {
+    text-shadow: none;
+  }
+
+  .heroText h1 {
+    font-size: clamp(1.5rem, 6.6vw, 2rem);
+    color: var(--v-ink);
+  }
+
+  .kind {
+    color: var(--v-clay);
+  }
+
+  .lead {
+    color: var(--v-ink-soft);
+  }
+
+  .stage {
+    border-color: var(--v-line);
+    color: var(--v-ink);
+  }
+
+  /* Chú thích ảnh xuống thành một dòng dưới cùng, không còn nổi trên ảnh. */
+  .heroCaption {
+    position: static;
+    grid-row: 3;
+    max-width: none;
+    padding: 0 var(--le-trang, var(--s-5)) var(--s-5);
+    text-align: left;
+    background: var(--v-paper);
+    color: var(--v-ink-soft);
+  }
+
+  .body {
+    padding-top: var(--s-6);
+  }
+}
+
 /* ---------- body ---------- */
 
 .body {

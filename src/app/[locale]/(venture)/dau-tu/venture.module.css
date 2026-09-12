@@ -668,14 +668,74 @@
     translate: 0 0;
   }
 
+  /*
+   * Số mục lùi lên một dòng riêng, tiêu đề bám lề trái như mọi khối khác.
+   *
+   * Số và tiêu đề vốn đứng cùng hàng; ở khổ 410px con số chiếm 53px nên tiêu
+   * đề bắt đầu ở 77px, trong khi thẻ dự án ngay dưới nó bắt đầu ở 24px. Hai
+   * mép lệch nhau hơn nửa lóng tay, và mắt bắt được ngay.
+   */
   .sectionHead {
-    gap: var(--s-3);
+    display: grid;
+    justify-items: start;
+    gap: 0.15rem;
     margin-bottom: var(--s-5);
+  }
+
+  .kicker {
+    font-size: 2rem;
+    line-height: 1;
   }
 
   .ctaButton {
     padding: 0.7rem 1.2rem;
     font-size: 0.82rem;
+  }
+
+  /*
+   * Trên điện thoại mỗi khối chữ đứng trong một cái khung.
+   *
+   * Ở khổ rộng, các bước và các đối tác nằm cạnh nhau thành hàng nên mắt tự
+   * hiểu đâu là một mục. Xếp dọc trên màn hình hẹp thì chúng thành một cột chữ
+   * chảy dài không có điểm dừng, chỉ phân biệt nhau bằng một vạch mảnh ở trên
+   * — đọc ra là một khối lộn xộn. Đóng khung thì mỗi mục là một tấm thẻ.
+   */
+  .steps {
+    gap: var(--s-4);
+  }
+
+  .steps li,
+  .partners li {
+    padding: var(--s-4);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--r-3);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .steps li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--s-4);
+    align-items: baseline;
+  }
+
+  .stepNo {
+    grid-row: span 2;
+  }
+
+  .steps h3 {
+    margin-top: 0;
+  }
+
+  .cta {
+    padding: var(--s-5);
+    border: 1px solid var(--v-line);
+    border-radius: var(--r-4);
+    background: var(--v-raised);
+  }
+
+  .sourceLine {
+    padding-inline: var(--s-4);
   }
 }
 

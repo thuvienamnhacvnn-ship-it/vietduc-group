@@ -11,6 +11,10 @@
  * shadow nothing: every token here is prefixed.
  */
 .scope {
+  /* Mảng Đầu tư dùng lề riêng (hẹp hơn lề của mảng Đào tạo); khai báo vào biến
+     chung để tường ảnh và băng ảnh trong khu này bám đúng mép chữ của nó. */
+  --le-trang: var(--s-5);
+
   --v-ink: #191510;
   --v-ink-soft: #4b4237;
   --v-paper: #f6f2ea;
