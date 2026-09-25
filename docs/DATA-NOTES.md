@@ -86,19 +86,26 @@ sinh/năm** (mỗi ngành 35):
 trường không có trong giấy phép này nên vẫn ở trạng thái nháp**, hiển thị như
 định hướng đào tạo, không mã ngành, không chỉ tiêu (xem mục 7).
 
-Hai điểm còn vênh, **chưa tự sửa, cần trường xác nhận**:
+**2500 và 2567 là HAI quyết định khác nhau, khác loại** — Việt Đức Group xác nhận
+ngày 25/9/2026. Ban đầu chỗ này từng bị ghi nhầm thành "một tờ bị đọc sai số".
+Cả hai đều cùng ngày 26/6/2026 của UBND tỉnh Quảng Trị và **đều được liệt kê**
+trên trang trường, xếp theo ngày ký:
 
-1. **Số hiệu quyết định thành lập.** QĐ 1979 dẫn là *"Quyết định số 2500/QĐ-UBND
-   ngày 26/6/2026"*, trong khi hồ sơ nhập đợt đầu ghi *2567/QĐ-UBND* cùng ngày
-   26/6/2026. Không có bản gốc QĐ thành lập trong kho tài liệu để đối chiếu; đợt
-   nhập đầu đọc bằng OCR nên sai số là có thể. Website đang giữ **cả hai**.
-2. **Điện thoại.** Giấy phép ghi **0232.3816888**; website đang hiển thị
-   *0911 762 666*. Giữ nguyên số đang dùng vì chưa rõ số nào là số tuyển sinh.
+| Số hiệu | Nội dung |
+|---|---|
+| 2500/QĐ-UBND · 26/6/2026 | Cho phép thành lập trường (QĐ 1979 dẫn ở Điều 1 khoản 5) |
+| 2567/QĐ-UBND · 26/6/2026 | Nhãn giữ theo bản nhập tay đợt đầu; **tên thật của quyết định chưa được xác nhận lại** — bản gốc không có trong kho, số này cũng không xuất hiện trong bất kỳ tài liệu nào đã nạp |
+| 1979/QĐ-SGDĐT · 23/9/2026 | Cấp phép hoạt động giáo dục nghề nghiệp |
 
-Địa điểm đào tạo thực hành theo giấy phép (chưa đưa lên trang, chờ chốt cách
-hiển thị): Số 86 đường Hồng Chương, phường Đồng Thuận · Khu đô thị Trường Thịnh,
-phường Đồng Thuận · Số 35 đường Trần Quang Khải, phường Đồng Hới — đều thuộc
-tỉnh Quảng Trị.
+Ba địa điểm đào tạo thực hành (Điều 1 khoản 6) **đã đưa lên trang**, ở cột thông
+tin liên hệ, qua cột mới `schools.training_sites` (migration
+`drizzle/0003_dia_diem_dao_tao.sql`): Số 86 đường Hồng Chương, phường Đồng Thuận
+· Khu đô thị Trường Thịnh, phường Đồng Thuận · Số 35 đường Trần Quang Khải,
+phường Đồng Hới — đều thuộc tỉnh Quảng Trị.
+
+Còn **một điểm vênh chưa tự sửa**: giấy phép ghi điện thoại **0232.3816888**,
+website đang hiển thị *0911 762 666*. Giữ nguyên số đang dùng vì chưa rõ số nào
+là số tuyển sinh.
 
 ## 6. ITW Berlin — hai bản hồ sơ nói khác nhau về năm 1967
 

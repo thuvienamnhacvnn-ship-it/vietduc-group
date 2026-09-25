@@ -150,3 +150,17 @@
   margin-top: var(--s-8);
   background: linear-gradient(180deg, var(--paper) 0%, var(--beige) 100%);
 }
+
+/* Địa điểm đào tạo thực hành: nhiều dòng trong một ô của bảng thông tin, nên bỏ
+   dấu chấm đầu dòng và để chúng thở ra một chút thay vì dính thành khối chữ. */
+.sites {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.sites li {
+  text-wrap: pretty;
+}

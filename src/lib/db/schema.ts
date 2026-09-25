@@ -157,6 +157,14 @@ export const schools = pgTable(
     highlights: jsonb("highlights").$type<L10nList>(),
     /** Establishment / renaming decisions, quoted verbatim from the licence. */
     legalRefs: jsonb("legal_refs").$type<{ label: L10n; number: string; date: string; issuer: L10n }[]>(),
+    /**
+     * Practice/training sites named on the operating licence, verbatim.
+     * Separate from `address` because the licence separates them: the head
+     * office is where the school is registered, these are where teaching may
+     * legally happen. Plain strings - Vietnamese street addresses are not
+     * translated, same as `address`.
+     */
+    trainingSites: jsonb("training_sites").$type<string[]>(),
     stats: jsonb("stats").$type<{ value: string; label: L10n }[]>(),
     status: text("status").$type<Status>().notNull().default("draft"),
     provenance: jsonb("provenance").$type<Provenance>(),

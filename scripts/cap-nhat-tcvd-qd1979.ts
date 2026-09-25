@@ -131,9 +131,9 @@ const GHI_CHU_BIEN_TAP = [
   `Đã có GCN hoạt động GDNN: ${QD.so} ngày 23/9/2026 (${QD.coQuan}).`,
   `Giấy phép cho 05 ngành trình độ trung cấp, tổng quy mô ${QD.tongQuyMo} học sinh/năm (mỗi ngành 35).`,
   "CÁC NGÀNH KHÁC của trường KHÔNG có trong giấy phép này nên vẫn để nháp, hiển thị như định hướng đào tạo, không công bố chỉ tiêu.",
-  `VÊNH SỐ HIỆU: QĐ 1979 dẫn quyết định thành lập là "2500/QĐ-UBND ngày 26/6/2026", trong khi hồ sơ nhập trước đây ghi "2567/QĐ-UBND" cùng ngày 26/6/2026. Chưa có bản gốc QĐ thành lập để đối chiếu - giữ nguyên cả hai, cần trường xác nhận.`,
+  `HAI QUYẾT ĐỊNH KHÁC NHAU, KHÔNG PHẢI MỘT: 2500/QĐ-UBND (cho phép thành lập, do QĐ 1979 dẫn) và 2567/QĐ-UBND, cùng ngày 26/6/2026, khác loại - chủ dự án đã xác nhận. Cả hai đều liệt kê trên trang. Nhãn của 2567 giữ nguyên như bản nhập tay ban đầu; nếu nhãn đó chưa đúng tên thật của quyết định thì sửa lại ở đây.`,
   `VÊNH ĐIỆN THOẠI: giấy phép ghi ${QD.dienThoai}; website đang để 0911 762 666 (giữ nguyên số đang dùng, chờ trường xác nhận số nào để công bố).`,
-  `Địa điểm đào tạo thực hành theo giấy phép: ${QD.diaDiemThucHanh.join(" | ")}`,
+  `Địa điểm đào tạo thực hành (đã đưa lên trang, theo Điều 1 khoản 6): ${QD.diaDiemThucHanh.join(" | ")}`,
 ].join(" ");
 
 async function main() {
@@ -146,11 +146,44 @@ async function main() {
   /* ---------------------------------------------------------- 1. hồ sơ trường */
 
   const refCu = truong.legalRefs ?? [];
-  const daCo = refCu.some((r) => r.number === QD.so);
+
+  /**
+   * QĐ 2500/QĐ-UBND: quyết định cho phép thành lập, do chính QĐ 1979 dẫn ở
+   * Điều 1 khoản 5. Trong cơ sở dữ liệu đang có sẵn QĐ 2567/QĐ-UBND cùng ngày
+   * 26/6/2026 - ban đầu tôi tưởng hai số là một tờ bị đọc nhầm, nhưng chủ dự án
+   * xác nhận đây là HAI GIẤY KHÁC NHAU, khác loại. Nên giữ cả hai, không hợp
+   * nhất, không sửa nhãn của tờ đã có sẵn vì nhãn đó do người nhập tay đặt từ
+   * nguồn tôi không có trong kho.
+   */
+  const REF_2500 = {
+    number: "2500/QĐ-UBND",
+    date: "2026-06-26",
+    label: {
+      vi: "Quyết định cho phép thành lập trường",
+      en: "Decision permitting establishment of the school",
+      de: "Bescheid über die Gründungsgenehmigung der Schule",
+      ja: "学校設立許可決定",
+      ko: "학교 설립 허가 결정",
+      "zh-TW": "核准設立學校之決定",
+    } as L10n,
+    issuer: {
+      vi: "Chủ tịch UBND tỉnh Quảng Trị",
+      en: "Chairman of Quang Tri Provincial People's Committee",
+      de: "Vorsitzender des Volkskomitees der Provinz Quang Tri",
+      ja: "クアンチ省人民委員会委員長",
+      ko: "꽝찌성 인민위원회 위원장",
+      "zh-TW": "廣治省人民委員會主席",
+    } as L10n,
+  };
+
+  const co2500 = refCu.some((r) => r.number === REF_2500.number);
+  const refVoi2500 = co2500 ? refCu : [...refCu, REF_2500];
+
+  const daCo = refVoi2500.some((r) => r.number === QD.so);
   const refMoi = daCo
-    ? refCu
+    ? refVoi2500
     : [
-        ...refCu,
+        ...refVoi2500,
         {
           number: QD.so,
           date: QD.ngay,
@@ -177,7 +210,12 @@ async function main() {
   console.log(`  email   : ${truong.email ?? "(trống)"}  ->  ${QD.email}`);
   console.log(`  website : ${truong.website ?? "(trống)"}  ->  ${QD.website}`);
   console.log(`  địa chỉ : ${truong.address === QD.truSo ? "khớp giấy phép, giữ nguyên" : `${truong.address} -> ${QD.truSo}`}`);
-  console.log(`  legalRefs: ${refCu.length} -> ${refMoi.length}${daCo ? " (đã có, bỏ qua)" : ""}`);
+  // Xếp theo ngày ký: người đọc lần theo được trường đã đi qua những bước pháp
+  // lý nào, theo đúng thứ tự đã xảy ra.
+  refMoi.sort((a, b) => a.date.localeCompare(b.date));
+
+  console.log(`  legalRefs: ${refCu.length} -> ${refMoi.length} (${refMoi.map((r) => r.number).join(", ")})`);
+  console.log(`  địa điểm đào tạo: ${truong.trainingSites?.length ?? 0} -> ${QD.diaDiemThucHanh.length}`);
   console.log(`  điện thoại: GIỮ NGUYÊN ${truong.phone} (giấy phép ghi ${QD.dienThoai} — ghi vào editorNote)`);
 
   if (GHI) {
@@ -187,6 +225,7 @@ async function main() {
         email: QD.email,
         website: QD.website,
         address: QD.truSo,
+        trainingSites: [...QD.diaDiemThucHanh],
         legalRefs: refMoi,
         editorNote: GHI_CHU_BIEN_TAP,
         provenance: nguon,

@@ -262,6 +262,30 @@ export default async function SchoolPage({
                   <dd>{school.address}</dd>
                 </div>
               ) : null}
+              {school.trainingSites?.length ? (
+                <div>
+                  <dt>
+                    {pick(
+                      {
+                        vi: "Địa điểm đào tạo",
+                        en: "Training sites",
+                        de: "Ausbildungsstandorte",
+                        ja: "実習拠点",
+                        ko: "교육 장소",
+                        "zh-TW": "培訓地點",
+                      },
+                      locale,
+                    )}
+                  </dt>
+                  <dd>
+                    <ul className={styles.sites}>
+                      {school.trainingSites.map((site) => (
+                        <li key={site}>{site}</li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              ) : null}
               {school.phone ? (
                 <div>
                   <dt>{dict.contact.phone}</dt>
