@@ -59,16 +59,46 @@ chụp quyết định thành lập của từng trường. Nếu "Trung cấp K
 → Bình Phước đã sáp nhập vào Đồng Nai (2025) nên hai cách gọi không mâu thuẫn về
 địa bàn. Website dùng **tên pháp lý** theo quyết định.
 
-## 5. Trung cấp Công nghệ Việt Đức — chưa được tuyển sinh
+## 5. Trung cấp Công nghệ Việt Đức — đã được cấp phép (25/9/2026)
 
 QĐ 2567/QĐ-UBND (Quảng Trị) ngày 26/6/2026, Điều 2 khoản 4:
 
 > *"Trường chỉ được phép tuyển sinh và tổ chức đào tạo sau khi được cấp Giấy
 > chứng nhận đăng ký hoạt động giáo dục nghề nghiệp theo quy định của pháp luật."*
 
-→ Toàn bộ ngành của trường này được lưu ở trạng thái **nháp**, không hiển thị
-công khai, không có mã ngành và **không công bố chỉ tiêu**, cho tới khi trường
-cung cấp Giấy chứng nhận đăng ký hoạt động GDNN.
+**Điều kiện này đã được đáp ứng.** Bản scan `1979-QĐ.pdf` (`E:\Works\itw\VD\bo sung\`)
+là **QĐ 1979/QĐ-SGDĐT ngày 23/9/2026** của Sở Giáo dục và Đào tạo tỉnh Quảng Trị,
+cấp phép hoạt động giáo dục nghề nghiệp cho trường. Nạp bằng
+`scripts/cap-nhat-tcvd-qd1979.ts`.
+
+Giấy phép cho **đúng 05 ngành** trình độ trung cấp, tổng quy mô **175 học
+sinh/năm** (mỗi ngành 35):
+
+| Mã ngành | Tên ngành theo giấy phép |
+|---|---|
+| 5220211 | Tiếng Hàn Quốc |
+| 5810207 | Kỹ thuật chế biến món ăn |
+| 5480202 | Công nghệ thông tin (Ứng dụng phần mềm) |
+| 5520227 | Điện công nghiệp |
+| 5520205 | Kỹ thuật máy lạnh và điều hòa không khí |
+
+→ Năm ngành trên đã công khai kèm mã ngành và chỉ tiêu. **Mười ngành còn lại của
+trường không có trong giấy phép này nên vẫn ở trạng thái nháp**, hiển thị như
+định hướng đào tạo, không mã ngành, không chỉ tiêu (xem mục 7).
+
+Hai điểm còn vênh, **chưa tự sửa, cần trường xác nhận**:
+
+1. **Số hiệu quyết định thành lập.** QĐ 1979 dẫn là *"Quyết định số 2500/QĐ-UBND
+   ngày 26/6/2026"*, trong khi hồ sơ nhập đợt đầu ghi *2567/QĐ-UBND* cùng ngày
+   26/6/2026. Không có bản gốc QĐ thành lập trong kho tài liệu để đối chiếu; đợt
+   nhập đầu đọc bằng OCR nên sai số là có thể. Website đang giữ **cả hai**.
+2. **Điện thoại.** Giấy phép ghi **0232.3816888**; website đang hiển thị
+   *0911 762 666*. Giữ nguyên số đang dùng vì chưa rõ số nào là số tuyển sinh.
+
+Địa điểm đào tạo thực hành theo giấy phép (chưa đưa lên trang, chờ chốt cách
+hiển thị): Số 86 đường Hồng Chương, phường Đồng Thuận · Khu đô thị Trường Thịnh,
+phường Đồng Thuận · Số 35 đường Trần Quang Khải, phường Đồng Hới — đều thuộc
+tỉnh Quảng Trị.
 
 ## 6. ITW Berlin — hai bản hồ sơ nói khác nhau về năm 1967
 
@@ -170,8 +200,10 @@ ghi "565 Trương Công Định, TP HCM", và trước đây điều đó bị c
 chứng nhận ghi Bà Rịa – Vũng Tàu. Sau sáp nhập thì hoá ra hồ sơ in đúng địa
 giới mới, chỉ thiếu tên phường.
 
-Trường thứ sáu (Trung cấp Công nghệ Việt Đức, Quảng Trị) **không nằm trong đợt
-cập nhật này** — địa chỉ vẫn theo hồ sơ, chưa được xác nhận lại.
+Trường thứ sáu (Trung cấp Công nghệ Việt Đức, Quảng Trị) không nằm trong đợt cập
+nhật đó. **25/9/2026:** địa chỉ trụ sở đã được xác nhận bằng giấy tờ — QĐ
+1979/QĐ-SGDĐT ghi *"Tổ dân phố 15, phường Đồng Thuận, tỉnh Quảng Trị"*, đúng
+bằng chữ website đang hiển thị (xem mục 5).
 
 ---
 
