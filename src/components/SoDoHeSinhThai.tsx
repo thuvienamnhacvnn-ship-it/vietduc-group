@@ -17,10 +17,16 @@ import styles from "./SoDoHeSinhThai.module.css";
  * thương hiệu xếp theo ngũ giác, vòng ngoài sáu trường theo lục giác, lệch pha
  * nhau để nhánh nọ không che nhánh kia.
  *
- * Trên điện thoại thì bỏ hẳn vòng tròn. Ở bề ngang 375px, mười một logo xếp
+ * Trên điện thoại thì bỏ hẳn vòng tròn. Ở bề ngang 375px, mười ba logo xếp
  * quanh một vòng thì mỗi cái còn bằng đầu ngón tay và các đường nối chồng lên
- * nhau thành một mớ. Ở khổ ấy chúng xếp thành lưới, giữ nguyên viền và hiệu
- * ứng, chỉ bỏ phần hình học.
+ * nhau thành một mớ. Ở khổ ấy chúng xếp thành lưới hai cột, giữ nguyên vòng
+ * viền vàng, chỉ bỏ phần hình học.
+ *
+ * Mất hình học thì mất luôn hai thứ mà hình học vốn tự nói ra: đâu là gốc, và
+ * đâu là ranh giới giữa hai vòng. Nên bản lưới dựng thêm hai thứ thay cho
+ * chúng — một nhánh rẽ từ logo tập đoàn xuống lưới, và một dòng đầu mục cho
+ * mỗi tầng (xem prop `nhom`). Cùng lối vẽ với gốc chung ở tường thẻ các
+ * trường thành viên trên trang Đào tạo, để hai trang nói cùng một thứ tiếng.
  */
 
 export type Nhanh = {
@@ -35,12 +41,19 @@ export function SoDoHeSinhThai({
   tam,
   vongTrong,
   vongNgoai,
+  nhom,
   gon = false,
 }: {
   locale: Locale;
   tam: { src: string; ten: L10nMap };
   vongTrong: Nhanh[];
   vongNgoai: Nhanh[];
+  /**
+   * Tên hai nhóm. Chỉ dùng trên điện thoại: ở đó hình học biến mất nên không
+   * còn gì nói ra rằng vòng trong là thương hiệu còn vòng ngoài là trường.
+   * Không truyền thì lưới vẫn chạy, chỉ là liền một mạch.
+   */
+  nhom?: { trong: string; ngoai: string };
   /** Bản thu nhỏ để đặt vừa trong nửa phải của banner. */
   gon?: boolean;
 }) {
@@ -63,7 +76,7 @@ export function SoDoHeSinhThai({
     y,
   });
 
-  const nut = [
+  const nutTrong = [
     /*
      * Hàng dưới: năm thương hiệu. Hẹp hơn hàng trên vì ít nút hơn.
      *
@@ -78,13 +91,53 @@ export function SoDoHeSinhThai({
       vong: "trong" as const,
       ...hang(vongTrong.length, i, 87, 16),
     })),
-    /* Hàng trên: các trường thành viên. */
+  ];
+
+  /* Hàng trên: các trường thành viên. */
+  const nutNgoai = [
     ...vongNgoai.map((n, i) => ({
       ...n,
       vong: "ngoai" as const,
       ...hang(vongNgoai.length, i, 13, 8),
     })),
   ];
+
+  /* Gộp lại chỉ để vẽ đường nối và tính lệch pha vệt sáng. */
+  const nut = [...nutTrong, ...nutNgoai];
+
+  const veNut = (n: (typeof nut)[number]) => {
+    const ten = pick(n.ten, locale);
+    const trong = (
+      <>
+        <span className={styles.vien} aria-hidden="true" />
+        <Image src={n.src} alt={ten} width={320} height={320} sizes="140px" />
+        <span className={styles.nhan}>{ten}</span>
+      </>
+    );
+    /*
+     * Nhãn neo theo phía. Nhánh nằm sát rìa phải mà nhãn vẫn neo giữa thì
+     * một nửa nhãn thò ra ngoài khung — và vì nó là phần tử tuyệt đối, nó
+     * kéo cả trang cuộn ngang chứ không chỉ bị cắt.
+     */
+    const phia = n.x > 66 ? styles.nhanPhai : n.x < 34 ? styles.nhanTrai : "";
+    const chung = {
+      className: `${styles.nut} ${n.vong === "trong" ? styles.trong : styles.ngoai} ${phia}`,
+      style: { left: `${n.x}%`, top: `${n.y}%` },
+      onMouseEnter: () => setDangRe(n.src),
+      onMouseLeave: () => setDangRe(null),
+      onFocus: () => setDangRe(n.src),
+      onBlur: () => setDangRe(null),
+    };
+    return n.href ? (
+      <a key={n.src} href={n.href} {...chung}>
+        {trong}
+      </a>
+    ) : (
+      <div key={n.src} {...chung}>
+        {trong}
+      </div>
+    );
+  };
 
   return (
     <div className={`${styles.boc} ${gon ? styles.gon : ""}`}>
@@ -126,42 +179,22 @@ export function SoDoHeSinhThai({
         <div className={`${styles.nut} ${styles.tam}`} style={{ left: "50%", top: "50%" }}>
           <span className={styles.vien} aria-hidden="true" />
           <Image src={tam.src} alt={pick(tam.ten, locale)} width={1349} height={1278} unoptimized />
+          {/* Tên tập đoàn chỉ hiện trên điện thoại. Ở màn hình lớn nó nằm
+              ngay cạnh, trong cột chữ của banner, nên nhắc lại là thừa. */}
+          <span className={styles.nhan}>{pick(tam.ten, locale)}</span>
         </div>
 
-        {/* Các nhánh */}
-        {nut.map((n) => {
-          const ten = pick(n.ten, locale);
-          const trong = (
-            <>
-              <span className={styles.vien} aria-hidden="true" />
-              <Image src={n.src} alt={ten} width={320} height={320} sizes="140px" />
-              <span className={styles.nhan}>{ten}</span>
-            </>
-          );
-          /*
-           * Nhãn neo theo phía. Nhánh nằm sát rìa phải mà nhãn vẫn neo giữa thì
-           * một nửa nhãn thò ra ngoài khung — và vì nó là phần tử tuyệt đối, nó
-           * kéo cả trang cuộn ngang chứ không chỉ bị cắt.
-           */
-          const phia = n.x > 66 ? styles.nhanPhai : n.x < 34 ? styles.nhanTrai : "";
-          const chung = {
-            className: `${styles.nut} ${n.vong === "trong" ? styles.trong : styles.ngoai} ${phia}`,
-            style: { left: `${n.x}%`, top: `${n.y}%` },
-            onMouseEnter: () => setDangRe(n.src),
-            onMouseLeave: () => setDangRe(null),
-            onFocus: () => setDangRe(n.src),
-            onBlur: () => setDangRe(null),
-          };
-          return n.href ? (
-            <a key={n.src} href={n.href} {...chung}>
-              {trong}
-            </a>
-          ) : (
-            <div key={n.src} {...chung}>
-              {trong}
-            </div>
-          );
-        })}
+        {/*
+          Nhánh rẽ nối tâm xuống lưới. Chỉ hiện trên điện thoại: ở màn hình
+          lớn việc ấy đã do các đường nối trong <svg> làm rồi.
+        */}
+        <span className={styles.nhanh} aria-hidden="true" />
+
+        {/* Các nhánh, tách làm hai nhóm để trên điện thoại còn đọc ra tầng. */}
+        {nhom ? <span className={styles.dauNhom}>{nhom.trong}</span> : null}
+        {nutTrong.map(veNut)}
+        {nhom ? <span className={styles.dauNhom}>{nhom.ngoai}</span> : null}
+        {nutNgoai.map(veNut)}
       </div>
     </div>
   );

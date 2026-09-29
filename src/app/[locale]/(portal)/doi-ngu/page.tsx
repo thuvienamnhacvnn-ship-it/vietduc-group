@@ -443,6 +443,36 @@ function DungDau({ locale, ghe }: { locale: Locale; ghe: Ghe }) {
                 pathLength="100"
               />
             </svg>
+
+            {/*
+              Bản VÒNG TRÒN của cùng nét sáng ấy, dành cho khổ điện thoại.
+
+              Phải là một hình khác chứ không co bản chữ nhật lại: viewBox
+              400×500 đặt vào một khung vuông thì trình duyệt kê lề trên dưới,
+              nét sáng chạy lệch hẳn ra ngoài đường bo tròn. Mỗi khổ hiện đúng
+              một bản — xem .trumVien / .trumVienTron.
+            */}
+            <svg
+              className={styles.trumVienTron}
+              viewBox="0 0 200 200"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <circle
+                className={styles.trumVienDuoi}
+                cx="100"
+                cy="100"
+                r="99"
+                pathLength="100"
+              />
+              <circle
+                className={styles.trumVienNet}
+                cx="100"
+                cy="100"
+                r="99"
+                pathLength="100"
+              />
+            </svg>
           </span>
         ) : (
           <ChanDung ten={p.name} anh={null} lon />
@@ -492,6 +522,12 @@ function Ban({ locale, ten, ds }: { locale: Locale; ten: string; ds: Ghe[] }) {
           </p>
         ) : null}
       </header>
+      {/* Nhánh rẽ từ tên ban xuống lưới người. Chỉ hiện trên điện thoại,
+          nơi mạng lưới phía trên không dựng được và danh sách dọc tự nó không
+          nói ra ai thuộc về đâu. Cùng lối vẽ với gốc chung ở tường thẻ trường
+          và ở sơ đồ hệ sinh thái. */}
+      <span className={styles.nhanhBan} aria-hidden="true" />
+
       <ul className={styles.dsNguoi}>
         {ds.map(({ nguoi: p, cv }) => (
           <li key={`${p.id}-${cv.id}`}>

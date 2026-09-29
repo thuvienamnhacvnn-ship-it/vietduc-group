@@ -219,54 +219,57 @@
  * to a single track, so twenty links ran down the screen with their headings
  * lost among them, and every block hung off the left margin.
  *
- * The sitemap becomes two even columns, the newsletter takes the full width it
- * needs for an input and a button, and everything that is a statement rather
- * than a list - the office block and the legal line - is centred, so each band
- * sits square between the two margins instead of trailing off to the right.
+ * The sitemap becomes two even columns and the newsletter takes the full width
+ * it needs for an input and a button.
+ *
+ * KHỐI TRỤ SỞ TỪNG ĐƯỢC CĂN GIỮA, NAY CĂN LỀ TRÁI. Căn giữa nghe thì cân, mà
+ * trên một màn hình 390px nó ra thế này: địa chỉ bị nhét vào nửa bề ngang rồi
+ * vỡ thành sáu dòng so le, mỗi dòng một độ dài, không dòng nào chạm được mép
+ * nào. Cho mỗi mục nguyên bề ngang và căn về lề trái thì địa chỉ ấy còn hai
+ * dòng, mọi dòng khởi từ cùng một điểm, và khối chữ đọc ra là một hình chữ
+ * nhật nằm vuông vắn giữa hai lề — chính là chỗ bị chê.
  */
 @media (max-width: 719px) {
   .office {
-    justify-items: center;
-    text-align: center;
+    justify-items: stretch;
+    text-align: start;
     padding-block: var(--s-7) var(--s-6);
   }
 
   .officeText {
-    justify-items: center;
+    justify-items: start;
   }
 
   .logo {
-    justify-self: center;
+    justify-self: start;
   }
 
   .legalName {
-    max-width: 34ch;
+    max-width: none;
   }
 
-  /* Two even halves rather than two ragged ones: the label sits over its own
-     value and both pairs share a centre line. */
-  .contactList {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--s-4) var(--s-4);
-    width: 100%;
-    text-align: center;
+  .motto {
+    max-width: none;
   }
 
   /*
-   * Email và website chiếm cả bề ngang.
+   * Một cột, mỗi mục nguyên bề ngang.
    *
-   * Nửa màn hình 390px còn khoảng 170px, mà "info@vietducgroup.com.vn" cần
-   * hơn thế. `overflow-wrap: anywhere` ở trên bèn cắt ngay giữa tên miền, ra
-   * thành "info@vietducgroup.co" xuống dòng "m.vn" — đọc như địa chỉ sai. Cho
-   * hai dòng này nguyên bề ngang thì chúng vừa đủ một dòng, không phải cắt.
+   * Hai cột ở khổ này để lại mỗi bên chừng 170px: địa chỉ vỡ sáu dòng, còn
+   * "info@vietducgroup.com.vn" thì `overflow-wrap: anywhere` cắt ngay giữa
+   * tên miền thành "info@vietducgroup.co" / "m.vn" — đọc như địa chỉ sai.
+   * Một cột thì cả bốn mục vừa gọn, không mục nào phải cắt.
    */
-  .contactList > div:nth-child(n + 3) {
-    grid-column: 1 / -1;
+  .contactList {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+    width: 100%;
+    text-align: start;
   }
 
   .socialWrap {
-    justify-items: center;
-    text-align: center;
+    justify-items: start;
+    text-align: start;
   }
 
   .columns {
@@ -297,14 +300,16 @@
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
+  /* Dòng pháp lý về cùng một lề với mọi khối trên nó; căn giữa ở đây làm nó
+     lệch khỏi cột chữ của cả chân trang. */
   .bottomInner {
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: start;
     gap: var(--s-2);
   }
 
   .legalLinks {
-    justify-content: center;
+    justify-content: flex-start;
     gap: var(--s-2) var(--s-4);
   }
 }

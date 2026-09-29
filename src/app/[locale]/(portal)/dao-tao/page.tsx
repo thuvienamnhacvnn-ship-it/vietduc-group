@@ -789,6 +789,23 @@ export default async function HomePage({
           <SchoolGrid
             schools={schools}
             locale={locale}
+            /* Gốc chung, chỉ hiện trên điện thoại: ở đó tám trường xếp thành
+               một danh sách dọc và không còn tự nói ra rằng chúng cùng một
+               nhà. Xem .coiNguon trong SchoolGrid.module.css. */
+            coiNguon={{
+              ten: dict.brand.name,
+              chuThich: pick(
+                {
+                  vi: "Cùng một hệ thống",
+                  en: "One system",
+                  de: "Ein Verbund",
+                  ja: "ひとつの体系",
+                  ko: "하나의 체계",
+                  "zh-TW": "同一體系",
+                },
+                locale,
+              ),
+            }}
             programCount={(id) => programCountBySchool.get(id) ?? 0}
             countLabel={(count) =>
               count > 0
@@ -797,6 +814,9 @@ export default async function HomePage({
                       vi: `${count} ngành`,
                       en: `${count} programmes`,
                       de: `${count} Programme`,
+                      ja: `${count} 課程`,
+                      ko: `${count}개 과정`,
+                      "zh-TW": `${count} 個課程`,
                     },
                     locale,
                   )

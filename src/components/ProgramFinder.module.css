@@ -94,3 +94,43 @@
 .submit:hover {
   background: var(--burgundy);
 }
+
+/* ------------------------------------------------------------ điện thoại */
+
+/*
+ * Trên điện thoại khung này là thứ đầu tiên chạm tay vào, nên ba ô chọn và
+ * cái nút phải cùng một chiều cao và cùng một bề ngang — trước đây ô chọn
+ * cao 38px, dưới mức 44px mà ngón tay cần, còn lề trong 1.5rem lấy mất gần
+ * một phần tư bề ngang màn hình.
+ */
+@media (max-width: 559px) {
+  .finder {
+    gap: var(--s-4);
+    padding: var(--s-4) var(--s-4) var(--s-5);
+  }
+
+  .fields {
+    gap: var(--s-4);
+  }
+
+  .field > span {
+    font-size: 0.68rem;
+  }
+
+  .field select,
+  .submit {
+    width: 100%;
+    min-height: 2.85rem;
+    border-radius: var(--r-3);
+  }
+
+  .field select {
+    padding-block: 0.7rem;
+  }
+
+  .submit {
+    margin-top: 0.15rem;
+    padding-inline: 1rem;
+    font-size: 0.95rem;
+  }
+}

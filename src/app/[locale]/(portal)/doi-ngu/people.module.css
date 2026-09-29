@@ -573,6 +573,34 @@
   animation: chayVienTrum 4.6s linear infinite;
 }
 
+/*
+ * Hai bản của cùng một nét sáng: chữ nhật cho màn hình lớn, tròn cho điện
+ * thoại. Nét trên khung tròn mảnh hơn vì viewBox của nó nhỏ hơn một nửa —
+ * cùng một con số stroke-width sẽ ra nét dày gấp đôi trên màn hình.
+ */
+.trumVienTron {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.trumVienTron .trumVienNet {
+  stroke-width: 1.9;
+  stroke-dasharray: 9 91;
+  filter: drop-shadow(0 0 3px rgba(255, 214, 140, 0.95))
+    drop-shadow(0 0 8px rgba(240, 190, 110, 0.6));
+}
+
+.trumVienTron .trumVienDuoi {
+  stroke-width: 1.1;
+  stroke-dasharray: 22 78;
+}
+
 @keyframes chayVienTrum {
   to {
     stroke-dashoffset: -100;
@@ -614,17 +642,265 @@
     0 0 60px rgba(240, 200, 130, 0.35);
 }
 
+/*
+ * Hào quang thở, chỉ dùng trên điện thoại.
+ *
+ * Ở đó không có con chuột, nên mọi hiệu ứng buộc vào :hover đều không bao giờ
+ * chạy — quầng sáng quanh ảnh người đứng đầu nằm im ở opacity 0 suốt đời. Trên
+ * điện thoại nó tự thở, rất chậm và rất nhẹ.
+ */
+@keyframes thoQuang {
+  0%,
+  100% {
+    opacity: 0.42;
+    scale: 0.9;
+  }
+  50% {
+    opacity: 0.9;
+    scale: 1.04;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .trumVienNet,
   .trumVienDuoi {
     animation: none;
   }
+
+  .trumAnh::after {
+    animation: none;
+  }
 }
 
-/* Khung hẹp: ảnh và chữ không còn chỗ đứng cạnh nhau thì xếp dọc. */
-@media (max-width: 640px) {
+/* Nhánh rẽ chỉ sống ở khổ điện thoại; ở màn hình lớn mạng lưới phía trên đã
+   vẽ hết các mối nối rồi. */
+.nhanhBan {
+  display: none;
+}
+
+/* ============================================================ điện thoại */
+
+/*
+ * Trên điện thoại cả trang này đảo thứ bậc.
+ *
+ * Bản trước: ảnh người đứng đầu là một chữ nhật 182×220 nép bên trái khối,
+ * còn mỗi thẻ nhánh bên dưới lại là một tấm ảnh 216×260 chiếm trọn bề ngang —
+ * tức là nhánh TO HƠN gốc, và một danh sách dọc 18 tấm ảnh dài hơn hai mươi
+ * nghìn điểm ảnh. Nhìn vào không đọc ra ai đứng đầu.
+ *
+ * Nay: gốc là một đĩa tròn đặt chính giữa khung, viền vàng, có nét sáng chạy
+ * quanh và quầng sáng tự thở. Nhánh là những đĩa tròn nhỏ hơn hẳn — 104px so
+ * với 232px — xếp hai cột, mỗi ban có một nhánh rẽ nối từ tên ban xuống. Cùng
+ * ngôn ngữ hình với tường thẻ trường ở trang Đào tạo và sơ đồ hệ sinh thái ở
+ * trang Giới thiệu: vòng vàng mảnh, nét vàng vẽ nhánh.
+ */
+@media (max-width: 719px) {
+  .trum {
+    padding: clamp(1.4rem, 5vw, 2rem) clamp(1rem, 4vw, 1.5rem)
+      clamp(1.6rem, 5vw, 2.2rem);
+  }
+
+  /* Ảnh trên, chữ dưới, tất cả vào giữa. */
   .trumLink {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    gap: clamp(1rem, 4vw, 1.5rem);
+    text-align: center;
+  }
+
+  /*
+   * Đĩa tròn, chính giữa.
+   *
+   * Gọi cả `> span:first-child` để trường hợp chưa có ảnh — khi đó chỗ này
+   * là đĩa chữ cái của ChanDung — cũng đúng một cỡ ấy, không tụt xuống còn
+   * 104px như mặc định của nó.
+   */
+  .trumAnh,
+  .trumLink > span:first-child {
+    width: min(62vw, 232px);
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+
+  .trumAnhTrong {
+    border-radius: 50%;
+    border-width: 2px;
+    border-color: color-mix(in srgb, var(--gold) 72%, transparent);
+  }
+
+  /* Khung vuông cắt cao hơn khung 4/5, nên neo lên một chút nữa cho khuôn mặt
+     nằm giữa đĩa chứ không sát mép trên. */
+  .trumAnh .anh {
+    object-position: 50% 14%;
+  }
+
+  /* Nét sáng: đổi sang bản chạy trên đường tròn. */
+  .trumVien {
+    display: none;
+  }
+
+  .trumVienTron {
+    display: block;
+  }
+
+  /* Không có chuột thì quầng sáng tự thở. */
+  .trumAnh::after {
+    opacity: 1;
+    scale: 1;
+    animation: thoQuang 5.6s ease-in-out infinite;
+  }
+
+  .trumChu {
+    flex: none;
+    width: 100%;
+  }
+
+  .trumTen {
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
+  }
+
+  /* Gạch vàng dưới tên cũng phải vào giữa, nếu không cả khối căn giữa mà
+     riêng nó thò ra lề trái. */
+  .trumTen::after {
+    margin-inline: auto;
+  }
+
+  /*
+   * Câu trích: nét vàng chuyển từ lề trái lên thành một vạch ngắn ở trên.
+   * Vạch dọc bên trái là dấu của đoạn văn căn trái; đặt cạnh một khối căn
+   * giữa thì nó chỉ còn là một nét lạc.
+   */
+  .trumTrich {
+    max-width: 36ch;
+    margin-inline: auto;
+    padding: clamp(0.8rem, 3vw, 1.1rem) 0 0;
+    border-left: 0;
+    border-top: 2px solid color-mix(in srgb, var(--gold) 45%, transparent);
+    font-size: 1rem;
+  }
+
+  /* ---- nhánh rẽ từ tên ban xuống lưới người ---- */
+
+  .nhanhBan {
+    display: block;
+    position: relative;
+    height: 26px;
+    margin: -0.15rem 0 0.35rem;
+  }
+
+  .nhanhBan::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 12px;
+    translate: -50% 0;
+    background: color-mix(in srgb, var(--gold) 58%, transparent);
+  }
+
+  .nhanhBan::after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 25%;
+    right: 25%;
+    height: 14px;
+    border: 1px solid color-mix(in srgb, var(--gold) 58%, transparent);
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+  }
+
+  /* ---- thẻ nhánh ---- */
+
+  .dsNguoi {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem 0.7rem;
+  }
+
+  .dsNguoi > li {
+    width: auto;
+  }
+
+  .the {
+    gap: 0.35rem;
+    justify-items: center;
+    text-align: center;
+  }
+
+  /*
+   * Khung ảnh thôi làm khung: nó trở thành một cột dọc gồm đĩa tròn và chức
+   * danh. Chức danh vốn nằm ĐÈ lên ảnh, ở dải tối dưới chân — trên một đĩa
+   * 104px thì không còn chỗ nào để đè, nên nó tụt xuống dưới đĩa.
+   */
+  .theAnh {
+    display: grid;
+    justify-items: center;
+    gap: 0.4rem;
+    aspect-ratio: auto;
+    overflow: visible;
+    background: none;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .theAnh::after {
+    display: none;
+  }
+
+  /* Cả ảnh thật lẫn đĩa chữ cái của ChanDung đều là con đầu của khung. */
+  .theAnh > :first-child {
+    width: min(100%, 104px);
+    height: auto;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 14%;
+    border: 1px solid color-mix(in srgb, var(--gold) 52%, transparent);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.26);
+  }
+
+  /*
+   * Chừa sẵn hai dòng cho chức danh.
+   *
+   * Ba chức danh trong sáu mươi cái dài quá một dòng ("Phó Chủ tịch Hội đồng
+   * quản trị", "Phụ trách Hành chính – Pháp lý", "Phó Thường trực Ban Kiểm
+   * soát"). Không chừa chỗ thì đúng ba hàng ấy có tên hai người lệch nhau một
+   * dòng. Chừa thì cả trang cao thêm chừng 450px — đổi lấy việc mọi hàng đều
+   * thẳng, và đó là điều được yêu cầu.
+   */
+  .theChuc {
+    position: static;
+    inset: auto;
+    min-height: 2.64em;
+    font-size: 0.68rem;
+    font-weight: 600;
+    line-height: 1.32;
+    letter-spacing: 0.03em;
+    color: var(--gold-deep);
+    text-shadow: none;
+  }
+
+  /* Cột hẹp thì tên được phép xuống dòng; cắt bằng dấu ba chấm ở đây là giấu
+     mất nửa cái tên. */
+  .theTen {
+    font-size: 0.9rem;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  /* Khung đã tan thì mấy hiệu ứng của khung cũng thôi: không còn mép nào để
+     đổi màu, và nhấc một đĩa tròn lên bốn pixel chỉ làm hàng lệch. */
+  .the:hover .theAnh {
+    border-color: transparent;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .the:hover .anh {
+    transform: none;
   }
 }

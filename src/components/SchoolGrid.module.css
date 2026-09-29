@@ -198,6 +198,16 @@
   object-fit: contain;
 }
 
+/*
+ * Thẻ chưa có ảnh khuôn viên đã mang huy hiệu phóng lớn giữa khung, nên ở màn
+ * hình lớn nó không đeo thêm huy hiệu nhỏ ở góc — hai lần cùng một dấu hiệu
+ * trên một tấm thẻ. Trên điện thoại thì ngược lại: khung ảnh biến mất và huy
+ * hiệu nhỏ chính là nhân vật chính, nên luật này được gỡ ở khối cuối tệp.
+ */
+.card[data-anh="khong"] .crest {
+  display: none;
+}
+
 /* ---------- the words ---------- */
 
 .body {
@@ -212,6 +222,13 @@
 /* Đẩy chân thẻ xuống đáy phần chữ. */
 .foot {
   margin-top: auto;
+}
+
+/* Trường chưa khai nơi chốn: ở màn hình lớn ô rỗng chỉ là một khoảng hở thừa
+   trong cột chữ. Trên điện thoại thì ngược lại, nó giữ chỗ cho hàng thẻ khỏi
+   lệch — xem khối cuối tệp. */
+.city:empty {
+  display: none;
 }
 
 .city {
@@ -291,42 +308,147 @@
   }
 }
 
+/* --------------------------------------------------------- cội nguồn */
+
 /*
- * Trên điện thoại: hàng ngang, không phải thẻ.
+ * Gốc chung của cả tường thẻ. Chỉ dựng trên điện thoại.
  *
- * Chú thích cũ ở đầu file nói một cột vẫn ngắn hơn hai cột chật — đúng, nhưng
- * cả hai đều sai đề. Thẻ có ảnh phủ hết bề ngang cao khoảng 600px; sáu trường
- * thành 3.600px, tức bốn màn hình rưỡi để đọc một danh sách sáu dòng. Người
- * dùng không so sánh nổi trường thứ nhất với trường thứ sáu vì không bao giờ
- * thấy chúng cùng lúc.
+ * Ở màn hình lớn tám tấm thẻ nằm ba hàng trong một dải rộng: mắt bắt ngay ra
+ * đây là một tập hợp. Trên điện thoại chúng xếp thành một danh sách dài, mà
+ * một danh sách thì không nói được rằng tám trường này cùng một nhà — đó
+ * đúng là chỗ bị chê.
  *
- * Hàng ngang: ảnh nhỏ bên trái, tên và nơi chốn bên phải, mỗi trường ~112px.
- * Sáu trường gói trong hơn một màn hình — liếc một cái là thấy cả hệ thống.
- * Ảnh vẫn còn, chỉ thôi đóng vai trò trang trí cỡ lớn.
+ * Nên trên điện thoại lưới mọc thêm một cái gốc: huy hiệu tập đoàn ở trên,
+ * rồi một nhánh rẽ đôi chạy xuống đúng tâm hai cột thẻ bên dưới. Cùng một
+ * ngôn ngữ hình từ trên xuống dưới: vòng vàng mảnh quanh huy hiệu tập đoàn
+ * cũng là vòng vàng quanh huy hiệu từng trường, và nét vàng của nhánh rẽ là
+ * nét vàng ấy.
+ */
+.coiNguon {
+  display: none;
+}
+
+/* ------------------------------------------------------------ điện thoại */
+
+/*
+ * Trên điện thoại: thẻ dọc, huy hiệu là nhân vật chính.
+ *
+ * Bản trước là hàng ngang — ảnh khuôn viên 108px bên trái, chữ bên phải — và
+ * huy hiệu trường bị tắt hẳn. Nghĩa là trên điện thoại người xem không nhìn
+ * thấy dấu hiệu của trường nào cả, chỉ thấy tám vệt ảnh na ná nhau. Đó là
+ * chỗ bị chê "logo bé xíu nép bên trái".
+ *
+ * Nay đảo lại: ảnh khuôn viên nghỉ (nó vẫn còn nguyên ở màn hình lớn và ở
+ * trang riêng của từng trường), huy hiệu phóng lên gần trọn bề ngang cột,
+ * đặt giữa, trên một khuôn tròn trắng có vòng vàng. Tên trường nằm dưới, ở
+ * giữa, có đủ chỗ xuống ba dòng — tiếng Đức và tiếng Nhật dài hơn tiếng Việt.
+ *
+ * Vẫn hai cột chứ không một: một cột thì tám thẻ dọc thành ba màn hình để
+ * đọc một danh sách tám dòng, đúng cái sai mà bản hàng ngang đã chữa.
  */
 @media (max-width: 699px) {
+  .coiNguon {
+    display: grid;
+    justify-items: center;
+    margin-bottom: 0.1rem;
+  }
+
+  /* Cùng khuôn tròn trắng, cùng vòng vàng với huy hiệu từng trường bên dưới:
+     đó là thứ buộc hai tầng lại thành một hệ thống. */
+  .coiNguonHuy {
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    padding: 13px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid color-mix(in srgb, var(--gold) 58%, transparent);
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.16);
+  }
+
+  .coiNguonHuy img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .coiNguonTen {
+    margin-top: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .coiNguonPhu {
+    margin-top: 0.15rem;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+
+  /*
+   * Nhánh rẽ đôi. Một nét dọc rời huy hiệu, gặp một thanh ngang, rồi hai tay
+   * thả xuống đúng tâm hai cột thẻ (25% và 75% bề ngang lưới).
+   */
+  .nhanh {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 38px;
+    margin-top: 0.5rem;
+  }
+
+  .nhanh::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 16px;
+    translate: -50% 0;
+    background: color-mix(in srgb, var(--gold) 62%, transparent);
+  }
+
+  .nhanh::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 25%;
+    right: 25%;
+    height: 22px;
+    border: 1px solid color-mix(in srgb, var(--gold) 62%, transparent);
+    border-bottom: 0;
+    border-radius: 7px 7px 0 0;
+  }
+
   .grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 0.7rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .grid > li {
+    display: grid;
   }
 
   .card {
     grid-template-rows: none;
-    grid-template-columns: 108px minmax(0, 1fr);
-    align-items: stretch;
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .figure {
-    aspect-ratio: auto;
-  }
+  /* Ảnh khuôn viên nghỉ: trong một cột rộng chừng 165px nó chỉ còn là một vệt
+     màu, mà chỗ ấy để cho huy hiệu thì mới đọc ra trường nào là trường nào.
 
-  .figure > img {
-    height: 100%;
-  }
-
-  /* Dải dọc hẹp: huy hiệu lấy gần hết bề ngang mới đọc được. */
-  .huyHieuLon {
-    width: 70%;
+     Khung huy hiệu của thẻ chưa có ảnh phải gọi đích danh: .figure[data-anh]
+     nặng hơn .figure một bậc nên nếu chỉ tắt .figure thì hai thẻ ấy vẫn dựng
+     khung navy, thành ra mang hai huy hiệu chồng nhau. */
+  .figure,
+  .figure[data-anh="khong"] {
+    display: none;
   }
 
   /* Chỉ vàng bên trong quá sát mép ở cỡ này thì thành nhiễu. */
@@ -334,16 +456,33 @@
     display: none;
   }
 
-  /* Hàng ngang thì không còn "đường nối" giữa ảnh và chữ để huy hiệu cưỡi
-     lên, mà ảnh bên trái đã mang sẵn dấu hiệu của trường rồi. */
+  /*
+   * Huy hiệu: từ 58px đeo góc (và bị tắt hẳn ở bản trước) thành khuôn tròn
+   * gần trọn bề ngang cột, đặt giữa, ngay dưới nhánh rẽ của tập đoàn.
+   */
+  .crest,
+  .card[data-anh="khong"] .crest {
+    display: grid;
+  }
+
   .crest {
-    display: none;
+    position: static;
+    width: 74%;
+    min-width: 68px;
+    max-width: 106px;
+    height: auto;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    padding: 9px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid color-mix(in srgb, var(--gold) 46%, transparent);
   }
 
   .body {
-    gap: 0.15rem;
-    padding: 0.7rem 0.85rem 0.6rem;
-    align-content: center;
+    gap: 0.16rem;
+    padding: 0.95rem 0.7rem 0.8rem;
+    align-items: center;
+    text-align: center;
   }
 
   /* Không còn huy hiệu cưỡi lên góc nên bỏ luôn chỗ chừa cho nó. */
@@ -352,22 +491,35 @@
     padding-right: 0;
   }
 
+  .city,
+  .city:empty {
+    display: block;
+    margin-top: 0.5rem;
+    min-height: 1em;
+    font-size: 0.63rem;
+    letter-spacing: 0.1em;
+  }
+
   .name {
-    font-size: 1rem;
+    font-size: 0.93rem;
+    line-height: 1.3;
   }
 
   .foot {
-    margin-top: 0.45rem;
-    padding-top: 0;
-    border-top: 0;
+    width: 100%;
+    justify-content: center;
+    margin-top: auto;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--line);
   }
 
   .count {
-    font-size: 0.8rem;
+    font-size: 0.76rem;
   }
 
+  /* Cả tấm thẻ đã là một liên kết; thêm một nút mũi tên 32px vào cột hẹp này
+     chỉ làm chật chỗ của tên trường. */
   .arrow {
-    width: 26px;
-    height: 26px;
+    display: none;
   }
 }

@@ -24,60 +24,86 @@ export function SchoolGrid({
   locale,
   countLabel,
   programCount,
+  coiNguon,
 }: {
   schools: SchoolRow[];
   locale: Locale;
   countLabel: (count: number) => string;
   programCount: (schoolId: number) => number;
+  /**
+   * Gốc chung của cả tường thẻ: huy hiệu tập đoàn, tên tập đoàn và một nhánh
+   * rẽ nối xuống lưới trường. Chỉ hiện trên điện thoại — xem .coiNguon trong
+   * tệp kiểu dáng. Không truyền thì không dựng, nên trang nào không cần gốc
+   * (ví dụ trang Hệ thống trường, vốn đã nói rõ bằng tiêu đề) vẫn như cũ.
+   */
+  coiNguon?: { ten: string; chuThich: string };
 }) {
   return (
-    <ol className={styles.grid}>
-      {schools.map((school, index) => {
-        // Tên riêng không bao giờ bị bẻ làm hai dòng — xem giuTenLien().
-        const name = giuTenLien(t(school.shortName ?? school.name, locale));
-        const city = school.city ? t(school.city, locale) : "";
+    <>
+      {coiNguon ? (
+        <div className={styles.coiNguon}>
+          <span className={styles.coiNguonHuy}>
+            <Image
+              src="/brand/viet-duc-mark.png"
+              alt=""
+              width={152}
+              height={163}
+            />
+          </span>
+          <strong className={styles.coiNguonTen}>{coiNguon.ten}</strong>
+          <span className={styles.coiNguonPhu}>{coiNguon.chuThich}</span>
+          <span className={styles.nhanh} aria-hidden="true" />
+        </div>
+      ) : null}
 
-        return (
-          <li
-            key={school.id}
-            data-reveal
-            suppressHydrationWarning
-            style={
-              {
-                "--reveal-delay": `${(index % 3) * 90}ms`,
-              } as React.CSSProperties
-            }
-          >
-            <Link
-              href={localePath(locale, `/dao-tao/truong/${school.slug}`)}
-              className={styles.card}
+      <ol className={styles.grid}>
+        {schools.map((school, index) => {
+          // Tên riêng không bao giờ bị bẻ làm hai dòng — xem giuTenLien().
+          const name = giuTenLien(t(school.shortName ?? school.name, locale));
+          const city = school.city ? t(school.city, locale) : "";
+
+          return (
+            <li
+              key={school.id}
+              data-reveal
+              suppressHydrationWarning
+              style={
+                {
+                  "--reveal-delay": `${(index % 3) * 90}ms`,
+                } as React.CSSProperties
+              }
             >
-              <span
-                className={styles.figure}
+              <Link
+                href={localePath(locale, `/dao-tao/truong/${school.slug}`)}
+                className={styles.card}
                 data-anh={school.coverPath ? "co" : "khong"}
               >
-                {school.coverPath ? (
-                  <Image
-                    src={school.coverPath}
-                    alt=""
-                    width={1400}
-                    height={1000}
-                    sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
-                  />
-                ) : school.logoPath ? (
-                  <span className={styles.huyHieuLon} aria-hidden="true">
+                <span
+                  className={styles.figure}
+                  data-anh={school.coverPath ? "co" : "khong"}
+                >
+                  {school.coverPath ? (
                     <Image
-                      src={school.logoPath}
+                      src={school.coverPath}
                       alt=""
-                      width={320}
-                      height={320}
+                      width={1400}
+                      height={1000}
+                      sizes="(min-width: 1100px) 33vw, (min-width: 700px) 50vw, 100vw"
                     />
-                  </span>
-                ) : null}
-              </span>
+                  ) : school.logoPath ? (
+                    <span className={styles.huyHieuLon} aria-hidden="true">
+                      <Image
+                        src={school.logoPath}
+                        alt=""
+                        width={320}
+                        height={320}
+                      />
+                    </span>
+                  ) : null}
+                </span>
 
-              <span className={styles.body}>
-                {/*
+                <span className={styles.body}>
+                  {/*
                   Huy hiệu cưỡi lên đường nối ảnh và chữ, trên nền trắng của
                   riêng nó: đây là dấu hiệu của đơn vị khác, không nhuộm màu.
 
@@ -86,46 +112,55 @@ export function SchoolGrid({
                   rê chuột, mà cắt sát thì xén luôn nửa dưới huy hiệu. Phần chữ
                   bắt đầu đúng chỗ khung ảnh kết thúc nên neo vào đây là vừa.
 
-                  Thẻ không ảnh đã có huy hiệu phóng lớn ở giữa rồi.
+                  Dựng cho MỌI trường có huy hiệu, kể cả trường chưa có ảnh
+                  khuôn viên: trên điện thoại đây chính là huy hiệu lớn giữa
+                  thẻ, nên thẻ nào cũng phải có. Ở màn hình lớn, thẻ chưa có
+                  ảnh đã mang huy hiệu phóng lớn trong khung rồi nên bản này
+                  bị tắt — xem .card[data-anh="khong"] .crest.
                 */}
-                {school.logoPath && school.coverPath ? (
-                  <span className={styles.crest}>
-                    <Image
-                      src={school.logoPath}
-                      alt=""
-                      width={160}
-                      height={160}
-                    />
-                  </span>
-                ) : null}
-                {city ? <em className={styles.city}>{city}</em> : null}
-                <strong className={styles.name}>{name}</strong>
-                <span className={styles.foot}>
-                  <span className={styles.count}>
-                    {countLabel(programCount(school.id))}
-                  </span>
-                  <span className={styles.arrow} aria-hidden="true">
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="18"
-                      height="18"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                    >
-                      <path
-                        d="M5 12h13M12 5l7 7-7 7"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                  {school.logoPath ? (
+                    <span className={styles.crest}>
+                      <Image
+                        src={school.logoPath}
+                        alt=""
+                        width={160}
+                        height={160}
                       />
-                    </svg>
+                    </span>
+                  ) : null}
+                  {/* Dựng cả khi trống: trên điện thoại hai thẻ cạnh nhau
+                    mà một thẻ thiếu dòng nơi chốn thì tên hai trường lệch
+                    nhau một dòng. Ô rỗng bị tắt ở màn hình lớn — xem
+                    .city:empty. */}
+                <em className={styles.city}>{city}</em>
+                  <strong className={styles.name}>{name}</strong>
+                  <span className={styles.foot}>
+                    <span className={styles.count}>
+                      {countLabel(programCount(school.id))}
+                    </span>
+                    <span className={styles.arrow} aria-hidden="true">
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="18"
+                        height="18"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                      >
+                        <path
+                          d="M5 12h13M12 5l7 7-7 7"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </span>
                   </span>
                 </span>
-              </span>
-            </Link>
-          </li>
-        );
-      })}
-    </ol>
+              </Link>
+            </li>
+          );
+        })}
+      </ol>
+    </>
   );
 }

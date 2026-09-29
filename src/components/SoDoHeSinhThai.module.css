@@ -204,6 +204,13 @@
   height: 72%;
 }
 
+/* Ở màn hình lớn tên tập đoàn đã nằm ngay cạnh, trong cột chữ của banner, nên
+   nút tâm không mang nhãn. Nhãn ấy chỉ sống trên điện thoại, nơi cột chữ nằm
+   tận phía trên và sơ đồ phải tự giới thiệu lấy gốc của nó. */
+.tam .nhan {
+  display: none;
+}
+
 .trong {
   width: 10.5%;
   aspect-ratio: 1;
@@ -218,90 +225,235 @@
   z-index: 2;
 }
 
+/* ------------------------------------------- nhánh rẽ và đầu mục nhóm */
+
+/* Cả hai chỉ sống trên điện thoại; ở màn hình lớn chúng nằm ngoài luồng hình
+   học và sẽ phá mất tỉ lệ khung. */
+.nhanh,
+.dauNhom {
+  display: none;
+}
+
 /* ============================================================ điện thoại */
 
 /*
- * Dưới 700px bỏ hẳn hình học.
+ * Dưới 900px bỏ hẳn hình học.
  *
- * Ở bề ngang 375px, mười một logo quanh một vòng thì mỗi cái còn bằng đầu ngón
- * tay và các đường nối chồng lên nhau thành một mớ rối. Xếp lưới thì mỗi logo
- * to gấp ba, tên hiện thẳng ra không cần rê chuột, mà viền và hiệu ứng vẫn giữ.
+ * Ở bề ngang 375px, mười ba logo quanh một vòng thì mỗi cái còn bằng đầu ngón
+ * tay và các đường nối chồng lên nhau thành một mớ rối. Ở khổ ấy chúng xếp
+ * thành lưới, giữ nguyên vòng viền vàng, chỉ bỏ phần hình học.
+ *
+ * BA ĐIỀU ĐÃ SAI Ở BẢN TRƯỚC, ghi lại để đừng ai làm lại:
+ *
+ * 1. Ba luật cỡ nút của bản gọn — .gon .tam / .gon .trong / .gon .ngoai —
+ *    nặng hơn luật điện thoại .nut một bậc (hai lớp so với một), lại còn viết
+ *    sau, nên phần trăm bề ngang của bản vòng tròn vẫn thắng trong lưới. Nút
+ *    "11.5%" tính trên ô lưới 110px ra 12.6px, nhỏ hơn cả lề trong, nên mọi
+ *    nút co lại đúng bằng lề: 19px. Logo còn 30px, tên trường vỡ thành mỗi
+ *    dòng một chữ, và logo tập đoàn — vốn chiếm cả hàng đầu — nằm lệch hẳn
+ *    sang trái vì hộp của nó chỉ rộng 63px. Trang Giới thiệu là nơi duy nhất
+ *    dùng bản gọn nên cũng là nơi duy nhất hỏng. Nay có luật gỡ riêng bên
+ *    dưới, và nó phải giữ đúng độ nặng ấy.
+ *
+ * 2. Ba cột ở khổ 390px cho mỗi cột 110px — không đủ cho cả logo lẫn tên.
+ *    Nay cột tự chia theo bề rộng tối thiểu 148px: hai cột trên điện thoại,
+ *    bốn tới năm cột trên máy tính bảng.
+ *
+ * 3. Nhãn lấy màu var(--muted-soft), mà ở chế độ SÁNG màu ấy là #6b7076 —
+ *    xám sẫm đặt trên dải navy. Dải này tối ở cả hai chế độ nên nhãn cũng
+ *    phải sáng ở cả hai.
  */
 @media (max-width: 899px) {
   .khung {
     aspect-ratio: auto;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.7rem;
+    /* Hai cột ở khổ điện thoại, tự nới ra bốn–năm cột trên máy tính bảng. */
+    grid-template-columns: repeat(auto-fit, minmax(148px, 1fr));
+    gap: 1.1rem 0.7rem;
+    justify-items: center;
   }
 
   .day {
     display: none;
   }
 
+  /* Bản thường. Bản gọn được gỡ ở cuối tệp — xem điều 1 ở trên. */
   .nut {
     position: static;
     translate: none;
-    width: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    padding: 0;
+  }
+
+  /* Một cột chạy hết bề ngang ô lưới: nếu để cột tự co theo nội dung thì
+     nhãn "100%" lại tính trên chính bề rộng của nhãn, và tên dài mất mươi
+     điểm ảnh cuối cùng đáng ra được dùng để xuống dòng. */
+  .nut {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    justify-items: center;
+    align-content: start;
+  }
+
+  /*
+   * Vòng viền ôm đúng ô logo, không ôm cả nhãn.
+   *
+   * Nó THÔI tuyệt đối và trở thành một ô lưới chồng lên ô của ảnh (cùng
+   * `grid-area: 1 / 1`). Giữ `position: absolute` ở đây là hỏng: khi .nut
+   * thôi định vị, khối chứa của vòng nhảy lên .khung, và cả mười ba cái vòng
+   * dồn về một chỗ ở đỉnh sơ đồ — nhìn tưởng chỉ có mỗi tâm là có vòng, còn
+   * các nhánh thì trần trụi.
+   *
+   * Tên đơn vị nằm ở hàng hai, ngoài vòng, và được dùng trọn bề ngang ô lưới
+   * để xuống dòng.
+   */
+  .vien {
+    position: static;
+    grid-area: 1 / 1;
+    inset: auto;
+    translate: none;
+    width: min(100%, 124px);
     height: auto;
     aspect-ratio: 1;
-    padding: 0.6rem;
+    border-radius: 50%;
+    /* Vòng to thì đường phải đậm hơn: ở 124px, nét 42% vàng của bản vòng
+       tròn gần như biến mất, mà chính cái vòng này là thứ buộc mọi nhánh
+       vào cùng một ngôn ngữ hình với tâm. */
+    border-color: color-mix(in srgb, var(--gold) 58%, transparent);
   }
 
-  .vien {
-    border-radius: var(--r-4);
-  }
-
+  /* Lề trong chừa chỗ thở giữa logo và vòng viền; logo chiếm 70% đường kính,
+     gấp hơn ba lần bản trước. */
   .nut img {
-    width: 76%;
-    height: 62%;
+    grid-area: 1 / 1;
+    width: min(100%, 124px);
+    height: auto;
+    aspect-ratio: 1;
+    padding: 15%;
+    object-fit: contain;
   }
 
-  /* Tâm chiếm cả hàng đầu, để vẫn đọc ra đây là gốc của những cái còn lại. */
-  /*
-   * `min-height: 0` là bắt buộc, không phải cho đẹp.
-   *
-   * Ô lưới mặc định có chiều cao tối thiểu bằng nội dung của nó. Logo vuông đặt
-   * rộng hết hàng thì tự nó đã cao gần bằng hàng, và cái tối thiểu ấy thắng luôn
-   * `aspect-ratio` — khung phình thành gần vuông, logo chiếm trọn màn hình điện
-   * thoại và đẩy hết phần còn lại xuống dưới.
-   */
+  /* ---- tâm ---- */
+
+  /* Cả hàng riêng, ở giữa, to hơn các nhánh một bậc: đây là gốc chứ không
+     phải một nhánh nữa. */
   .tam {
     grid-column: 1 / -1;
-    aspect-ratio: 2 / 1;
+    width: 100%;
     min-height: 0;
   }
 
-  /*
-   * Định cỡ theo bề ngang, KHÔNG theo `height: 100%`: chiều cao của khung do
-   * `aspect-ratio` suy ra, và trình duyệt vẫn coi nó là không xác định khi giải
-   * phần trăm chiều cao — logo rơi về kích thước gốc rồi tràn ra ngoài khung.
-   * `max-height` chỉ là chốt chặn phòng khi tỉ lệ khung đổi.
-   */
+  .tam .vien,
   .tam img {
-    width: 40%;
-    height: auto;
-    max-height: 100%;
+    width: min(100%, 150px);
   }
+
+  .tam .vien {
+    border-width: 1.5px;
+  }
+
+  .tam img {
+    padding: 13%;
+  }
+
+  .tam .nhan {
+    display: block;
+    margin-top: 0.55rem;
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: #f2f5f9;
+  }
+
+  /* ---- nhánh rẽ từ tâm xuống hai cột ---- */
+
+  /*
+   * Một nét dọc rời tâm, gặp một thanh ngang, rồi hai tay thả xuống đúng tâm
+   * hai cột lưới. Cùng lối vẽ với gốc chung ở tường thẻ các trường thành
+   * viên trên trang Đào tạo, để hai trang nói cùng một thứ tiếng.
+   */
+  .nhanh {
+    display: block;
+    position: relative;
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 34px;
+    margin-top: -0.3rem;
+  }
+
+  .nhanh::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 14px;
+    translate: -50% 0;
+    background: color-mix(in srgb, var(--gold) 62%, transparent);
+  }
+
+  .nhanh::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    left: 25%;
+    right: 25%;
+    height: 20px;
+    border: 1px solid color-mix(in srgb, var(--gold) 62%, transparent);
+    border-bottom: 0;
+    border-radius: 7px 7px 0 0;
+  }
+
+  /* ---- đầu mục hai nhóm ---- */
+
+  /* Hình học biến mất thì không còn gì nói ra rằng vòng trong là thương hiệu
+     còn vòng ngoài là trường. Hai dòng chữ này làm việc ấy. */
+  .dauNhom {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: -0.2rem;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .dauNhom::before,
+  .dauNhom::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: color-mix(in srgb, var(--gold) 34%, transparent);
+  }
+
+  /* ---- nhãn ---- */
 
   .nhan,
   .nhanPhai .nhan,
   .nhanTrai .nhan {
     position: static;
+    grid-area: 2 / 1;
+    inset: auto;
     translate: none;
     opacity: 1;
     width: 100%;
     max-width: 100%;
-    margin-top: 0.35rem;
+    margin-top: 0.45rem;
     padding: 0;
     border: 0;
     background: none;
-    font-size: 0.68rem;
-    color: var(--muted-soft);
-  }
-
-  .tam .nhan {
-    display: none;
+    font-size: 0.76rem;
+    line-height: 1.34;
+    /* Dải này tối ở cả hai chế độ, nên nhãn sáng ở cả hai — xem điều 3. */
+    color: #c8d2de;
   }
 }
 
@@ -376,5 +528,28 @@
 @media (max-width: 899px) {
   .gon .khung {
     aspect-ratio: auto;
+  }
+
+  /*
+   * Và gỡ luôn cỡ nút.
+   *
+   * Đây là chỗ DUY NHẤT gỡ được: ba luật .gon .tam / .gon .trong / .gon
+   * .ngoai nặng hai lớp, nên luật .nut một lớp trong khối điện thoại không
+   * bao giờ đè nổi, dù viết sau. Bỏ sót đúng ba dòng này là cả sơ đồ trên
+   * trang Giới thiệu co lại bằng lề trong của nó — 19px một nút, logo 30px,
+   * tên vỡ mỗi dòng một chữ. Chuyển ba dòng này lên trên là hỏng lại.
+   */
+  .gon .tam,
+  .gon .trong,
+  .gon .ngoai {
+    width: 100%;
+  }
+
+  /* Cùng một cái bẫy: nhãn của bản gọn bị chặn ở 9rem, tức 144px, trong khi
+     ô lưới rộng 170px — tên dài mất gần ba chục điểm ảnh đáng ra để xuống
+     dòng cho gọn. */
+  .gon .nhan {
+    max-width: 100%;
+    font-size: 0.76rem;
   }
 }

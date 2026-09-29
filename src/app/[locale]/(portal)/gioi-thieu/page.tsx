@@ -301,6 +301,26 @@ export default async function AboutPage({
                   }}
                   vongTrong={thuongHieu}
                   vongNgoai={nhanhTruong}
+                  /* Chỉ hiện trên điện thoại: ở đó sơ đồ mất phần hình học
+                     nên hai tầng phải được gọi tên ra. */
+                  nhom={{
+                    trong: say({
+                      vi: "Thương hiệu thành viên",
+                      en: "Member brands",
+                      de: "Mitgliedsmarken",
+                      ja: "グループ各社",
+                      ko: "계열 브랜드",
+                      "zh-TW": "成員品牌",
+                    }),
+                    ngoai: say({
+                      vi: "Trường thành viên",
+                      en: "Member schools",
+                      de: "Mitgliedsschulen",
+                      ja: "加盟校",
+                      ko: "회원 학교",
+                      "zh-TW": "成員學校",
+                    }),
+                  }}
                 />
               </div>
             </div>
