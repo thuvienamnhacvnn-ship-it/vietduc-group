@@ -149,12 +149,6 @@
   gap: clamp(1.5rem, 4vw, 3.5rem);
 }
 
-@media (max-width: 899px) {
-  .moChu {
-    grid-template-columns: minmax(0, 1fr);
-    gap: clamp(1.5rem, 5vw, 2.5rem);
-  }
-}
 
 .moTrong {
   pointer-events: auto;
@@ -230,6 +224,169 @@
   font-size: var(--step-1);
   line-height: 1.55;
   color: #c9d3de;
+}
+
+/*
+ * Bản một cột: bỏ ảnh banner, nền dựng bằng CSS, cả khối cân giữa.
+ *
+ * Vì sao bỏ ảnh. Chiều cao khung do NỘI DUNG quyết định (xem .moKhung). Khi hai
+ * cột xếp chồng, nội dung cao gấp mấy lần, nên `object-fit: cover` phải phóng
+ * bức ảnh ngang lên rất to rồi cắt: khu đô thị và hai bản đồ nối nhau — tức là
+ * toàn bộ nội dung của bức — nằm ngoài khung, chỉ còn lại một dải trời hụt đầu
+ * hụt đuôi. Không có cách đặt `object-position` nào cứu được, vì cái hỏng là tỉ
+ * lệ khung chứ không phải điểm neo.
+ *
+ * Nền thay thế dựng hoàn toàn bằng CSS nên không tải thêm tệp nào, và cao bao
+ * nhiêu cũng không méo: quầng vàng sau logo, quầng navy dưới chân, lưới nét
+ * mảnh làm chất liệu, tất cả đều theo bề ngang khung.
+ */
+@media (max-width: 899px) {
+  .moChu {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 2.5rem);
+    justify-items: center;
+  }
+
+  /* Ảnh và ba lớp phủ của nó đi cùng nhau — giữ lại lớp phủ khi đã bỏ ảnh thì
+     chỉ còn là mấy tấm màn xám phủ lên nền mới. */
+  .moAnh,
+  .moToi,
+  .moPhu,
+  .moPhuDuoi {
+    display: none;
+  }
+
+  /* Lớp phủ nghiêng của .moLop sinh ra để cứu chữ nằm trên ảnh; không còn ảnh
+     thì nó chỉ làm đục quầng sáng. */
+  .moLop::before {
+    display: none;
+  }
+
+  .moKhung {
+    min-height: 0;
+    background:
+      radial-gradient(
+        112% 58% at 50% 2%,
+        rgba(210, 162, 89, 0.2),
+        transparent 64%
+      ),
+      radial-gradient(
+        124% 64% at 50% 106%,
+        rgba(23, 68, 122, 0.32),
+        transparent 72%
+      ),
+      var(--band);
+  }
+
+  /*
+   * Chất liệu: lưới nét mảnh màu vàng, mờ tới mức chỉ cảm thấy chứ không đọc
+   * ra từng ô. `mask-image` bóp lưới nhạt dần về bốn mép nên nền không có
+   * đường biên nào cắt ngang.
+   */
+  .moKhung::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(210, 162, 89, 0.075) 0 1px,
+        transparent 1px 64px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(210, 162, 89, 0.055) 0 1px,
+        transparent 1px 64px
+      );
+    -webkit-mask-image: radial-gradient(
+      86% 68% at 50% 36%,
+      #000 0%,
+      transparent 78%
+    );
+    mask-image: radial-gradient(86% 68% at 50% 36%, #000 0%, transparent 78%);
+  }
+
+  /* Quầng sáng thở chậm ngay sau logo. */
+  .moKhung::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 50%;
+    width: min(150%, 620px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -38%);
+    pointer-events: none;
+    background: radial-gradient(
+      closest-side,
+      rgba(210, 162, 89, 0.24),
+      rgba(210, 162, 89, 0.08) 52%,
+      transparent 72%
+    );
+    animation: thoNen 7.2s ease-in-out infinite;
+  }
+
+  /* ---- cân giữa: logo trước, mọi dòng chữ theo logo ---- */
+
+  .moTrong {
+    text-align: center;
+  }
+
+  .moLogo {
+    display: block;
+    margin-inline: auto;
+    width: clamp(190px, 52vw, 260px);
+  }
+
+  /* Đề tựa vốn có một nét kẻ bên trái; cân giữa thì phải có nét thứ hai bên
+     phải, nếu không chữ lệch đúng bằng bề ngang nét kẻ. Lối vẽ này chép từ
+     .deTuaGiua ở phần dưới trang để cả trang nói cùng một thứ tiếng. */
+  /*
+   * `margin-inline: auto` là bắt buộc, không thừa: một luật chung ở tầng trên
+   * bó mọi đoạn văn lại còn 542px. Chỉ `justify-content: center` thì nội dung
+   * cân giữa trong cái hộp 542px ấy, mà hộp thì vẫn dính lề trái — ở 820px
+   * tâm chữ lệch 110px so với tâm logo.
+   */
+  .deTua {
+    justify-content: center;
+    margin-inline: auto;
+  }
+
+  .deTua::after {
+    content: "";
+    display: block;
+    width: 2.4rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .vach {
+    margin-inline: auto;
+  }
+
+  .moDan {
+    margin-inline: auto;
+    max-width: 24rem;
+  }
+}
+
+@keyframes thoNen {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moKhung::after {
+    animation: none;
+    opacity: 0.8;
+  }
 }
 
 /* =============================================================== chuyện */

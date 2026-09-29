@@ -206,7 +206,14 @@ export default async function AboutPage({
             })}
             fill
             priority
-            sizes="100vw"
+            /*
+              Dưới 900px banner này bị ẩn hẳn — xem `.moAnh` trong tệp kiểu
+              dáng, ở đó có lý do. `display: none` KHÔNG ngăn trình duyệt tải
+              ảnh, nên khai bề ngang 1px cho khổ ấy: srcset vẫn còn đủ mọi cỡ
+              cho màn lớn, còn điện thoại chỉ nhận bản nhỏ nhất thay vì một tấm
+              nền toàn màn hình không bao giờ hiện ra.
+            */
+            sizes="(max-width: 899px) 1px, 100vw"
             className={styles.moAnh}
           />
           {/* Làm tối ảnh trước, rồi mới đến hai lớp gradient trên và dưới. */}
