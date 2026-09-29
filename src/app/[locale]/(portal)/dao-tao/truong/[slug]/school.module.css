@@ -1,148 +1,724 @@
+/*
+ * Trang hồ sơ một trường.
+ *
+ * Bản trước là một cột chữ: tên trường, một hàng số trơ, ngành nghề xếp thành
+ * danh sách gạch đầu dòng, còn các quyết định thành lập — thứ duy nhất chứng
+ * minh trường này có thật và được phép dạy — thì nằm khuất trong cột phụ. Đọc
+ * xong không nhớ được gì.
+ *
+ * Bản này chia trang thành bốn thứ mắt nhận ra ngay: một dải đầu trang có sức
+ * nặng, các con số thành thẻ, mỗi ngành nghề một thẻ mang mã ngành và chỉ
+ * tiêu, và hồ sơ pháp lý thành một trục thời gian.
+ */
+
+/* ------------------------------------------------------------- dải đầu */
+
+/*
+ * Dải đầu tràn hết bề ngang, nền tối, và LUÔN có nền.
+ *
+ * Trường có ảnh khuôn viên thì ảnh làm nền, phủ một lớp tối vuốt từ trái sang
+ * để chữ đọc được mà toà nhà bên phải vẫn còn nhìn thấy. Trường chưa có ảnh
+ * thì nền vẫn đủ đầy: navy dựng bằng gradient, một quầng vàng hắt từ góc trên
+ * trái, và những nét kẻ chéo rất mờ cho mặt nền có chất. Không còn cảnh phần
+ * đầu trang trống trơn như bản trước.
+ */
 .hero {
-  margin-block: var(--s-4) var(--s-7);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Âm ở trên để huỷ khoảng đệm đầu của .page: dải phải chạm ngay vào thanh
+     điều hướng, còn chừa một vệt giấy trắng phía trên thì nó không còn là dải
+     đầu trang mà thành một cái hộp thả giữa trang. */
+  margin-block: calc(var(--s-6) * -1) var(--s-8);
+  padding-block: var(--s-5) var(--s-7);
+  color: #f2efe9;
+  background:
+    repeating-linear-gradient(-45deg, rgba(240, 201, 122, 0.05) 0 1px, transparent 1px 9px),
+    radial-gradient(120% 130% at 14% 0%, rgba(196, 145, 69, 0.24), transparent 62%),
+    linear-gradient(160deg, #16263c, #0a1220 78%);
 }
 
-.heroInner {
+/* Chỉ hai màu thương hiệu chạy sát mép trên dải — đỏ sang vàng, mảnh như một
+   đường chỉ may. Đây là chỗ duy nhất trên trang cả hai màu đứng cạnh nhau. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  z-index: 3;
+  background: linear-gradient(90deg, var(--burgundy) 0%, var(--gold) 55%, transparent 100%);
+}
+
+.hero[data-anh="co"] {
+  min-height: clamp(420px, 40vw, 580px);
   display: grid;
-  gap: var(--s-6);
-  align-items: center;
+  align-items: end;
 }
 
-@media (min-width: 1000px) {
-  .heroInner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+.hero[data-anh="khong"] {
+  min-height: clamp(320px, 28vw, 440px);
+  display: grid;
+  align-items: end;
+}
+
+.heroPhoto {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Hơi lệch lên, không phải chính giữa: mấy toà nhà này đều mang tên trường
+     dọc mái. Nhưng cũng đừng lên quá 40%, vài tấm chụp góc rộng thì phần trên
+     chỉ có trời. */
+  object-position: 50% 38%;
+  /* Hạ độ rực một chút. Ảnh khuôn viên chụp giữa trưa có mảng đỏ và mảng lá
+     cây rất gắt; để nguyên thì chúng tranh phần với chữ. */
+  filter: saturate(0.88);
+}
+
+/*
+ * Lớp phủ vuốt NGANG chứ không phủ đều.
+ *
+ * Phủ đều thì ảnh thành một mảng xám và chẳng còn là ảnh nữa. Vuốt ngang giữ
+ * được cả hai: bên trái đủ tối để chữ trắng đạt tương phản, bên phải chỉ mờ đi
+ * một chút nên vẫn thấy rõ đó là trường nào.
+ */
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      96deg,
+      rgba(8, 14, 24, 0.97) 0%,
+      rgba(8, 14, 24, 0.94) 42%,
+      rgba(8, 14, 24, 0.78) 62%,
+      rgba(8, 14, 24, 0.42) 84%,
+      rgba(8, 14, 24, 0.28) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(8, 14, 24, 0.6) 0%,
+      rgba(8, 14, 24, 0.12) 34%,
+      rgba(8, 14, 24, 0.62) 100%
+    );
+}
+
+.heroWatermark {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  inset-inline-end: -2%;
+  translate: 0 -50%;
+  width: clamp(280px, 36vw, 520px);
+  height: auto;
+  object-fit: contain;
+  /* Huy hiệu vốn đỏ sẫm; để nguyên ở độ mờ này thì chìm hẳn vào nền navy.
+     Kéo sáng và rút bớt màu để nó hiện ra như một hình chìm, không phải một
+     tấm ảnh bị mờ. */
+  filter: saturate(0.45) brightness(1.7);
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Trên điện thoại chữ chạy hết bề ngang nên huy hiệu mờ nằm ngay dưới chữ và
+   làm chữ khó đọc. Nhạt thêm và lùi lên trên, ra khỏi vùng chữ. */
+@media (max-width: 719px) {
+  .heroWatermark {
+    top: 12%;
+    inset-inline-end: -12%;
+    translate: 0 0;
+    width: 62vw;
+    opacity: 0.12;
   }
 }
 
-.crest {
-  width: 76px;
-  height: 76px;
-  object-fit: contain;
-  margin-bottom: var(--s-4);
-  padding: 8px;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: var(--r-3);
+.heroInner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: var(--s-6);
 }
 
+.heroText {
+  max-width: 48rem;
+}
+
+.crest {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  padding: 10px;
+  /* Huy hiệu của trường khác, không nhuộm màu theo giao diện: nền trắng ở cả
+     hai chế độ sáng và tối, đúng như một tấm biển gắn tường. */
+  background: #fff;
+  border-radius: var(--r-3);
+  box-shadow:
+    0 0 0 1px rgba(196, 145, 69, 0.55),
+    0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: var(--s-5) 0 0;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  max-width: none;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 1px;
+  flex: none;
+  background: var(--gold);
+}
+
+/*
+ * Tiêu đề phải có chỗ thở.
+ *
+ * Bản trước ghì `max-width: 16ch`, nên "Trường Trung cấp Công nghệ Việt Đức"
+ * vỡ thành "Trường Trung / cấp Công / nghệ Việt Đức" — ngắt giữa "Trung cấp"
+ * và giữa "Công nghệ", tức là xé đôi đúng hai cụm từ mang nghĩa.
+ *
+ * 24ch, không phải 20 và cũng không phải bỏ hẳn giới hạn. Đo trên chính tên
+ * dài nhất của hệ thống — "Trường Cao đẳng Công nghệ – Ngoại thương":
+ *   20ch → "Trường Cao đẳng / Công nghệ / – Ngoại thương" (ba dòng, dòng cuối
+ *          mở đầu bằng dấu gạch)
+ *   24ch → "Trường Cao đẳng / Công nghệ – Ngoại thương"   (hai dòng, đúng chỗ)
+ *   bỏ giới hạn → "Trường Cao đẳng Công nghệ – / Ngoại thương"
+ * Cùng giá trị ấy, tên trường mẫu ra "Trường Trung cấp / Công nghệ Việt Đức".
+ * `.heroText` phải rộng 48rem thì 24ch mới có chỗ mà nở ra.
+ *
+ * Nhịp dòng giữ nguyên --leading-tight (1,24). Dấu tiếng Việt xếp hai tầng
+ * trên chữ hoa, ghì chặt hơn là cụng vào chân dòng trên.
+ */
 .heroText h1 {
-  margin: 0;
+  margin: var(--s-3) 0 0;
+  max-width: 24ch;
   font-size: var(--step-4);
-  max-width: 16ch;
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
 }
 
 .tagline {
   margin: var(--s-4) 0 0;
   font-family: var(--font-display);
   font-size: var(--step-1);
-  color: var(--accent);
-  max-width: 34ch;
+  line-height: 1.45;
+  color: var(--gold);
+  max-width: 38ch;
+  text-wrap: pretty;
 }
 
-.place {
-  margin: var(--s-3) 0 0;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--gold-deep);
-  font-weight: 600;
-  max-width: none;
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
 }
 
-.heroMedia {
-  border-radius: var(--r-4);
-  overflow: hidden;
+/* Nút viền trong dải tối: `.on-dark` đã đổi hướng các biến màu, nhưng nút phụ
+   của bộ giao diện lấy --line-strong nên ở đây vẫn cần dày hơn một chút mới
+   nhìn ra trên ảnh nền. */
+.heroActions a {
+  backdrop-filter: blur(2px);
 }
 
-.heroImage {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 7 / 5;
-  object-fit: cover;
-}
+/* --------------------------------------------------------- phần mở đầu */
 
 .summary {
   font-size: var(--step-1);
   line-height: 1.65;
   margin-bottom: var(--s-3);
-  max-width: 68ch;
+  max-width: 62ch;
+  text-wrap: pretty;
 }
 
+/* --------------------------------------------------------- đầu mỗi mục */
+
+/*
+ * Đầu mục: một nét vàng ngắn nằm trên tiêu đề.
+ *
+ * Trang này có sáu mục nối nhau. Không có dấu hiệu mở mục thì cuộn xuống chỉ
+ * thấy một dòng chữ to hơn các dòng khác, và mắt không biết mình vừa sang
+ * phần mới.
+ */
+.blockHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-bottom: var(--s-5);
+}
+
+.blockHead h2 {
+  position: relative;
+  margin: 0;
+  padding-top: var(--s-4);
+  font-size: var(--step-2);
+  line-height: var(--leading-tight);
+}
+
+.blockHead h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.blockCount {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------- số liệu */
+
+/*
+ * Số liệu là THẺ, không phải một hàng số trơ.
+ *
+ * Bản trước dùng hàng số dùng chung của bộ giao diện: ba con số nằm giữa hai
+ * đường kẻ ngang, cách đều nhau, không có gì phân biệt con số này với con số
+ * kia. Thành thẻ thì mỗi con số có một mặt nền riêng và một quầng vàng ở góc,
+ * đọc ra là ba mẩu thông tin chứ không phải một dòng.
+ */
+.statGrid {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  margin: 0;
+}
+
+.statCard {
+  position: relative;
+  overflow: hidden;
+  padding: var(--s-5) var(--s-5) var(--s-4);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+.statCard::before {
+  content: "";
+  position: absolute;
+  inset: -40% 40% 40% -40%;
+  background: radial-gradient(60% 60% at 30% 30%, rgba(196, 145, 69, 0.18), transparent 70%);
+  pointer-events: none;
+}
+
+.statValue {
+  position: relative;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 1.3rem + 1.9vw, 2.8rem);
+  font-weight: 600;
+  /* Chỉ là chữ số, không mang dấu tiếng Việt, nên ghì được gần hơn tiêu đề. */
+  line-height: 1.1;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  position: relative;
+  margin: var(--s-3) 0 0;
+  font-size: 0.83rem;
+  line-height: 1.45;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* -------------------------------------------------------- điểm nổi bật */
+
 .highlights {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
   margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  gap: var(--s-3);
 }
 
-.highlights li {
-  position: relative;
-  padding-inline-start: 1.6rem;
+.highlightCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  background: linear-gradient(
+    170deg,
+    var(--paper-raised) 0%,
+    color-mix(in srgb, var(--gold-tint) 70%, var(--paper-raised)) 100%
+  );
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
   line-height: 1.6;
+  text-wrap: pretty;
 }
 
-.highlights li::before {
-  content: "";
-  position: absolute;
-  inset-inline-start: 0;
-  top: 0.62em;
-  width: 8px;
-  height: 8px;
+.highlightIndex {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.1rem;
+  height: 2.1rem;
   border-radius: 50%;
-  border: 2px solid var(--gold);
+  border: 1px solid color-mix(in srgb, var(--gold) 60%, transparent);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold-deep);
+  font-variant-numeric: tabular-nums;
 }
+
+/* ------------------------------------------------------- ngành đào tạo */
 
 .levelGroup + .levelGroup {
   margin-top: var(--s-6);
 }
 
+.levelHead {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin: 0 0 var(--s-4);
+}
+
 .levelTitle {
-  margin: 0 0 var(--s-3);
+  margin: 0;
   font-family: var(--font-body);
   font-size: 0.74rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--gold-deep);
-  padding-bottom: var(--s-2);
-  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
 }
 
-.programList {
+/* Đường kẻ ăn hết chỗ còn thừa của dòng, để nhãn trình độ trông như một mục
+   được đóng dấu chứ không phải một dòng chữ nhỏ bỏ quên. */
+.levelRule {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-strong), transparent);
+}
+
+.levelCount {
+  flex: none;
+  font-size: 0.74rem;
+  color: var(--muted-soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.programGrid {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
   margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  gap: 0;
 }
 
-.programList li {
+/*
+ * Mỗi ngành một thẻ, mang đủ những gì giấy phép ghi: mã ngành, tên nghề, lĩnh
+ * vực và chỉ tiêu tuyển sinh mỗi năm. Bản trước chỉ có tên nghề với một dòng
+ * chữ xám gộp cả ba thứ lại, cỡ 0,78rem, nằm nép bên phải — tức là có ghi
+ * nhưng không ai đọc.
+ */
+.programCard {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--s-3);
-  padding: 0.7rem 0.2rem;
-  border-bottom: 1px solid var(--line);
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  /* Thoáng vừa đủ. Trường nhiều ngành nhất có 28 thẻ; mỗi thẻ dôi ra 30px là
+     mục này dài thêm gần nửa màn hình mà không thêm chữ nào. */
+  padding: var(--s-4) var(--s-5);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+  transition:
+    border-color var(--dur-2) var(--ease),
+    box-shadow var(--dur-2) var(--ease),
+    transform var(--dur-2) var(--ease);
 }
 
-.programList a {
-  font-weight: 500;
-  color: var(--ink);
+/* Cùng lối với thẻ trường ở trang danh sách: một vệt đỏ-vàng chạy dọc mép trên
+   khi rê chuột, để biết cả thẻ là một mục bấm được. */
+.programCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--burgundy), var(--gold));
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 420ms var(--ease);
+}
+
+.programCard:hover,
+.programCard:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line-strong));
+  box-shadow: var(--shadow-2);
+  transform: translateY(-4px);
+}
+
+.programCard:hover::before,
+.programCard:focus-within::before {
+  scale: 1 1;
+}
+
+.programCode {
+  align-self: flex-start;
+  padding: 0.18rem 0.55rem;
+  border-radius: var(--r-pill);
+  background: var(--gold-tint);
+  color: var(--gold-deep);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.programName {
+  margin: var(--s-3) 0 0;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  text-wrap: pretty;
+}
+
+.programName a {
+  color: inherit;
   text-decoration: none;
 }
 
-.programList a:hover {
-  color: var(--accent);
-  text-decoration: underline;
+/* Cả thẻ là vùng bấm, mà không phải lồng thẻ vào trong một thẻ liên kết. */
+.programName a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
 }
 
-.programMeta {
-  font-size: 0.78rem;
+.programCard:hover .programName a {
+  color: var(--accent);
+}
+
+.programField {
+  margin: var(--s-2) 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.programFoot {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin-top: auto;
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--line);
+  font-size: 0.82rem;
+  color: var(--muted-soft);
+}
+
+.programFoot strong {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ----------------------------------------------------- địa điểm đào tạo */
+
+/*
+ * Địa điểm đào tạo có mục riêng, không nhét chung vào khối liên hệ.
+ *
+ * Giấy phép tách hai thứ này: trụ sở là nơi trường đăng ký, còn đây là những
+ * nơi trường được phép dạy. Gộp chung vào một ô trong bảng thông tin thì người
+ * đọc tưởng là mấy dòng địa chỉ phụ.
+ */
+.siteGrid {
+  display: grid;
+  gap: var(--s-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.siteCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-4);
+  padding: var(--s-5);
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--r-4);
+}
+
+.siteIndex {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  background: var(--gold-tint);
+  color: var(--gold-deep);
+}
+
+.siteBody {
+  min-width: 0;
+}
+
+.siteLabel {
+  display: block;
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-soft);
+}
+
+.siteText {
+  display: block;
+  margin: 0.3rem 0 0;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* ---------------------------------------------------- hồ sơ pháp lý */
+
+/*
+ * Các quyết định thành lập thành TRỤC THỜI GIAN, xếp từ cũ đến mới.
+ *
+ * Đây là thứ chứng minh một trường nghề có thật và được phép dạy — bản trước
+ * để nó trong một bảng bốn cột ở cuối trang, cột "Ngày" phải cuộn ngang mới
+ * thấy trên điện thoại. Xếp dọc theo thời gian thì nó tự kể ra lịch sử: cho
+ * phép thành lập, đổi tên, rồi cấp phép hoạt động.
+ */
+.timeline {
+  position: relative;
+  display: grid;
+  gap: var(--s-5);
+  margin: 0;
+  padding: 0 0 0 2.15rem;
+  list-style: none;
+}
+
+.timelineItem {
+  position: relative;
+}
+
+/*
+ * Sợi dọc vẽ THEO TỪNG MỐC chứ không phải một sợi chạy suốt khối.
+ *
+ * Sợi chạy suốt thì phải đoán chỗ dừng, mà mốc cuối dài ngắn khác nhau tuỳ tên
+ * quyết định — lần nào cũng thừa ra một đoạn thò xuống dưới mốc cuối, trông
+ * như mạch điện đứt. Mỗi mốc tự nối xuống mốc kế tiếp, mốc cuối thì không nối,
+ * nên sợi luôn kết thúc đúng ở chấm cuối cùng.
+ */
+.timelineItem::after {
+  content: "";
+  position: absolute;
+  top: 1.55rem;
+  bottom: calc(var(--s-5) * -1);
+  inset-inline-start: calc(-2.15rem + 7px);
+  width: 2px;
+  background: color-mix(in srgb, var(--gold) 45%, transparent);
+}
+
+.timelineItem:last-child::after {
+  display: none;
+}
+
+.timelineItem::before {
+  content: "";
+  position: absolute;
+  top: 0.45rem;
+  inset-inline-start: -2.15rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 4px var(--bg);
+}
+
+.timelineTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+}
+
+.timelineNumber {
+  padding: 0.16rem 0.55rem;
+  border-radius: var(--r-pill);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent);
+  background: var(--gold-tint);
+  color: var(--gold-deep);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.timelineDate {
+  font-size: 0.8rem;
   color: var(--muted-soft);
   font-variant-numeric: tabular-nums;
 }
+
+.timelineLabel {
+  margin: var(--s-3) 0 0;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.timelineIssuer {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ----------------------------------------------------- hồ sơ còn trống */
+
+/* Trường mới lập hồ sơ: không có cột chữ nào để đặt bên cạnh, nên thẻ liên hệ
+   đứng một mình. Ghim lại một bề ngang đọc được và đặt vào giữa — kéo nó dài
+   1.360px thì thành một cái băng rôn có hai cái nút. */
+.asideAlone {
+  max-width: 460px;
+  margin-inline: auto;
+}
+
+.emptyNote {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+/* --------------------------------------------------------------- ảnh */
 
 /* Mục ảnh của trường: nền chuyển nhẹ để tách khỏi phần hồ sơ phía trên, và
    tường ảnh không phải nằm trên cùng nền trắng với bảng số liệu. */
@@ -151,16 +727,138 @@
   background: linear-gradient(180deg, var(--paper) 0%, var(--beige) 100%);
 }
 
-/* Địa điểm đào tạo thực hành: nhiều dòng trong một ô của bảng thông tin, nên bỏ
-   dấu chấm đầu dòng và để chúng thở ra một chút thay vì dính thành khối chữ. */
-.sites {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.35rem;
+/* ---------------------------------------------------------- điện thoại */
+
+/*
+ * Ở 390px mọi lưới rút về một cột, và dải đầu đổi cách phủ.
+ *
+ * Lớp phủ vuốt ngang chỉ hợp khi dải rộng: trên điện thoại chữ chiếm hết bề
+ * ngang nên phần "sáng" của lớp phủ nằm ngay dưới chữ. Đổi sang vuốt dọc —
+ * ảnh sáng ở trên, tối dần xuống chỗ đặt chữ.
+ */
+@media (max-width: 719px) {
+  .hero[data-anh="co"] {
+    min-height: clamp(380px, 92vw, 480px);
+  }
+
+  .hero[data-anh="khong"] {
+    min-height: 0;
+  }
+
+  .heroScrim {
+    background: linear-gradient(
+      180deg,
+      rgba(8, 14, 24, 0.5) 0%,
+      rgba(8, 14, 24, 0.72) 38%,
+      rgba(8, 14, 24, 0.95) 78%
+    );
+  }
+
+  .heroPhoto {
+    object-position: 50% 26%;
+  }
+
+  .crest {
+    width: 68px;
+    height: 68px;
+    padding: 7px;
+  }
+
+  .heroText h1 {
+    font-size: var(--step-3);
+    max-width: none;
+  }
+
+  .tagline {
+    font-size: var(--step-0);
+  }
+
+  /* Hai nút xếp dọc và kéo hết bề ngang: ở cỡ này hai nút cạnh nhau thì chữ
+     trong nút xuống dòng, mà nút xuống dòng trông như nút hỏng. */
+  .heroActions {
+    display: grid;
+    gap: var(--s-3);
+  }
+
+  .statCard {
+    padding: var(--s-4);
+  }
+
+  .siteCard,
+  .highlightCard {
+    padding: var(--s-4);
+  }
+
+  /*
+   * Thẻ ngành trên điện thoại: mã ngành và chỉ tiêu lên chung một dòng trên
+   * cùng, tên nghề chiếm cả bề ngang bên dưới.
+   *
+   * Xếp dọc bốn tầng như ở màn hình rộng thì mỗi thẻ cao khoảng 150px. Trường
+   * Cao đẳng Công nghệ Ngoại thương có 28 ngành, tức 4.200px — hơn năm màn
+   * hình điện thoại chỉ để lướt qua một mục. Dồn hai mẩu số liệu lên cùng một
+   * dòng thì còn khoảng 112px mỗi thẻ, mà không bỏ đi thông tin nào.
+   */
+  .programCard {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "code quota"
+      "name name"
+      "field field";
+    align-items: center;
+    gap: 0.15rem 0.75rem;
+    padding: 0.85rem 1rem 0.9rem;
+  }
+
+  /* Trong lưới, `align-self` của luật gốc chỉ chỉnh trục dọc — thiếu dòng này
+     thì viên mã ngành kéo dài hết cả cột, thành một vệt rỗng. */
+  .programCode {
+    grid-area: code;
+    justify-self: start;
+  }
+
+  .programName {
+    grid-area: name;
+    margin-top: 0.45rem;
+    font-size: 1rem;
+  }
+
+  .programField {
+    grid-area: field;
+    margin-top: 0.2rem;
+    font-size: 0.8rem;
+  }
+
+  .programFoot {
+    grid-area: quota;
+    justify-self: end;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .programFoot strong {
+    font-size: 1rem;
+  }
+
+  .timeline {
+    padding-left: 1.9rem;
+  }
+
+  .timelineItem::before {
+    inset-inline-start: -1.9rem;
+    width: 14px;
+    height: 14px;
+  }
+
+  .timelineItem::after {
+    inset-inline-start: calc(-1.9rem + 6px);
+  }
 }
 
-.sites li {
-  text-wrap: pretty;
+@media (prefers-reduced-motion: reduce) {
+  .programCard,
+  .programCard::before {
+    transition: none;
+  }
 }
