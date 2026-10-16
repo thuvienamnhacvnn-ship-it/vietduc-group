@@ -293,9 +293,9 @@ export const SCHOOLS: SeedSchool[] = [
       "zh-TW": "峴港",
     },
     address: "Số 42-44-46 Phan Châu Trinh, phường Hải Châu, thành phố Đà Nẵng",
-    phone: "0799 090 988 – 0899 944 101",
-    email: "tuyensinh@ngoaithuongcollege.edu.vn",
-    website: "https://ngoaithuongcollege.edu.vn",
+    phone: "0788 523 523 – 0796 58 35 83",
+    email: "info@ftcollege.edu.vn",
+    website: "https://ftcollege.edu.vn",
     coverPath: "/media/schools/cao-dang-cong-nghe-ngoai-thuong.webp",
     logoPath: "/media/schools/logos/cao-dang-cong-nghe-ngoai-thuong.webp",
     highlights: {

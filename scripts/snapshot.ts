@@ -67,6 +67,7 @@ const PRIVATE_TABLES = new Set([
   "messages",
   "unanswered_questions",
   "search_log",
+  "videos",
 ]);
 
 const OUT = path.resolve(process.cwd(), "src", "content", "db-snapshot.json");
