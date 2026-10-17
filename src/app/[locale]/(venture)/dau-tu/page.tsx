@@ -123,7 +123,7 @@ export default async function VenturePage({
           {/* Phone only: the mark stands above the title, a little over centre,
               the way it does on the gateway. */}
           <Image
-            src="/brand/viet-duc-mark.png"
+            src="/brand/3d/vietduc-logo-poster.png"
             alt=""
             width={236}
             height={240}

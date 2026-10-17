@@ -171,10 +171,10 @@ export function MangLuoi({
           style={{ left: "50%", top: "50%" }}
         >
           <Image
-            src="/brand/viet-duc-group-doc.svg"
+            src="/brand/3d/vietduc-logo-poster.png"
             alt={nhanTam}
             width={220}
-            height={220}
+            height={206}
             unoptimized
             className={styles.tamLogo}
           />

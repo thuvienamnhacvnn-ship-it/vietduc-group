@@ -1,0 +1,79 @@
+/* Khung tròn của nền vũ trụ: đặt cùng ô lưới với logo, nằm dưới logo. */
+.space {
+  grid-area: 1 / 1;
+  place-self: center;
+  position: relative;
+  z-index: 0;
+  width: 128%;
+  height: 128%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, #050505 0%, #000 70%);
+}
+
+.cloud,
+.stars,
+.vignette {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+/* Hai lớp tinh vân lệch tốc độ và lệch chiều: lớp xa trôi chậm, lớp gần nhanh
+   hơn một chút, đó là thứ tạo ra thị sai. */
+.cloud {
+  inset: -25%;
+  width: 150%;
+  height: 150%;
+  background-repeat: no-repeat;
+}
+
+.cloudFar {
+  background:
+    radial-gradient(40% 34% at 28% 32%, rgba(255, 255, 255, 0.05), transparent 70%),
+    radial-gradient(36% 42% at 72% 66%, rgba(255, 255, 255, 0.035), transparent 70%);
+  animation: driftFar 38s ease-in-out infinite alternate;
+}
+
+.cloudNear {
+  background:
+    radial-gradient(24% 20% at 62% 30%, rgba(255, 255, 255, 0.04), transparent 70%),
+    radial-gradient(28% 24% at 34% 72%, rgba(255, 255, 255, 0.03), transparent 70%);
+  animation: driftNear 22s ease-in-out infinite alternate;
+}
+
+.stars {
+  mix-blend-mode: screen;
+}
+
+/* Rìa tối dần để vũ trụ có vẻ sâu hút vào trong và tách khỏi viền vàng. */
+.vignette {
+  background: radial-gradient(circle at 50% 50%, transparent 52%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+@keyframes driftFar {
+  from {
+    transform: translate3d(-3%, 2%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3%, -2%, 0) scale(1.08);
+  }
+}
+
+@keyframes driftNear {
+  from {
+    transform: translate3d(4%, -3%, 0) scale(1.04);
+  }
+  to {
+    transform: translate3d(-4%, 3%, 0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloudFar,
+  .cloudNear {
+    animation: none;
+  }
+}

@@ -367,7 +367,7 @@ export function SideRail({
         className={`${styles.rail} ${tone === "venture" ? styles.venture : ""} ${open ? styles.railOpen : ""}`}
       >
         <Link href={path("/")} className={styles.brand} aria-label={dict.brand.name}>
-          <Image src="/brand/viet-duc-mark.png" alt="" width={40} height={43} />
+          <Image src="/brand/3d/vietduc-logo-poster.png" alt="" width={40} height={37} />
           <span className={styles.brandText}>
             <strong>{dict.brand.name}</strong>
             <em>{dict.brand.motto}</em>

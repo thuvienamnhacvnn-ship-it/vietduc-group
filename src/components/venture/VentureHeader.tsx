@@ -27,7 +27,7 @@ export function VentureHeader({ locale, items }: { locale: Locale; items: Item[]
       <div className={styles.inner}>
         <Link href={path("/")} className={styles.brand} aria-label={dict.brand.name}>
           {/* Logo đủ; tên nhóm đã nằm trong logo nên cạnh nó chỉ còn tên mảng. */}
-          <Image src="/brand/viet-duc-group-logo.svg" alt="" width={1980} height={678} unoptimized />
+          <Image src="/brand/3d/vietduc-logo-poster.png" alt="" width={920} height={860} unoptimized />
           <span>
             <em>{dict.venture.section}</em>
           </span>

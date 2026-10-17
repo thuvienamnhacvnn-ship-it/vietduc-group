@@ -1,0 +1,39 @@
+/*
+ * Khung logo 3D. Ảnh tĩnh nằm làm nền; video hoặc canvas phủ lên và chỉ hiện
+ * khi đã thật sự chạy (lớp .live), nên không có lúc nào khung bị trống.
+ */
+.frame {
+  position: relative;
+  display: block;
+  aspect-ratio: 920 / 860;
+  background: url("/brand/3d/vietduc-logo-poster.png") center / contain no-repeat;
+}
+
+.media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: transparent;
+  opacity: 0;
+}
+
+.live .media {
+  opacity: 1;
+}
+
+/* Khi video đã chạy thì bỏ ảnh tĩnh để không lộ viền hai lớp chồng nhau. */
+.live {
+  background-image: none;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0.01;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+}

@@ -37,7 +37,7 @@
 
 .logo {
   width: auto;
-  height: 48px;
+  height: 76px;
   justify-self: start;
   /* The mark is dark-on-transparent; on the band it needs a light backing
      rather than a filter, which would wash out the flag colours. */

@@ -44,10 +44,10 @@ export function SchoolGrid({
         <div className={styles.coiNguon}>
           <span className={styles.coiNguonHuy}>
             <Image
-              src="/brand/viet-duc-mark.png"
+              src="/brand/3d/vietduc-logo-poster.png"
               alt=""
               width={152}
-              height={163}
+              height={142}
             />
           </span>
           <strong className={styles.coiNguonTen}>{coiNguon.ten}</strong>
