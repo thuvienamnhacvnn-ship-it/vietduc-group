@@ -11,6 +11,7 @@ import { HubBar } from "@/components/hub/HubBar";
 import { HubDecor } from "@/components/hub/HubDecor";
 import { HubBackdrop } from "@/components/hub/HubBackdrop";
 import { HubStage, type HubBranch } from "@/components/hub/HubStage";
+import { WebsiteNetworkFooter } from "@/components/WebsiteNetwork";
 import styles from "./hub.module.css";
 
 /**
@@ -92,7 +93,9 @@ export default async function HubPage({ params }: { params: Promise<{ locale: st
         <HubDecor />
       </main>
 
-      <footer className={`on-dark ${styles.footer}`}>
+      <footer>
+        <WebsiteNetworkFooter locale={locale} />
+        <div className={`on-dark ${styles.footer}`}>
         <p>
           © {new Date().getFullYear()} {dict.brand.name}. {dict.footer.rights}
         </p>
@@ -110,6 +113,7 @@ export default async function HubPage({ params }: { params: Promise<{ locale: st
             <Link href={path("/impressum")}>{dict.footer.imprint}</Link>
           </li>
         </ul>
+        </div>
       </footer>
 
       <Advisor locale={locale} contact={settings.contact} suggestions={suggestedQuestions(locale)} />

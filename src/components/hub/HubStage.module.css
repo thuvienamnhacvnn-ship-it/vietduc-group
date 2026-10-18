@@ -11,9 +11,6 @@
   justify-items: center;
   gap: clamp(1rem, 2.2vh, 1.8rem);
   width: 100%;
-  /* A planet hangs half its height above the ring, so the stage reserves that
-     much room rather than letting it climb into whatever is above it. */
-  padding-top: calc(var(--planet) / 2);
 
   --orbit: clamp(116px, 18vh, 196px);
   --planet: clamp(58px, 8.4vh, 86px);
@@ -23,333 +20,81 @@
 
 /* ---------- orbit ---------- */
 
-.orbit {
-  position: relative;
-  width: calc(var(--orbit) * 2.4);
-  height: calc(var(--orbit) * 2.4);
-  display: grid;
-  place-items: center;
-  perspective: 900px;
-  animation: spin 48s linear infinite;
-}
-
-.orbitStill {
-  animation-play-state: paused;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /*
- * Drawn, not photographed, so they stay crisp at any size.
+ * Sân khấu quỹ đạo: quả địa cầu Việt Đức ở giữa, hai hành tinh lĩnh vực bay
+ * quanh trên hai elip phát sáng. Toạ độ hành tinh do JS tính theo khung
+ * 1000x920 (HubStage.tsx), nên khung giữ đúng tỉ lệ đó ở mọi cỡ màn hình.
  *
- * Nét vàng mảnh trên một tấm ảnh phong cảnh chụp ngoài trời gần như biến mất:
- * ảnh nền có đủ mọi sắc độ nên một đường mờ chỉ còn là vệt bẩn. Chỉ tăng độ
- * đục của nét vàng thì không đủ — vòng vắt ngang cả mảng ruộng nắng lẫn mảng
- * núi tối, chỗ nào cũng có sắc độ xấp xỉ nó.
- *
- * Nên mỗi vòng đi kèm một nét TỐI ngay sát bên ngoài. Nét tối ấy tự tạo lấy
- * nền cho nét vàng, y như cách một dòng phụ đề trắng luôn có viền đen: vòng
- * đọc được trên mọi thứ nó vắt qua, không phụ thuộc vào tấm ảnh bên dưới.
+ * Lớp chồng: nửa sau quỹ đạo (1) < hành tinh khi ở phía sau (1, đứng sau trong
+ * DOM) < địa cầu (2) < nửa trước quỹ đạo (3) < hành tinh khi ở phía trước (4).
  */
-.ring {
-  position: absolute;
-  inset: 14%;
-  border-radius: 50%;
-  border: 1.5px solid rgba(230, 186, 116, 0.92);
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.42),
-    0 0 26px rgba(210, 162, 89, 0.45),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.3),
-    inset 0 0 80px rgba(196, 145, 69, 0.2);
-}
-
-/*
- * Vệt sáng quét quanh vòng.
- *
- * Một nan quạt sáng của `conic-gradient` quay tròn, rồi bị mặt nạ cắt chỉ còn
- * đúng bề dày của vòng — nên thứ nhìn thấy là một vệt sáng chạy dọc theo nét
- * vòng chứ không phải cả một quạt sáng. Cùng lối với vệt chạy trên đường nối ở
- * sơ đồ hệ sinh thái.
- *
- * `inset: -1.5px` cho vệt trùm lên chính nét viền; thiếu nó thì vệt chạy song
- * song bên trong và thành ra hai vòng.
- */
-.ring::after {
-  content: "";
-  position: absolute;
-  inset: -1.5px;
-  border-radius: 50%;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0 58%,
-    rgba(255, 216, 150, 0.6) 72%,
-    rgba(255, 241, 205, 0.95) 80%,
-    rgba(255, 216, 150, 0.5) 86%,
-    transparent 94%
-  );
-  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
-  animation: quet 7s linear infinite;
-  pointer-events: none;
-}
-
-/* Vòng ngoài quét chậm hơn và ngược chiều: hai vệt không bao giờ chạy song đôi
-   thành một cặp đèn nháy. */
-.ringOuter::after {
-  animation-duration: 11s;
-  animation-direction: reverse;
-}
-
-@keyframes quet {
-  to {
-    rotate: 360deg;
-  }
-}
-
-.orbitStill .ring::after {
-  animation-play-state: paused;
-}
-
-.ringOuter {
-  inset: 0;
-  border-style: dashed;
-  border-width: 2px;
-  border-color: rgba(230, 186, 116, 0.75);
-  box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.36),
-    0 0 26px rgba(210, 162, 89, 0.32),
-    inset 0 0 90px rgba(196, 145, 69, 0.1);
-}
-
-/* ---------- the mark ---------- */
-
-.core {
+.space {
   position: relative;
-  display: grid;
-  place-items: center;
-  width: var(--orbit);
-  height: var(--orbit);
-  /* Undo the orbit rotation so the mark stands still while the satellites
-     travel around it. */
-  animation: spin 48s linear infinite reverse;
-  transform-style: preserve-3d;
+  width: min(calc(var(--orbit) * 3.6), 100%);
+  aspect-ratio: 1000 / 920;
 }
 
-.orbitStill .core {
-  animation-play-state: paused;
-}
-
-/*
- * Tấm nền tối sau logo.
- *
- * Ngọn lửa đỏ-đen trước đây nổi được trên mọi ảnh nền. Logo đủ thì phần chữ là
- * nét vàng mảnh — đặt thẳng lên ảnh phong cảnh sáng là chìm hẳn, mà quầng sáng
- * vàng phía sau còn làm nó chìm thêm. Một tấm kính tối ôm sát logo vừa kéo lại
- * độ tương phản, vừa giữ được cảm giác vật thể đang lơ lửng giữa vòng quay.
- *
- * Chạy cùng nhịp `float` và cùng độ nghiêng với logo, nếu không logo sẽ trôi
- * lệch khỏi tấm nền.
- *
- * Căn giữa bằng lưới, KHÔNG bằng `left/top: 50%` cộng `translate: -50% -50%`:
- * keyframes `float` cũng đặt `translate`, mà hoạt hình luôn thắng khai báo
- * thường, nên phần căn giữa bị nuốt mất và tấm nền lệch hẳn xuống góc.
- */
-.core::after {
-  content: "";
-  grid-area: 1 / 1;
-  place-self: center;
-  position: relative;
-  z-index: 1;
-  /*
-   * Khối TRÒN, không phải vuông bo góc.
-   *
-   * Hai vệ tinh quay quanh đều là đĩa tròn và mọi vòng quỹ đạo cũng tròn; một
-   * tấm nền vuông ở chính giữa là hình duy nhất có góc trong cả cụm, nên nó
-   * đọc ra như một tấm thẻ dán đè lên chứ không như tâm của vòng quay.
-   *
-   * Đường kính phải rộng hơn bề ngang logo: hình vuông nội tiếp một đường tròn
-   * chỉ bằng 71% đường kính, nên giữ 106% như hồi còn vuông thì bốn góc chữ
-   * "VIỆT ĐỨC GROUP" thò ra ngoài mép nền.
-   */
-  width: 128%;
-  height: 128%;
-  border-radius: 50%;
-  /* Nền là vũ trụ ở phần tử DeepSpace phía dưới; lớp này chỉ còn viền và bóng. */
-  background: transparent;
-  border: 1px solid rgba(196, 145, 69, 0.55);
-  box-shadow:
-    0 18px 44px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    inset 0 0 46px rgba(196, 145, 69, 0.12);
-  transform: rotateY(var(--lean-x)) rotateX(var(--lean-y)) translateZ(30px);
-  transition: transform 400ms var(--ease);
-  animation: float 7s ease-in-out infinite;
-}
-
-.mark {
-  /* Cùng ô lưới với tấm nền để hai thứ chồng lên nhau. */
-  grid-area: 1 / 1;
-  place-self: center;
-  position: relative;
-  z-index: 2;
-  /* Logo dọc (1349x1278), gần vuông. Nền nay là hình tròn nên bề ngang phải
-     lùi về khoảng vuông nội tiếp — 88% như cũ là bốn góc đâm ra khỏi mép. */
-  width: 92%;
-  height: auto;
-  transform: rotateY(var(--lean-x)) rotateX(var(--lean-y)) translateZ(40px);
-  transition: transform 400ms var(--ease);
-  filter: drop-shadow(0 20px 28px rgba(0, 0, 0, 0.6));
-  animation: float 7s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 -9px; }
-}
-
-/* A warm pool of light behind the flame and a soft ellipse under it: together
-   they lift flat artwork off the page. */
-.glow {
-  position: absolute;
-  z-index: 0;
-  inset: -22%;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(210, 162, 89, 0.55) 0%,
-    rgba(142, 31, 45, 0.26) 44%,
-    transparent 72%
-  );
-  filter: blur(8px);
-  animation: pulse 6s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.72; scale: 1; }
-  50% { opacity: 1; scale: 1.07; }
-}
-
-/* ---------- satellites ---------- */
-
-.arm {
+.paths {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: start center;
-  pointer-events: none;
-}
-
-.armSecond {
-  transform: rotate(180deg);
-}
-
-.satellite {
-  position: relative;
-  top: calc(var(--planet) / -2);
-  pointer-events: auto;
-  text-decoration: none;
-  border-radius: 50%;
-  /* Cancel the orbit spin so the planet and its label stay upright as they
-     travel. */
-  animation: spin 48s linear infinite reverse;
-}
-
-.orbitStill .satellite {
-  animation-play-state: paused;
-}
-
-.armSecond .satellite {
-  rotate: 180deg;
-}
-
-/* Each field travels as a small sphere carrying its own mark. The name is
-   held back until the reader hovers or tabs onto it. */
-.planet {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: var(--planet);
-  height: var(--planet);
-  border-radius: 50%;
-  transition:
-    scale var(--dur-2) var(--ease),
-    box-shadow var(--dur-2) var(--ease);
-}
-
-/*
- * The roundness is painted, not photographed: an off-centre light gradient for
- * the lit face, a darker pool at the lower right for the shaded side, and a
- * thin bright rim where the edge catches the light.
- */
-.education {
-  background:
-    radial-gradient(circle at 32% 26%, #d4485c 0%, #a52639 38%, #6d1523 72%, #4a0d18 100%);
-  box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.5),
-    0 18px 34px rgba(0, 0, 0, 0.62),
-    inset -6px -8px 16px rgba(0, 0, 0, 0.5),
-    inset 4px 5px 12px rgba(255, 255, 255, 0.22);
-}
-
-.venture {
-  background:
-    radial-gradient(circle at 32% 26%, #f0c069 0%, #c8933f 38%, #8e6222 72%, #5d3f14 100%);
-  box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.5),
-    0 18px 34px rgba(0, 0, 0, 0.62),
-    inset -6px -8px 16px rgba(0, 0, 0, 0.48),
-    inset 4px 5px 12px rgba(255, 255, 255, 0.28);
-}
-
-.planetRim {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  /* A specular dot near the top-left and a faint rim light all round. */
-  background: radial-gradient(
-    circle at 30% 22%,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(255, 255, 255, 0.12) 16%,
-    transparent 38%
-  );
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.28);
-}
-
-.planetIcon {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 46%;
-  height: 46%;
-  color: #fff;
-  filter:
-    drop-shadow(0 1px 1px rgba(0, 0, 0, 0.85))
-    drop-shadow(0 3px 7px rgba(0, 0, 0, 0.6))
-    drop-shadow(0 0 14px rgba(0, 0, 0, 0.35));
-}
-
-.planetIcon svg {
   width: 100%;
   height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
 }
 
-.satellite:hover .planet,
-.satellite:focus-visible .planet {
-  scale: 1.12;
+.pathsFront {
+  z-index: 3;
 }
 
-.satellite:hover .planet {
-  box-shadow:
-    0 6px 12px rgba(0, 0, 0, 0.5),
-    0 20px 38px rgba(0, 0, 0, 0.66),
-    inset -6px -8px 16px rgba(0, 0, 0, 0.45),
-    inset 4px 5px 12px rgba(255, 255, 255, 0.3),
-    0 0 26px rgba(210, 162, 89, 0.4);
+/* Đốm sáng chạy dọc quỹ đạo; thời lượng và chiều đặt riêng cho từng elip. */
+.spark {
+  animation: chay 9s linear infinite;
+}
+
+@keyframes chay {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+.globe {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  /* Sếp yêu cầu nhỏ lại 10% so với 52%. */
+  width: 46.8%;
+  translate: -50% -50%;
+  transform: perspective(900px) rotateY(var(--lean-x)) rotateX(var(--lean-y));
+  transition: transform 400ms var(--ease);
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, 0.55));
+}
+
+.globeMedia {
+  width: 100%;
+}
+
+/* Vị trí, cỡ, độ sáng và lớp chồng của hành tinh đặt bằng JS mỗi khung hình. */
+.satellite {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 17%;
+  border-radius: 50%;
+  text-decoration: none;
+  will-change: transform;
+}
+
+.planet {
+  width: 100%;
+}
+
+.satellite:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .planetLabel {
@@ -472,29 +217,8 @@
   translate: 3px 0;
 }
 
-/*
- * Under 760px a travelling satellite would run into the mark, so the orbit
- * settles into a still emblem and the two cards carry the navigation alone.
- */
-@media (max-width: 760px) {
-  .arm {
-    display: none;
-  }
-
-  .orbit,
-  .core {
-    animation: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .orbit,
-  .core,
-  .core::after,
-  .satellite,
-  .mark,
-  .glow,
-  .ring::after {
+  .spark {
     animation: none;
   }
 }
@@ -517,32 +241,11 @@
   }
 }
 
-/*
- * The phone keeps its satellites. They travel on a tighter ring around a
- * smaller mark, and they carry no label: there is no hover on a touch screen,
- * and the two buttons underneath say the same thing in words.
- */
+/* Trên điện thoại sân khấu co theo bề rộng; không có rê chuột nên bỏ nhãn —
+   hai nút bên dưới đã ghi tên lĩnh vực. */
 @media (max-width: 760px) {
   .stage {
     --orbit: clamp(96px, 27vw, 150px);
-    --planet: clamp(46px, 13vw, 62px);
-  }
-
-  .arm {
-    display: grid;
-  }
-
-  .orbit,
-  .core {
-    animation: spin 48s linear infinite;
-  }
-
-  .core {
-    animation-direction: reverse;
-  }
-
-  .satellite {
-    animation: spin 48s linear infinite reverse;
   }
 
   .planetLabel {

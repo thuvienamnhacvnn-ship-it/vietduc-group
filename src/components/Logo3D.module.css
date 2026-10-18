@@ -6,7 +6,7 @@
   position: relative;
   display: block;
   aspect-ratio: 920 / 860;
-  background: url("/brand/3d/vietduc-logo-poster.png") center / contain no-repeat;
+  background: var(--poster, url("/brand/3d/vietduc-logo-poster.png")) center / contain no-repeat;
 }
 
 .media {

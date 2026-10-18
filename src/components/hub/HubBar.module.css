@@ -171,3 +171,6 @@
     display: none;
   }
 }
+
+.networkRow { display: flex; flex: none; }
+.networkRow :is(a, button, span) { text-shadow: none; }

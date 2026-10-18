@@ -7,6 +7,7 @@ import type { SchoolRow, CategoryRow } from "@/lib/queries";
 import { SocialLinks, hasSocial } from "./SocialLinks";
 import { NewsletterForm } from "./NewsletterForm";
 import { FooterMap } from "./FooterMap";
+import { WebsiteNetworkFooter } from "./WebsiteNetwork";
 import styles from "./SiteFooter.module.css";
 
 type Props = {
@@ -182,6 +183,7 @@ export function SiteFooter({ locale, contact, social, schools, categories }: Pro
         </div>
       </div>
 
+      <WebsiteNetworkFooter locale={locale} />
       {/* ---------------------------------------------------------- legal */}
       <div className={styles.bottom}>
         <div className={`shell ${styles.bottomInner}`}>

@@ -6,6 +6,18 @@
  * by pushing it: the content keeps a fixed left inset either way, so nothing
  * reflows under the reader's eye.
  */
+.networkHeader {
+  position: fixed;
+  top: 12px;
+  right: 18px;
+  z-index: 70;
+  display: flex;
+}
+
+@media (max-width: 999px) {
+  .networkHeader { display: none; }
+}
+
 .rail {
   position: fixed;
   top: 0;

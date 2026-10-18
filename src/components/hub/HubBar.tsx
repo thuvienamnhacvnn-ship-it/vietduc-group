@@ -5,6 +5,7 @@ import { getDictionary } from "@/lib/i18n/dictionary";
 import type { SocialSettings } from "@/lib/site-config";
 import { SocialLinks, hasSocial } from "@/components/SocialLinks";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { WebsiteNetworkMenu } from "@/components/WebsiteNetworkMenu";
 import styles from "./HubBar.module.css";
 
 /**
@@ -58,6 +59,7 @@ export function HubBar({ locale, social }: { locale: Locale; social: SocialSetti
         </nav>
 
         <div className={styles.tools}>
+          <div className={styles.networkRow}><WebsiteNetworkMenu locale={locale} /></div>
           {hasSocial(social) ? (
             <div className={styles.social}>
               <SocialLinks social={social} locale={locale} variant="plain" />

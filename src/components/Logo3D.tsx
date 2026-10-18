@@ -18,6 +18,7 @@ const SRC = "/brand/3d/vietduc-logo";
 const W = 920;
 const H = 860;
 
+
 const isWebKit = () => {
   const ua = navigator.userAgent;
   if (/iPad|iPhone|iPod/.test(ua)) return true;
@@ -63,9 +64,16 @@ function play(v: HTMLVideoElement, cleanups: Array<() => void>) {
 type Props = {
   /** Class của khung ngoài; chiều rộng khung lấy theo CSS. */
   className?: string;
+  /** Đường dẫn chung không đuôi (tự thêm .webm, -ios.mp4, -poster.png). Mặc định là logo Việt Đức. */
+  src?: string;
+  /** Kích thước khung video, để giữ đúng tỉ lệ. */
+  width?: number;
+  height?: number;
+  /** Tên đọc cho trình đọc màn hình; rỗng thì coi là trang trí. */
+  label?: string;
 };
 
-export function Logo3D({ className }: Props) {
+export function Logo3D({ className, src = SRC, width = W, height = H, label = "Việt Đức Group" }: Props) {
   const frame = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -75,10 +83,10 @@ export function Logo3D({ className }: Props) {
 
     const cleanups: Array<() => void> = [];
     let stopped = false;
-    const poster = `${SRC}-poster.png`;
+    const poster = `${src}-poster.png`;
 
     if (!isWebKit()) {
-      const v = makeVideo(`${SRC}.webm`);
+      const v = makeVideo(`${src}.webm`);
       v.poster = poster;
       v.className = styles.media;
       // Chỉ thay ảnh tĩnh bằng video khi nó thật sự chạy, nên người xem
@@ -96,8 +104,8 @@ export function Logo3D({ className }: Props) {
     }
 
     const cv = document.createElement("canvas");
-    cv.width = W;
-    cv.height = H;
+    cv.width = width;
+    cv.height = height;
     cv.className = styles.media;
     const gl = cv.getContext("webgl", { premultipliedAlpha: false, alpha: true, antialias: false });
     if (!gl) return;
@@ -132,7 +140,7 @@ export function Logo3D({ className }: Props) {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 
-    const v = makeVideo(`${SRC}-ios.mp4`);
+    const v = makeVideo(`${src}-ios.mp4`);
     // iOS chỉ giải mã khi video nằm trong trang, nhưng không cần hiện ra.
     v.className = styles.hidden;
     el.appendChild(v);
@@ -164,14 +172,14 @@ export function Logo3D({ className }: Props) {
       v.remove();
       cv.remove();
     };
-  }, []);
+  }, [src, width, height]);
 
   return (
     <div
       ref={frame}
       className={`${styles.frame} ${className ?? ""}`}
-      role="img"
-      aria-label="Việt Đức Group"
+      style={{ aspectRatio: `${width} / ${height}`, "--poster": `url("${src}-poster.png")` } as React.CSSProperties}
+      {...(label ? { role: "img", "aria-label": label } : { "aria-hidden": true })}
     />
   );
 }

@@ -3,6 +3,7 @@ import { localePath, type Locale } from "@/lib/i18n/config";
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { telHref, type ContactSettings, type SocialSettings } from "@/lib/site-config";
 import { SocialLinks, hasSocial } from "@/components/SocialLinks";
+import { WebsiteNetworkFooter } from "@/components/WebsiteNetwork";
 import styles from "./VentureFooter.module.css";
 
 /**
@@ -70,6 +71,7 @@ export function VentureFooter({
         </div>
       </div>
 
+      <WebsiteNetworkFooter locale={locale} />
       <div className={styles.bottom}>
         <p>
           © {new Date().getFullYear()} {dict.brand.name}. {dict.footer.rights}

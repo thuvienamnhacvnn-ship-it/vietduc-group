@@ -1,44 +1,32 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import Link from "next/link";
-import { DeepSpace } from "../DeepSpace";
 import { Logo3D } from "../Logo3D";
 import styles from "./HubStage.module.css";
 
-/**
- * The two fields as marks rather than photographs: at the size a satellite is
- * drawn, a photo turns to mush while a single-path symbol stays readable. Both
- * inherit currentColor so the sphere decides their colour.
- */
-const ICONS = {
-  education: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-      <path
-        d="M12 4 2.5 8.5 12 13l9.5-4.5L12 4Z"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6.5 10.8v4.4c0 1.5 2.5 2.8 5.5 2.8s5.5-1.3 5.5-2.8v-4.4"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path d="M21 8.8v5.4" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  ),
-  venture: (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true">
-      <path d="M3 18.5V7.2" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M21 18.5v-6.7H8.4v-2.6H3" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M3 15.1h18" strokeWidth="1.6" strokeLinecap="round" />
-      <circle cx="6.2" cy="9.6" r="1.6" strokeWidth="1.6" />
-    </svg>
-  ),
-} as const;
+/** Mỗi lĩnh vực mang hành tinh 3D của riêng nó (PLANET_SRC). */
+export type HubIcon = "education" | "venture";
 
-export type HubIcon = keyof typeof ICONS;
+/** Hành tinh 3D (video nền trong suốt) của từng lĩnh vực, trong public/brand/3d. */
+const PLANET_SRC: Record<HubIcon, string> = {
+  education: "/brand/3d/vd-hanh-tinh-giao-duc",
+  venture: "/brand/3d/vd-hanh-tinh-khach-san",
+};
+
+/**
+ * Hai quỹ đạo elip, toạ độ theo khung 1000x920 của sân khấu: nghiêng ngược
+ * nhau, chạy ngược chiều, chu kỳ khác nhau để hai hành tinh không bao giờ đi
+ * song đôi. Tâm elip đặt thấp hơn tâm địa cầu một chút để hành tinh đi qua
+ * phía dưới dòng chữ VIET DUC chứ không che nó.
+ */
+const ORBITS = [
+  { rx: 480, ry: 230, cy: 500, tilt: -7, period: 18, phase: 0.3, dir: 1 },
+  { rx: 430, ry: 268, cy: 480, tilt: 8, period: 26, phase: 3.4, dir: -1 },
+];
+const VB_W = 1000;
+const VB_H = 920;
+const CX = 500;
 
 export type HubBranch = {
   key: "education" | "venture";
@@ -79,9 +67,146 @@ type Props = {
  *    element's own transform, because the orbit animation owns `transform`.
  */
 export function HubStage({ branches, enterLabel, orbitLabel, heading, channels }: Props) {
-  const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
   const stageRef = useRef<HTMLDivElement>(null);
+  const spaceRef = useRef<HTMLDivElement>(null);
+  const satRefs = useRef<Array<HTMLAnchorElement | null>>([]);
+  /** Hành tinh nào đang được rê chuột / focus thì đứng lại. */
+  const holdRef = useRef<boolean[]>([false, false]);
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
+
+  /*
+   * Quỹ đạo 3D: hành tinh chạy trên elip, vị trí tính mỗi khung hình.
+   * sin(góc) > 0 là nửa elip phía trước: hành tinh to, sáng, nằm trên địa cầu;
+   * nửa phía sau thì nhỏ, tối và khuất sau địa cầu. Góc cộng dồn theo thời gian
+   * thật nên dừng (rê chuột, cuộn khỏi màn hình) rồi chạy tiếp không bị giật.
+   */
+  useEffect(() => {
+    const space = spaceRef.current;
+    if (!space) return;
+    let visible = true;
+    let raf = 0;
+    let last = performance.now();
+    const angle = ORBITS.map((o) => o.phase);
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    io.observe(space);
+
+    const frame = (now: number) => {
+      const dt = Math.min((now - last) / 1000, 0.1);
+      last = now;
+      if (visible) {
+        const kx = space.clientWidth / VB_W;
+        const ky = space.clientHeight / VB_H;
+        ORBITS.forEach((o, i) => {
+          const node = satRefs.current[i];
+          if (!node) return;
+          const hold = holdRef.current[i];
+          if (!reduced && !hold) angle[i] += (o.dir * dt * 2 * Math.PI) / o.period;
+          const c = Math.cos(angle[i]);
+          const s = Math.sin(angle[i]);
+          const r = (o.tilt * Math.PI) / 180;
+          const x = o.rx * c;
+          const y = o.ry * s;
+          const X = CX + x * Math.cos(r) - y * Math.sin(r);
+          const Y = o.cy + x * Math.sin(r) + y * Math.cos(r);
+          const depth = (s + 1) / 2; // 0 = xa nhất, 1 = gần nhất
+          const scale = 0.68 + 0.42 * depth + (hold ? 0.12 : 0);
+          const w = node.offsetWidth;
+          node.style.transform = `translate(${(X * kx - w / 2).toFixed(1)}px, ${(Y * ky - w / 2).toFixed(1)}px) scale(${scale.toFixed(3)})`;
+          node.style.zIndex = s > 0 ? "4" : "1";
+          node.style.filter = `brightness(${(0.68 + 0.32 * depth).toFixed(2)}) drop-shadow(0 ${(6 + 10 * depth).toFixed(0)}px 10px rgba(0, 0, 0, 0.45))`;
+        });
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    raf = requestAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
+  }, [reduced]);
+
+  const hold = (i: number, on: boolean) => () => {
+    holdRef.current[i] = on;
+  };
+
+  /*
+   * Đường quỹ đạo phát sáng (Sếp yêu cầu, 18/10: "đường đó phát sáng chứ không
+   * phải là 1 line màu bình thường"): quầng nhoè + nét vàng + lõi sáng + một đốm
+   * sáng chạy dọc. Vẽ hai lần — lớp sau nằm dưới địa cầu, lớp trước nằm trên —
+   * mỗi lớp giữ một nửa elip qua mặt nạ chuyển mềm, nên chỗ nối không thành vạch.
+   */
+  const orbitArt = (side: "back" | "front") => {
+    const front = side === "front";
+    const halo = `${uid}-${side}-halo`;
+    const soft = `${uid}-${side}-soft`;
+    return (
+      <svg
+        className={`${styles.paths} ${front ? styles.pathsFront : ""}`}
+        viewBox={`0 0 ${VB_W} ${VB_H}`}
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <filter id={halo} x="-10%" y="-30%" width="120%" height="160%">
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+          <filter id={soft} x="-10%" y="-30%" width="120%" height="160%">
+            <feGaussianBlur stdDeviation="2" />
+          </filter>
+          {ORBITS.map((o, i) => (
+            <g key={i}>
+              <linearGradient
+                id={`${uid}-${side}-${i}-g`}
+                gradientUnits="userSpaceOnUse"
+                x1="0"
+                y1={o.cy - 40}
+                x2="0"
+                y2={o.cy + 40}
+              >
+                <stop offset="0" stopColor={front ? "#000" : "#fff"} />
+                <stop offset="1" stopColor={front ? "#fff" : "#000"} />
+              </linearGradient>
+              <mask id={`${uid}-${side}-${i}`} maskUnits="userSpaceOnUse" x="-200" y="-400" width="1400" height="1800">
+                <rect x="-200" y="-400" width="1400" height="1800" fill={`url(#${uid}-${side}-${i}-g)`} />
+              </mask>
+            </g>
+          ))}
+        </defs>
+        {ORBITS.map((o, i) => {
+          const e = { cx: CX, cy: o.cy, rx: o.rx, ry: o.ry, fill: "none" };
+          return (
+            <g
+              key={i}
+              transform={`rotate(${o.tilt} ${CX} ${o.cy})`}
+              mask={`url(#${uid}-${side}-${i})`}
+              opacity={front ? 1 : 0.5}
+            >
+              <ellipse {...e} stroke="#f2c66a" strokeWidth={9} strokeOpacity={0.55} filter={`url(#${halo})`} />
+              <ellipse {...e} stroke="#ffd98a" strokeWidth={3} strokeOpacity={0.95} />
+              <ellipse {...e} stroke="#fffaea" strokeWidth={1.1} />
+              <ellipse
+                {...e}
+                className={styles.spark}
+                stroke="#ffffff"
+                strokeWidth={4}
+                strokeLinecap="round"
+                pathLength={1000}
+                strokeDasharray="38 962"
+                filter={`url(#${soft})`}
+                style={{
+                  animationDuration: `${o.period / 2}s`,
+                  animationDirection: o.dir < 0 ? "reverse" : "normal",
+                }}
+              />
+            </g>
+          );
+        })}
+      </svg>
+    );
+  };
 
   useEffect(() => {
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -109,8 +234,6 @@ export function HubStage({ branches, enterLabel, orbitLabel, heading, channels }
     node.style.setProperty("--lean-y", "0deg");
   }, []);
 
-  const still = reduced || paused;
-
   return (
     <div
       ref={stageRef}
@@ -118,40 +241,33 @@ export function HubStage({ branches, enterLabel, orbitLabel, heading, channels }
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
     >
-      <div className={`${styles.orbit} ${still ? styles.orbitStill : ""}`} aria-label={orbitLabel}>
-        <span className={styles.ring} aria-hidden="true" />
-        <span className={`${styles.ring} ${styles.ringOuter}`} aria-hidden="true" />
-
-        {/* Logo đủ, không phải mỗi ngọn lửa: đây là chỗ nhận diện đầu tiên của
-            cả nhóm, phải đọc ra tên chứ không chỉ ra biểu tượng. */}
-        <div className={styles.core}>
-          <span className={styles.glow} aria-hidden="true" />
-          <DeepSpace />
-          {/* Bản dọc, không phải bản ngang: lõi là hình vuông nằm giữa một vòng
-              tròn, logo gần vuông lấp đầy nó, còn logo ngang thì chỉ chiếm một
-              dải mỏng giữa vòng và bỏ trống trên dưới. */}
-          <Logo3D className={styles.mark} />
+      {/* Quả địa cầu Việt Đức ở giữa, hai hành tinh lĩnh vực bay quanh trên hai
+          quỹ đạo elip phát sáng (mẫu phiên tuxee-4e, Sếp duyệt 18/10). */}
+      <div ref={spaceRef} className={styles.space} role="group" aria-label={orbitLabel}>
+        {orbitArt("back")}
+        <div className={styles.globe}>
+          <Logo3D className={styles.globeMedia} src="/brand/3d/vd-dia-cau" width={800} height={800} />
         </div>
+        {orbitArt("front")}
 
         {branches.map((branch, i) => (
-          <div
+          <Link
             key={branch.key}
-            className={`${styles.arm} ${i === 1 ? styles.armSecond : ""}`}
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocus={() => setPaused(true)}
-            onBlur={() => setPaused(false)}
+            ref={(el) => {
+              satRefs.current[i] = el;
+            }}
+            href={branch.href}
+            className={styles.satellite}
+            onMouseEnter={hold(i, true)}
+            onMouseLeave={hold(i, false)}
+            onFocus={hold(i, true)}
+            onBlur={hold(i, false)}
           >
-            <Link href={branch.href} className={styles.satellite}>
-              <span className={`${styles.planet} ${styles[branch.icon]}`}>
-                <span className={styles.planetIcon}>{ICONS[branch.icon]}</span>
-                <span className={styles.planetRim} aria-hidden="true" />
-              </span>
-              {/* Faded, not removed: the link keeps its name for a screen
-                  reader whether or not a pointer is over it. */}
-              <span className={styles.planetLabel}>{branch.name}</span>
-            </Link>
-          </div>
+            <Logo3D className={styles.planet} src={PLANET_SRC[branch.icon]} width={400} height={400} label="" />
+            {/* Faded, not removed: the link keeps its name for a screen
+                reader whether or not a pointer is over it. */}
+            <span className={styles.planetLabel}>{branch.name}</span>
+          </Link>
         ))}
       </div>
 

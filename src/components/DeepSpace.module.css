@@ -8,7 +8,7 @@
   height: 128%;
   border-radius: 50%;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, #050505 0%, #000 70%);
+  background: radial-gradient(circle at 50% 50%, #000 0%, #00020c 30%, #020a3d 52%, #051c85 74%, #0a35cf 91%, #1248f0 100%);
 }
 
 .cloud,
@@ -48,9 +48,9 @@
   mix-blend-mode: screen;
 }
 
-/* Rìa tối dần để vũ trụ có vẻ sâu hút vào trong và tách khỏi viền vàng. */
+/* Xanh đậm ở rìa, tối dần vào tâm: chỉ phủ một lớp mỏng để rìa không bệt. */
 .vignette {
-  background: radial-gradient(circle at 50% 50%, transparent 52%, rgba(0, 0, 0, 0.85) 100%);
+  background: radial-gradient(circle at 50% 50%, transparent 82%, rgba(2, 12, 70, 0.3) 100%);
 }
 
 @keyframes driftFar {

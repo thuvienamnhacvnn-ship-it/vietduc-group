@@ -8,6 +8,7 @@ import { LOCALES, LOCALE_SHORT, LOCALE_LABEL, localePath, type Locale } from "@/
 import { getDictionary } from "@/lib/i18n/dictionary";
 import { SearchDialog } from "@/components/SearchDialog";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { WebsiteNetworkMenu } from "@/components/WebsiteNetworkMenu";
 import styles from "./SideRail.module.css";
 
 export type RailItem = {
@@ -205,6 +206,9 @@ export function SideRail({
 
   return (
     <>
+      <header className={styles.networkHeader}>
+        <WebsiteNetworkMenu locale={locale} />
+      </header>
       {/*
         On a phone the chrome splits in two. The top bar carries the tools a
         reader reaches for while reading - search, appearance, language - as
@@ -230,6 +234,7 @@ export function SideRail({
         )}
 
         <div className={styles.topTools}>
+          <WebsiteNetworkMenu locale={locale} />
           <div className={styles.toolTheme}>
             <ThemeToggle locale={locale} />
           </div>
