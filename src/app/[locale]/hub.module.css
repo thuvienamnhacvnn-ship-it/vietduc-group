@@ -18,11 +18,12 @@
   position: relative;
   z-index: 2;
   flex: 1;
+  min-height: 0;
   display: grid;
   justify-items: center;
   align-content: center;
   gap: clamp(0.8rem, 2vh, 1.5rem);
-  padding: clamp(0.5rem, 2vh, 1.6rem) var(--s-4) clamp(4rem, 11vh, 6.5rem);
+  padding: clamp(0.5rem, 2vh, 1.6rem) var(--s-4) clamp(0.5rem, 2vh, 1rem);
   text-align: center;
 }
 
@@ -123,5 +124,13 @@
   .main {
     align-content: start;
     padding-top: clamp(2.5rem, 9vh, 5rem);
+  }
+}
+
+/* Máy tính: toàn bộ trong một khung hình, không cuộn. */
+@media (min-width: 761px) {
+  .hub {
+    height: 100svh;
+    overflow: hidden;
   }
 }

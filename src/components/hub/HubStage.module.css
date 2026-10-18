@@ -12,7 +12,7 @@
   gap: clamp(1rem, 2.2vh, 1.8rem);
   width: 100%;
 
-  --orbit: clamp(116px, 18vh, 196px);
+  --orbit: clamp(100px, 14.5vh, 180px);
   --planet: clamp(58px, 8.4vh, 86px);
   --lean-x: 0deg;
   --lean-y: 0deg;
