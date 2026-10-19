@@ -41,6 +41,7 @@ body {
   font-size: var(--step-0);
   line-height: var(--leading-body);
   font-synthesis-weight: none;
+  font-optical-sizing: auto;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -58,13 +59,20 @@ h4 {
   letter-spacing: -0.004em;
   margin: 0 0 var(--s-4);
   text-wrap: balance;
+  font-optical-sizing: auto;
+  font-kerning: normal;
+  font-feature-settings: "kern", "liga";
 }
 
 h1 {
   font-size: var(--step-4);
+  font-weight: 700;
+  letter-spacing: -0.012em;
 }
 h2 {
   font-size: var(--step-3);
+  font-weight: 600;
+  letter-spacing: -0.008em;
 }
 h3 {
   font-size: var(--step-2);
@@ -76,6 +84,15 @@ h4 {
 p,
 li {
   text-wrap: pretty;
+}
+
+/* Số học phí, ngày, bảng: chữ số đều bề rộng, không nhảy khi đổi. */
+table,
+dl,
+time,
+td,
+th {
+  font-variant-numeric: tabular-nums;
 }
 
 p {
@@ -199,15 +216,15 @@ hr {
  */
 [data-reveal] {
   transition:
-    opacity var(--dur-3) var(--ease),
-    transform var(--dur-3) var(--ease),
-    clip-path var(--dur-3) var(--ease);
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out),
+    clip-path 760ms var(--ease-out);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
 :root[data-reveal-ready] [data-reveal] {
   opacity: 0;
-  transform: translateY(18px);
+  transform: translateY(14px);
   will-change: opacity, transform;
 }
 
@@ -245,7 +262,7 @@ hr {
  * first character off every school's name.
  */
 :root[data-reveal-ready] [data-reveal-as="slide"] {
-  transform: translateX(-26px);
+  transform: translateX(-20px);
 }
 
 :root[data-reveal-ready] [data-reveal-as="slide"][data-reveal-in] {
@@ -278,6 +295,7 @@ hr {
   [data-reveal] {
     opacity: 1;
     transform: none;
+    clip-path: none !important;
   }
 }
 

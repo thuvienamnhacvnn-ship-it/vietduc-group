@@ -22,6 +22,7 @@
   margin: 0 0 var(--s-3);
   font-size: 0.72rem;
   font-weight: 600;
+  font-family: var(--font-body);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold-deep);
@@ -113,35 +114,24 @@
   background: var(--burgundy);
   color: #fff;
 }
-.primary:hover {
-  background: var(--burgundy-deep);
-}
-
 .gold {
   background: var(--gold);
   color: var(--on-gold);
 }
-.gold:hover {
-  background: var(--gold-deep);
-  color: #fff;
-}
-
 .secondary {
   background: transparent;
   color: var(--text);
   border-color: var(--line-strong);
 }
-.secondary:hover {
-  border-color: var(--text);
-}
-
 .ghost {
   background: transparent;
   color: var(--text);
   padding-inline: 0;
 }
-.ghost:hover {
-  color: var(--accent);
+@media (hover: hover) and (pointer: fine) {
+  .ghost:hover {
+    color: var(--accent);
+  }
 }
 
 .arrowLink {
@@ -155,15 +145,13 @@
 }
 
 .arrowLink svg {
-  transition: transform var(--dur-1) var(--ease);
+  transition: transform 200ms var(--ease-out);
 }
 
-.arrowLink:hover svg {
-  transform: translateX(3px);
-}
-
-.arrowLink:hover span {
-  text-decoration: underline;
+@media (hover: hover) and (pointer: fine) {
+  .arrowLink:hover svg {
+    transform: translateX(3px);
+  }
 }
 
 /* ---------------------------------------------------------- breadcrumbs */
@@ -387,6 +375,7 @@
 }
 
 .stats dt {
+  font-variant-numeric: tabular-nums;
   font-family: var(--font-display);
   font-size: clamp(1.7rem, 1.2rem + 1.7vw, 2.5rem);
   font-weight: 600;
@@ -507,15 +496,8 @@
 /* ------------------------------------------------- chuyển động khi rê chuột */
 
 /*
- * Nút không chỉ đổi màu nền.
- *
- * Bản trước rê vào nút thì nền đậm thêm một chút, hết. Ở kích cỡ nút thật thì
- * gần như không thấy gì, nên trang cho cảm giác chết cứng. Nay nút nhích lên
- * nửa hạt, đổ một vệt bóng đỏ dưới chân, và có một dải sáng lướt ngang qua.
- *
- * Dải sáng dùng `::after` với `translate` chứ không đổi `background-position`:
- * trình duyệt chạy được transform trên luồng ghép hình, còn background thì
- * phải vẽ lại nền mỗi khung hình.
+ * Nút: chỉ đổi nền, viền, nhấc nhẹ 1px và bóng nông. Không dải sáng, không
+ * bóng màu — màu phẳng. Chỉ transform/box-shadow/màu, không đổi kích thước.
  */
 .primary,
 .gold,
@@ -523,46 +505,58 @@
   position: relative;
   overflow: hidden;
   transition:
-    background-color var(--dur-1) var(--ease),
-    border-color var(--dur-1) var(--ease),
-    transform var(--dur-1) var(--ease),
-    box-shadow var(--dur-2) var(--ease);
+    background-color 200ms var(--ease-out),
+    border-color 200ms var(--ease-out),
+    color 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    box-shadow 200ms var(--ease-out);
 }
 
-.primary::after,
-.gold::after {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 -40%;
-  width: 35%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-  translate: -120% 0;
-  transition: translate 620ms var(--ease);
+.primary,
+.gold {
+  box-shadow: var(--shadow-1);
+}
+
+.primary:active,
+.gold:active,
+.secondary:active {
+  transform: translateY(1px) scale(0.99);
+  transition-duration: 80ms;
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.5;
   pointer-events: none;
 }
 
-.primary:hover,
-.gold:hover,
-.secondary:hover {
-  transform: translateY(-2px);
-}
+@media (hover: hover) and (pointer: fine) {
+  .primary:hover,
+  .gold:hover,
+  .secondary:hover {
+    transform: translateY(-1px);
+  }
 
-.primary:hover {
-  box-shadow: 0 10px 26px rgba(142, 31, 45, 0.38);
-}
+  .primary:hover {
+    background: var(--burgundy-deep);
+    box-shadow: var(--shadow-2);
+  }
 
-.gold:hover {
-  box-shadow: 0 10px 26px rgba(196, 145, 69, 0.34);
-}
+  .gold:hover {
+    background: color-mix(in srgb, var(--gold) 88%, #000);
+    color: var(--on-gold);
+    box-shadow: var(--shadow-2);
+  }
 
-.primary:hover::after,
-.gold:hover::after {
-  translate: 420% 0;
-}
+  .secondary:hover {
+    border-color: var(--gold);
+    background: var(--gold-tint);
+    color: var(--text);
+  }
 
-.secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent);
+  .arrowLink::after {
+    transition-duration: 240ms;
+  }
 }
 
 /* Liên kết mũi tên: gạch chân tự vẽ từ trái sang, cùng lối với vạch `draw`
@@ -581,11 +575,13 @@
   background: currentColor;
   scale: 0 1;
   transform-origin: left;
-  transition: scale 320ms var(--ease);
+  transition: scale 240ms var(--ease-out);
 }
 
-.arrowLink:hover::after {
-  scale: 1 1;
+@media (hover: hover) and (pointer: fine) {
+  .arrowLink:hover::after {
+    scale: 1 1;
+  }
 }
 
 /* ============================================ đầu mục lối đậm (landing)
@@ -615,11 +611,7 @@
   width: 1.6rem;
   height: 1px;
   background: var(--gold);
-  transition: width var(--dur-2) var(--ease);
-}
-
-.headingNoiBat:hover .eyebrow::before {
-  width: 3rem;
+  transition: width var(--dur-2) var(--ease-out);
 }
 
 .headingCenter.headingNoiBat .eyebrow {
@@ -636,7 +628,7 @@
   background: linear-gradient(90deg, var(--gold), color-mix(in srgb, var(--accent) 65%, transparent));
   transform-origin: left;
   scale: 0 1;
-  transition: scale 900ms var(--ease) 260ms;
+  transition: scale 900ms var(--ease-out) 260ms;
 }
 
 :root[data-reveal-ready] [data-reveal-in].headingNoiBat .headingTitle::after {
@@ -647,10 +639,6 @@
   scale: 1 1;
 }
 
-.headingNoiBat:hover .headingTitle::after {
-  width: min(12rem, 62%);
-  transition: width 600ms var(--ease);
-}
 
 .headingCenter.headingNoiBat .headingTitle::after {
   margin-inline: auto;

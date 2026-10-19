@@ -163,6 +163,13 @@
   --dur-2: 320ms;
   --dur-3: 620ms;
 
+  /* Nâng cấp chuyển động: easing ra êm, thời lượng và bước trễ dùng chung. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-hover: 220ms;
+  --dur-reveal: 640ms;
+  --stagger: 70ms;
+
   --header-h: 72px;
 }
 

@@ -16,16 +16,11 @@
   /* Visible on purpose: the school crest overhangs the photo's bottom edge.
      The photo itself is clipped by .schoolFrame. */
   overflow: visible;
+  box-shadow: var(--shadow-1);
   transition:
-    border-color var(--dur-2) var(--ease),
-    box-shadow var(--dur-2) var(--ease),
-    transform var(--dur-2) var(--ease);
-}
-
-.schoolCard:hover {
-  border-color: var(--line-strong);
-  box-shadow: var(--shadow-2);
-  transform: translateY(-3px);
+    border-color var(--dur-hover) var(--ease-out),
+    box-shadow var(--dur-hover) var(--ease-out),
+    transform var(--dur-hover) var(--ease-out);
 }
 
 .schoolLink {
@@ -53,11 +48,7 @@
   height: auto;
   aspect-ratio: 7 / 5;
   object-fit: cover;
-  transition: transform var(--dur-3) var(--ease);
-}
-
-.schoolCard:hover .schoolImage {
-  transform: scale(1.035);
+  transition: transform 600ms var(--ease-out);
 }
 
 .schoolCrest {
@@ -144,12 +135,8 @@
   color: var(--accent);
 }
 
-.schoolCard:hover .schoolCta svg {
-  transform: translateX(3px);
-}
-
 .schoolCta svg {
-  transition: transform var(--dur-1) var(--ease);
+  transition: transform 200ms var(--ease-out);
 }
 
 /* ------------------------------------------------------------- programs */
@@ -162,14 +149,11 @@
   background: var(--paper-raised);
   border: 1px solid var(--line);
   border-radius: var(--r-3);
-  transition:
-    border-color var(--dur-1) var(--ease),
-    box-shadow var(--dur-1) var(--ease);
-}
-
-.programCard:hover {
-  border-color: var(--line-strong);
   box-shadow: var(--shadow-1);
+  transition:
+    border-color var(--dur-hover) var(--ease-out),
+    box-shadow var(--dur-hover) var(--ease-out),
+    transform var(--dur-hover) var(--ease-out);
 }
 
 .programCompact {
@@ -264,8 +248,8 @@
   height: 100%;
   object-fit: cover;
   transition:
-    transform var(--dur-3) var(--ease),
-    opacity var(--dur-2) var(--ease);
+    transform 600ms var(--ease-out),
+    opacity var(--dur-hover) var(--ease-out);
 }
 
 .activity_sm .activityImage {
@@ -278,9 +262,6 @@
   aspect-ratio: 16 / 10;
 }
 
-.activityCard:hover .activityImage {
-  transform: scale(1.04);
-}
 
 .activityCaption {
   position: absolute;
@@ -313,18 +294,9 @@
 }
 
 /*
- * Thẻ trường: rê vào thì có phản hồi rõ chứ không chỉ nhích 3px.
- *
- * Viền chuyển sang màu nhấn, ảnh phóng mạnh hơn một chút, và một vệt sáng đỏ
- * chạy dọc mép trên — đủ để biết cả thẻ là một mục bấm được, thay vì phải đoán.
+ * Thẻ trường: hover nâng nhẹ, viền vàng, bóng nông; một vạch vàng phẳng 2px
+ * vẽ dọc mép trên. Không glow. Chỉ chạy trên thiết bị có chuột.
  */
-.schoolCard {
-  transition:
-    border-color var(--dur-2) var(--ease),
-    box-shadow var(--dur-2) var(--ease),
-    transform var(--dur-2) var(--ease);
-}
-
 .schoolCard::before {
   content: "";
   position: absolute;
@@ -333,22 +305,52 @@
   top: 0;
   height: 2px;
   border-radius: var(--r-4) var(--r-4) 0 0;
-  background: linear-gradient(90deg, var(--burgundy), var(--gold));
+  background: var(--gold);
   scale: 0 1;
   transform-origin: left;
-  transition: scale 420ms var(--ease);
+  transition: scale 420ms var(--ease-out);
   z-index: 2;
 }
 
-.schoolCard:hover {
-  border-color: color-mix(in srgb, var(--accent) 55%, var(--line-strong));
-  transform: translateY(-5px);
+@media (hover: hover) and (pointer: fine) {
+  .schoolCard:hover {
+    border-color: var(--gold);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-3px);
+  }
+
+  .schoolCard:hover::before {
+    scale: 1 1;
+  }
+
+  .schoolCard:hover .schoolImage {
+    transform: scale(1.03);
+  }
+
+  .schoolCard:hover .schoolCta svg {
+    transform: translateX(3px);
+  }
+
+  .programCard:hover {
+    border-color: var(--gold);
+    box-shadow: var(--shadow-2);
+    transform: translateY(-3px);
+  }
+
+  .activityCard:hover .activityImage {
+    transform: scale(1.03);
+  }
 }
 
-.schoolCard:hover::before {
-  scale: 1 1;
+.programCode {
+  font-variant-numeric: tabular-nums;
 }
 
-.schoolCard:hover .schoolImage {
-  transform: scale(1.06);
+@media (prefers-reduced-motion: reduce) {
+  .schoolCard,
+  .programCard,
+  .schoolImage,
+  .activityImage {
+    transform: none !important;
+  }
 }
